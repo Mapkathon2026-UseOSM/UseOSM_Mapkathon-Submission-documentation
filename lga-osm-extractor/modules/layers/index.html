@@ -1,0 +1,2147 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Deep technical documentation for the lga-osm-extractor and akure-accessibility-dashboard repositories (Map<>kathon 2026, UseOSM).">
+      
+      
+        <meta name="author" content="Noah">
+      
+      
+      
+        <link rel="prev" href="../boundary/">
+      
+      
+        <link rel="next" href="../clean/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>layers.py - Akure Geospatial Systems Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#layerspy" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Akure Geospatial Systems Documentation" class="md-header__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Akure Geospatial Systems Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              layers.py
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Mapkathon2026-UseOSM
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  lga-osm-extractor
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../akure-accessibility-dashboard/overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  akure-accessibility-dashboard
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../cross-repo/integration/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Cross-Repo Integration
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../reference/glossary/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Akure Geospatial Systems Documentation" class="md-nav__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Akure Geospatial Systems Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Mapkathon2026-UseOSM
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    lga-osm-extractor
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    lga-osm-extractor
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modules
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modules
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../boundary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    boundary.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    layers.py
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    layers.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions &amp; Classes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions &amp; Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default_tag_config-module-level-dict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DEFAULT_TAG_CONFIG (module-level dict)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layerextractionerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LayerExtractionError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_is_transient_connection_errorexc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        _is_transient_connection_error(exc)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_extract_single_layerlayer_name-tags-polygon-start_delay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        _extract_single_layer(layer_name, tags, polygon, start_delay)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extract_layersboundary_gdf-tag_confignone-strictfalse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        extract_layers(boundary_gdf, tag_config=None, strict=False)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gotchas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gotchas
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clean/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    clean.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../export/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    export.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../visualize/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    visualize.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../logging_utils/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    logging_utils.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    pipeline.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Streamlit App (app.py)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI (cli.py)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../end-to-end/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    End-to-End Walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    akure-accessibility-dashboard
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    akure-accessibility-dashboard
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/data-flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modules
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modules
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/modules/accessibility/network_graph/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    accessibility/network_graph.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/modules/accessibility/isochrones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    accessibility/isochrones.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/modules/accessibility/scoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    accessibility/scoring.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/modules/completeness/grid_check/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    completeness/grid_check.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/modules/visualization/static_maps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    visualization/static_maps.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/modules/insights/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    insights.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/dashboard-app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard App (dashboard/app.py)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/end-to-end/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    End-to-End Walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/tests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cross-repo/integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cross-Repo Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/known-issues/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Known Issues & Design Decisions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions &amp; Classes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions &amp; Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#default_tag_config-module-level-dict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DEFAULT_TAG_CONFIG (module-level dict)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layerextractionerror" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LayerExtractionError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_is_transient_connection_errorexc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        _is_transient_connection_error(exc)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_extract_single_layerlayer_name-tags-polygon-start_delay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        _extract_single_layer(layer_name, tags, polygon, start_delay)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extract_layersboundary_gdf-tag_confignone-strictfalse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        extract_layers(boundary_gdf, tag_config=None, strict=False)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gotchas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gotchas
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="layerspy">layers.py<a class="headerlink" href="#layerspy" title="Permanent link">&para;</a></h1>
+<div class="admonition info">
+<p class="admonition-title">Source</p>
+<p><code>lga_extractor/layers.py</code> (211 lines)</p>
+</div>
+<h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
+<p>Given a validated boundary polygon (from <a href="../boundary/"><code>boundary.py</code></a>),
+queries OpenStreetMap for each configured feature layer — roads, buildings,
+waterways, land use, health facilities, schools — within that polygon, using
+OSMnx's <code>features_from_polygon()</code> under the hood (which talks to the
+Overpass API).</p>
+<p>The bulk of this module's complexity has nothing to do with <em>what</em> to query
+— that's a six-entry dictionary (<code>DEFAULT_TAG_CONFIG</code>). It's entirely about
+<strong>how to query six things from a shared public API server without getting
+refused</strong>, and how to tell the difference between "this layer genuinely has
+no features" and "this layer's query failed."</p>
+<h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Imports:</strong> <code>time</code>, <code>concurrent.futures.ThreadPoolExecutor</code> /
+  <code>as_completed</code>, <code>geopandas</code>, <code>osmnx</code>, <code>requests</code> (for its exception
+  types, used to classify retryable failures).</li>
+<li><strong>Imported by:</strong> <code>pipeline.py</code> (second stage of <code>extract_lga()</code>, after
+  <code>boundary.resolve_boundary()</code>). Has no dependency on <code>boundary.py</code> or
+  <code>clean.py</code> itself — it only needs a bare Shapely polygon, not a full
+  validated <code>GeoDataFrame</code>, which keeps it independently testable.</li>
+</ul>
+<h2 id="functions-classes">Functions &amp; Classes<a class="headerlink" href="#functions-classes" title="Permanent link">&para;</a></h2>
+<h3 id="default_tag_config-module-level-dict"><code>DEFAULT_TAG_CONFIG</code> (module-level dict)<a class="headerlink" href="#default_tag_config-module-level-dict" title="Permanent link">&para;</a></h3>
+<p>Maps each layer name to the OSM tag filter used with
+<code>osmnx.features_from_polygon()</code>:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="s2">&quot;roads&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;highway&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="s2">&quot;buildings&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;building&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="s2">&quot;waterways&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;waterway&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;natural&quot;</span><span class="p">:</span> <span class="s2">&quot;water&quot;</span><span class="p">},</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="s2">&quot;landuse&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;landuse&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="s2">&quot;health_facilities&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;amenity&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;hospital&quot;</span><span class="p">,</span> <span class="s2">&quot;clinic&quot;</span><span class="p">,</span> <span class="s2">&quot;pharmacy&quot;</span><span class="p">]},</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="s2">&quot;schools&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;amenity&quot;</span><span class="p">:</span> <span class="s2">&quot;school&quot;</span><span class="p">},</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Callers can pass their own <code>tag_config</code> to <code>extract_layers()</code> to add layers
+(e.g. markets, places of worship) or override this default without touching
+any extraction logic — the dict is the entire "what to extract" surface
+area of the module.</p>
+<h3 id="layerextractionerror"><code>LayerExtractionError</code><a class="headerlink" href="#layerextractionerror" title="Permanent link">&para;</a></h3>
+<p>Raised only for a <strong>genuine</strong> failure — an Overpass error, timeout, network
+failure, or bad tag configuration — when running in <code>strict=True</code> mode, and
+only after all retry attempts have been exhausted. Explicitly <em>not</em> raised
+when a layer's query succeeds but legitimately finds zero features within
+the boundary; that's valid data (and can itself be a meaningful completeness
+signal — see <code>akure_access.completeness.grid_check</code>), not an error.</p>
+<h3 id="_is_transient_connection_errorexc"><code>_is_transient_connection_error(exc)</code><a class="headerlink" href="#_is_transient_connection_errorexc" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>What it does</strong></td>
+<td>Returns <code>True</code> if <code>exc</code> is a <code>requests.exceptions.ConnectionError</code> or <code>requests.exceptions.Timeout</code> — the categories of failure worth retrying.</td>
+</tr>
+<tr>
+<td><strong>Why written this way</strong></td>
+<td>A refused connection or timeout on a shared public Overpass mirror is often transient — retrying after a short wait frequently succeeds. A malformed tag filter, by contrast, will fail identically on every attempt; retrying it just burns time and retry budget for no benefit. This function is the gate that decides which failures get a second chance.</td>
+</tr>
+<tr>
+<td><strong>Inputs / Outputs</strong></td>
+<td><code>exc: Exception</code> in, <code>bool</code> out.</td>
+</tr>
+<tr>
+<td><strong>Complexity</strong></td>
+<td>O(1) — a single <code>isinstance</code> check.</td>
+</tr>
+<tr>
+<td><strong>Concurrency / race conditions</strong></td>
+<td>None — pure function.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_extract_single_layerlayer_name-tags-polygon-start_delay"><code>_extract_single_layer(layer_name, tags, polygon, start_delay)</code><a class="headerlink" href="#_extract_single_layerlayer_name-tags-polygon-start_delay" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>What it does</strong></td>
+<td>Runs one layer's Overpass query (via <code>ox.features_from_polygon()</code>), after first sleeping <code>start_delay</code> seconds, retrying transient connection failures with exponential backoff, up to <code>MAX_RETRIES</code> (6) attempts. Always returns a 4-tuple <code>(layer_name, gdf, warning_or_None, error_or_None)</code> — it never raises.</td>
+</tr>
+<tr>
+<td><strong>Why written this way</strong></td>
+<td>This function is designed to run inside a worker thread (submitted to a <code>ThreadPoolExecutor</code> by <code>extract_layers()</code>). An exception raised inside a worker thread would need to be caught and re-raised by the caller anyway to be handled sensibly across threads — so instead of raising, this function catches everything itself and returns the outcome as data. That keeps <code>extract_layers()</code>'s job simple: collect tuples, decide what to do with them, no <code>try/except</code> needed around <code>future.result()</code> for the <em>expected</em> failure cases.</td>
+</tr>
+<tr>
+<td><strong>Inputs</strong></td>
+<td><code>layer_name: str</code>; <code>tags: dict</code> (OSM tag filter for this one layer); <code>polygon</code> (Shapely polygon, the LGA boundary); <code>start_delay: float</code> (seconds to sleep before the first attempt — see <code>extract_layers()</code>'s staggering logic).</td>
+</tr>
+<tr>
+<td><strong>Outputs</strong></td>
+<td><code>(layer_name: str, gdf: GeoDataFrame, warning: str or None, error: Exception or None)</code>. <code>gdf</code> is always a valid (possibly empty) <code>GeoDataFrame</code> with CRS EPSG:4326 — never <code>None</code>.</td>
+</tr>
+<tr>
+<td><strong>Internal workflow</strong></td>
+<td>1. Sleep <code>start_delay</code> seconds if nonzero.<br>2. Loop <code>attempt</code> from 1 to <code>MAX_RETRIES</code>:<br>&nbsp;&nbsp;a. Call <code>ox.features_from_polygon(polygon, tags)</code>.<br>&nbsp;&nbsp;b. If it returns <code>None</code>/empty: this is <strong>success with no data</strong> — return immediately with a "returned no features" warning, <code>error=None</code>. This never triggers a retry, since it isn't a failure.<br>&nbsp;&nbsp;c. If it returns data: return immediately, no warning, no error.<br>&nbsp;&nbsp;d. If it raises: record the exception. If this isn't the last allowed attempt <em>and</em> <code>_is_transient_connection_error()</code> says it's retryable, sleep <code>RETRY_BACKOFF_BASE_SECONDS * attempt</code> seconds (linearly increasing backoff: 5s, 10s, 15s...) and loop again. Otherwise, break out of the loop.<br>3. If the loop exhausted without returning, return an empty <code>GeoDataFrame</code> with a failure message and the last exception attached.</td>
+</tr>
+<tr>
+<td><strong>Assumptions</strong></td>
+<td>Assumes <code>ox.features_from_polygon()</code> raising is the only failure signal to watch for (no separate handling for, e.g., a response that "succeeds" with malformed data). Assumes linear backoff (rather than exponential) is sufficient — despite the module docstring's inline comment referring to this as "exponential backoff," the actual formula (<code>RETRY_BACKOFF_BASE_SECONDS * attempt</code>) is linear, not exponential; worth confirming which was intended if retry behavior under sustained failure needs tuning.</td>
+</tr>
+<tr>
+<td><strong>Complexity</strong></td>
+<td>O(1) in terms of this function's own logic; wall-clock time scales with number of retries needed (up to <code>MAX_RETRIES</code>) and the underlying Overpass query's own complexity (which scales with feature density/boundary size, outside this function's control).</td>
+</tr>
+<tr>
+<td><strong>Concurrency / race conditions</strong></td>
+<td>This function itself has no shared mutable state — each call operates on its own local variables only, and multiple instances run safely in parallel as separate <code>ThreadPoolExecutor</code> workers. See <code>extract_layers()</code> below for how concurrency is bounded across <em>multiple</em> calls to this function.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="extract_layersboundary_gdf-tag_confignone-strictfalse"><code>extract_layers(boundary_gdf, tag_config=None, strict=False)</code><a class="headerlink" href="#extract_layersboundary_gdf-tag_confignone-strictfalse" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>What it does</strong></td>
+<td>Extracts every layer defined in <code>tag_config</code> (or <code>DEFAULT_TAG_CONFIG</code>) within <code>boundary_gdf</code>'s polygon, using bounded, staggered concurrency, and returns a dict of <code>layer_name -&gt; GeoDataFrame</code> plus a <code>"_warnings"</code> list.</td>
+</tr>
+<tr>
+<td><strong>Why written this way</strong></td>
+<td>The concurrency model here is the single most consequential design decision in this module, and it's empirically derived, not a default choice. Fully parallel querying (all 6 layers at once, <code>max_workers=6</code>, no stagger) was tried first and made things <em>worse</em>: the public Overpass mirror refused every connection outright (<code>Errno 111</code>, connection refused) when hit by a burst of simultaneous requests from one client — it appears to treat simultaneous connection bursts as abusive traffic regardless of whether the requests are otherwise legitimate. The current approach caps concurrency at <code>MAX_CONCURRENT_LAYER_QUERIES = 2</code> and staggers each new request's start by <code>REQUEST_STAGGER_SECONDS = 3</code>, so the server never sees more than 2 near-simultaneous connection attempts, even at the very start of a run — while still overlapping queries in pairs rather than running fully sequentially.</td>
+</tr>
+<tr>
+<td><strong>Inputs</strong></td>
+<td><code>boundary_gdf</code> (single-row <code>GeoDataFrame</code> from <code>boundary.resolve_boundary()</code>); <code>tag_config</code> (optional override dict, defaults to <code>DEFAULT_TAG_CONFIG</code>); <code>strict: bool</code> (default <code>False</code> — controls failure handling, see below).</td>
+</tr>
+<tr>
+<td><strong>Outputs</strong></td>
+<td><code>dict</code> mapping each <code>layer_name</code> to a <code>GeoDataFrame</code> (possibly empty), plus a <code>"_warnings"</code> key holding a list of warning strings collected across all layers.</td>
+</tr>
+<tr>
+<td><strong>Internal workflow</strong></td>
+<td>1. Default <code>tag_config</code> if not supplied; extract the boundary polygon from <code>boundary_gdf</code>.<br>2. Open a <code>ThreadPoolExecutor(max_workers=MAX_CONCURRENT_LAYER_QUERIES)</code>.<br>3. For each <code>(layer_name, tags)</code> pair (enumerated), compute <code>start_delay = (i // MAX_CONCURRENT_LAYER_QUERIES) * REQUEST_STAGGER_SECONDS</code> — this staggers layers in batches of <code>MAX_CONCURRENT_LAYER_QUERIES</code>, so layers 0–1 start immediately, layers 2–3 start after one stagger interval, etc. — and submit <code>_extract_single_layer()</code> as a future.<br>4. As each future completes (<code>as_completed</code>, i.e. in completion order, not submission order), unpack its result tuple; store the <code>GeoDataFrame</code> in <code>layers[layer_name]</code>; append any warning; record the <em>first</em> genuine error encountered (if any) for later.<br>5. After all futures complete: if <code>strict=True</code> and at least one genuine error occurred, raise <code>LayerExtractionError</code> for the first one encountered, chaining the original exception.<br>6. Otherwise (permissive mode, or strict mode with no errors), attach <code>layers["_warnings"] = warnings</code> and return the dict.</td>
+</tr>
+<tr>
+<td><strong>Assumptions</strong></td>
+<td>Assumes <code>MAX_CONCURRENT_LAYER_QUERIES=2</code> / <code>REQUEST_STAGGER_SECONDS=3</code> remain valid for whichever Overpass mirror OSMnx is configured to use — these constants were tuned against observed rate-limiting behavior on one server and are not derived from any documented API limit, so they might need re-tuning if the underlying Overpass endpoint changes. Assumes six is a small enough layer count that <code>max_workers=2</code> doesn't create an unreasonably long total runtime (worst case, all 6 layers hit <code>MAX_RETRIES</code> — the run could take several minutes).</td>
+</tr>
+<tr>
+<td><strong>Complexity</strong></td>
+<td>O(L) where L = number of layers, in terms of number of Overpass queries issued (one per layer, plus retries). Wall-clock time is bounded below by <code>(L / MAX_CONCURRENT_LAYER_QUERIES) * REQUEST_STAGGER_SECONDS</code> for staggering alone, before any query or retry latency.</td>
+</tr>
+<tr>
+<td><strong>Concurrency / race conditions</strong></td>
+<td>This is the one place in the whole repository where genuine concurrency is used. Each worker thread's result is only touched by the main thread inside <code>as_completed()</code>'s loop (via <code>future.result()</code>), so there's no shared mutable state written from multiple threads simultaneously — <code>layers</code>, <code>warnings</code>, and <code>first_error</code> are all only ever mutated from the single main thread as futures complete. The design explicitly avoids relying on <code>ox.features_from_polygon()</code> (or the underlying Overpass client) being thread-safe for truly simultaneous calls, by bounding concurrency to a small number the server tolerates — this is a mitigation for <em>server-side</em> rate-limiting behavior, not a client-side race condition in this codebase.</td>
+</tr>
+<tr>
+<td><strong>Covered by test(s)</strong></td>
+<td>See <a href="../../tests/">tests.md</a> — <code>test_extraction.py</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong><code>strict</code> only affects genuine failures, never emptiness.</strong> It's easy to
+  misread <code>strict=True</code> as "fail if any layer has no data" — it does not do
+  that. A layer with zero features (a successful query, nothing found) is
+  always recorded as a warning, in both modes, and never raises.</li>
+<li><strong>In strict mode, only the <em>first</em> error is surfaced, even if multiple
+  layers fail.</strong> All other layers still get queried to completion (the
+  <code>ThreadPoolExecutor</code> runs to completion regardless), but only one error
+  message ends up in the raised exception. The full picture is in
+  <code>layers["_warnings"]</code> if execution reaches permissive-mode's return path,
+  but in strict mode the dict is never returned at all — check <code>_warnings</code>
+  content by using <code>strict=False</code> first if you need the complete failure
+  list before deciding what to do.</li>
+<li><strong>The "exponential backoff" comment vs. actual linear formula.</strong> As noted
+  in <code>_extract_single_layer()</code> above, the backoff is <code>BASE * attempt</code>
+  (linear), not <code>BASE ** attempt</code> (exponential), despite the surrounding
+  comments' phrasing. Not a bug per se — linear backoff across 6 retries
+  with base 5s tops out at a reasonable 30s wait — but worth knowing if
+  tuning retry behavior later.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../boundary/" class="md-footer__link md-footer__link--prev" aria-label="Previous: boundary.py">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                boundary.py
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../clean/" class="md-footer__link md-footer__link--next" aria-label="Next: clean.py">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                clean.py
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Mapkathon2026-UseOSM" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
