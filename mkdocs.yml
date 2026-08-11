@@ -1,0 +1,108 @@
+site_name: Akure Geospatial Systems Documentation
+site_description: >-
+  Deep technical documentation for the lga-osm-extractor and
+  akure-accessibility-dashboard repositories (Map<>kathon 2026, UseOSM).
+site_author: Noah
+repo_url: https://github.com/Mapkathon2026-UseOSM
+repo_name: Mapkathon2026-UseOSM
+
+docs_dir: docs
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - toc:
+      permalink: true
+      title: On this page
+  - attr_list
+  - md_in_html
+  - footnotes
+
+plugins:
+  - search
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Mapkathon2026-UseOSM
+
+nav:
+  - Home: index.md
+  - lga-osm-extractor:
+      - Overview: lga-osm-extractor/overview.md
+      - Data Flow: lga-osm-extractor/data-flow.md
+      - Modules:
+          - boundary.py: lga-osm-extractor/modules/boundary.md
+          - layers.py: lga-osm-extractor/modules/layers.md
+          - clean.py: lga-osm-extractor/modules/clean.md
+          - export.py: lga-osm-extractor/modules/export.md
+          - visualize.py: lga-osm-extractor/modules/visualize.md
+          - logging_utils.py: lga-osm-extractor/modules/logging_utils.md
+          - pipeline.py: lga-osm-extractor/modules/pipeline.md
+      - Streamlit App (app.py): lga-osm-extractor/app.md
+      - CLI (cli.py): lga-osm-extractor/cli.md
+      - End-to-End Walkthrough: lga-osm-extractor/end-to-end.md
+      - Tests: lga-osm-extractor/tests.md
+  - akure-accessibility-dashboard:
+      - Overview: akure-accessibility-dashboard/overview.md
+      - Data Flow: akure-accessibility-dashboard/data-flow.md
+      - Modules:
+          - accessibility/network_graph.py: akure-accessibility-dashboard/modules/accessibility/network_graph.md
+          - accessibility/isochrones.py: akure-accessibility-dashboard/modules/accessibility/isochrones.md
+          - accessibility/scoring.py: akure-accessibility-dashboard/modules/accessibility/scoring.md
+          - completeness/grid_check.py: akure-accessibility-dashboard/modules/completeness/grid_check.md
+          - visualization/static_maps.py: akure-accessibility-dashboard/modules/visualization/static_maps.md
+          - insights.py: akure-accessibility-dashboard/modules/insights.md
+      - Dashboard App (dashboard/app.py): akure-accessibility-dashboard/dashboard-app.md
+      - End-to-End Walkthrough: akure-accessibility-dashboard/end-to-end.md
+      - Tests: akure-accessibility-dashboard/tests.md
+  - Cross-Repo Integration: cross-repo/integration.md
+  - Reference:
+      - Glossary: reference/glossary.md
+      - Known Issues & Design Decisions: reference/known-issues.md
