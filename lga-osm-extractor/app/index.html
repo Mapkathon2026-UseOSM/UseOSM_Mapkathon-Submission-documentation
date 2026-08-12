@@ -9,8 +9,10 @@
         <meta name="description" content="Deep technical documentation for the lga-osm-extractor and akure-accessibility-dashboard repositories (Map<>kathon 2026, UseOSM).">
       
       
-        <meta name="author" content="Noah">
+        <meta name="author" content="Marvellous Adeleke">
       
+      
+        <link rel="canonical" href="https://mapkathon2026-useosm.github.io/UseOSM_Mapkathon-Submission-documentation/lga-osm-extractor/app/">
       
       
         <link rel="prev" href="../modules/pipeline/">
@@ -27,7 +29,7 @@
     
     
       
-        <title>Streamlit App (app.py) - Akure Geospatial Systems Documentation</title>
+        <title>Streamlit App (app.py) - UseOSM Mapkathon Submission Documentation</title>
       
     
     
@@ -53,6 +55,8 @@
       
     
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -69,7 +73,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -94,7 +98,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Akure Geospatial Systems Documentation" class="md-header__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../.." title="UseOSM Mapkathon Submission Documentation" class="md-header__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -108,7 +112,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Akure Geospatial Systems Documentation
+            UseOSM Mapkathon Submission Documentation
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -127,7 +131,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
     
       <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
@@ -137,7 +141,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
@@ -196,13 +200,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
       </div>
@@ -349,23 +353,23 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Akure Geospatial Systems Documentation" class="md-nav__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../.." title="UseOSM Mapkathon Submission Documentation" class="md-nav__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    Akure Geospatial Systems Documentation
+    UseOSM Mapkathon Submission Documentation
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
     </div>
@@ -883,6 +887,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#page-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Page Structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#functions" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -895,10 +921,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_cached_extract" class="md-nav__link">
+  <a href="#_cached_extractlga_name-state_name" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _cached_extract()
+        _cached_extract(lga_name, state_name)
       
     </span>
   </a>
@@ -911,10 +937,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ui-structure" class="md-nav__link">
+  <a href="#layer-rendering-logic-the-if-submitted-block" class="md-nav__link">
     <span class="md-ellipsis">
       
-        UI Structure
+        Layer Rendering Logic (the if submitted: block)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gotchas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gotchas
       
     </span>
   </a>
@@ -1664,6 +1701,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#page-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Page Structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#functions" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1676,10 +1735,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_cached_extract" class="md-nav__link">
+  <a href="#_cached_extractlga_name-state_name" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _cached_extract()
+        _cached_extract(lga_name, state_name)
       
     </span>
   </a>
@@ -1692,10 +1751,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ui-structure" class="md-nav__link">
+  <a href="#layer-rendering-logic-the-if-submitted-block" class="md-nav__link">
     <span class="md-ellipsis">
       
-        UI Structure
+        Layer Rendering Logic (the if submitted: block)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gotchas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gotchas
       
     </span>
   </a>
@@ -1725,12 +1795,51 @@
 <h1 id="streamlit-app-apppy">Streamlit App — app.py<a class="headerlink" href="#streamlit-app-apppy" title="Permanent link">&para;</a></h1>
 <div class="admonition info">
 <p class="admonition-title">Source</p>
-<p><code>app.py</code></p>
+<p><code>app.py</code> (289 lines)</p>
 </div>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p><em>TODO: what this UI does, who it's for, how it relates to cli.py and pipeline.py.</em></p>
+<p>A Streamlit web UI wrapping <code>pipeline.extract_lga()</code>: a user types an LGA
+name (and optionally a state), clicks "Extract OSM Data," previews every
+extracted layer on an interactive Leafmap map with toggleable layers, and
+downloads everything as a zip. This is the no-code, no-GIS-software path
+into the extractor — everything it does is a thin presentation layer over
+the same <code>extract_lga()</code> function <code>cli.py</code> calls.</p>
+<p>Run with <code>streamlit run app.py</code>.</p>
+<h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Imports:</strong> <code>streamlit</code>, <code>leafmap.foliumap</code> (for the interactive
+  preview map), <code>os</code>, <code>zipfile</code>, <code>io</code> (for the download-as-zip feature);
+  <code>extract_lga</code> and <code>BoundaryResolutionError</code> from the <code>lga_extractor</code>
+  package's top-level <code>__init__.py</code>.</li>
+<li><strong>Imports from:</strong> <code>pipeline.py</code> (via the package's <code>__init__.py</code>
+  re-export), indirectly depends on everything <code>extract_lga()</code> itself
+  depends on.</li>
+</ul>
+<h2 id="page-structure">Page Structure<a class="headerlink" href="#page-structure" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Page config + custom CSS</strong> — sets page title/icon/wide layout, injects
+   a small CSS block (global font-size bump, hero title/subtitle styling, a
+   colored callout box style, and orange-accented form/download buttons).</li>
+<li><strong>Hero section + "About this tool" explanation</strong> — static Markdown
+   explaining the three-step flow, why extraction can take a few minutes
+   (live Overpass queries, no cached OSM data), and what each of the six
+   layers contains.</li>
+<li><strong>Input form</strong> (<code>st.form("extract_form")</code>) — two text inputs (<code>lga_name</code>,
+   <code>state_name</code>) side by side, one primary submit button.</li>
+<li><strong><code>_cached_extract()</code> definition</strong> — see below.</li>
+<li><strong><code>LAYER_STYLES</code></strong> — a module-level dict of Folium styling
+   (color/weight/fillOpacity) per layer name, deliberately kept visually
+   consistent with <code>akure-accessibility-dashboard</code>'s own palette
+   conventions, so a given color means roughly the same thing to anyone
+   who's seen both tools.</li>
+<li><strong>On submit</strong> — validates the LGA name isn't blank, runs the (cached)
+   extraction inside a spinner, and on success: shows warnings (if any) in
+   an expander, builds and displays the preview map, offers a zip download
+   of the output directory.</li>
+<li><strong>Footer</strong> — a GitHub link back to the source repository.</li>
+</ol>
 <h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
-<h3 id="_cached_extract"><code>_cached_extract()</code><a class="headerlink" href="#_cached_extract" title="Permanent link">&para;</a></h3>
+<h3 id="_cached_extractlga_name-state_name"><code>_cached_extract(lga_name, state_name)</code><a class="headerlink" href="#_cached_extractlga_name-state_name" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1741,44 +1850,96 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>A thin wrapper around <code>extract_lga()</code>, decorated with <code>@st.cache_data(show_spinner=False)</code>.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO — note Streamlit <code>@st.cache_data</code>/<code>@st.cache_resource</code> semantics and implications for state</em></td>
+<td>Extraction is genuinely slow — it hits OpenStreetMap's live Overpass API for six separate layers, and larger/denser LGAs (especially <code>buildings</code>) can take one to five minutes. <code>st.cache_data</code> means re-running the <em>exact same</em> <code>(lga_name, state_name)</code> combination again in the same session — or from a <strong>different user entirely</strong>, since Streamlit's <code>@st.cache_data</code> cache is shared across all sessions of a running app by default, not scoped per-user — returns instantly instead of re-querying Overpass from scratch. This works correctly with <code>extract_lga()</code>'s own behavior: its <code>output_dir</code> defaults to a path deterministically derived from <code>lga_name</code>, so the files already written to disk on the first run remain valid and present for a cached return — the cache doesn't need to re-materialize any files, only skip re-computation of the returned summary dict. <code>show_spinner=False</code> is set because the app already shows its own custom spinner message around the call site (step 6 above), avoiding a redundant/generic second spinner from Streamlit's cache decorator itself.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>lga_name: str</code>, <code>state_name</code> (str or <code>None</code>).</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td>Whatever <code>extract_lga()</code> returns (see <a href="../modules/pipeline/"><code>pipeline.md</code></a>) — cached by Streamlit keyed on the exact input arguments.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO</em></td>
+<td>Single line: <code>return extract_lga(lga_name=lga_name, state_name=state_name)</code>. All the actual work is Streamlit's caching machinery plus <code>extract_lga()</code> itself.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes <code>extract_lga()</code>'s default <code>manual_boundary_path=None</code> and <code>strict=False</code> are the right choices for this UI — the app never exposes these as user-facing options, unlike <code>cli.py</code>, which does expose both. A user needing a manual boundary or strict-mode behavior currently has no path to that through the Streamlit UI.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO</em></td>
+<td>O(1) in this function's own logic; wall-clock cost is entirely <code>extract_lga()</code>'s (dominated by Overpass query latency across six layers, see <a href="../modules/layers/"><code>layers.md</code></a>).</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO — Streamlit session state across reruns/users</em></td>
+<td><strong>This is the one place in the whole repository where Streamlit's shared-cache model introduces a genuine cross-user consideration.</strong> Because <code>@st.cache_data</code>'s cache is shared across all sessions by default, two different users requesting the same LGA/state at nearly the same time could both trigger the underlying <code>extract_lga()</code> call if neither result is cached yet (Streamlit doesn't lock/dedupe concurrent misses for the same key across sessions) — both would independently query Overpass and independently write to the same deterministic <code>output_dir</code>, a benign but wasteful race (see <code>export.py</code>'s and <code>logging_utils.py</code>'s own gotchas about concurrent writes to the same output directory not being guarded against). Once either completes, subsequent requests for that same key are served from cache. This isn't a correctness bug (final state is fine, both would produce equivalent output), but it is a real, if narrow, concurrency consideration unique to the Streamlit deployment.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO</em></td>
+<td>See <a href="../tests/">tests.md</a> — note <code>_cached_extract()</code> itself, being a decorated Streamlit function, isn't directly unit-testable in the same way as the core pipeline functions; <code>test_extraction.py</code> tests <code>extract_lga()</code> and its dependencies directly instead.</td>
 </tr>
 </tbody>
 </table>
-<h2 id="ui-structure">UI Structure<a class="headerlink" href="#ui-structure" title="Permanent link">&para;</a></h2>
-<p><em>TODO: walk through the page top-to-bottom — widgets, layout, what triggers a rerun.</em></p>
+<h2 id="layer-rendering-logic-the-if-submitted-block">Layer Rendering Logic (the <code>if submitted:</code> block)<a class="headerlink" href="#layer-rendering-logic-the-if-submitted-block" title="Permanent link">&para;</a></h2>
+<p>The most detailed piece of logic in this file isn't <code>_cached_extract()</code> —
+it's how the preview map decides which layer to zoom the map to, since a
+naive approach has a real bug the code explicitly works around:</p>
+<ul>
+<li>Layers are sorted so <code>"roads"</code> is attempted first (roads typically span
+  the full LGA boundary, making it a good layer to frame the initial map
+  view around), with every other layer following in whatever order they
+  appear in <code>result["exported"]</code>.</li>
+<li><strong>The zoom-to-layer bug this avoids:</strong> an earlier, simpler approach would
+  tie <code>zoom_to_layer=True</code> to a fixed list position (e.g. "the first item").
+  But if that first item in sorted order (<code>"roads"</code>) happens to have no
+  file on disk — a real, valid case: an LGA where roads legitimately
+  extracted as empty, or was skipped — indexing by fixed position would
+  mean <strong>no layer ever gets zoomed to</strong>, since the loop simply moves to the
+  next index without the map having zoomed to anything yet, leaving the map
+  at Leaflet's global default view even though other layers loaded
+  successfully underneath, just invisible at that zoom level. The actual
+  code instead tracks a running <code>zoomed_yet: bool</code> flag across the loop,
+  and passes <code>zoom_to_layer=(not zoomed_yet)</code> to <code>m.add_geojson()</code> for each
+  layer — guaranteeing whichever layer is genuinely added <em>first</em> (in
+  practice, regardless of which earlier layers in sorted order turned out
+  to be empty) gets the zoom.</li>
+<li><strong>A second defensive layer:</strong> each <code>m.add_geojson()</code> call is wrapped in a
+  <code>try/except (IndexError, KeyError, ValueError)</code>. The comment explains this
+  shouldn't normally trigger — <code>export_layers()</code> already filters out
+  genuinely empty layers before writing any file at all (they go into
+  <code>exported["_skipped"]</code> instead of being written) — but it exists as a
+  backstop against a file that <em>exists</em> on disk but is malformed or
+  unexpectedly empty, e.g. from a partial/interrupted write during a
+  long-running extraction (a real risk given extractions can take several
+  minutes). Without this, one bad file would crash the whole preview map
+  and silently drop every layer added after it in the loop, rather than
+  just that one layer being reported as un-previewable while the rest (and
+  the download) continue to work.</li>
+</ul>
+<h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>The Streamlit cache is shared across users, not per-session.</strong> As noted
+  above, this is a deliberate and reasonable choice for this app's use case
+  (avoid re-querying Overpass for a popular LGA), but it does mean one
+  user's extraction can "warm the cache" for another user requesting the
+  same LGA/state, which is worth knowing if this is ever deployed somewhere
+  privacy/isolation between users matters more than it does for a public
+  demo tool.</li>
+<li><strong><code>manual_boundary_path</code> and <code>strict</code> are not exposed in the UI</strong>, even
+  though <code>extract_lga()</code> supports both — only <code>cli.py</code> currently exposes
+  the full parameter surface.</li>
+<li><strong>The download zip is built entirely in memory</strong> (<code>io.BytesIO()</code>), by
+  walking <code>output_dir</code> on disk — this means the zip always reflects
+  whatever is currently on disk at download time, not a snapshot taken at
+  extraction time; for a cached result, this is the same files from the
+  original run.</li>
+</ul>
 
 
 

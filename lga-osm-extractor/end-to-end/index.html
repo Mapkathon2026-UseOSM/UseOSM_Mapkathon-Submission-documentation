@@ -9,8 +9,10 @@
         <meta name="description" content="Deep technical documentation for the lga-osm-extractor and akure-accessibility-dashboard repositories (Map<>kathon 2026, UseOSM).">
       
       
-        <meta name="author" content="Noah">
+        <meta name="author" content="Marvellous Adeleke">
       
+      
+        <link rel="canonical" href="https://mapkathon2026-useosm.github.io/UseOSM_Mapkathon-Submission-documentation/lga-osm-extractor/end-to-end/">
       
       
         <link rel="prev" href="../cli/">
@@ -27,7 +29,7 @@
     
     
       
-        <title>End-to-End Walkthrough - Akure Geospatial Systems Documentation</title>
+        <title>End-to-End Walkthrough - UseOSM Mapkathon Submission Documentation</title>
       
     
     
@@ -53,6 +55,8 @@
       
     
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -69,7 +73,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -94,7 +98,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Akure Geospatial Systems Documentation" class="md-header__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../.." title="UseOSM Mapkathon Submission Documentation" class="md-header__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -108,7 +112,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Akure Geospatial Systems Documentation
+            UseOSM Mapkathon Submission Documentation
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -127,7 +131,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
     
       <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
@@ -137,7 +141,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
@@ -196,13 +200,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
       </div>
@@ -349,23 +353,23 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Akure Geospatial Systems Documentation" class="md-nav__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../.." title="UseOSM Mapkathon Submission Documentation" class="md-nav__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    Akure Geospatial Systems Documentation
+    UseOSM Mapkathon Submission Documentation
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
     </div>
@@ -928,52 +932,134 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#trace" class="md-nav__link">
+  <a href="#1-process-start" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Trace
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Trace">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-entry-point" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Entry point
+        1. Process start
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#2-user-submits-the-form" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. ...
+        2. User submits the form
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#n-final-output" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#3-_cached_extractakure-north-ondo-is-called" class="md-nav__link">
     <span class="md-ellipsis">
       
-        N. Final output
+        3. _cached_extract("Akure North", "Ondo") is called
       
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#4-inside-extract_lga-stage-1-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Inside extract_lga() — stage 1: boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-stage-2-layer-extraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Stage 2: layer extraction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-stage-3-cleaning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Stage 3: cleaning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-stage-4-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Stage 4: export
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-crs-resolved-again-for-logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. CRS resolved again, for logging
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-stage-5-logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Stage 5: logging
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-extract_lga-returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. extract_lga() returns
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-rendering-the-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Rendering the result
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-state-lives-summarized" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where state lives, summarized
+      
+    </span>
+  </a>
   
 </li>
       
@@ -1653,52 +1739,134 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#trace" class="md-nav__link">
+  <a href="#1-process-start" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Trace
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Trace">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-entry-point" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Entry point
+        1. Process start
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#2-user-submits-the-form" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. ...
+        2. User submits the form
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#n-final-output" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#3-_cached_extractakure-north-ondo-is-called" class="md-nav__link">
     <span class="md-ellipsis">
       
-        N. Final output
+        3. _cached_extract("Akure North", "Ondo") is called
       
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#4-inside-extract_lga-stage-1-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Inside extract_lga() — stage 1: boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-stage-2-layer-extraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Stage 2: layer extraction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-stage-3-cleaning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Stage 3: cleaning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-stage-4-export" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Stage 4: export
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-crs-resolved-again-for-logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. CRS resolved again, for logging
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-stage-5-logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Stage 5: logging
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-extract_lga-returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. extract_lga() returns
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-rendering-the-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Rendering the result
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-state-lives-summarized" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where state lives, summarized
+      
+    </span>
+  </a>
   
 </li>
       
@@ -1723,22 +1891,206 @@
 
 
 <h1 id="end-to-end-walkthrough-lga-osm-extractor">End-to-End Walkthrough — lga-osm-extractor<a class="headerlink" href="#end-to-end-walkthrough-lga-osm-extractor" title="Permanent link">&para;</a></h1>
-<p><em>TODO: a single, concrete trace of what happens from process start to final output — written as a narrative, not a diagram. Should answer:</em></p>
+<p>This page traces exactly what happens, function call by function call, for
+one real extraction — using the Streamlit app (<code>app.py</code>) as the entry point,
+since it's the richest interface (the CLI path is identical from
+<code>extract_lga()</code> onward, just without the UI layer). For how the <em>data</em>
+changes shape at each stage rather than the call sequence, see
+<a href="../data-flow/">Data Flow</a>.</p>
+<h2 id="1-process-start">1. Process start<a class="headerlink" href="#1-process-start" title="Permanent link">&para;</a></h2>
+<p><code>streamlit run app.py</code> starts a Streamlit server process. <code>app.py</code> executes
+top-to-bottom <strong>once</strong> at startup (page config, CSS injection, hero text,
+form definition, <code>_cached_extract()</code>'s definition, <code>LAYER_STYLES</code>'s
+definition) — none of this touches <code>lga_extractor</code> yet. The form renders
+with <code>submitted = False</code>, so the entire <code>if submitted:</code> block is skipped on
+this first pass. Streamlit then waits for user interaction, re-running the
+whole script from top to bottom on every interaction (Streamlit's standard
+rerun-on-interaction model) — this matters for understanding why
+<code>_cached_extract()</code>'s caching is what prevents redundant work across
+reruns, not just across separate user sessions.</p>
+<h2 id="2-user-submits-the-form">2. User submits the form<a class="headerlink" href="#2-user-submits-the-form" title="Permanent link">&para;</a></h2>
+<p>User types <code>"Akure North"</code> / <code>"Ondo"</code>, clicks <strong>Extract OSM Data</strong>.
+Streamlit reruns the script; this time <code>submitted = True</code>. The <code>lga_name</code>
+non-blank check passes, so execution enters the <code>with st.spinner(...)</code>
+block.</p>
+<h2 id="3-_cached_extractakure-north-ondo-is-called">3. <code>_cached_extract("Akure North", "Ondo")</code> is called<a class="headerlink" href="#3-_cached_extractakure-north-ondo-is-called" title="Permanent link">&para;</a></h2>
 <ul>
-<li>What happens when the application starts?</li>
-<li>Which module executes first?</li>
-<li>Which modules call which others, in what order?</li>
-<li>How are requests (CLI args / Streamlit interactions) processed?</li>
-<li>How are results generated?</li>
-<li>Where is state stored, and for how long?</li>
+<li>Streamlit checks its cache for this exact <code>(lga_name, state_name)</code> key.
+  <strong>First run for this LGA: cache miss.</strong></li>
+<li>Calls <code>pipeline.extract_lga(lga_name="Akure North", state_name="Ondo")</code>
+  — this is where control passes into the actual <code>lga_extractor</code> package.</li>
 </ul>
-<h2 id="trace">Trace<a class="headerlink" href="#trace" title="Permanent link">&para;</a></h2>
-<h3 id="1-entry-point">1. Entry point<a class="headerlink" href="#1-entry-point" title="Permanent link">&para;</a></h3>
-<p><em>TODO</em></p>
-<h3 id="2">2. ...<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
-<p><em>TODO</em></p>
-<h3 id="n-final-output">N. Final output<a class="headerlink" href="#n-final-output" title="Permanent link">&para;</a></h3>
-<p><em>TODO</em></p>
+<h2 id="4-inside-extract_lga-stage-1-boundary">4. Inside <code>extract_lga()</code> — stage 1: boundary<a class="headerlink" href="#4-inside-extract_lga-stage-1-boundary" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>output_dir</code> defaults to <code>"output/akure_north"</code> (slugified from
+  <code>lga_name</code>).</li>
+<li><code>tag_config</code> defaults to <code>layers.DEFAULT_TAG_CONFIG</code> (the six standard
+  layers).</li>
+<li>Calls <code>boundary.resolve_boundary(lga_name="Akure North",
+  state_name="Ondo", manual_boundary_path=None)</code>.</li>
+<li>No manual path given, so this takes the OSM geocode branch: builds the
+    query string <code>"Akure North, Ondo, Nigeria"</code>, calls
+    <code>ox.geocode_to_gdf(query)</code> — <strong>this is the pipeline's first network
+    call</strong>, hitting OSM's Nominatim geocoding service.</li>
+<li>Result is passed to <code>_validate_and_standardize()</code>: CRS standardized to
+    EPSG:4326; hard checks run (centroid-inside-Nigeria, plausible area via
+    a call into <code>clean.resolve_target_crs()</code> — <strong>the one place <code>boundary.py</code>
+    calls into <code>clean.py</code></strong>); soft check runs (<code>display_name</code> mention).
+    Assuming Akure North resolves cleanly (the expected happy path), no
+    exception is raised, and a single-row <code>GeoDataFrame</code> with
+    <code>boundary_source="osm_geocode:Akure North, Ondo, Nigeria"</code> and
+    <code>validation_warnings=None</code> is returned.</li>
+<li>Back in <code>extract_lga()</code>: <code>boundary_source</code> and
+  <code>boundary_validation_warning</code> (here, <code>None</code>) are extracted from the
+  result's columns.</li>
+</ul>
+<h2 id="5-stage-2-layer-extraction">5. Stage 2: layer extraction<a class="headerlink" href="#5-stage-2-layer-extraction" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Calls <code>layers.extract_layers(boundary_gdf, tag_config=DEFAULT_TAG_CONFIG,
+  strict=False)</code> (permissive mode, since <code>app.py</code> never passes <code>strict</code>).</li>
+<li>A <code>ThreadPoolExecutor(max_workers=2)</code> is opened.</li>
+<li>All six <code>(layer_name, tags)</code> pairs are submitted as futures, staggered:
+    <code>roads</code> and <code>buildings</code> (say) start immediately; <code>waterways</code> and
+    <code>landuse</code> start after a 3-second delay; <code>health_facilities</code> and
+    <code>schools</code> after a 6-second delay — this staggering is the mechanism
+    that keeps the shared Overpass server from refusing connections under
+    burst load (see <a href="../modules/layers/"><code>layers.md</code></a> for the full
+    reasoning).</li>
+<li>Each <code>_extract_single_layer()</code> call independently sleeps its
+    <code>start_delay</code>, then calls <code>ox.features_from_polygon(polygon, tags)</code> —
+    <strong>the pipeline's remaining network calls</strong>, one per layer, each
+    potentially retried up to 6 times with linear backoff on transient
+    connection failures.</li>
+<li>As each future completes (in <em>completion</em> order, not submission
+    order), the main thread collects its <code>(layer_name, gdf, warning,
+    error)</code> tuple into the <code>layers</code> dict and <code>warnings</code> list.</li>
+<li>Assuming no genuine failures (the common case), all six layers return
+    successfully — some may be empty (e.g. if Akure North genuinely has no
+    OSM-tagged waterways), each empty result adds a <code>"...returned no
+    features"</code> warning but does not raise.</li>
+<li>Returns <code>{"roads": gdf, "buildings": gdf, ..., "_warnings": [...]}</code>.</li>
+<li>Back in <code>extract_lga()</code>: warnings are pulled out; since
+  <code>boundary_validation_warning</code> was <code>None</code> in this run, nothing is
+  prepended to the warnings list.</li>
+</ul>
+<h2 id="6-stage-3-cleaning">6. Stage 3: cleaning<a class="headerlink" href="#6-stage-3-cleaning" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Calls <code>clean.clean_layers(raw_layers, boundary_gdf=boundary_gdf)</code>.</li>
+<li><code>resolve_target_crs(boundary_gdf)</code> is called <strong>once</strong>, resolving to
+    <code>"EPSG:32631"</code> (Akure North's centroid falls in UTM zone 31N).</li>
+<li>Each of the six layers is passed through <code>_clean_single_layer()</code>
+    sequentially (no threading at this stage): null/empty geometry
+    dropped, invalid geometry repaired, index flattened, <code>osmid</code>/<code>name</code>
+    standardized, duplicates dropped by geometry, reprojected to
+    <code>EPSG:32631</code>.</li>
+<li>For <code>health_facilities</code> and <code>schools</code> specifically (members of
+    <code>POINT_LAYERS</code>), <code>_collapse_areas_to_points()</code> runs after
+    reprojection — any facility mapped as a building-outline <code>Polygon</code>
+    rather than a point node is replaced with its centroid <code>Point</code> here.
+    <strong>This is the exact step that fixes the Akure North bug</strong> — before
+    this logic existed, all 14 of that LGA's health facilities (mapped as
+    polygons) would have failed to collapse and caused downstream
+    accessibility analysis to treat them as unreachable.</li>
+<li>Returns the six cleaned <code>GeoDataFrame</code>s, all now in <code>EPSG:32631</code>, all
+    with the uniform <code>osmid</code>/<code>name</code>/<code>geometry</code> schema.</li>
+<li>Back in <code>extract_lga()</code>: <code>"_warnings"</code> is popped off the cleaned dict
+  (redundant but harmless, since <code>export_layers()</code> would skip it anyway).</li>
+</ul>
+<h2 id="7-stage-4-export">7. Stage 4: export<a class="headerlink" href="#7-stage-4-export" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Calls <code>export.export_layers(cleaned, "output/akure_north")</code>.</li>
+<li>Creates <code>output/akure_north/</code> and <code>output/akure_north/shapefiles/</code>.</li>
+<li>For each non-empty layer: writes <code>{layer_name}.geojson</code>; checks
+    <code>_geom_categories_present()</code>; if <code>roads</code> (say) contains both <code>Point</code>
+    and <code>LineString</code> features (traffic signals + road ways — a realistic
+    outcome for a real LGA), writes <code>roads_point.shp</code> and <code>roads_line.shp</code>
+    separately rather than one <code>roads.shp</code>; every single-category layer
+    (e.g. <code>buildings</code>, <code>health_facilities</code>) writes one plain <code>.shp</code> as
+    before.</li>
+<li><strong>This is the second point data is written to disk</strong> (the first being
+    nothing — this is actually the <em>only</em> point in the whole pipeline data
+    is persisted; everything before this stage exists only in memory for
+    the duration of this one Python process).</li>
+<li>Empty layers recorded under <code>_skipped</code>; split layers recorded under
+    <code>_split_layers</code>.</li>
+</ul>
+<h2 id="8-crs-resolved-again-for-logging">8. CRS resolved again, for logging<a class="headerlink" href="#8-crs-resolved-again-for-logging" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>resolve_target_crs(boundary_gdf)</code> is called a <strong>second</strong> time, purely to
+  have the string <code>"EPSG:32631"</code> available to pass into <code>log_run()</code> — see
+  <a href="../modules/pipeline/"><code>pipeline.md</code></a>'s gotcha explaining why this isn't
+  simply read off one of the cleaned layers instead.</li>
+</ul>
+<h2 id="9-stage-5-logging">9. Stage 5: logging<a class="headerlink" href="#9-stage-5-logging" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Calls <code>logging_utils.log_run(...)</code> with everything gathered: LGA/state
+  name, tag config, output dir, boundary source, combined warnings,
+  the export summary, resolved CRS.</li>
+<li><code>_capture_environment()</code> runs, recording Python version, platform, and
+    the installed versions of <code>osmnx</code>/<code>geopandas</code>/<code>shapely</code>/<code>fiona</code>/
+    <code>pandas</code>.</li>
+<li>Writes <code>output/akure_north/run_log.json</code>.</li>
+</ul>
+<h2 id="10-extract_lga-returns">10. <code>extract_lga()</code> returns<a class="headerlink" href="#10-extract_lga-returns" title="Permanent link">&para;</a></h2>
+<p>A summary dict (<code>lga_name</code>, <code>state_name</code>, <code>output_dir</code>, <code>boundary_source</code>,
+<code>target_crs</code>, <code>exported</code>, <code>warnings</code>, <code>run_log</code>) propagates back up through
+<code>_cached_extract()</code> (which Streamlit now caches under the
+<code>("Akure North", "Ondo")</code> key for any future rerun/user) to <code>app.py</code>.</p>
+<h2 id="11-rendering-the-result">11. Rendering the result<a class="headerlink" href="#11-rendering-the-result" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>st.success(...)</code> shows a completion message.</li>
+<li>If <code>result["warnings"]</code> is non-empty, an expander lists them.</li>
+<li>The preview map is built: <code>leafmap.foliumap.Map()</code>, then each exported
+  layer's GeoJSON file is added via <code>m.add_geojson()</code>, in an order that
+  puts <code>roads</code> first (for good initial map framing), tracking a
+  <code>zoomed_yet</code> flag so the <em>first successfully-added</em> layer gets
+  <code>zoom_to_layer=True</code> regardless of which earlier layers turned out to be
+  empty (see <a href="../app/"><code>app.md</code></a> for the full reasoning behind this).</li>
+<li>A zip of the entire <code>output/akure_north/</code> directory is built in memory
+  and offered via <code>st.download_button()</code>.</li>
+</ul>
+<h2 id="where-state-lives-summarized">Where state lives, summarized<a class="headerlink" href="#where-state-lives-summarized" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Where it lives</th>
+<th>How long it persists</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The resolved boundary polygon</td>
+<td>In-memory, inside <code>extract_lga()</code>'s local scope</td>
+<td>Duration of one <code>extract_lga()</code> call only</td>
+</tr>
+<tr>
+<td>Raw/cleaned layer GeoDataFrames</td>
+<td>In-memory</td>
+<td>Duration of one <code>extract_lga()</code> call only</td>
+</tr>
+<tr>
+<td>Exported GeoJSON/Shapefile</td>
+<td>Disk, under <code>output/{lga_name}/</code></td>
+<td>Persists indefinitely (until manually deleted)</td>
+</tr>
+<tr>
+<td><code>run_log.json</code></td>
+<td>Disk, same directory</td>
+<td>Persists indefinitely</td>
+</tr>
+<tr>
+<td>The <code>extract_lga()</code> result summary dict</td>
+<td>Streamlit's <code>@st.cache_data</code> cache (server memory)</td>
+<td>Persists for the life of the Streamlit server process, shared across all sessions/users requesting the same LGA/state</td>
+</tr>
+<tr>
+<td>Form input values (<code>lga_name</code>, <code>state_name</code>)</td>
+<td>Streamlit's per-session widget state</td>
+<td>Persists only for the current browser session</td>
+</tr>
+</tbody>
+</table>
 
 
 

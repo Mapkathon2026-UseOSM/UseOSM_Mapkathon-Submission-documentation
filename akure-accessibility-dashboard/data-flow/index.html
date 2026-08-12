@@ -9,8 +9,10 @@
         <meta name="description" content="Deep technical documentation for the lga-osm-extractor and akure-accessibility-dashboard repositories (Map<>kathon 2026, UseOSM).">
       
       
-        <meta name="author" content="Noah">
+        <meta name="author" content="Marvellous Adeleke">
       
+      
+        <link rel="canonical" href="https://mapkathon2026-useosm.github.io/UseOSM_Mapkathon-Submission-documentation/akure-accessibility-dashboard/data-flow/">
       
       
         <link rel="prev" href="../overview/">
@@ -27,7 +29,7 @@
     
     
       
-        <title>Data Flow - Akure Geospatial Systems Documentation</title>
+        <title>Data Flow - UseOSM Mapkathon Submission Documentation</title>
       
     
     
@@ -53,6 +55,8 @@
       
     
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -69,7 +73,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -94,7 +98,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Akure Geospatial Systems Documentation" class="md-header__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../.." title="UseOSM Mapkathon Submission Documentation" class="md-header__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -108,7 +112,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Akure Geospatial Systems Documentation
+            UseOSM Mapkathon Submission Documentation
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -127,7 +131,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
     
       <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
@@ -137,7 +141,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
@@ -196,13 +200,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
       </div>
@@ -349,23 +353,23 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Akure Geospatial Systems Documentation" class="md-nav__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../.." title="UseOSM Mapkathon Submission Documentation" class="md-nav__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    Akure Geospatial Systems Documentation
+    UseOSM Mapkathon Submission Documentation
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
     </div>
@@ -1090,6 +1094,78 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Stage-by-Stage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-input-files-from-lga-osm-extractor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Input: files from lga-osm-extractor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-a-routable-graph-per-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. A routable graph, per mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-a-fishnet-grid-with-a-settlement-signal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. A fishnet grid, with a settlement signal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-two-independent-analyses-over-the-same-grid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Two independent analyses over the same grid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-sanitization-only-once-only-at-the-very-end" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Sanitization, only once, only at the very end
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-two-independent-consumers-of-the-final-grid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Two independent consumers of the final grid
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1633,6 +1709,78 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Stage-by-Stage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-input-files-from-lga-osm-extractor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Input: files from lga-osm-extractor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-a-routable-graph-per-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. A routable graph, per mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-a-fishnet-grid-with-a-settlement-signal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. A fishnet grid, with a settlement signal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-two-independent-analyses-over-the-same-grid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Two independent analyses over the same grid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-sanitization-only-once-only-at-the-very-end" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Sanitization, only once, only at the very end
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-two-independent-consumers-of-the-final-grid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Two independent consumers of the final grid
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1667,19 +1815,86 @@
 
 
 <h1 id="data-flow-akure-accessibility-dashboard">Data Flow — akure-accessibility-dashboard<a class="headerlink" href="#data-flow-akure-accessibility-dashboard" title="Permanent link">&para;</a></h1>
-<p><em>TODO: high-level walkthrough of how data moves through this repository, from initial input to final output. This page is the "one level up" companion to end-to-end.md — end-to-end.md traces function calls; this page traces the <em>data</em> (what shape it's in at each stage: DataFrame, GeoDataFrame, GeoJSON, shapefile, etc.).</em></p>
+<p>This page traces how data changes shape as it moves through this
+repository — from the extractor's output files to a scored grid to displayed
+maps and captions. For a function-call-level trace, see
+<a href="../end-to-end/">End-to-End Walkthrough</a>.</p>
 <h2 id="stage-by-stage">Stage-by-Stage<a class="headerlink" href="#stage-by-stage" title="Permanent link">&para;</a></h2>
-<ol>
-<li><strong>Input</strong> — <em>TODO</em></li>
-<li><strong>Stage 2</strong> — <em>TODO</em></li>
-<li><strong>...</strong></li>
-<li><strong>Output</strong> — <em>TODO</em></li>
-</ol>
+<h3 id="1-input-files-from-lga-osm-extractor">1. Input: files from <code>lga-osm-extractor</code><a class="headerlink" href="#1-input-files-from-lga-osm-extractor" title="Permanent link">&para;</a></h3>
+<p>Everything starts with GeoJSON/Shapefile output already sitting on disk —
+<code>roads</code>, <code>buildings</code>, <code>health_facilities</code>, <code>schools</code> layers, in
+<code>EPSG:32631</code>, produced by an entirely separate prior run of
+<code>lga-osm-extractor</code>. See <a href="../../cross-repo/integration/">Cross-Repo Integration</a>
+for the exact schema contract this data must satisfy.</p>
+<h3 id="2-a-routable-graph-per-mode">2. A routable graph, per mode<a class="headerlink" href="#2-a-routable-graph-per-mode" title="Permanent link">&para;</a></h3>
+<p><a href="../modules/accessibility/network_graph/"><code>network_graph.graph_from_roads()</code></a>
+turns the roads layer (plus, ideally, the LGA boundary polygon) into a
+<code>networkx</code> graph with <code>length</code>/<code>travel_time_min</code> edge attributes — one
+separate graph per requested travel mode (<code>walk</code>/<code>okada</code>/<code>drive</code>), since
+walk and drive networks can differ in which roads are included at all, not
+just in assumed speed.</p>
+<h3 id="3-a-fishnet-grid-with-a-settlement-signal">3. A fishnet grid, with a settlement signal<a class="headerlink" href="#3-a-fishnet-grid-with-a-settlement-signal" title="Permanent link">&para;</a></h3>
+<p>In parallel with graph-building, <a href="../modules/accessibility/scoring/"><code>scoring.build_grid()</code></a>
+turns the LGA boundary into a regular square grid, and
+<a href="../modules/accessibility/scoring/"><code>scoring.add_building_density()</code></a> adds a
+<code>building_count</code> column from the buildings layer — this single column is
+what every later stage uses to distinguish "settled, worth analyzing" cells
+from empty land.</p>
+<h3 id="4-two-independent-analyses-over-the-same-grid">4. Two independent analyses over the same grid<a class="headerlink" href="#4-two-independent-analyses-over-the-same-grid" title="Permanent link">&para;</a></h3>
+<p>From here, two genuinely separate pathways run, each producing its own new
+columns on the grid, neither depending on the other's output:</p>
+<ul>
+<li><strong>Accessibility</strong>: <a href="../modules/accessibility/scoring/"><code>scoring.add_access_times()</code></a>
+  uses the mode-specific graph plus
+  <a href="../modules/accessibility/isochrones/"><code>isochrones.batch_nearest_facility_distances()</code></a>
+  to compute nearest-facility distance/time per settled cell, per mode, per
+  service — then <a href="../modules/accessibility/scoring/"><code>scoring.add_access_deficit_score()</code></a>
+  reduces those times into the composite 0–2 deficit score.</li>
+<li><strong>Completeness</strong>: <a href="../modules/completeness/grid_check/"><code>grid_check.flag_completeness()</code></a>
+  independently checks, per settled cell (using its <em>own</em>, stricter
+  settlement threshold), whether a facility of each service type exists
+  within a search radius — producing boolean data-gap flags with no
+  awareness of the accessibility scores at all.</li>
+</ul>
+<h3 id="5-sanitization-only-once-only-at-the-very-end">5. Sanitization, only once, only at the very end<a class="headerlink" href="#5-sanitization-only-once-only-at-the-very-end" title="Permanent link">&para;</a></h3>
+<p><a href="../modules/accessibility/scoring/"><code>scoring.sanitize_for_export()</code></a> converts
+every <code>inf</code> value (meaning "unreachable") to <code>NaN</code> (meaning "no value") —
+but only after <strong>every</strong> scoring/flagging step above has already run for
+every mode of interest. This ordering is a hard, unenforced requirement —
+see that function's own documentation for what goes wrong if it's violated.</p>
+<h3 id="6-two-independent-consumers-of-the-final-grid">6. Two independent consumers of the final grid<a class="headerlink" href="#6-two-independent-consumers-of-the-final-grid" title="Permanent link">&para;</a></h3>
+<p>The fully-scored, sanitized grid feeds two entirely separate downstream
+paths, generated independently of each other:</p>
+<ul>
+<li><strong><a href="../modules/insights/"><code>insights.py</code></a></strong> generates narrative captions
+  directly from the grid's numbers.</li>
+<li><strong><a href="../modules/visualization/static_maps/"><code>visualization/static_maps.py</code></a></strong>
+  generates publication-quality JPEG maps/charts (via the project's
+  analysis notebook, offline), each accompanied by a caption from
+  <code>insights.py</code>.</li>
+<li><strong><a href="../dashboard-app/"><code>dashboard/app.py</code></a></strong> reads the exported, sanitized
+  <code>grid_access_scored.geojson</code> back off disk at Streamlit app startup, and
+  independently reads the already-generated static images/<code>captions.json</code>
+  from disk — the dashboard never runs any scoring/flagging itself, it's a
+  pure consumer of both prior outputs.</li>
+</ul>
 <h2 id="diagram">Diagram<a class="headerlink" href="#diagram" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>flowchart TD
-    A[Input] --&gt; B[Stage 2]
-    B --&gt; C[Stage 3]
-    C --&gt; D[Output]</code></pre>
+    A["lga-osm-extractor output:&lt;br/&gt;roads, buildings, health_facilities,&lt;br/&gt;schools (EPSG:32631)"] --&gt; B["graph_from_roads()&lt;br/&gt;one graph per mode"]
+    A --&gt; C["build_grid() + add_building_density()&lt;br/&gt;grid with building_count"]
+    B --&gt; D["add_access_times()&lt;br/&gt;+ batch_nearest_facility_distances()"]
+    C --&gt; D
+    D --&gt; E["add_access_deficit_score()&lt;br/&gt;0/1/2 composite score, per mode"]
+    A --&gt; F["flag_completeness()&lt;br/&gt;independent OSM-gap flags"]
+    C --&gt; F
+    E --&gt; G["sanitize_for_export()&lt;br/&gt;inf to NaN, ONLY after all scoring done"]
+    F --&gt; G
+    G --&gt; H["grid_access_scored.geojson&lt;br/&gt;on disk"]
+    H --&gt; I["insights.py&lt;br/&gt;narrative captions"]
+    H --&gt; J["static_maps.py&lt;br/&gt;JPEG maps + charts&lt;br/&gt;(offline, via notebook)"]
+    I --&gt; J
+    H --&gt; K["dashboard/app.py&lt;br/&gt;reads grid + images back off disk"]
+    J --&gt; K</code></pre>
 
 
 

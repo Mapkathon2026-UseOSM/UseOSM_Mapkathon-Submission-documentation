@@ -9,8 +9,10 @@
         <meta name="description" content="Deep technical documentation for the lga-osm-extractor and akure-accessibility-dashboard repositories (Map<>kathon 2026, UseOSM).">
       
       
-        <meta name="author" content="Noah">
+        <meta name="author" content="Marvellous Adeleke">
       
+      
+        <link rel="canonical" href="https://mapkathon2026-useosm.github.io/UseOSM_Mapkathon-Submission-documentation/lga-osm-extractor/modules/export/">
       
       
         <link rel="prev" href="../clean/">
@@ -27,7 +29,7 @@
     
     
       
-        <title>export.py - Akure Geospatial Systems Documentation</title>
+        <title>export.py - UseOSM Mapkathon Submission Documentation</title>
       
     
     
@@ -53,6 +55,8 @@
       
     
     
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -69,7 +73,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -94,7 +98,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="Akure Geospatial Systems Documentation" class="md-header__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../../.." title="UseOSM Mapkathon Submission Documentation" class="md-header__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -108,7 +112,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Akure Geospatial Systems Documentation
+            UseOSM Mapkathon Submission Documentation
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -127,7 +131,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
     
       <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
@@ -137,7 +141,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
@@ -196,13 +200,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
       </div>
@@ -349,23 +353,23 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="Akure Geospatial Systems Documentation" class="md-nav__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../../.." title="UseOSM Mapkathon Submission Documentation" class="md-nav__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    Akure Geospatial Systems Documentation
+    UseOSM Mapkathon Submission Documentation
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
     </div>
@@ -788,10 +792,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#export_layers" class="md-nav__link">
+  <a href="#_geom_category-module-level-dict" class="md-nav__link">
     <span class="md-ellipsis">
       
-        export_layers()
+        _GEOM_CATEGORY (module-level dict)
       
     </span>
   </a>
@@ -799,10 +803,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_geom_categories_present" class="md-nav__link">
+  <a href="#_geom_categories_presentgdf" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _geom_categories_present()
+        _geom_categories_present(gdf)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export_layerslayers_dict-output_dir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        export_layers(layers_dict, output_dir)
       
     </span>
   </a>
@@ -1711,10 +1726,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#export_layers" class="md-nav__link">
+  <a href="#_geom_category-module-level-dict" class="md-nav__link">
     <span class="md-ellipsis">
       
-        export_layers()
+        _GEOM_CATEGORY (module-level dict)
       
     </span>
   </a>
@@ -1722,10 +1737,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_geom_categories_present" class="md-nav__link">
+  <a href="#_geom_categories_presentgdf" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _geom_categories_present()
+        _geom_categories_present(gdf)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export_layerslayers_dict-output_dir" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        export_layers(layers_dict, output_dir)
       
     </span>
   </a>
@@ -1771,14 +1797,32 @@
 <h1 id="exportpy">export.py<a class="headerlink" href="#exportpy" title="Permanent link">&para;</a></h1>
 <div class="admonition info">
 <p class="admonition-title">Source</p>
-<p><code>lga_extractor/export.py</code></p>
+<p><code>lga_extractor/export.py</code> (130 lines)</p>
 </div>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p><em>TODO: 1-2 paragraphs - what this module is responsible for and why it exists as a separate module.</em></p>
+<p>Writes cleaned layers (from <a href="../clean/"><code>clean.py</code></a>) to disk as GeoJSON and
+Shapefile, organized under a per-LGA output directory. This is the module
+that turns in-memory <code>GeoDataFrame</code>s into the actual deliverable files
+consumed by ArcGIS Pro, Google Earth Pro, and — most importantly — by
+<code>akure-accessibility-dashboard</code> downstream (see
+<a href="../../../cross-repo/integration/">Cross-Repo Integration</a>).</p>
+<p>The module's one real technical problem is a format mismatch: GeoJSON
+tolerates mixed geometry types within a single file; Shapefile does not.
+Most of this file's logic exists to handle that mismatch correctly rather
+than simply failing on it.</p>
 <h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
-<p><em>TODO: what this module imports, what imports it.</em></p>
+<ul>
+<li><strong>Imports:</strong> <code>os</code>, <code>geopandas</code>.</li>
+<li><strong>Imported by:</strong> <code>pipeline.py</code> (fourth stage, after <code>clean.clean_layers()</code>).</li>
+</ul>
 <h2 id="functions-classes">Functions &amp; Classes<a class="headerlink" href="#functions-classes" title="Permanent link">&para;</a></h2>
-<h3 id="export_layers"><code>export_layers()</code><a class="headerlink" href="#export_layers" title="Permanent link">&para;</a></h3>
+<h3 id="_geom_category-module-level-dict"><code>_GEOM_CATEGORY</code> (module-level dict)<a class="headerlink" href="#_geom_category-module-level-dict" title="Permanent link">&para;</a></h3>
+<p>Maps each of the six Shapely geometry type names GeoPandas reports
+(<code>Point</code>, <code>MultiPoint</code>, <code>LineString</code>, <code>MultiLineString</code>, <code>Polygon</code>,
+<code>MultiPolygon</code>) down to one of three coarse categories: <code>"point"</code>,
+<code>"line"</code>, <code>"polygon"</code>. This is the categorization used to decide whether a
+layer needs to be split across multiple Shapefiles.</p>
+<h3 id="_geom_categories_presentgdf"><code>_geom_categories_present(gdf)</code><a class="headerlink" href="#_geom_categories_presentgdf" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1789,43 +1833,43 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Returns the sorted list of distinct geometry <em>categories</em> (not raw geometry types) present in <code>gdf</code>.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>Some OSM tag filters legitimately return more than one geometry type in a single query — the clearest example is the <code>"roads"</code> layer's <code>highway=*</code> filter, which matches both road ways (<code>LineString</code>) and point features like traffic signals and pedestrian crossings (<code>highway=traffic_signals</code>, <code>highway=crossing</code>). Similarly, the <code>"waterways"</code> layer's <code>waterway=*</code> + <code>natural=water</code> filter mixes <code>LineString</code> (rivers/streams) with <code>Polygon</code> (lakes/reservoirs). <code>_geom_categories_present()</code> exists purely to answer "does this layer have this problem," so <code>export_layers()</code> can decide whether it needs to split.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>gdf: GeoDataFrame</code>.</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>list[str]</code>, sorted, e.g. <code>["line", "point"]</code> for a mixed roads layer, or <code>["polygon"]</code> for a single-category layer.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td><code>gdf.geometry.geom_type</code> gives the raw type string per row; <code>.map()</code> looks each up in <code>_GEOM_CATEGORY</code> (defaulting to <code>"other"</code> for any unmapped type — a defensive fallback, not expected to trigger for OSM data); <code>.unique().tolist()</code> collapses to distinct values; <code>sorted()</code> gives a deterministic order.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes every geometry type actually encountered in practice is one of the six keys in <code>_GEOM_CATEGORY</code> — a <code>GeometryCollection</code> or other exotic type would fall into <code>"other"</code> and could produce unexpected Shapefile-splitting behavior, though this hasn't been observed with OSM-sourced data.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
+<td>O(N) in feature count — one pass over the geometry type column.</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>None — pure function.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="_geom_categories_present"><code>_geom_categories_present()</code><a class="headerlink" href="#_geom_categories_present" title="Permanent link">&para;</a></h3>
+<h3 id="export_layerslayers_dict-output_dir"><code>export_layers(layers_dict, output_dir)</code><a class="headerlink" href="#export_layerslayers_dict-output_dir" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1836,44 +1880,62 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Writes every non-empty layer in <code>layers_dict</code> to both a <code>.geojson</code> file (always one file per layer, mixed types are fine) and one or more <code>.shp</code> files (split by geometry category only when the layer actually mixes categories). Returns a summary dict of what was written, skipped, and split.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>The design deliberately keeps GeoJSON export simple and uniform (one file per layer, no splitting logic needed, since GeoJSON has no restriction here) while only paying the complexity cost of splitting where Shapefile's format constraint actually forces it — layers with a single geometry category (the common case: <code>buildings</code>, <code>health_facilities</code>, <code>landuse</code>) still export as one plain <code>{layer_name}.shp</code>, completely unchanged from a version of this function that never had to think about mixed types at all. This backward-compatible shape (single path string for the simple case, dict of <code>{category: path}</code> only when needed) means existing callers that only handle single-category layers don't break.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>layers_dict: dict</code> (layer_name → cleaned <code>GeoDataFrame</code>, as returned by <code>clean.clean_layers()</code>; a <code>"_warnings"</code> key, if present, is explicitly skipped during export — it isn't a layer); <code>output_dir: str</code> (created if it doesn't exist; a <code>shapefiles/</code> subfolder is created within it to keep Shapefile's multi-file sidecar outputs — <code>.shp</code>/<code>.shx</code>/<code>.dbf</code>/<code>.prj</code> — organized separately from the flat GeoJSON files).</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>dict</code> mapping each exported <code>layer_name</code> to <code>{"geojson": path, "shapefile": shapefile_value}</code>, where <code>shapefile_value</code> is a single path string for single-category layers, or a <code>{category: path}</code> dict for split layers. Also includes <code>"_skipped"</code> (list of layer names skipped because they were empty) and, only if any layer needed splitting, <code>"_split_layers"</code> (dict of <code>{layer_name: categories_list}</code>, useful for logging/visibility into which layers triggered the split path).</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. Create <code>output_dir</code> and <code>output_dir/shapefiles/</code> (both <code>exist_ok=True</code>, safe to call repeatedly).<br>2. For each <code>(layer_name, gdf)</code> in <code>layers_dict</code>:<br>&nbsp;&nbsp;a. Skip <code>"_warnings"</code> entirely (not a real layer).<br>&nbsp;&nbsp;b. If <code>gdf</code> is <code>None</code> or empty, record it in <code>skipped</code> and continue — no files written for empty layers.<br>&nbsp;&nbsp;c. Write the GeoJSON unconditionally: <code>gdf.to_file(path, driver="GeoJSON")</code>.<br>&nbsp;&nbsp;d. Compute <code>categories = _geom_categories_present(gdf)</code>.<br>&nbsp;&nbsp;e. If <code>len(categories) &lt;= 1</code>: write one Shapefile as before, record a single path.<br>&nbsp;&nbsp;f. Otherwise: for each category present, filter <code>gdf</code> down to just the geometry types belonging to that category (via <code>.isin()</code> against the subset of <code>_GEOM_CATEGORY</code> keys mapping to that category), skip if the filtered subset happens to be empty, write <code>{layer_name}_{category}.shp</code>, and record the path under that category key. Also record this layer in <code>split_layers</code> for the summary.<br>3. Attach <code>"_skipped"</code> and (if non-empty) <code>"_split_layers"</code> to the result dict, return it.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes <code>gdf.to_file(..., driver="GeoJSON")</code> and <code>driver="ESRI Shapefile"</code> (both via GeoPandas → Fiona/pyogrio) handle CRS metadata correctly on their own — this function does no explicit CRS handling itself, relying entirely on whatever CRS <code>clean_layers()</code> already set. Assumes Shapefile's 10-character field name truncation and other format limitations (a well-known Shapefile constraint, unrelated to the geometry-type issue this module solves) aren't a practical problem given <code>clean.py</code>'s minimal <code>KEEP_COLUMNS</code> schema (<code>osmid</code>, <code>name</code>, <code>geometry</code> — none close to the 10-character limit).</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
+<td>O(L × N) where L = number of layers, N = features per layer, for the write operations themselves; the geometry-category filtering step is an additional O(N) pass per category for split layers.</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>None — sequential loop, no threading. Writing to <code>output_dir</code> is not guarded against concurrent calls to <code>export_layers()</code> targeting the <em>same</em> <code>output_dir</code> from multiple processes — this isn't a concern in the current pipeline (each LGA extraction run uses its own output directory sequentially), but would be worth locking if this function were ever called concurrently for the same target directory.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
-<p><em>TODO: non-obvious behavior, edge cases, things that bit us during development.</em></p>
+<ul>
+<li><strong>A layer's Shapefile output shape depends on its data, not on any
+  configuration.</strong> Whether <code>export_layers()</code>'s returned <code>shapefile_value</code>
+  for a given layer is a plain string or a <code>{category: path}</code> dict is
+  determined entirely by what geometry types happen to be present in that
+  particular LGA's extracted data — the same layer name (e.g. <code>"roads"</code>)
+  could return a single path for one LGA (no point-type road features
+  present) and a split dict for another. Any code consuming this return
+  value needs to check the type, not assume a fixed shape per layer name.</li>
+<li><strong><code>_geom_categories_present()</code>'s <code>"other"</code> fallback is silent.</strong> A
+  geometry type outside the six mapped ones would be grouped as <code>"other"</code>
+  with no warning — worth being aware of if OSM ever returns an unexpected
+  geometry type (e.g. a <code>GeometryCollection</code>) for some tag combination.</li>
+<li><strong>Empty-subset skip inside the split loop is a real (if rare) edge case.</strong>
+  Step 2f's <code>if subset.empty: continue</code> guards against a category appearing
+  in <code>categories</code> (from the unique-values pass) but then producing zero rows
+  when filtered — this shouldn't normally happen given how <code>categories</code> is
+  derived, but the check is there defensively.</li>
+</ul>
 
 
 

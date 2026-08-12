@@ -9,8 +9,10 @@
         <meta name="description" content="Deep technical documentation for the lga-osm-extractor and akure-accessibility-dashboard repositories (Map<>kathon 2026, UseOSM).">
       
       
-        <meta name="author" content="Noah">
+        <meta name="author" content="Marvellous Adeleke">
       
+      
+        <link rel="canonical" href="https://mapkathon2026-useosm.github.io/UseOSM_Mapkathon-Submission-documentation/akure-accessibility-dashboard/tests/">
       
       
         <link rel="prev" href="../end-to-end/">
@@ -27,7 +29,7 @@
     
     
       
-        <title>Tests - Akure Geospatial Systems Documentation</title>
+        <title>Tests - UseOSM Mapkathon Submission Documentation</title>
       
     
     
@@ -53,6 +55,8 @@
       
     
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -69,7 +73,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -94,7 +98,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Akure Geospatial Systems Documentation" class="md-header__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../.." title="UseOSM Mapkathon Submission Documentation" class="md-header__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -108,7 +112,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Akure Geospatial Systems Documentation
+            UseOSM Mapkathon Submission Documentation
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -127,7 +131,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
     
       <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
@@ -137,7 +141,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
@@ -196,13 +200,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
       </div>
@@ -349,23 +353,23 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Akure Geospatial Systems Documentation" class="md-nav__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../.." title="UseOSM Mapkathon Submission Documentation" class="md-nav__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    Akure Geospatial Systems Documentation
+    UseOSM Mapkathon Submission Documentation
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
     </div>
@@ -1411,10 +1415,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#teststest_completenesspy" class="md-nav__link">
+  <a href="#test_network_graphpy-287-lines" class="md-nav__link">
     <span class="md-ellipsis">
       
-        tests/test_completeness.py
+        test_network_graph.py (287 lines)
       
     </span>
   </a>
@@ -1422,10 +1426,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#teststest_insightspy" class="md-nav__link">
+  <a href="#test_scoringpy-189-lines" class="md-nav__link">
     <span class="md-ellipsis">
       
-        tests/test_insights.py
+        test_scoring.py (189 lines)
       
     </span>
   </a>
@@ -1433,10 +1437,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#teststest_network_graphpy" class="md-nav__link">
+  <a href="#test_completenesspy-182-lines" class="md-nav__link">
     <span class="md-ellipsis">
       
-        tests/test_network_graph.py
+        test_completeness.py (182 lines)
       
     </span>
   </a>
@@ -1444,10 +1448,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#teststest_scoringpy" class="md-nav__link">
+  <a href="#test_insightspy-175-lines" class="md-nav__link">
     <span class="md-ellipsis">
       
-        tests/test_scoring.py
+        test_insights.py (175 lines)
       
     </span>
   </a>
@@ -1455,10 +1459,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#teststest_static_mapspy" class="md-nav__link">
+  <a href="#test_static_mapspy-202-lines" class="md-nav__link">
     <span class="md-ellipsis">
       
-        tests/test_static_maps.py
+        test_static_maps.py (202 lines)
       
     </span>
   </a>
@@ -1466,10 +1470,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#teststest_cross_repo_integrationpy" class="md-nav__link">
+  <a href="#gaps-worth-closing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        tests/test_cross_repo_integration.py
+        Gaps Worth Closing
       
     </span>
   </a>
@@ -1669,10 +1673,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#teststest_completenesspy" class="md-nav__link">
+  <a href="#test_network_graphpy-287-lines" class="md-nav__link">
     <span class="md-ellipsis">
       
-        tests/test_completeness.py
+        test_network_graph.py (287 lines)
       
     </span>
   </a>
@@ -1680,10 +1684,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#teststest_insightspy" class="md-nav__link">
+  <a href="#test_scoringpy-189-lines" class="md-nav__link">
     <span class="md-ellipsis">
       
-        tests/test_insights.py
+        test_scoring.py (189 lines)
       
     </span>
   </a>
@@ -1691,10 +1695,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#teststest_network_graphpy" class="md-nav__link">
+  <a href="#test_completenesspy-182-lines" class="md-nav__link">
     <span class="md-ellipsis">
       
-        tests/test_network_graph.py
+        test_completeness.py (182 lines)
       
     </span>
   </a>
@@ -1702,10 +1706,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#teststest_scoringpy" class="md-nav__link">
+  <a href="#test_insightspy-175-lines" class="md-nav__link">
     <span class="md-ellipsis">
       
-        tests/test_scoring.py
+        test_insights.py (175 lines)
       
     </span>
   </a>
@@ -1713,10 +1717,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#teststest_static_mapspy" class="md-nav__link">
+  <a href="#test_static_mapspy-202-lines" class="md-nav__link">
     <span class="md-ellipsis">
       
-        tests/test_static_maps.py
+        test_static_maps.py (202 lines)
       
     </span>
   </a>
@@ -1724,10 +1728,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#teststest_cross_repo_integrationpy" class="md-nav__link">
+  <a href="#gaps-worth-closing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        tests/test_cross_repo_integration.py
+        Gaps Worth Closing
       
     </span>
   </a>
@@ -1755,19 +1759,345 @@
 
 
 <h1 id="tests-akure-accessibility-dashboard">Tests — akure-accessibility-dashboard<a class="headerlink" href="#tests-akure-accessibility-dashboard" title="Permanent link">&para;</a></h1>
-<p><em>TODO: for each test file, list what it covers and map it back to the module page(s) it exercises.</em></p>
-<h2 id="teststest_completenesspy"><code>tests/test_completeness.py</code><a class="headerlink" href="#teststest_completenesspy" title="Permanent link">&para;</a></h2>
-<p><em>TODO: what's covered, what's notably NOT covered.</em></p>
-<h2 id="teststest_insightspy"><code>tests/test_insights.py</code><a class="headerlink" href="#teststest_insightspy" title="Permanent link">&para;</a></h2>
-<p><em>TODO: what's covered, what's notably NOT covered.</em></p>
-<h2 id="teststest_network_graphpy"><code>tests/test_network_graph.py</code><a class="headerlink" href="#teststest_network_graphpy" title="Permanent link">&para;</a></h2>
-<p><em>TODO: what's covered, what's notably NOT covered.</em></p>
-<h2 id="teststest_scoringpy"><code>tests/test_scoring.py</code><a class="headerlink" href="#teststest_scoringpy" title="Permanent link">&para;</a></h2>
-<p><em>TODO: what's covered, what's notably NOT covered.</em></p>
-<h2 id="teststest_static_mapspy"><code>tests/test_static_maps.py</code><a class="headerlink" href="#teststest_static_mapspy" title="Permanent link">&para;</a></h2>
-<p><em>TODO: what's covered, what's notably NOT covered.</em></p>
-<h2 id="teststest_cross_repo_integrationpy"><code>tests/test_cross_repo_integration.py</code><a class="headerlink" href="#teststest_cross_repo_integrationpy" title="Permanent link">&para;</a></h2>
-<p><em>TODO: what's covered, what's notably NOT covered.</em></p>
+<div class="admonition info">
+<p class="admonition-title">Source</p>
+<p><code>tests/</code> (1,243 lines across 6 files, plus a dedicated cross-repo
+integration test — see <a href="../../cross-repo/integration/">Cross-Repo Integration</a>
+for that file's own dedicated coverage)</p>
+</div>
+<p>All tests are pure <code>pytest</code> functions operating on small synthetic
+<code>GeoDataFrame</code>s and graphs — no live OSM/Overpass calls in the standard
+suite (one test in <code>test_network_graph.py</code> is the sole exception, marked
+appropriately).</p>
+<h2 id="test_network_graphpy-287-lines"><code>test_network_graph.py</code> (287 lines)<a class="headerlink" href="#test_network_graphpy-287-lines" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>What it verifies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>test_mode_config_has_expected_modes</code></td>
+<td><code>MODE_CONFIG</code> has exactly the three expected mode keys with sane speed values.</td>
+</tr>
+<tr>
+<td><code>test_graph_from_roads_geometry_fallback_assigns_travel_times</code></td>
+<td>Path 2 (<code>_graph_from_geometries()</code>, no boundary given) produces a graph with correctly computed <code>travel_time_min</code> edge attributes.</td>
+</tr>
+<tr>
+<td><code>test_graph_from_roads_speed_override</code></td>
+<td>An explicit <code>speed_kph</code> argument overrides <code>MODE_CONFIG</code>'s default for that mode.</td>
+</tr>
+<tr>
+<td><code>test_graph_from_roads_invalid_mode_raises</code></td>
+<td>An unrecognized <code>mode</code> string raises <code>ValueError</code> with the valid options listed.</td>
+</tr>
+<tr>
+<td><code>test_nearest_facility_distance_and_time_finds_closer_facility</code></td>
+<td>Given two facilities at different distances from an origin, the nearer one (by network time) is correctly selected.</td>
+</tr>
+<tr>
+<td><code>test_nearest_facility_distance_and_time_handles_empty_facilities</code></td>
+<td>Empty <code>facilities_gdf</code> returns <code>(inf, inf)</code> rather than raising.</td>
+</tr>
+<tr>
+<td><code>test_batch_nearest_facility_distances_matches_naive_per_pair_approach</code></td>
+<td><strong>The most important correctness test for the module's central performance optimization</strong>: verifies the fast multi-source Dijkstra result (<code>batch_nearest_facility_distances()</code> + <code>lookup_nearest_distance_time()</code>) produces the <em>same</em> answer as the slow, naive per-pair approach (<code>nearest_facility_distance_and_time()</code>, called once per origin) on the same synthetic graph — direct proof the optimization documented at length in <a href="../modules/accessibility/isochrones/"><code>isochrones.md</code></a> doesn't trade away correctness for speed.</td>
+</tr>
+<tr>
+<td><code>test_batch_nearest_facility_distances_handles_empty_facilities</code></td>
+<td>Empty facilities returns <code>{}</code> rather than raising.</td>
+</tr>
+<tr>
+<td><code>test_batch_nearest_facility_distances_much_faster_than_naive_at_scale</code></td>
+<td>Directly measures and asserts a real wall-clock speedup of the batch approach over the naive approach on a larger synthetic graph — turning the module's own prose claims ("over an hour" vs. "roughly one Dijkstra run") into an enforced, automatically-checked regression guard, not just documentation.</td>
+</tr>
+<tr>
+<td><code>test_compute_isochrone_polygon_returns_larger_area_for_longer_trip_time</code></td>
+<td>A sanity check on the convex-hull isochrone approximation: a longer trip-time budget produces a larger (or equal) reachable-area polygon, as expected.</td>
+</tr>
+<tr>
+<td><code>test_compute_isochrone_polygon_returns_none_for_unmatchable_origin</code></td>
+<td>An origin that can't be snapped to the graph returns <code>None</code> rather than raising.</td>
+</tr>
+<tr>
+<td><code>test_build_isochrones_for_facilities_one_row_per_facility_per_trip_time</code></td>
+<td>Confirms the batch wrapper's output shape (one row per successful <code>(facility, trip_time)</code> pair).</td>
+</tr>
+<tr>
+<td><code>test_build_isochrones_for_facilities_handles_empty_facilities</code></td>
+<td>Empty input produces the explicitly-typed empty <code>GeoDataFrame</code> (with correct columns/CRS) documented in <a href="../modules/accessibility/isochrones/"><code>isochrones.md</code></a>, not a bare <code>None</code> or untyped empty structure.</td>
+</tr>
+<tr>
+<td><code>test_graph_from_roads_live_osm_polygon</code></td>
+<td>The one test in this file requiring live network access — builds a real graph via <code>ox.graph_from_polygon()</code> against a real small area. Presumably marked/skippable similarly to <code>lga_extractor</code>'s own <code>@pytest.mark.integration</code> convention, though worth confirming this file uses the same marker name for consistency across both repos' test suites.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notably not directly, isolatedly tested here</strong>: <code>nearest_graph_node()</code>'s
+KD-tree caching behavior itself (exercised only indirectly, through every
+other function that calls it) and <code>_has_lengths()</code> (a defensive fallback
+not normally triggered — see <a href="../modules/accessibility/network_graph/"><code>network_graph.md</code></a>).</p>
+<h2 id="test_scoringpy-189-lines"><code>test_scoring.py</code> (189 lines)<a class="headerlink" href="#test_scoringpy-189-lines" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>What it verifies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>test_build_grid_covers_boundary</code></td>
+<td>The generated fishnet grid actually covers the given boundary.</td>
+</tr>
+<tr>
+<td><code>test_build_grid_respects_custom_cell_size</code></td>
+<td>A non-default <code>cell_size_m</code> produces the expected cell dimensions.</td>
+</tr>
+<tr>
+<td><code>test_add_building_density_counts_correctly</code></td>
+<td><code>building_count</code> matches a hand-verifiable count for synthetic building points against known grid cells.</td>
+</tr>
+<tr>
+<td><code>test_add_building_density_handles_empty_buildings</code></td>
+<td>Empty <code>buildings_gdf</code> produces <code>building_count = 0</code> everywhere, not an error.</td>
+</tr>
+<tr>
+<td><code>test_access_deficit_score_composite_logic</code></td>
+<td>The core 0/1/2 scoring logic: cells underserved for zero, one, or both services get the correct composite score.</td>
+</tr>
+<tr>
+<td><code>test_access_deficit_score_mode_suffix_columns</code></td>
+<td>Mode-suffixed output columns are correctly named and populated.</td>
+</tr>
+<tr>
+<td><code>test_access_deficit_score_treats_inf_as_underserved</code></td>
+<td><strong>Direct test of the <code>inf</code>-means-unreachable convention</strong>: confirms a cell with <code>inf</code> travel time is correctly scored as underserved (<code>1</code> or <code>2</code>), not silently treated as served — the exact failure mode the module's own inline comments warn about repeatedly (see <a href="../modules/accessibility/scoring/"><code>scoring.md</code></a>).</td>
+</tr>
+<tr>
+<td><code>test_sanitize_for_export_does_not_break_deficit_scoring</code></td>
+<td>Confirms calling <code>sanitize_for_export()</code> <strong>after</strong> scoring (the correct order) doesn't corrupt the already-computed deficit scores.</td>
+</tr>
+<tr>
+<td><code>test_sanitize_for_export_called_before_scoring_gives_wrong_result</code></td>
+<td><strong>This is the single most valuable test in the entire test suite for this repository.</strong> It doesn't merely test the correct call order — it directly demonstrates and asserts the <em>actual wrong result</em> produced by calling <code>sanitize_for_export()</code> too early (before <code>add_access_deficit_score()</code>), turning the module's extensively-documented ordering-constraint gotcha (see <a href="../modules/accessibility/scoring/"><code>scoring.md</code></a>) into an executable, permanent regression guard rather than a comment a future editor could miss. Any future refactor that accidentally breaks this ordering, or any code path that calls these functions in the wrong sequence, would be caught here.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="test_completenesspy-182-lines"><code>test_completeness.py</code> (182 lines)<a class="headerlink" href="#test_completenesspy-182-lines" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>What it verifies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>test_flag_completeness_flags_settled_unmapped_cell</code></td>
+<td>A settled cell with no nearby facility is correctly flagged.</td>
+</tr>
+<tr>
+<td><code>test_flag_completeness_does_not_flag_when_facility_nearby</code></td>
+<td>A settled cell <em>with</em> a nearby facility is correctly not flagged — the negative case, equally important to test as the positive one.</td>
+</tr>
+<tr>
+<td><code>test_flag_completeness_ignores_unsettled_cells</code></td>
+<td>An unsettled cell (below the building threshold) is never flagged, regardless of facility proximity.</td>
+</tr>
+<tr>
+<td><code>test_summarize_completeness_reports_correct_percentages</code></td>
+<td>The summary dict's percentages match hand-computed expected values.</td>
+</tr>
+<tr>
+<td><code>test_summarize_completeness_handles_no_settled_cells</code></td>
+<td>The documented minimal-shape return (no percentage keys) when there are zero settled cells — see <a href="../modules/completeness/grid_check/"><code>grid_check.md</code></a>'s own gotcha about this inconsistent return shape.</td>
+</tr>
+<tr>
+<td><code>test_spatial_index_flagging_matches_naive_linear_scan</code></td>
+<td>The same correctness-vs-performance pairing pattern seen in <code>test_network_graph.py</code>: confirms <code>_flag_via_spatial_index()</code>'s <code>sjoin_nearest()</code>-based approach produces the same result as a naive linear distance scan would, directly validating the module's own documented performance reasoning without sacrificing correctness.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="test_insightspy-175-lines"><code>test_insights.py</code> (175 lines)<a class="headerlink" href="#test_insightspy-175-lines" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>What it verifies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>test_describe_deficit_map_returns_real_numbers</code></td>
+<td>The generated caption text actually contains the real computed percentages, not placeholder text.</td>
+</tr>
+<tr>
+<td><code>test_describe_deficit_map_missing_mode_column_does_not_crash</code></td>
+<td>The "not yet scored" early-return path produces a graceful message, not an exception.</td>
+</tr>
+<tr>
+<td><code>test_describe_deficit_map_reports_directional_skew</code></td>
+<td><code>_compass_skew()</code>'s integration into the full caption — a deliberately-skewed synthetic dataset produces a directional phrase in the output.</td>
+</tr>
+<tr>
+<td><code>test_describe_continuous_map_returns_real_numbers</code></td>
+<td>Same real-numbers check for the continuous-map caption.</td>
+</tr>
+<tr>
+<td><code>test_describe_continuous_map_all_nan_column_does_not_crash</code></td>
+<td>The specific "column exists but every value is null" edge case (distinct from "column missing entirely") is handled gracefully — directly testing the <code>.notna().sum() == 0</code> check documented in <a href="../modules/insights/"><code>insights.md</code></a>.</td>
+</tr>
+<tr>
+<td><code>test_describe_continuous_map_missing_column_does_not_crash</code></td>
+<td>The simpler "column doesn't exist at all" case.</td>
+</tr>
+<tr>
+<td><code>test_describe_completeness_map_returns_real_numbers</code></td>
+<td>Real-numbers check for the completeness caption.</td>
+</tr>
+<tr>
+<td><code>test_describe_completeness_map_missing_column_does_not_crash</code></td>
+<td>Graceful handling when completeness hasn't been run yet.</td>
+</tr>
+<tr>
+<td><code>test_describe_mode_comparison_chart_normal_case</code></td>
+<td>The standard ranking-sentence path.</td>
+</tr>
+<tr>
+<td><code>test_describe_mode_comparison_chart_handles_ties_gracefully</code></td>
+<td><strong>Direct test of the near-tie branch</strong> (<code>abs(worst_pct - best_pct) &lt; 0.5</code>) — confirms the "comparably restrictive across every mode" phrasing actually triggers at the documented threshold, rather than producing the nonsensical "highest at X%, lowest at X%" sentence the branch exists to avoid.</td>
+</tr>
+<tr>
+<td><code>test_describe_mode_comparison_chart_empty_input_does_not_crash</code></td>
+<td>Empty <code>mode_stats</code> produces the graceful "no data" message.</td>
+</tr>
+<tr>
+<td><code>test_describe_interactive_view_dispatches_correctly</code></td>
+<td>All three <code>view_choice</code> values route to the correct underlying caption function.</td>
+</tr>
+<tr>
+<td><code>test_no_em_dash_in_any_generated_caption</code></td>
+<td><strong>A style-consistency test, not a correctness test</strong> — presumably enforcing a house style rule against em-dashes in generated prose, run across every caption-generating function to catch any accidentally-introduced em-dash in future edits to the caption templates.</td>
+</tr>
+<tr>
+<td><code>test_describe_completeness_map_uses_correct_article</code></td>
+<td>Direct test of <code>_article()</code>'s "a health facility" vs. "an education facility" behavior in the actual generated caption text, not just the helper function in isolation.</td>
+</tr>
+<tr>
+<td><code>test_default_thresholds_match_notebook_config</code></td>
+<td><strong>Directly guards against the manual-sync drift risk</strong> documented in <a href="../modules/insights/"><code>insights.md</code></a>: confirms <code>DEFAULT_THRESHOLDS_MIN</code> here actually matches whatever <code>ACCESS_THRESHOLDS_MIN</code> is configured as in the analysis notebook, catching the exact "two independently-maintained copies of the same values" drift scenario before it can silently produce mismatched caption phrasing.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="test_static_mapspy-202-lines"><code>test_static_maps.py</code> (202 lines)<a class="headerlink" href="#test_static_mapspy-202-lines" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>What it verifies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>test_ensure_lonlat_reprojects_projected_input</code></td>
+<td><code>_ensure_lonlat()</code> actually reprojects UTM input to EPSG:4326.</td>
+</tr>
+<tr>
+<td><code>test_ensure_lonlat_leaves_already_lonlat_input_unchanged</code></td>
+<td>No-op on already-correct input (no unnecessary reprojection).</td>
+</tr>
+<tr>
+<td><code>test_scale_bar_and_gridlines_do_not_hang_on_projected_bounds</code> (uses <code>monkeypatch</code>)</td>
+<td><strong>Direct regression test for the exact failure mode <code>_ensure_lonlat()</code>'s own docstring describes</strong> — confirms passing projected (UTM-meter-scale) bounds to the gridline/scale-bar functions doesn't hang attempting to draw tens of thousands of gridlines, the specific bug caught during testing against real Akure North data (see <a href="../modules/visualization/static_maps/"><code>static_maps.md</code></a>).</td>
+</tr>
+<tr>
+<td><code>test_plot_deficit_map_saves_file</code> (uses <code>tmp_path</code>)</td>
+<td>Basic save-to-disk smoke test.</td>
+</tr>
+<tr>
+<td><code>test_plot_deficit_map_missing_column_raises_clear_error</code></td>
+<td>The explicit <code>KeyError</code> with an actionable message, not a generic pandas error.</td>
+</tr>
+<tr>
+<td><code>test_plot_continuous_map_excludes_nan_and_unsettled</code></td>
+<td>Confirms <code>NaN</code>/unsettled cells are actually excluded from the plotted layer, not rendered with a placeholder value.</td>
+</tr>
+<tr>
+<td><code>test_plot_continuous_map_all_nan_raises_clear_error</code></td>
+<td>The all-null-column edge case raises <code>ValueError</code> with a clear message.</td>
+</tr>
+<tr>
+<td><code>test_plot_completeness_map_saves_file</code></td>
+<td>Basic smoke test.</td>
+</tr>
+<tr>
+<td><code>test_plot_mode_comparison_chart_saves_file</code></td>
+<td>Basic smoke test.</td>
+</tr>
+<tr>
+<td><code>test_plot_mode_comparison_chart_empty_input_raises</code></td>
+<td>Empty <code>mode_stats</code> raises <code>ValueError</code>.</td>
+</tr>
+<tr>
+<td><code>test_generate_all_static_outputs_produces_expected_file_count</code></td>
+<td>The orchestrator's conditional-generation logic produces exactly the expected number of files given a specific synthetic input's mode/service/completeness column combination.</td>
+</tr>
+<tr>
+<td><code>test_generate_all_static_outputs_skips_web_tier_when_disabled</code></td>
+<td><code>web_dpi=None</code> correctly skips web-tier generation entirely.</td>
+</tr>
+<tr>
+<td><code>test_generate_all_static_outputs_uses_lga_first_title_convention</code> (uses <code>monkeypatch</code>)</td>
+<td>Confirms every generated figure's title follows the <code>_map_title()</code> <code>"{LGA}: {metric}"</code> convention consistently.</td>
+</tr>
+<tr>
+<td><code>test_generate_all_static_outputs_skips_all_nan_service_layer</code></td>
+<td>The conditional-generation logic correctly skips a service/mode combination where the column exists but is entirely null.</td>
+</tr>
+<tr>
+<td><code>test_deficit_palette_and_labels_length_match</code></td>
+<td>A simple consistency check: <code>DEFICIT_PALETTES</code> and <code>DEFICIT_LABELS</code> have the same length (three colors, three labels) — cheap insurance against an off-by-one mismatch between colors and their labels.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notably not covered here</strong>: <code>add_osm_basemap()</code>'s actual tile-fetch-failure
+recovery path is marked <code># pragma: no cover</code> in the source itself (see
+<a href="../modules/visualization/static_maps/"><code>static_maps.md</code></a>), meaning that
+specific network-dependent fallback branch is deliberately excluded from
+this file's coverage accounting, not silently missed.</p>
+<h2 id="gaps-worth-closing">Gaps Worth Closing<a class="headerlink" href="#gaps-worth-closing" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong><code>dashboard/app.py</code> has zero direct test coverage</strong> — reasonable given
+  it's almost entirely Streamlit UI/layout code over already-tested data,
+  but the file itself documents two real regression bugs that were fixed
+  manually after being noticed (the Findings Summary LGA-scope bug, and
+  the single-image full-width-stretch layout bug — see
+  <a href="../dashboard-app/"><code>dashboard-app.md</code></a>'s Gotchas) — both are exactly the
+  class of state/layout bug that even lightweight <code>streamlit.testing</code>
+  framework smoke tests could plausibly have caught earlier.</li>
+<li><strong>The palette-duplication risk between <code>dashboard/app.py</code> and
+  <code>static_maps.py</code></strong> (see <a href="../dashboard-app/"><code>dashboard-app.md</code></a>'s
+  gotchas) has no test guarding against the two independently-defined
+  color constant sets drifting apart — unlike the very similar
+  <code>DEFAULT_THRESHOLDS_MIN</code>-vs-notebook-config drift risk in <code>insights.py</code>,
+  which <em>is</em> directly tested (<code>test_default_thresholds_match_notebook_config</code>).
+  Adding an equivalent direct-equality test between
+  <code>dashboard.app.DEFICIT_COLORS</code> and
+  <code>visualization.static_maps.DEFICIT_PALETTES</code> would close a real, currently
+  unguarded gap using the exact same pattern already proven useful
+  elsewhere in this suite.</li>
+<li><strong><code>grid_check.py</code>'s two different settlement thresholds</strong> (<code>building_count &gt; 0</code>
+  used in <code>scoring.py</code>/<code>dashboard/app.py</code> vs. <code>building_count &gt;= 3</code> in
+  <code>grid_check.py</code> itself — see <a href="../modules/completeness/grid_check/"><code>grid_check.md</code></a>)
+  has no test explicitly documenting or asserting this intentional
+  difference — a test confirming a cell with 1-2 buildings is scored by
+  <code>accessibility</code> but excluded from <code>completeness</code> flagging would make this
+  documented-but-implicit design decision an explicit, checked contract.</li>
+</ul>
 
 
 

@@ -9,8 +9,10 @@
         <meta name="description" content="Deep technical documentation for the lga-osm-extractor and akure-accessibility-dashboard repositories (Map<>kathon 2026, UseOSM).">
       
       
-        <meta name="author" content="Noah">
+        <meta name="author" content="Marvellous Adeleke">
       
+      
+        <link rel="canonical" href="https://mapkathon2026-useosm.github.io/UseOSM_Mapkathon-Submission-documentation/akure-accessibility-dashboard/modules/accessibility/scoring/">
       
       
         <link rel="prev" href="../isochrones/">
@@ -27,7 +29,7 @@
     
     
       
-        <title>accessibility/scoring.py - Akure Geospatial Systems Documentation</title>
+        <title>accessibility/scoring.py - UseOSM Mapkathon Submission Documentation</title>
       
     
     
@@ -53,6 +55,8 @@
       
     
     
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -69,7 +73,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -94,7 +98,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../../.." title="Akure Geospatial Systems Documentation" class="md-header__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../../../.." title="UseOSM Mapkathon Submission Documentation" class="md-header__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -108,7 +112,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Akure Geospatial Systems Documentation
+            UseOSM Mapkathon Submission Documentation
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -127,7 +131,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
     
       <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
@@ -137,7 +141,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
@@ -196,13 +200,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
       </div>
@@ -349,23 +353,23 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../../.." title="Akure Geospatial Systems Documentation" class="md-nav__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../../../.." title="UseOSM Mapkathon Submission Documentation" class="md-nav__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    Akure Geospatial Systems Documentation
+    UseOSM Mapkathon Submission Documentation
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
     </div>
@@ -1271,10 +1275,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#build_grid" class="md-nav__link">
+  <a href="#module-level-constants" class="md-nav__link">
     <span class="md-ellipsis">
       
-        build_grid()
+        Module-level constants
       
     </span>
   </a>
@@ -1282,10 +1286,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#add_building_density" class="md-nav__link">
+  <a href="#build_gridboundary_gdf-cell_size_mdefault_grid_cell_size_m" class="md-nav__link">
     <span class="md-ellipsis">
       
-        add_building_density()
+        build_grid(boundary_gdf, cell_size_m=DEFAULT_GRID_CELL_SIZE_M)
       
     </span>
   </a>
@@ -1293,10 +1297,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#add_access_times" class="md-nav__link">
+  <a href="#add_building_densitygrid_gdf-buildings_gdf" class="md-nav__link">
     <span class="md-ellipsis">
       
-        add_access_times()
+        add_building_density(grid_gdf, buildings_gdf)
       
     </span>
   </a>
@@ -1304,10 +1308,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#add_access_deficit_score" class="md-nav__link">
+  <a href="#add_access_timesgrid_gdf-roads_gdf-health_gdf-schools_gdf-boundary_polygon_wgs84none-modeswalk" class="md-nav__link">
     <span class="md-ellipsis">
       
-        add_access_deficit_score()
+        add_access_times(grid_gdf, roads_gdf, health_gdf, schools_gdf, boundary_polygon_wgs84=None, modes=("walk",))
       
     </span>
   </a>
@@ -1315,10 +1319,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_underserved" class="md-nav__link">
+  <a href="#add_access_deficit_scoregrid_gdf-threshold_mindefault_access_threshold_min-modewalk" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _underserved()
+        add_access_deficit_score(grid_gdf, threshold_min=DEFAULT_ACCESS_THRESHOLD_MIN, mode="walk")
       
     </span>
   </a>
@@ -1326,10 +1330,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#pd_isna" class="md-nav__link">
+  <a href="#pd_isnaval" class="md-nav__link">
     <span class="md-ellipsis">
       
-        pd_isna()
+        pd_isna(val)
       
     </span>
   </a>
@@ -1337,10 +1341,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#sanitize_for_export" class="md-nav__link">
+  <a href="#sanitize_for_exportgrid_gdf" class="md-nav__link">
     <span class="md-ellipsis">
       
-        sanitize_for_export()
+        sanitize_for_export(grid_gdf)
       
     </span>
   </a>
@@ -1766,10 +1770,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#build_grid" class="md-nav__link">
+  <a href="#module-level-constants" class="md-nav__link">
     <span class="md-ellipsis">
       
-        build_grid()
+        Module-level constants
       
     </span>
   </a>
@@ -1777,10 +1781,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#add_building_density" class="md-nav__link">
+  <a href="#build_gridboundary_gdf-cell_size_mdefault_grid_cell_size_m" class="md-nav__link">
     <span class="md-ellipsis">
       
-        add_building_density()
+        build_grid(boundary_gdf, cell_size_m=DEFAULT_GRID_CELL_SIZE_M)
       
     </span>
   </a>
@@ -1788,10 +1792,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#add_access_times" class="md-nav__link">
+  <a href="#add_building_densitygrid_gdf-buildings_gdf" class="md-nav__link">
     <span class="md-ellipsis">
       
-        add_access_times()
+        add_building_density(grid_gdf, buildings_gdf)
       
     </span>
   </a>
@@ -1799,10 +1803,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#add_access_deficit_score" class="md-nav__link">
+  <a href="#add_access_timesgrid_gdf-roads_gdf-health_gdf-schools_gdf-boundary_polygon_wgs84none-modeswalk" class="md-nav__link">
     <span class="md-ellipsis">
       
-        add_access_deficit_score()
+        add_access_times(grid_gdf, roads_gdf, health_gdf, schools_gdf, boundary_polygon_wgs84=None, modes=("walk",))
       
     </span>
   </a>
@@ -1810,10 +1814,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_underserved" class="md-nav__link">
+  <a href="#add_access_deficit_scoregrid_gdf-threshold_mindefault_access_threshold_min-modewalk" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _underserved()
+        add_access_deficit_score(grid_gdf, threshold_min=DEFAULT_ACCESS_THRESHOLD_MIN, mode="walk")
       
     </span>
   </a>
@@ -1821,10 +1825,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#pd_isna" class="md-nav__link">
+  <a href="#pd_isnaval" class="md-nav__link">
     <span class="md-ellipsis">
       
-        pd_isna()
+        pd_isna(val)
       
     </span>
   </a>
@@ -1832,10 +1836,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#sanitize_for_export" class="md-nav__link">
+  <a href="#sanitize_for_exportgrid_gdf" class="md-nav__link">
     <span class="md-ellipsis">
       
-        sanitize_for_export()
+        sanitize_for_export(grid_gdf)
       
     </span>
   </a>
@@ -1881,61 +1885,54 @@
 <h1 id="scoringpy">scoring.py<a class="headerlink" href="#scoringpy" title="Permanent link">&para;</a></h1>
 <div class="admonition info">
 <p class="admonition-title">Source</p>
-<p><code>akure_access/accessibility/scoring.py</code></p>
+<p><code>akure_access/accessibility/scoring.py</code> (318 lines)</p>
 </div>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p><em>TODO: 1-2 paragraphs - what this module is responsible for and why it exists as a separate module.</em></p>
+<p>Ties <code>network_graph.py</code> and <code>isochrones.py</code> together into the project's
+actual output: a grid over the LGA, a building-density population proxy per
+cell, nearest-facility travel times per cell per mode, and the composite
+0–2 access-deficit score that everything else in the project (dashboard,
+static maps, narrative captions) is ultimately built from.</p>
+<p>This module is where the performance work in <code>isochrones.py</code> pays off
+directly — <code>add_access_times()</code> is the function that actually invokes the
+batch multi-source Dijkstra approach at LGA scale, and its own docstring
+repeats the same "over an hour vs. roughly one Dijkstra run per mode per
+service" performance framing found in <code>isochrones.py</code>, since this is the
+function where that difference is actually felt.</p>
 <h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
-<p><em>TODO: what this module imports, what imports it.</em></p>
+<ul>
+<li><strong>Imports:</strong> <code>geopandas</code>, <code>numpy</code>, <code>shapely.geometry.box</code>; locally,
+  <code>graph_from_roads</code> from <code>.network_graph</code>, and
+  <code>batch_nearest_facility_distances</code>, <code>lookup_nearest_distance_time</code> from
+  <code>.isochrones</code>.</li>
+<li><strong>Imported by:</strong> <code>dashboard/app.py</code>; <code>insights.py</code> and
+  <code>visualization/static_maps.py</code> consume this module's <em>output</em> (a scored
+  grid), not the module directly.</li>
+</ul>
 <h2 id="functions-classes">Functions &amp; Classes<a class="headerlink" href="#functions-classes" title="Permanent link">&para;</a></h2>
-<h3 id="build_grid"><code>build_grid()</code><a class="headerlink" href="#build_grid" title="Permanent link">&para;</a></h3>
+<h3 id="module-level-constants">Module-level constants<a class="headerlink" href="#module-level-constants" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th></th>
-<th></th>
+<th>Constant</th>
+<th>Value</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td><code>DEFAULT_ACCESS_THRESHOLD_MIN</code></td>
+<td><code>30</code></td>
+<td>Default travel-time threshold (minutes) beyond which a cell is considered underserved for a service.</td>
 </tr>
 <tr>
-<td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
-</tr>
-<tr>
-<td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
-</tr>
-<tr>
-<td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
-</tr>
-<tr>
-<td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td><code>DEFAULT_GRID_CELL_SIZE_M</code></td>
+<td><code>500</code></td>
+<td>Default fishnet grid cell size, in meters.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="add_building_density"><code>add_building_density()</code><a class="headerlink" href="#add_building_density" title="Permanent link">&para;</a></h3>
+<h3 id="build_gridboundary_gdf-cell_size_mdefault_grid_cell_size_m"><code>build_grid(boundary_gdf, cell_size_m=DEFAULT_GRID_CELL_SIZE_M)</code><a class="headerlink" href="#build_gridboundary_gdf-cell_size_mdefault_grid_cell_size_m" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1946,43 +1943,43 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Builds a regular square fishnet grid covering the LGA boundary, clipped to the boundary's actual shape (not a bounding-box rectangle).</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>A straightforward regular grid, rather than an adaptive or hexagonal one — consistent with the project's broader design choice (see <a href="../../../overview/">overview</a>) to analyze accessibility at a uniform grid-cell resolution rather than per-building, since the underlying travel-time/speed assumptions don't support finer claimed precision anyway. Clipping to the boundary's actual geometry (via <code>.intersects()</code>), rather than just using the bounding box, avoids scoring cells that fall entirely outside the LGA but inside its rectangular extent — important for LGAs with irregular (non-rectangular) shapes, where a bounding-box grid would otherwise include a meaningful number of cells outside the actual area of interest.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>boundary_gdf: GeoDataFrame</code> (LGA boundary, any CRS — reprojected internally); <code>cell_size_m: float</code>, default <code>500</code>.</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>GeoDataFrame</code>, EPSG:32631, one row per grid cell (square <code>Polygon</code>), with a <code>cell_id</code> column (a simple <code>0..n-1</code> integer sequence from the post-filter index).</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. Reproject <code>boundary_gdf</code> to <code>EPSG:32631</code> (the project's fixed metric CRS — see Gotchas below on why this is fixed rather than auto-selected).<br>2. Get <code>total_bounds</code> (the bounding rectangle) of the reprojected boundary.<br>3. Build <code>xs</code>/<code>ys</code> arrays via <code>np.arange(min, max, cell_size_m)</code> — one array per axis, evenly spaced by <code>cell_size_m</code>.<br>4. Build a <code>box()</code> (square polygon) for every <code>(x, y)</code> combination in the Cartesian product of <code>xs</code> and <code>ys</code> — a full grid over the bounding rectangle, not yet clipped.<br>5. Compute <code>boundary_m.union_all()</code> — dissolve the (possibly multi-row) boundary into one geometry.<br>6. Filter the grid to only cells that <code>.intersects()</code> that unioned boundary — this is the clipping step; cells entirely outside the LGA's actual shape but inside its bounding box are dropped here.<br>7. Reset the index, assign <code>cell_id</code> from the (now-clean) index.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes a fixed <code>500m</code> default cell size is an appropriate resolution for the LGAs this project targets (Akure North/South) — not derived from any principled sizing calculation, a reasonable-looking round number. Assumes <code>.intersects()</code> (any overlap at all) rather than a stricter containment or majority-overlap test is the right clipping criterion — a cell that only barely clips the boundary's edge is still included in full, not partially.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
+<td>O((maxx-minx)/cell_size_m × (maxy-miny)/cell_size_m) for the initial full-rectangle grid construction — i.e. proportional to boundary area divided by cell area; the <code>.intersects()</code> filter is an additional O(N) spatial predicate evaluation over that initial cell count (GeoPandas' vectorized spatial operations, not a naive per-cell loop in Python).</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>None — sequential, no shared mutable state.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../../tests/">tests.md</a> — <code>test_scoring.py</code>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="add_access_times"><code>add_access_times()</code><a class="headerlink" href="#add_access_times" title="Permanent link">&para;</a></h3>
+<h3 id="add_building_densitygrid_gdf-buildings_gdf"><code>add_building_density(grid_gdf, buildings_gdf)</code><a class="headerlink" href="#add_building_densitygrid_gdf-buildings_gdf" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1993,43 +1990,45 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Adds a <code>building_count</code> column to each grid cell — the count of building footprints intersecting that cell — used throughout the rest of the pipeline as a proxy for population/settlement, in the absence of fine-grained population data.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>A spatial join (<code>gpd.sjoin</code>) followed by a <code>groupby().size()</code> count, rather than a per-cell loop calling <code>.intersects()</code> against every building — the vectorized spatial-join approach is dramatically faster for this kind of many-to-many spatial relationship at scale (thousands of buildings against hundreds of grid cells) than an explicit nested loop would be. <code>building_count</code> is explicitly documented as a <strong>proxy</strong>, not actual population data — the module's docstring is upfront that this is a stand-in used specifically because fine-grained population figures aren't available, not a claim that building count is itself the metric of interest.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>grid_gdf: GeoDataFrame</code> (output of <code>build_grid()</code>, EPSG:32631); <code>buildings_gdf: GeoDataFrame</code> (cleaned buildings layer, EPSG:32631).</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>grid_gdf</code> with an added integer <code>building_count</code> column (never <code>NaN</code> — cells with zero intersecting buildings get an explicit <code>0</code>, not a missing value).</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. Copy the input grid.<br>2. If <code>buildings_gdf</code> is empty: set <code>building_count = 0</code> for every cell, return immediately — an explicit short-circuit rather than letting an empty spatial join produce the same result less directly.<br>3. Otherwise: <code>gpd.sjoin(buildings_gdf, grid[["cell_id", "geometry"]], how="inner", predicate="intersects")</code> — a spatial inner join, attaching each building to every cell it intersects (a building could technically straddle a cell boundary and match more than one cell, though at 500m cell size and typical building footprint size this is a rare edge case).<br>4. <code>.groupby("cell_id").size()</code> — count buildings per matched <code>cell_id</code>.<br>5. Left-merge those counts back onto the full grid (<code>how="left"</code>, so cells with zero matching buildings aren't dropped, they just don't appear in the join result at all).<br>6. <code>.fillna(0).astype(int)</code> — cells absent from the join result (zero buildings) get <code>0</code>, and the column is cast to integer (the merge would otherwise leave it as float, due to the <code>NaN</code>s introduced by the left join before filling).</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes <code>"intersects"</code> (not <code>"within"</code>) is the correct predicate — a building that straddles two cells counts toward both, rather than being assigned to a single "primary" cell. This is a reasonable, if unstated, choice for a density proxy (a building genuinely does occupy space in both cells), but does mean the sum of <code>building_count</code> across all cells can slightly exceed the true total building count in the layer, for buildings that straddle a cell boundary.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
+<td>The spatial join itself is the dominant cost — GeoPandas'/<code>shapely</code>'s spatial-index-backed join is typically near O((B + C) log(B + C)) in practice (B = buildings, C = cells) rather than the naive O(B × C), though the exact complexity depends on the underlying spatial index implementation. The groupby/merge/fillna steps are O(B) / O(C) respectively.</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>None.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="add_access_deficit_score"><code>add_access_deficit_score()</code><a class="headerlink" href="#add_access_deficit_score" title="Permanent link">&para;</a></h3>
+<h3 id="add_access_timesgrid_gdf-roads_gdf-health_gdf-schools_gdf-boundary_polygon_wgs84none-modeswalk"><code>add_access_times(grid_gdf, roads_gdf, health_gdf, schools_gdf, boundary_polygon_wgs84=None, modes=("walk",))</code><a class="headerlink" href="#add_access_timesgrid_gdf-roads_gdf-health_gdf-schools_gdf-boundary_polygon_wgs84none-modeswalk" title="Permanent link">&para;</a></h3>
+<p><strong>This is where the multi-source Dijkstra optimization documented in
+<a href="../isochrones/"><code>isochrones.py</code></a> is actually put to work at LGA scale.</strong></p>
 <table>
 <thead>
 <tr>
@@ -2040,43 +2039,56 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>For every populated grid cell (<code>building_count &gt; 0</code>), computes nearest-facility distance and travel time to both health facilities and schools, for every requested transport mode.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>Three deliberate design choices stand out. <strong>(1) Only settled cells are routed.</strong> Cells with <code>building_count == 0</code> are left as <code>NaN</code> rather than routed — since these are presumed unsettled/empty land, routing them would be wasted computation with no meaningful interpretation (there's no one there to have an access time). This is also the mechanism that keeps runtime bounded even for a large grid: routing cost scales with settled-cell count, not total grid-cell count. <strong>(2) One graph is built per mode, not one graph reused across modes.</strong> <code>"walk"</code> uses OSM's walk network; <code>"okada"</code>/<code>"drive"</code> both use OSM's drive network (see <code>network_graph.MODE_CONFIG</code>) — these are genuinely different road-network subsets (a walk network includes pedestrian paths a drive network excludes, for instance), so a single shared graph across modes would be structurally wrong, not just differently-weighted. <strong>(3) The batch Dijkstra approach is applied per <code>(mode, service)</code> combination, not per cell.</strong> <code>batch_nearest_facility_distances()</code> is called exactly twice per mode (once for health, once for schools) regardless of how many settled cells exist — the function's own docstring states this directly: "the previous per-cell approach could take over an hour for a full LGA across all three modes; this approach reduces the routing cost to roughly one Dijkstra run per mode per service, regardless of how many grid cells there are."</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>grid_gdf: GeoDataFrame</code> (output of <code>add_building_density()</code>, EPSG:32631); <code>roads_gdf: GeoDataFrame</code> (cleaned roads, EPSG:32631, used only as a fallback if <code>boundary_polygon_wgs84</code> isn't given — see <code>network_graph.graph_from_roads()</code>'s two construction paths); <code>health_gdf</code>, <code>schools_gdf: GeoDataFrame</code> (cleaned facility point layers, EPSG:32631); <code>boundary_polygon_wgs84</code>, optional (LGA boundary in EPSG:4326, passed through to <code>graph_from_roads()</code> for the recommended OSMnx-based path); <code>modes: tuple</code>, default <code>("walk",)</code> (any subset of <code>{"walk", "okada", "drive"}</code>).</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>grid_gdf</code> with added columns per mode/service: <code>health_time_min_{mode}</code>, <code>health_distance_km_{mode}</code>, <code>education_time_min_{mode}</code>, <code>education_distance_km_{mode}</code>. When <code>modes == ("walk",)</code> specifically, plain unsuffixed <code>health_time_min</code>/<code>education_time_min</code> columns are <em>also</em> populated, mirroring the suffixed walk columns — a backward-compatibility measure for any code written before mode-suffixed columns existed.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. Copy the grid.<br>2. For each requested mode: build a mode-specific graph via <code>graph_from_roads()</code>.<br>3. <strong>Facility point CRS handling</strong> — if <code>boundary_polygon_wgs84</code> was given (the recommended path): reproject <code>health_gdf</code>/<code>schools_gdf</code> to EPSG:4326 (to match the OSMnx-built graph, which is natively in WGS84 in that construction path); compute grid-cell centroids <strong>in the grid's own projected CRS first</strong> (EPSG:32631, meters), <em>then</em> reproject those resulting points to EPSG:4326 — deliberately not the reverse order (see Gotchas below for why this ordering matters). If no boundary polygon was given (fallback path, graph built directly from <code>roads_gdf</code>, which stays in EPSG:32631): facility points and grid centroids are used as-is, no reprojection needed, since everything is already in the same projected CRS.<br>4. Call <code>batch_nearest_facility_distances(G, health_pts)</code> and again for <code>school_pts</code> — two Dijkstra passes total for this mode, regardless of grid size.<br>5. Loop over every grid cell's centroid and <code>building_count</code> together (<code>zip()</code>): if <code>building_count == 0</code>, append <code>NaN</code> to all four output lists for this cell and <code>continue</code> — no routing attempted; otherwise call <code>lookup_nearest_distance_time()</code> twice (health, education) — each an O(1) dictionary lookup plus one KD-tree snap, not a fresh graph search.<br>6. Assign the four collected lists as new mode-suffixed columns on <code>grid</code>.<br>7. If <code>modes == ("walk",)</code> was the only mode requested, also populate the unsuffixed legacy column names from this mode's results.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes <code>roads_gdf</code>/<code>health_gdf</code>/<code>schools_gdf</code> are all already in EPSG:32631 (the project's fixed CRS — see Gotchas) — no CRS validation is performed on these inputs beyond the explicit, deliberate reprojections described above.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
+<td>O(M × (graph_build_cost + 2 × Dijkstra_cost + settled_cells × O(log n))) where M = number of requested modes — dominated by graph construction and the two Dijkstra passes per mode, <strong>not</strong> by grid size beyond the settled-cell lookup loop, which is the entire point of the batch approach.</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>None — sequential loop over modes, no threading.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="_underserved"><code>_underserved()</code><a class="headerlink" href="#_underserved" title="Permanent link">&para;</a></h3>
+<p><strong>On why <code>inf</code> is deliberately kept, not converted to <code>NaN</code>, at this
+stage</strong> — this is directly stated in the source as an inline comment, and
+is important enough to reproduce here explicitly: <code>add_access_deficit_score()</code>
+(below) relies on detecting <code>inf</code> specifically to correctly treat
+unreachable facilities as underserved. Converting <code>inf</code> to <code>NaN</code> at this
+point would cause <code>NaN</code>'s "unknown, treat as adequately served"
+<code>fillna(0)</code> handling in the scoring function to <strong>silently misclassify
+genuinely unreachable cells as served</strong> — the opposite of the intended
+meaning. <code>inf</code> is only ever sanitized to <code>NaN</code> by <code>sanitize_for_export()</code>,
+and that function must be called <strong>after</strong> <code>add_access_deficit_score()</code>,
+never before — see that function's own documentation below for the full
+reasoning, and the Gotchas section for why this ordering constraint is
+easy to violate accidentally.</p>
+<h3 id="add_access_deficit_scoregrid_gdf-threshold_mindefault_access_threshold_min-modewalk"><code>add_access_deficit_score(grid_gdf, threshold_min=DEFAULT_ACCESS_THRESHOLD_MIN, mode="walk")</code><a class="headerlink" href="#add_access_deficit_scoregrid_gdf-threshold_mindefault_access_threshold_min-modewalk" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -2087,43 +2099,56 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Derives the composite 0–2 access-deficit score per cell for one mode: <code>0</code> = adequately served for both health and education, <code>1</code> = underserved for one service, <code>2</code> = underserved for both. Unsettled cells stay unscored (<code>NaN</code>).</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>The threshold-based binary underserved/served classification per service, summed into a single 0–2 composite, is a simple, interpretable scoring model — deliberately simple enough that "2" unambiguously means "worst off on both dimensions measured," rather than a weighted or continuous score whose meaning would require more explanation to communicate to a non-technical audience (planners, the project's stated intended users). The docstring is explicit that <code>threshold_min</code>'s appropriate value differs meaningfully by mode — 30 minutes of walking covers far less ground than 30 minutes of okada or driving — and directs callers to consider passing a mode-appropriate threshold rather than reusing the walking default unchanged; the function itself does <strong>not</strong> auto-adjust the threshold per mode, that responsibility is left to the caller.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>grid_gdf: GeoDataFrame</code> (output of <code>add_access_times()</code>); <code>threshold_min: float</code>, default <code>30</code>; <code>mode: str</code>, default <code>"walk"</code> (selects which mode's time columns to score).</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>grid_gdf</code> with added <code>{mode}_health_underserved</code>, <code>{mode}_education_underserved</code>, <code>{mode}_access_deficit_score</code> columns; when <code>mode == "walk"</code>, these are <em>also</em> mirrored to unsuffixed legacy column names (<code>health_underserved</code>, <code>education_underserved</code>, <code>access_deficit_score</code>).</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. Copy the grid.<br>2. Resolve which time columns to read: prefer the mode-suffixed column (<code>health_time_min_{mode}</code>) if present, else fall back to the unsuffixed legacy name — this makes the function tolerant of being called against a grid produced by either the single-mode or multi-mode code path in <code>add_access_times()</code>.<br>3. Define <code>_underserved(time_val)</code> inline: returns <code>NaN</code> if the input is itself <code>NaN</code> (via the module-level <code>pd_isna()</code> helper — see below); otherwise returns <code>1</code> if <code>time_val &gt; threshold_min</code> <strong>or</strong> <code>time_val == float("inf")</code> (explicit <code>inf</code> check, not relying on <code>inf &gt; threshold_min</code> evaluating true, though it would — the explicit check makes the intent unambiguous to a reader), else <code>0</code>.<br>4. Apply <code>_underserved()</code> element-wise to both the health and education time columns.<br>5. Sum the two flags into <code>deficit_score</code>, using <code>.fillna(0)</code> on each flag <em>before</em> summing — meaning a cell with one <code>NaN</code> flag and one real flag is NOT treated as <code>NaN</code> overall, it's treated as if the <code>NaN</code> flag contributed <code>0</code> to the sum (see Gotchas for why this matters).<br>6. <strong>Overwrite</strong> <code>deficit_score</code> to <code>NaN</code> wherever <code>building_count == 0</code> — this is the actual mechanism that keeps unsettled cells unscored; the <code>fillna(0)</code> in step 5 would otherwise have scored them as <code>0</code> (falsely "adequately served") rather than correctly leaving them out of the analysis entirely.<br>7. Assign the three new mode-suffixed columns; mirror to unsuffixed names if <code>mode == "walk"</code>.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes a cell being unreachable (<code>inf</code> travel time) should be scored identically to a cell that's merely slow-but-reachable-past-the-threshold — both count as "underserved," with no distinction in the deficit score itself between "45 minutes away" and "genuinely unreachable by this mode." That distinction is preserved in the underlying time columns (still <code>inf</code> vs. a large finite number) even though the deficit score collapses them together.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
+<td>O(C) where C = grid cell count — two element-wise <code>.apply()</code> calls plus a constant number of vectorized operations.</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>None.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="pd_isna"><code>pd_isna()</code><a class="headerlink" href="#pd_isna" title="Permanent link">&para;</a></h3>
+<p><strong>On the settled/unsettled overwrite ordering (step 5 → step 6) — this is a
+real, subtle correctness dependency worth being explicit about.</strong> The
+<code>fillna(0)</code> in step 5 happens <em>before</em> the <code>building_count == 0</code> overwrite
+in step 6 specifically because doing it in the other order would produce a
+wrong result: if the <code>NaN</code>-masking-for-unsettled-cells happened first and
+<code>fillna(0)</code> ran afterward, the <code>fillna(0)</code> call would overwrite the
+just-applied <code>NaN</code>s for unsettled cells right back to <code>0</code> — silently
+re-classifying every unsettled cell as "adequately served" rather than
+correctly leaving it out of the analysis. The current order —
+<code>fillna</code> first (to handle individual-flag <code>NaN</code>s from cells with a <code>NaN</code>
+service-time reading, distinct from unsettled cells), <em>then</em> the
+unsettled-cell overwrite — is the only ordering that produces the correct
+result for both cases simultaneously.</p>
+<h3 id="pd_isnaval"><code>pd_isna(val)</code><a class="headerlink" href="#pd_isnaval" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -2134,43 +2159,39 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>A minimal standalone <code>NaN</code>-check: returns <code>True</code> if <code>val</code> is <code>NaN</code>, without importing <code>pandas</code> just for this one utility.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>Exploits the IEEE 754 floating-point property that <code>NaN != NaN</code> evaluates <code>True</code> — so <code>val != val</code> is <code>True</code> exactly when <code>val</code> is <code>NaN</code>. This avoids a <code>pandas</code> import purely for <code>pd.isna()</code>, in a module that otherwise only needs <code>geopandas</code>/<code>numpy</code>. The name deliberately mirrors <code>pandas.isna()</code>'s name/behavior for readability at call sites, despite not actually being pandas.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>val</code> (any type).</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>bool</code>.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
-</tr>
-<tr>
-<td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Wrapped in <code>try/except Exception: return val is None</code> — the <code>!=</code> comparison could theoretically raise for an exotic type that overrides <code>__ne__</code> in a way that errors rather than returns a bool; the fallback treats an outright <code>None</code> as "is NA" too, covering the case where <code>!=</code> isn't even the right question to ask (e.g. <code>val</code> genuinely is Python's <code>None</code>, not a float <code>NaN</code>, both of which are things <code>add_access_deficit_score()</code> might plausibly encounter in a <code>.apply()</code> call over a column).</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
+<td>O(1).</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>None.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="sanitize_for_export"><code>sanitize_for_export()</code><a class="headerlink" href="#sanitize_for_export" title="Permanent link">&para;</a></h3>
+<h3 id="sanitize_for_exportgrid_gdf"><code>sanitize_for_export(grid_gdf)</code><a class="headerlink" href="#sanitize_for_exportgrid_gdf" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -2181,44 +2202,78 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Replaces every <code>inf</code>/<code>-inf</code> value with <code>NaN</code>, across all numeric columns, in preparation for GeoJSON export.</td>
 </tr>
 <tr>
-<td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td><strong>Why written this way — and why call order relative to scoring is a hard requirement, not a suggestion.</strong></td>
+<td>The docstring states this explicitly and forcefully: this function <strong>must only be called after</strong> <code>add_access_deficit_score()</code> has already run for every mode of interest. The reasoning is the mirror image of the note under <code>add_access_times()</code> above: while scoring is happening, <code>inf</code> is the correct, meaningful representation of "facility genuinely unreachable" — <code>add_access_deficit_score()</code> specifically checks for <code>inf</code> to correctly classify such cells as underserved. Calling <code>sanitize_for_export()</code> beforehand would convert those meaningful <code>inf</code>s to <code>NaN</code> <em>before</em> the scoring function ever sees them, silently triggering <code>NaN</code>'s "unknown, treat as adequately served" <code>fillna(0)</code> handling instead — misclassifying genuinely unreachable cells as adequately served, the same failure mode flagged in <code>add_access_times()</code>'s own inline comment. Once scoring is actually complete and <code>inf</code>'s job is finished, <code>inf</code> becomes purely a liability going forward: it isn't valid JSON, and GeoJSON writers either raise an error on it or silently null it out with a warning of their own — this function makes that final conversion explicit and intentional, at the one point in the pipeline (right before export) where it's actually safe.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>grid_gdf: GeoDataFrame</code> — expected to already be <strong>fully scored</strong> (both <code>add_access_times()</code> and <code>add_access_deficit_score()</code> already run for every mode being exported).</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td>A copy of <code>grid_gdf</code> with <code>inf</code>/<code>-inf</code> replaced by <code>NaN</code> in every numeric column; geometry and non-numeric columns are left untouched.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. Copy the input.<br>2. Select numeric columns via <code>.select_dtypes(include=["number"])</code>.<br>3. <code>.replace([np.inf, -np.inf], np.nan)</code> on just those columns.<br>4. Return the copy.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes the caller has correctly sequenced the pipeline (scoring fully complete before this is called) — this function performs no check or assertion verifying that precondition; calling it too early produces a silently wrong result (misclassified cells), not an error.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
+<td>O(C × K) where C = grid cell count, K = number of numeric columns — a full-column scan/replace.</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>None.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../../tests/">tests.md</a> — given the strict ordering requirement, a test explicitly verifying the "called too early" failure mode (or at minimum, verifying correct behavior when called at the right time) is valuable regression coverage here.</td>
 </tr>
 </tbody>
 </table>
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
-<p><em>TODO: non-obvious behavior, edge cases, things that bit us during development.</em></p>
+<ul>
+<li><strong>The <code>inf</code>-preservation-until-export ordering constraint is the single
+  most important cross-function dependency in this module, and nothing in
+  the code enforces it mechanically.</strong> The correct call order is:
+  <code>build_grid()</code> → <code>add_building_density()</code> → <code>add_access_times()</code> →
+  <code>add_access_deficit_score()</code> (once per mode of interest) →
+  <code>sanitize_for_export()</code> (last, only once, after all scoring is done). No
+  runtime check exists anywhere in this module that would catch a caller
+  invoking <code>sanitize_for_export()</code> too early, or forgetting to call
+  <code>add_access_deficit_score()</code> for a mode before exporting that mode's
+  data — both would fail <em>silently</em>, producing plausible-looking but
+  incorrect output (unreachable cells misclassified as served), not an
+  error or warning at the point of the actual mistake.</li>
+<li><strong><code>EPSG:32631</code> is hardcoded throughout this module</strong>, unlike
+  <code>lga_extractor.clean.py</code>'s auto-selected UTM zone. <code>build_grid()</code>
+  reprojects to <code>"EPSG:32631"</code> explicitly, not via anything analogous to
+  <code>clean.resolve_target_crs()</code>'s longitude-based auto-selection. This is
+  consistent with this repository's actual scope (Akure North/South only,
+  both within zone 31N), but means this module would silently produce a
+  wrong (or at best, non-optimal) projection if ever reused for an LGA
+  outside that zone — unlike <code>lga_extractor</code>, which was explicitly
+  generalized beyond its original Akure-only scope. This is a real
+  difference in geographic-generality design between the two repositories
+  worth being aware of if <code>akure-accessibility-dashboard</code>'s scope is ever
+  expanded beyond Ondo State.</li>
+<li><strong>The centroid-then-reproject ordering in <code>add_access_times()</code> (step 3)
+  mirrors a principle also documented in
+  <code>lga_extractor.clean._collapse_areas_to_points()</code></strong>: compute centroids in
+  a projected/metric CRS, only reproject afterward if a geographic CRS is
+  needed downstream — never the reverse. The inline comment here notes an
+  additional, practical benefit beyond correctness: doing it this way also
+  silences GeoPandas' own "Geometry is in a geographic CRS" runtime
+  warning, which exists specifically to flag exactly this class of mistake
+  (computing centroids/areas/distances directly in lat/lon degrees).</li>
+</ul>
 
 
 

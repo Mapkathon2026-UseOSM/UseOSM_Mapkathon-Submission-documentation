@@ -9,8 +9,10 @@
         <meta name="description" content="Deep technical documentation for the lga-osm-extractor and akure-accessibility-dashboard repositories (Map<>kathon 2026, UseOSM).">
       
       
-        <meta name="author" content="Noah">
+        <meta name="author" content="Marvellous Adeleke">
       
+      
+        <link rel="canonical" href="https://mapkathon2026-useosm.github.io/UseOSM_Mapkathon-Submission-documentation/lga-osm-extractor/data-flow/">
       
       
         <link rel="prev" href="../overview/">
@@ -27,7 +29,7 @@
     
     
       
-        <title>Data Flow - Akure Geospatial Systems Documentation</title>
+        <title>Data Flow - UseOSM Mapkathon Submission Documentation</title>
       
     
     
@@ -53,6 +55,8 @@
       
     
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -69,7 +73,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -94,7 +98,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Akure Geospatial Systems Documentation" class="md-header__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../.." title="UseOSM Mapkathon Submission Documentation" class="md-header__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -108,7 +112,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Akure Geospatial Systems Documentation
+            UseOSM Mapkathon Submission Documentation
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -127,7 +131,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
     
       <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
@@ -137,7 +141,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
@@ -196,13 +200,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
       </div>
@@ -349,23 +353,23 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Akure Geospatial Systems Documentation" class="md-nav__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../.." title="UseOSM Mapkathon Submission Documentation" class="md-nav__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    Akure Geospatial Systems Documentation
+    UseOSM Mapkathon Submission Documentation
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
     </div>
@@ -576,6 +580,89 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Stage-by-Stage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-input-a-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Input: a name
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-boundary-resolution-one-polygon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Boundary resolution → one polygon
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-layer-extraction-six-raw-messy-geodataframes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Layer extraction → six raw, messy GeoDataFrames
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-cleaning-six-standardized-geodataframes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Cleaning → six standardized GeoDataFrames
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-export-files-on-disk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Export → files on disk
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-optional-visualization-an-html-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. (Optional) Visualization → an HTML file
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-logging-a-json-audit-trail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Logging → a JSON audit trail
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1633,6 +1720,89 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Stage-by-Stage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-input-a-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Input: a name
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-boundary-resolution-one-polygon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Boundary resolution → one polygon
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-layer-extraction-six-raw-messy-geodataframes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Layer extraction → six raw, messy GeoDataFrames
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-cleaning-six-standardized-geodataframes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Cleaning → six standardized GeoDataFrames
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-export-files-on-disk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Export → files on disk
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-optional-visualization-an-html-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. (Optional) Visualization → an HTML file
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-logging-a-json-audit-trail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Logging → a JSON audit trail
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1667,19 +1837,82 @@
 
 
 <h1 id="data-flow-lga-osm-extractor">Data Flow — lga-osm-extractor<a class="headerlink" href="#data-flow-lga-osm-extractor" title="Permanent link">&para;</a></h1>
-<p><em>TODO: high-level walkthrough of how data moves through this repository, from initial input to final output. This page is the "one level up" companion to end-to-end.md — end-to-end.md traces function calls; this page traces the <em>data</em> (what shape it's in at each stage: DataFrame, GeoDataFrame, GeoJSON, shapefile, etc.).</em></p>
+<p>This page traces how <em>data</em> changes shape as it moves through the pipeline
+— from a plain LGA name to files on disk. For a function-call-level trace
+instead, see <a href="../end-to-end/">End-to-End Walkthrough</a>.</p>
 <h2 id="stage-by-stage">Stage-by-Stage<a class="headerlink" href="#stage-by-stage" title="Permanent link">&para;</a></h2>
-<ol>
-<li><strong>Input</strong> — <em>TODO</em></li>
-<li><strong>Stage 2</strong> — <em>TODO</em></li>
-<li><strong>...</strong></li>
-<li><strong>Output</strong> — <em>TODO</em></li>
-</ol>
+<h3 id="1-input-a-name">1. Input: a name<a class="headerlink" href="#1-input-a-name" title="Permanent link">&para;</a></h3>
+<p>The pipeline starts with nothing but strings: an LGA name (e.g.
+<code>"Akure North"</code>), optionally a state name (e.g. <code>"Ondo"</code>), and optionally a
+path to a manual boundary file. No geometry exists yet.</p>
+<h3 id="2-boundary-resolution-one-polygon">2. Boundary resolution → one polygon<a class="headerlink" href="#2-boundary-resolution-one-polygon" title="Permanent link">&para;</a></h3>
+<p><a href="../modules/boundary/"><code>boundary.resolve_boundary()</code></a> turns the name into a
+single-row <code>GeoDataFrame</code>, CRS EPSG:4326, holding one polygon (or
+multipolygon) — the LGA's administrative boundary — plus two metadata
+columns (<code>boundary_source</code>, <code>validation_warnings</code>). This is the only
+geometry that exists in the system at this point, and everything after this
+stage operates <em>within</em> it.</p>
+<h3 id="3-layer-extraction-six-raw-messy-geodataframes">3. Layer extraction → six raw, messy GeoDataFrames<a class="headerlink" href="#3-layer-extraction-six-raw-messy-geodataframes" title="Permanent link">&para;</a></h3>
+<p><a href="../modules/layers/"><code>layers.extract_layers()</code></a> takes that one polygon and
+queries OSM six separate times (once per configured layer), producing a
+<code>dict</code> of <code>layer_name → GeoDataFrame</code>. At this stage, data is <strong>raw and
+inconsistent</strong>:</p>
+<ul>
+<li>Different CRS handling per query response (though OSM data is implicitly
+  WGS84).</li>
+<li>Possibly-invalid geometries (self-intersections, etc. — a known
+  characteristic of crowd-sourced OSM data).</li>
+<li>Mixed geometry types within a single layer (e.g. <code>roads</code> mixing
+  <code>LineString</code> ways with <code>Point</code> traffic-signal nodes).</li>
+<li>Mixed geometry <em>representations</em> for conceptually similar features (e.g.
+  a hospital as a <code>Point</code> node in one place, a <code>Polygon</code> building outline in
+  another).</li>
+<li>Inconsistent/missing attribute columns across different layers' raw OSM
+  tag sets.</li>
+<li>Some layers may be entirely empty <code>GeoDataFrame</code>s (valid data, not an
+  error).</li>
+</ul>
+<p>A <code>"_warnings"</code> list travels alongside the dict from this stage on, and
+gets added to at every subsequent stage that has something worth flagging.</p>
+<h3 id="4-cleaning-six-standardized-geodataframes">4. Cleaning → six standardized GeoDataFrames<a class="headerlink" href="#4-cleaning-six-standardized-geodataframes" title="Permanent link">&para;</a></h3>
+<p><a href="../modules/clean/"><code>clean.clean_layers()</code></a> is where the data actually
+becomes consistent. Every layer is: reprojected into one shared,
+boundary-appropriate UTM CRS; stripped of invalid/null/duplicate geometry;
+reduced to a uniform three-column schema (<code>osmid</code>, <code>name</code>, <code>geometry</code>); and,
+for <code>health_facilities</code>/<code>schools</code> specifically, has any <code>Polygon</code>/
+<code>MultiPolygon</code> geometry collapsed to its centroid <code>Point</code> — this last step
+is what guarantees every facility in those two layers is representable as a
+single coordinate, which every downstream consumer (<code>akure_access</code>'s
+routing and isochrone logic) depends on being true.</p>
+<h3 id="5-export-files-on-disk">5. Export → files on disk<a class="headerlink" href="#5-export-files-on-disk" title="Permanent link">&para;</a></h3>
+<p><a href="../modules/export/"><code>export.export_layers()</code></a> writes each cleaned layer to
+both GeoJSON (always one file, mixed geometry types are fine in this
+format) and Shapefile (split into multiple category-specific files — e.g.
+<code>roads_line.shp</code> + <code>roads_point.shp</code> — only for layers that still contain
+more than one geometry category after cleaning, since Shapefile can't hold
+mixed types in one file). This is the first point in the pipeline where
+data leaves memory and becomes a persistent artifact — everything before
+this stage exists only for the duration of one Python process.</p>
+<h3 id="6-optional-visualization-an-html-file">6. (Optional) Visualization → an HTML file<a class="headerlink" href="#6-optional-visualization-an-html-file" title="Permanent link">&para;</a></h3>
+<p><a href="../modules/visualize/"><code>visualize.build_preview_map()</code></a> reads the
+just-written GeoJSON files back off disk, reprojects them to WGS84 (Kepler's
+required web-map CRS — note this is a <em>second</em> reprojection, since step 4
+already projected into a metric UTM CRS for cleaning/export), and produces
+either an in-memory <code>KeplerGl</code> object (for notebook display) or a
+self-contained HTML file with any bundled Mapbox credential stripped.</p>
+<h3 id="7-logging-a-json-audit-trail">7. Logging → a JSON audit trail<a class="headerlink" href="#7-logging-a-json-audit-trail" title="Permanent link">&para;</a></h3>
+<p><a href="../modules/logging_utils/"><code>logging_utils.log_run()</code></a> writes a
+<code>run_log.json</code> alongside the exported layers, capturing the environment,
+configuration, and outcome of the run — not geospatial data itself, but a
+record of everything that produced it, for traceability.</p>
 <h2 id="diagram">Diagram<a class="headerlink" href="#diagram" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>flowchart TD
-    A[Input] --&gt; B[Stage 2]
-    B --&gt; C[Stage 3]
-    C --&gt; D[Output]</code></pre>
+    A["LGA name (+ optional state / manual boundary path)"] --&gt; B["ONE polygon&lt;br/&gt;(GeoDataFrame, EPSG:4326)"]
+    B --&gt; C["SIX raw GeoDataFrames&lt;br/&gt;(inconsistent CRS handling,&lt;br/&gt;invalid/mixed geometry,&lt;br/&gt;inconsistent schema)"]
+    C --&gt; D["SIX cleaned GeoDataFrames&lt;br/&gt;(uniform UTM CRS,&lt;br/&gt;valid geometry,&lt;br/&gt;3-column schema,&lt;br/&gt;facilities collapsed to Points)"]
+    D --&gt; E["Files on disk:&lt;br/&gt;GeoJSON + Shapefile per layer"]
+    E --&gt; F["Optional: Kepler.gl HTML preview&lt;br/&gt;(reprojected back to EPSG:4326)"]
+    D -.-&gt; G["run_log.json&lt;br/&gt;(metadata, not geometry)"]</code></pre>
 
 
 

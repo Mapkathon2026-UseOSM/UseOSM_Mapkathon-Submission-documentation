@@ -9,8 +9,10 @@
         <meta name="description" content="Deep technical documentation for the lga-osm-extractor and akure-accessibility-dashboard repositories (Map<>kathon 2026, UseOSM).">
       
       
-        <meta name="author" content="Noah">
+        <meta name="author" content="Marvellous Adeleke">
       
+      
+        <link rel="canonical" href="https://mapkathon2026-useosm.github.io/UseOSM_Mapkathon-Submission-documentation/akure-accessibility-dashboard/modules/insights/">
       
       
         <link rel="prev" href="../visualization/static_maps/">
@@ -27,7 +29,7 @@
     
     
       
-        <title>insights.py - Akure Geospatial Systems Documentation</title>
+        <title>insights.py - UseOSM Mapkathon Submission Documentation</title>
       
     
     
@@ -53,6 +55,8 @@
       
     
     
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -69,7 +73,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -94,7 +98,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="Akure Geospatial Systems Documentation" class="md-header__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../../.." title="UseOSM Mapkathon Submission Documentation" class="md-header__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -108,7 +112,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Akure Geospatial Systems Documentation
+            UseOSM Mapkathon Submission Documentation
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -127,7 +131,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
     
       <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
@@ -137,7 +141,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
@@ -196,13 +200,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
       </div>
@@ -349,23 +353,23 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="Akure Geospatial Systems Documentation" class="md-nav__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../../.." title="UseOSM Mapkathon Submission Documentation" class="md-nav__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    Akure Geospatial Systems Documentation
+    UseOSM Mapkathon Submission Documentation
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
     </div>
@@ -1355,10 +1359,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_article" class="md-nav__link">
+  <a href="#module-level-constants" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _article()
+        Module-level constants
       
     </span>
   </a>
@@ -1366,10 +1370,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_settled" class="md-nav__link">
+  <a href="#_articleword" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _settled()
+        _article(word)
       
     </span>
   </a>
@@ -1377,10 +1381,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_compass_skew" class="md-nav__link">
+  <a href="#_settledgrid_gdf" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _compass_skew()
+        _settled(grid_gdf)
       
     </span>
   </a>
@@ -1388,10 +1392,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_mode_ranking_phrase" class="md-nav__link">
+  <a href="#_compass_skewtarget_gdf-reference_gdf" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _mode_ranking_phrase()
+        _compass_skew(target_gdf, reference_gdf)
       
     </span>
   </a>
@@ -1399,10 +1403,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#describe_deficit_map" class="md-nav__link">
+  <a href="#_mode_ranking_phrasegrid_gdf-mode" class="md-nav__link">
     <span class="md-ellipsis">
       
-        describe_deficit_map()
+        _mode_ranking_phrase(grid_gdf, mode)
       
     </span>
   </a>
@@ -1410,10 +1414,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#describe_continuous_map" class="md-nav__link">
+  <a href="#describe_deficit_mapgrid_gdf-lga_name-mode-thresholdsnone" class="md-nav__link">
     <span class="md-ellipsis">
       
-        describe_continuous_map()
+        describe_deficit_map(grid_gdf, lga_name, mode, thresholds=None)
       
     </span>
   </a>
@@ -1421,10 +1425,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#describe_completeness_map" class="md-nav__link">
+  <a href="#describe_continuous_mapgrid_gdf-lga_name-mode-service-thresholdsnone" class="md-nav__link">
     <span class="md-ellipsis">
       
-        describe_completeness_map()
+        describe_continuous_map(grid_gdf, lga_name, mode, service, thresholds=None)
       
     </span>
   </a>
@@ -1432,10 +1436,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#describe_mode_comparison_chart" class="md-nav__link">
+  <a href="#describe_completeness_mapgrid_gdf-lga_name-service" class="md-nav__link">
     <span class="md-ellipsis">
       
-        describe_mode_comparison_chart()
+        describe_completeness_map(grid_gdf, lga_name, service)
       
     </span>
   </a>
@@ -1443,10 +1447,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#describe_interactive_view" class="md-nav__link">
+  <a href="#describe_mode_comparison_chartmode_stats-lga_name" class="md-nav__link">
     <span class="md-ellipsis">
       
-        describe_interactive_view()
+        describe_mode_comparison_chart(mode_stats, lga_name)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#describe_interactive_viewgrid_gdf-lga_name-mode-view_choice-thresholdsnone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        describe_interactive_view(grid_gdf, lga_name, mode, view_choice, thresholds=None)
       
     </span>
   </a>
@@ -1788,10 +1803,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_article" class="md-nav__link">
+  <a href="#module-level-constants" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _article()
+        Module-level constants
       
     </span>
   </a>
@@ -1799,10 +1814,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_settled" class="md-nav__link">
+  <a href="#_articleword" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _settled()
+        _article(word)
       
     </span>
   </a>
@@ -1810,10 +1825,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_compass_skew" class="md-nav__link">
+  <a href="#_settledgrid_gdf" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _compass_skew()
+        _settled(grid_gdf)
       
     </span>
   </a>
@@ -1821,10 +1836,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_mode_ranking_phrase" class="md-nav__link">
+  <a href="#_compass_skewtarget_gdf-reference_gdf" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _mode_ranking_phrase()
+        _compass_skew(target_gdf, reference_gdf)
       
     </span>
   </a>
@@ -1832,10 +1847,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#describe_deficit_map" class="md-nav__link">
+  <a href="#_mode_ranking_phrasegrid_gdf-mode" class="md-nav__link">
     <span class="md-ellipsis">
       
-        describe_deficit_map()
+        _mode_ranking_phrase(grid_gdf, mode)
       
     </span>
   </a>
@@ -1843,10 +1858,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#describe_continuous_map" class="md-nav__link">
+  <a href="#describe_deficit_mapgrid_gdf-lga_name-mode-thresholdsnone" class="md-nav__link">
     <span class="md-ellipsis">
       
-        describe_continuous_map()
+        describe_deficit_map(grid_gdf, lga_name, mode, thresholds=None)
       
     </span>
   </a>
@@ -1854,10 +1869,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#describe_completeness_map" class="md-nav__link">
+  <a href="#describe_continuous_mapgrid_gdf-lga_name-mode-service-thresholdsnone" class="md-nav__link">
     <span class="md-ellipsis">
       
-        describe_completeness_map()
+        describe_continuous_map(grid_gdf, lga_name, mode, service, thresholds=None)
       
     </span>
   </a>
@@ -1865,10 +1880,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#describe_mode_comparison_chart" class="md-nav__link">
+  <a href="#describe_completeness_mapgrid_gdf-lga_name-service" class="md-nav__link">
     <span class="md-ellipsis">
       
-        describe_mode_comparison_chart()
+        describe_completeness_map(grid_gdf, lga_name, service)
       
     </span>
   </a>
@@ -1876,10 +1891,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#describe_interactive_view" class="md-nav__link">
+  <a href="#describe_mode_comparison_chartmode_stats-lga_name" class="md-nav__link">
     <span class="md-ellipsis">
       
-        describe_interactive_view()
+        describe_mode_comparison_chart(mode_stats, lga_name)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#describe_interactive_viewgrid_gdf-lga_name-mode-view_choice-thresholdsnone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        describe_interactive_view(grid_gdf, lga_name, mode, view_choice, thresholds=None)
       
     </span>
   </a>
@@ -1925,61 +1951,77 @@
 <h1 id="insightspy">insights.py<a class="headerlink" href="#insightspy" title="Permanent link">&para;</a></h1>
 <div class="admonition info">
 <p class="admonition-title">Source</p>
-<p><code>akure_access/insights.py</code></p>
+<p><code>akure_access/insights.py</code> (321 lines)</p>
 </div>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p><em>TODO: 1-2 paragraphs - what this module is responsible for and why it exists as a separate module.</em></p>
+<p>Generates short, data-driven narrative captions — what a map's colors mean,
+and what the actual numbers behind it say — consumed by both the live
+Streamlit dashboard and the static export pipeline. This is the module that
+implements the design principle stated in the
+<a href="../../overview/">repository overview</a>: captions are computed programmatically
+from the same scored <code>GeoDataFrame</code> a map is drawn from, never hand-written
+prose sitting next to a chart, which guarantees a caption can never say
+something the underlying data doesn't actually support, and means
+re-running the analysis with updated OSM data automatically keeps every
+caption accurate everywhere it appears — nobody has to remember to update
+wording by hand.</p>
+<p>The module's own docstring makes a second, deliberate architectural
+promise worth repeating here: it has <strong>no dependency on <code>matplotlib</code> or
+Streamlit</strong>, only <code>geopandas</code>/<code>numpy</code> — meaning it's safe to import from
+<code>dashboard/app.py</code> without pulling in the heavier static-map plotting
+stack, and equally safe to import from the static-map generator without
+pulling in Streamlit. This is what allows one caption-generation codepath
+to genuinely serve two very differently-shaped consumers.</p>
 <h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
-<p><em>TODO: what this module imports, what imports it.</em></p>
+<ul>
+<li><strong>Imports:</strong> <code>warnings</code>, <code>typing.Optional</code>, <code>numpy</code>. Notably absent:
+  <code>matplotlib</code>, <code>streamlit</code>, <code>geopandas</code> itself isn't even imported directly
+  (functions receive already-constructed <code>GeoDataFrame</code>s and operate on
+  them via their pandas-like interface, without needing GeoPandas'
+  own namespace).</li>
+<li><strong>Imported by:</strong> <code>dashboard/app.py</code>; <code>visualization/static_maps.py</code>.</li>
+</ul>
 <h2 id="functions-classes">Functions &amp; Classes<a class="headerlink" href="#functions-classes" title="Permanent link">&para;</a></h2>
-<h3 id="_article"><code>_article()</code><a class="headerlink" href="#_article" title="Permanent link">&para;</a></h3>
+<h3 id="module-level-constants">Module-level constants<a class="headerlink" href="#module-level-constants" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th></th>
-<th></th>
+<th>Constant</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td><code>MODE_LABELS</code></td>
+<td><code>{"walk": "walking", "okada": "okada", "drive": "driving"}</code> — maps internal mode keys to the human-readable words used in generated prose.</td>
 </tr>
 <tr>
-<td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td><code>SERVICE_LABELS</code></td>
+<td><code>{"health": "health", "education": "education"}</code> — same idea for service names (currently identity-mapped, but kept as an explicit lookup rather than using the raw key directly, presumably for future flexibility if a label ever needed to differ from its key).</td>
 </tr>
 <tr>
-<td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
-</tr>
-<tr>
-<td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
-</tr>
-<tr>
-<td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
-</tr>
-<tr>
-<td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td><code>DEFAULT_THRESHOLDS_MIN</code></td>
+<td><code>{"walk": 30, "okada": 20, "drive": 15}</code> — default per-mode thresholds used <strong>only for caption phrasing</strong> (e.g. "within 30 minutes by walking"), not for actual scoring.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="_settled"><code>_settled()</code><a class="headerlink" href="#_settled" title="Permanent link">&para;</a></h3>
+<p><strong>On why <code>DEFAULT_THRESHOLDS_MIN</code> exists separately from
+<code>scoring.DEFAULT_ACCESS_THRESHOLD_MIN</code></strong> — this is directly addressed in
+the module's own comment and is an important distinction: the actual
+underserved/well-served classification a caption describes always comes
+straight from the grid's own <code>*_access_deficit_score</code> columns, which were
+already computed by <code>accessibility.scoring</code> using whatever threshold was
+actually passed in at scoring time — this module never re-derives that
+classification itself. <code>DEFAULT_THRESHOLDS_MIN</code> here is used only to
+produce threshold-<em>aware phrasing</em> in the caption text (mentioning "the
+30-minute walking threshold"), and every caption-generating function
+accepts an explicit <code>thresholds</code> parameter specifically so a caller can
+override this default with the authoritative values actually used in a
+given analysis run. The module's comment notes this default is kept in
+sync with <code>ACCESS_THRESHOLDS_MIN</code> in the project's analysis notebook's
+configuration cell — a manually-maintained consistency, not one enforced
+by shared code, worth flagging as a drift risk (see Gotchas).</p>
+<h3 id="_articleword"><code>_article(word)</code><a class="headerlink" href="#_articleword" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1990,43 +2032,43 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Returns <code>"an"</code> if <code>word</code> starts with a vowel sound, else <code>"a"</code>.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>A small grammatical-correctness helper, used so generated captions read naturally as "a health facility" but "an education facility," rather than uniformly defaulting to one article regardless of what follows — a detail that matters for captions meant to read as genuine prose rather than a template with visible seams.</td>
 </tr>
 <tr>
-<td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><strong>Inputs / Outputs</strong></td>
+<td><code>word: str</code> in, <code>"a"</code> or <code>"an"</code> out.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>Checks whether the lowercased first character is in the string <code>"aeiou"</code>.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes English vowel-sound rules can be approximated by checking the first <em>letter</em> against <code>"aeiou"</code> — this is a simplification that would be wrong for edge cases like "an hour" (silent h) or "a university" (consonant sound despite starting with a vowel letter) — but is entirely adequate for the specific, small vocabulary of service-label words this function is actually applied to (<code>"health"</code>, <code>"education"</code>), where it produces correct results.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
-</tr>
-<tr>
-<td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>O(1).</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../tests/">tests.md</a> — <code>test_insights.py</code>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="_compass_skew"><code>_compass_skew()</code><a class="headerlink" href="#_compass_skew" title="Permanent link">&para;</a></h3>
+<h3 id="_settledgrid_gdf"><code>_settled(grid_gdf)</code><a class="headerlink" href="#_settledgrid_gdf" title="Permanent link">&para;</a></h3>
+<p>A one-line filter: <code>grid_gdf[grid_gdf["building_count"] &gt; 0]</code>. Used
+throughout this module as the consistent definition of "cells worth
+describing" — captions about accessibility are scoped to settled cells
+only, mirroring the same <code>building_count &gt; 0</code> convention used in
+<code>scoring.add_access_times()</code> (though notably <em>not</em> the same threshold
+<code>completeness.grid_check.py</code> uses — see that module's own gotchas about
+the two different settlement thresholds in use across the codebase).</p>
+<h3 id="_compass_skewtarget_gdf-reference_gdf"><code>_compass_skew(target_gdf, reference_gdf)</code><a class="headerlink" href="#_compass_skewtarget_gdf-reference_gdf" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -2037,43 +2079,43 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Compares the centroid of <code>target_gdf</code> (e.g. underserved cells) against the centroid of <code>reference_gdf</code> (e.g. all settled cells), and returns a short compass-direction phrase like <code>"the southeast"</code> if the offset is large enough to be worth mentioning in prose, or <code>None</code> if the two centroids are close enough that no direction clearly stands out.</td>
 </tr>
 <tr>
-<td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td><strong>Why written this way — three separate careful design choices worth unpacking.</strong></td>
+<td><strong>(1) CRS-agnostic by design</strong>: the function works whether the input is in a projected (meters) or geographic (degrees) CRS, because both conventions preserve "increasing X is east, increasing Y is north" — so only the <em>sign</em> of the offset matters here, and that sign is unaffected by which CRS is in use. This means the function doesn't need to know or care what CRS it's been handed, unlike almost every other geometric computation in either repository, which is generally CRS-sensitive. <strong>(2) Deliberately suppressing GeoPandas' own centroid warning</strong>: GeoPandas normally warns when <code>.centroid</code> is computed on a geographic (lat/lon) CRS, since that's imprecise for accurate area/distance work — true in general, but the module's comment explains this warning is irrelevant here specifically, since this function only needs the <em>sign</em> of an offset between two centroids, never a precise distance, and that sign is unaffected by the exact same approximation that would distort a genuine area/distance calculation. The warning is suppressed explicitly and locally (<code>warnings.catch_warnings()</code> + <code>simplefilter("ignore", UserWarning)</code>, scoped tightly around just the two centroid computations) rather than left to surface — a deliberate, scoped silencing of a specific known-irrelevant warning, not a blanket suppression. <strong>(3) Normalized by the study area's own extent, not a fixed distance</strong>: the offset is expressed as a <em>fraction</em> of the reference area's bounding-box width/height (<code>dx_frac</code>, <code>dy_frac</code>), rather than a fixed meter or degree threshold — this is what makes "large enough to mention" behave consistently whether the input happens to be in a projected CRS (meters) or a geographic one (degrees), since a fixed absolute threshold would need to mean wildly different things in each unit system.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>target_gdf</code>, <code>reference_gdf: GeoDataFrame</code>.</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>Optional[str]</code> — one of <code>"the north"</code>, <code>"the south"</code>, <code>"the east"</code>, <code>"the west"</code>, a combined form like <code>"the northeast"</code>, or <code>None</code>.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. Return <code>None</code> immediately if either input is empty.<br>2. Suppress the geographic-CRS centroid warning, compute mean centroid <code>(x, y)</code> for both <code>target_gdf</code> and <code>reference_gdf</code>.<br>3. Get <code>reference_gdf.total_bounds</code> (west, south, east, north); compute <code>width</code>/<code>height</code>; return <code>None</code> if either is zero (a degenerate reference area — can't meaningfully normalize by a zero-width/height extent).<br>4. Compute <code>dx_frac</code>/<code>dy_frac</code>: the offset as a fraction of the reference extent.<br>5. Apply a fixed <code>skew_threshold = 0.08</code> (8% of the study area's extent) to classify north/south and east/west independently — a direction axis contributes to the output only if its fractional offset magnitude exceeds this threshold; otherwise that axis contributes nothing (empty string).<br>6. If neither axis crossed the threshold, return <code>None</code> — no direction is worth mentioning.<br>7. Otherwise, combine whichever axis label(s) fired into a single phrase (<code>"the northeast"</code> if both, <code>"the north"</code> if only one).</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes an 8% skew threshold is a reasonable, if unvalidated, cutoff for "worth mentioning in prose" — not derived from any statistical significance test, a judgment call about what reads as a meaningful directional pattern versus noise.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
+<td>O(N) for the centroid mean computations (N = rows in each input <code>GeoDataFrame</code>); everything else O(1).</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td><code>warnings.catch_warnings()</code> as a context manager is documented by Python's own standard library as <strong>not thread-safe</strong> — it saves and restores global warnings-filter state, which is process-wide, not thread-local. If this function were ever called concurrently from multiple threads, one thread's warning-suppression window could unintentionally suppress or unsuppress warnings in another thread's unrelated code running at the same time. Not a concern under this module's current synchronous, single-threaded usage (called from Streamlit's single request-handling flow, or from the static-export pipeline's sequential generation loop), but worth flagging as a real constraint if caption generation were ever parallelized.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="_mode_ranking_phrase"><code>_mode_ranking_phrase()</code><a class="headerlink" href="#_mode_ranking_phrase" title="Permanent link">&para;</a></h3>
+<h3 id="_mode_ranking_phrasegrid_gdf-mode"><code>_mode_ranking_phrase(grid_gdf, mode)</code><a class="headerlink" href="#_mode_ranking_phrasegrid_gdf-mode" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -2084,43 +2126,39 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Compares the current mode's "underserved for at least one service" rate against whichever <em>other</em> modes happen to also be present as columns in this grid, and returns a phrase describing where the current mode ranks (<code>"the most restrictive..."</code>, <code>"the least restrictive..."</code>, <code>"in between..."</code>), or <code>None</code> if fewer than two modes are available to compare at all.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>Deliberately tolerant of partial data: rather than requiring all three modes (<code>walk</code>/<code>okada</code>/<code>drive</code>) to be present, it checks which mode-specific <code>{mode}_access_deficit_score</code> columns actually exist in the grid and only compares among those — meaning this function works correctly whether the grid was scored for one mode, two, or all three, gracefully degrading to <code>None</code> (no ranking phrase at all) rather than raising when comparison isn't meaningful because too few modes are available.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>grid_gdf: GeoDataFrame</code>; <code>mode: str</code>.</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>Optional[str]</code>.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. Filter to settled cells; return <code>None</code> if empty.<br>2. For each of the three known modes, check if its deficit-score column exists in the settled data; if so, compute that mode's underserved rate as <code>(settled[col] &gt; 0).mean() * 100</code> (percentage of settled cells with a deficit score above zero, i.e. underserved for at least one service).<br>3. If the requested <code>mode</code> isn't among the modes found, or fewer than 2 modes total were found, return <code>None</code> — no meaningful ranking is possible.<br>4. Sort the available modes by rate, descending (worst/most-restrictive first); find the requested mode's position in that ranking.<br>5. Return <code>"the most restrictive..."</code> if it ranks first, <code>"the least restrictive..."</code> if it ranks last, <code>"in between the other modes shown here"</code> for any middle position (handles the 3-mode case where the middle position isn't literally "second of three" in a way that needs special-casing — the same phrase covers any non-extreme rank).</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes "underserved for at least one service" (<code>deficit_score &gt; 0</code>) is the right single number to rank modes by — a mode with many cells scoring exactly <code>1</code> (underserved for one service) versus a mode with fewer cells but more scoring <code>2</code> (underserved for both) could plausibly be argued either way as "more restrictive"; this function collapses that distinction into one rate.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
-</tr>
-<tr>
-<td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>O(C) where C = settled cell count, for computing each mode's rate; O(1) for the ranking/lookup once rates are computed (at most 3 items).</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="describe_deficit_map"><code>describe_deficit_map()</code><a class="headerlink" href="#describe_deficit_map" title="Permanent link">&para;</a></h3>
+<h3 id="describe_deficit_mapgrid_gdf-lga_name-mode-thresholdsnone"><code>describe_deficit_map(grid_gdf, lga_name, mode, thresholds=None)</code><a class="headerlink" href="#describe_deficit_mapgrid_gdf-lga_name-mode-thresholdsnone" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -2131,43 +2169,39 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Generates the full caption for the categorical (green/yellow/red) access-deficit map: what the colors mean, the actual underserved percentages for this specific LGA and mode, a cross-mode ranking sentence (via <code>_mode_ranking_phrase()</code>), and a directional clustering note (via <code>_compass_skew()</code>) — composed together into one coherent paragraph.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>This function is a clear illustration of the module's core design principle in action: every number in the output sentence — <code>pct_any</code>, <code>pct_both</code>, the ranking, the direction — is computed fresh from <code>grid_gdf</code> at call time, not looked up from anywhere pre-written. The function also handles the "not yet scored" case gracefully (see workflow step 2) with a specific, actionable message rather than raising an exception or producing a caption describing data that doesn't exist.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>grid_gdf: GeoDataFrame</code>; <code>lga_name: str</code>; <code>mode: str</code>; <code>thresholds: dict</code>, optional (defaults to <code>DEFAULT_THRESHOLDS_MIN</code>).</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>str</code> — a multi-sentence caption.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. Resolve <code>thresholds</code>, <code>mode_label</code>, <code>threshold</code> (this mode's specific value), and the deficit-score column name to read.<br>2. Filter to settled cells; if empty, or the expected column doesn't exist (grid hasn't been scored for this mode yet), return an early, specific "no scored data available... re-run the analysis" message rather than proceeding.<br>3. Compute <code>pct_any</code> (share underserved for ≥1 service) and <code>pct_both</code> (share underserved for both).<br>4. Get the ranking phrase via <code>_mode_ranking_phrase()</code> and the compass direction of underserved cells (relative to all settled cells) via <code>_compass_skew()</code>.<br>5. Build the legend sentence (what the colors mean, including the numeric threshold in the "well served" description if one is available).<br>6. Build the results sentence (the actual percentages).<br>7. Conditionally append the ranking sentence (only if <code>_mode_ranking_phrase()</code> returned something) and the directional sentence (only if <code>_compass_skew()</code> returned something) — both optional additions, gracefully omitted when there isn't enough data/signal to support them, rather than the caption ever containing a placeholder or "N/A" for a sentence that couldn't be generated.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes callers pass a <code>mode</code> that's one of the three known keys — an unrecognized mode string would still "work" (fall back to using the raw string itself via <code>.get(mode, mode)</code> for the label, and simply produce a column name that likely doesn't exist in the grid, triggering the "no scored data" early return) rather than raising, a graceful-degradation choice consistent with the rest of the module.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
-</tr>
-<tr>
-<td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>O(C) — dominated by the settled-cell filter and the percentage computations, all linear in grid size.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="describe_continuous_map"><code>describe_continuous_map()</code><a class="headerlink" href="#describe_continuous_map" title="Permanent link">&para;</a></h3>
+<h3 id="describe_continuous_mapgrid_gdf-lga_name-mode-service-thresholdsnone"><code>describe_continuous_map(grid_gdf, lga_name, mode, service, thresholds=None)</code><a class="headerlink" href="#describe_continuous_mapgrid_gdf-lga_name-mode-service-thresholdsnone" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -2178,43 +2212,39 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Generates the caption for the continuous travel-time map (a colorbar in minutes, rather than the three-category deficit map): what the color gradient means, real summary statistics (mean, median, share exceeding the mode's threshold), and where the longest travel times cluster geographically.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>Structurally parallel to <code>describe_deficit_map()</code> (same early-return-on-missing-data pattern, same legend-then-results-then-optional-extras composition), but working with continuous time values rather than a categorical score — this function computes real descriptive statistics (<code>mean()</code>, <code>median()</code>) directly from the travel-time column, rather than describing a pre-computed category. The "worst" subset used for the directional clustering note is chosen differently depending on whether a threshold is available: if <code>threshold</code> is known, "worst" means cells exceeding that specific threshold (a meaningful, externally-defined cutoff); if no threshold is available for this mode, it falls back to the top quartile (<code>times.quantile(0.75)</code>) as a threshold-free notion of "notably long" — ensuring the directional note can still be generated even without a defined threshold, using a purely statistical definition of "worst" instead.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>grid_gdf</code>, <code>lga_name</code>, <code>mode</code>, <code>service: str</code> (<code>"health"</code> or <code>"education"</code>), <code>thresholds</code>, optional.</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>str</code>.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. Resolve labels/threshold/column name (<code>{service}_time_min_{mode}</code>).<br>2. Filter to settled cells with a non-null value in that column; if none exist (empty settled set, missing column, or all-null column — the third case checked explicitly via <code>.notna().sum() == 0</code>, distinct from the column simply not existing), return an early "no data available" message.<br>3. Compute <code>mean_t</code>, <code>median_t</code> over the valid (non-null) values.<br>4. Build the legend sentence describing the gradient direction (cooler/darker = shorter, warmer = longer).<br>5. Build the results sentence with mean/median.<br>6. If a threshold is known: compute and append the percentage exceeding it, and use the over-threshold subset as <code>worst</code> for the directional note. If no threshold: skip the percentage-exceeding sentence, and use the top-quartile subset as <code>worst</code> instead.<br>7. Get the compass direction of <code>worst</code> relative to all settled cells; append if non-<code>None</code>.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes the top-quartile fallback (when no threshold is known) is a reasonable proxy for "notably long" travel times — an arbitrary but defensible statistical choice, not derived from any domain-specific reasoning the way the threshold-based cutoff is.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
-</tr>
-<tr>
-<td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>O(C) — filtering plus a small number of statistical aggregations over the settled/valid subset.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="describe_completeness_map"><code>describe_completeness_map()</code><a class="headerlink" href="#describe_completeness_map" title="Permanent link">&para;</a></h3>
+<h3 id="describe_completeness_mapgrid_gdf-lga_name-service"><code>describe_completeness_map(grid_gdf, lga_name, service)</code><a class="headerlink" href="#describe_completeness_mapgrid_gdf-lga_name-service" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -2225,43 +2255,39 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Generates the caption for the OSM-completeness map — explaining what "confirmed nearby" (teal) versus "possible data gap" (gold) means, and the real share of settled cells in each category, explicitly framed to warn the reader that a large "possible data gap" share means part of what might look like an accessibility problem elsewhere could actually reflect thin OSM coverage rather than a confirmed absence of service.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>This caption is the most directly tied to the project's core problem statement (see <a href="../../overview/">overview</a>) of any function in the module — its legend text explicitly states, in plain language, the distinction the whole <code>completeness</code> package exists to draw: a gold cell "may reflect a real service gap or simply that OSM's coverage is still incomplete there." This is deliberate, careful hedging in the generated prose itself, not just in supporting documentation elsewhere — the caption a dashboard viewer actually reads is written to avoid overclaiming confidence the underlying data doesn't support.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>grid_gdf</code>, <code>lga_name</code>, <code>service: str</code>.</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>str</code>.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. Resolve <code>service_label</code>, the completeness-flag column name (<code>{service}_completeness_flag</code>).<br>2. Filter to settled cells; early-return a "no data available" message if empty or the column is missing.<br>3. Compute <code>pct_gap</code> (<code>== True</code> share — the <code># noqa: E712</code> comment acknowledges this is normally a lint warning, since <code>== True</code> is usually discouraged in favor of just using the boolean value directly, but is kept here for explicitness/readability in this specific comparison) and <code>pct_confirmed</code> as its complement.<br>4. Build the legend sentence with the article-aware <code>_article(service_label)</code> helper for grammatical correctness (<code>"a health facility"</code> / <code>"an education facility"</code>).<br>5. Build the results sentence with both percentages.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes <code>pct_confirmed = 100 - pct_gap</code> correctly represents "not flagged," which is true given the flag column is boolean and every settled cell is definitionally either flagged or not — no third state to account for.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
-</tr>
-<tr>
-<td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>O(C).</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="describe_mode_comparison_chart"><code>describe_mode_comparison_chart()</code><a class="headerlink" href="#describe_mode_comparison_chart" title="Permanent link">&para;</a></h3>
+<h3 id="describe_mode_comparison_chartmode_stats-lga_name"><code>describe_mode_comparison_chart(mode_stats, lga_name)</code><a class="headerlink" href="#describe_mode_comparison_chartmode_stats-lga_name" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -2272,43 +2298,39 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Generates the caption for the mode-comparison bar chart (walking vs. okada vs. driving underserved rates side by side).</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>Takes <code>mode_stats</code> — described in the docstring as "the same sequence of <code>(mode, pct_any, pct_both)</code> tuples used to draw the chart itself" (shared with <code>visualization.static_maps.plot_mode_comparison_chart()</code> and the dashboard's own Findings Summary section) — as a direct parameter, rather than recomputing statistics from a raw grid itself. This is a deliberate architectural choice ensuring the caption and the bars it describes are drawn from the literal same numbers, guaranteeing they can never disagree, even in principle. The function also handles a genuinely tricky prose-generation edge case explicitly: when the highest and lowest underserved rates are close enough to be statistically indistinguishable at the display precision used (a difference under <code>0.5</code> percentage points), saying "highest at X%, lowest at X%" would read as a nonsensical contradiction (the same number can't be both), so the function detects this case and switches to describing the modes as comparably restrictive instead, with a different, more accurate framing ("switching travel mode alone would not meaningfully change who counts as underserved").</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>mode_stats</code>: sequence of <code>(mode, pct_any, pct_both)</code> tuples; <code>lga_name: str</code>.</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>str</code>.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. If <code>mode_stats</code> is empty/falsy, return an early "no data" message.<br>2. Sort by <code>pct_any</code> descending; identify <code>worst_mode</code>/<code>worst_pct</code> (first) and <code>best_mode</code>/<code>best_pct</code> (last).<br>3. <strong>Near-tie check</strong>: if <code>abs(worst_pct - best_pct) &lt; 0.5</code>, build the "comparably restrictive across every mode" sentence, listing all analyzed modes by name, and return early — this branch does not go on to build the normal ranking sentence at all.<br>4. Otherwise, build the standard ranking sentence naming the specific worst and best modes and their rates, plus a closing sentence about what that gap implies (that travel mode choice alone meaningfully changes who counts as underserved).</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes a <code>0.5</code> percentage-point threshold is the right cutoff for "indistinguishable enough to avoid a contradictory-sounding sentence" — a display/readability judgment call tied to the <code>.1f}%"</code> formatting precision used elsewhere in this module (a gap smaller than the displayed decimal precision could otherwise round to appear identical while the sentence still claims one is "highest" and the other "lowest," which is the exact confusing outcome this check avoids).</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
-</tr>
-<tr>
-<td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>O(M log M) where M = number of modes being compared (at most 3) — the sort dominates, trivial at this scale.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../tests/">tests.md</a> — the near-tie branch is a specific enough behavior to be worth direct test coverage confirming it actually triggers correctly at the boundary.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="describe_interactive_view"><code>describe_interactive_view()</code><a class="headerlink" href="#describe_interactive_view" title="Permanent link">&para;</a></h3>
+<h3 id="describe_interactive_viewgrid_gdf-lga_name-mode-view_choice-thresholdsnone"><code>describe_interactive_view(grid_gdf, lga_name, mode, view_choice, thresholds=None)</code><a class="headerlink" href="#describe_interactive_viewgrid_gdf-lga_name-mode-view_choice-thresholdsnone" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -2319,44 +2341,55 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>The single entry point the dashboard actually calls — dispatches to the correct caption generator based on the dashboard's current "Access view" selector state (<code>"Combined"</code>, <code>"Health only"</code>, <code>"Education only"</code>).</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>Centralizing the dispatch logic in one function, rather than having <code>dashboard/app.py</code> itself decide which caption function to call, means the caption shown always matches whatever the map is currently displaying by construction — the dashboard passes its current <code>view_choice</code> state straight through, and this function is the single place that translates UI state into the correct underlying caption function, keeping that mapping in one place rather than duplicated logic in the dashboard script itself.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>grid_gdf</code>, <code>lga_name</code>, <code>mode</code>, <code>view_choice: str</code>; <code>thresholds</code>, optional.</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>str</code> — delegates entirely to one of <code>describe_continuous_map()</code> (health or education) or <code>describe_deficit_map()</code> (the default/combined case).</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>Simple if/elif/else dispatch on <code>view_choice</code>'s exact string value; anything other than <code>"Health only"</code> or <code>"Education only"</code> (including the expected <code>"Combined"</code> value, and, as a side effect, any unrecognized string) falls through to the combined deficit-map caption.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
-</tr>
-<tr>
-<td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>Assumes <code>view_choice</code> will only ever be one of the three values the dashboard's own selector widget presents — an unrecognized string silently falls through to the combined-map branch rather than raising, which is graceful but could mask a genuine bug (e.g. a typo in the dashboard's widget option string) by producing a plausible-looking caption for the wrong view rather than an error.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
-<p><em>TODO: non-obvious behavior, edge cases, things that bit us during development.</em></p>
+<ul>
+<li><strong><code>DEFAULT_THRESHOLDS_MIN</code> and Notebook 03's <code>ACCESS_THRESHOLDS_MIN</code>
+  are two independently-maintained copies of the same values</strong>, kept in
+  sync manually rather than by shared code — the module's own comment
+  acknowledges this. If the notebook's thresholds were ever updated without
+  a matching update here, generated captions would describe threshold
+  values that no longer match what was actually used at scoring time
+  (though captions would still describe the <em>actual</em> underserved/served
+  classification correctly, since that always comes from the grid's own
+  columns — only the threshold-value <em>phrasing</em> would drift, not the
+  substance of what's reported).</li>
+<li><strong><code>warnings.catch_warnings()</code>'s non-thread-safety in <code>_compass_skew()</code></strong>
+  is a genuine, if currently dormant, constraint — see that function's own
+  concurrency note above.</li>
+<li><strong>An unrecognized <code>mode</code> or <code>view_choice</code> string degrades silently rather
+  than raising</strong>, across multiple functions in this module — a deliberate
+  choice favoring a working (if slightly wrong) caption over a crashed
+  dashboard, but one that could mask an upstream typo or a stale UI option
+  string without any visible signal.</li>
+</ul>
 
 
 

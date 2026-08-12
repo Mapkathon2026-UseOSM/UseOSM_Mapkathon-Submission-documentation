@@ -9,8 +9,10 @@
         <meta name="description" content="Deep technical documentation for the lga-osm-extractor and akure-accessibility-dashboard repositories (Map<>kathon 2026, UseOSM).">
       
       
-        <meta name="author" content="Noah">
+        <meta name="author" content="Marvellous Adeleke">
       
+      
+        <link rel="canonical" href="https://mapkathon2026-useosm.github.io/UseOSM_Mapkathon-Submission-documentation/lga-osm-extractor/tests/">
       
       
         <link rel="prev" href="../end-to-end/">
@@ -27,7 +29,7 @@
     
     
       
-        <title>Tests - Akure Geospatial Systems Documentation</title>
+        <title>Tests - UseOSM Mapkathon Submission Documentation</title>
       
     
     
@@ -53,6 +55,8 @@
       
     
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -69,7 +73,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -94,7 +98,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Akure Geospatial Systems Documentation" class="md-header__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../.." title="UseOSM Mapkathon Submission Documentation" class="md-header__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -108,7 +112,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Akure Geospatial Systems Documentation
+            UseOSM Mapkathon Submission Documentation
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -127,7 +131,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
     
       <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
@@ -137,7 +141,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
@@ -196,13 +200,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
       </div>
@@ -349,23 +353,23 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Akure Geospatial Systems Documentation" class="md-nav__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../.." title="UseOSM Mapkathon Submission Documentation" class="md-nav__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    Akure Geospatial Systems Documentation
+    UseOSM Mapkathon Submission Documentation
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
     </div>
@@ -956,10 +960,104 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#teststest_extractionpy" class="md-nav__link">
+  <a href="#coverage-by-module" class="md-nav__link">
     <span class="md-ellipsis">
       
-        tests/test_extraction.py
+        Coverage by module
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Coverage by module">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cleanpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        clean.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layerspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        layers.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boundarypy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        boundary.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exportpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        export.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visualizepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        visualize.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipelinepy-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pipeline.py (integration)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-helpers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test Helpers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gaps-worth-closing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gaps Worth Closing
       
     </span>
   </a>
@@ -1614,10 +1712,104 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#teststest_extractionpy" class="md-nav__link">
+  <a href="#coverage-by-module" class="md-nav__link">
     <span class="md-ellipsis">
       
-        tests/test_extraction.py
+        Coverage by module
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Coverage by module">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cleanpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        clean.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layerspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        layers.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#boundarypy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        boundary.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exportpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        export.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visualizepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        visualize.py
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipelinepy-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pipeline.py (integration)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-helpers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test Helpers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gaps-worth-closing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gaps Worth Closing
       
     </span>
   </a>
@@ -1645,9 +1837,213 @@
 
 
 <h1 id="tests-lga-osm-extractor">Tests — lga-osm-extractor<a class="headerlink" href="#tests-lga-osm-extractor" title="Permanent link">&para;</a></h1>
-<p><em>TODO: for each test file, list what it covers and map it back to the module page(s) it exercises.</em></p>
-<h2 id="teststest_extractionpy"><code>tests/test_extraction.py</code><a class="headerlink" href="#teststest_extractionpy" title="Permanent link">&para;</a></h2>
-<p><em>TODO: what's covered, what's notably NOT covered.</em></p>
+<div class="admonition info">
+<p class="admonition-title">Source</p>
+<p><code>tests/test_extraction.py</code> (465 lines, 21 test functions)</p>
+</div>
+<p>All tests in this file are pure <code>pytest</code> functions (no test classes). One
+test is marked <code>@pytest.mark.integration</code> and requires live network access
+to OSM/Nominatim; every other test is fully offline, using synthetic
+<code>GeoDataFrame</code>s, temp files, and <code>unittest.mock.patch</code> to substitute for
+live OSM calls.</p>
+<h2 id="coverage-by-module">Coverage by module<a class="headerlink" href="#coverage-by-module" title="Permanent link">&para;</a></h2>
+<h3 id="cleanpy"><code>clean.py</code><a class="headerlink" href="#cleanpy" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>What it verifies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>test_clean_layers_reprojects_and_dedupes</code></td>
+<td><code>clean_layers()</code> reprojects to the expected CRS and preserves feature counts on synthetic input.</td>
+</tr>
+<tr>
+<td><code>test_clean_layers_standard_schema</code></td>
+<td>Every non-empty cleaned layer has exactly the <code>geometry</code>/<code>osmid</code>/<code>name</code> schema <code>KEEP_COLUMNS</code> promises.</td>
+</tr>
+<tr>
+<td><code>test_utm_epsg_for_longitude_known_nigerian_locations</code></td>
+<td><code>utm_epsg_for_longitude()</code> against four real reference points spanning Nigeria's actual UTM range (Akure/31N, Abuja/32N, Maiduguri/33N, Lagos/31N) — not just the original Ondo State study area, confirming the auto-selection fix generalizes correctly.</td>
+</tr>
+<tr>
+<td><code>test_utm_epsg_for_longitude_zone_boundaries</code></td>
+<td>Checks right at a zone boundary (5.999°E vs 6.001°E) to rule out an off-by-one error in the zone formula.</td>
+</tr>
+<tr>
+<td><code>test_resolve_target_crs_falls_back_with_no_boundary</code></td>
+<td>Confirms the <code>FALLBACK_CRS</code> (<code>EPSG:32631</code>) behavior when no boundary is given — the backward-compatibility path for existing callers.</td>
+</tr>
+<tr>
+<td><code>test_resolve_target_crs_auto_selects_zone_from_boundary</code></td>
+<td>Confirms a boundary near Abuja resolves to zone 32N (not the Ondo-based default), and a boundary near Akure still resolves to 31N — the core behavior this feature adds, tested both ways.</td>
+</tr>
+<tr>
+<td><code>test_clean_layers_uses_boundary_to_select_crs</code></td>
+<td>End-to-end: deliberately passes Akure-area <em>data</em> alongside an Abuja-area <em>boundary</em>, confirming the CRS choice follows the boundary, not the data's own coordinates — an important distinction, since it proves the boundary (not a guess from the data itself) is the authoritative signal.</td>
+</tr>
+</tbody>
+</table>
+<p>Notably <strong>not</strong> directly tested here: <code>_collapse_areas_to_points()</code> — the
+polygon-to-centroid collapse function central to the Akure North bug fix —
+has no test in this file that isolates it directly with mixed Point/Polygon
+input. See <a href="#gaps-worth-closing">Gaps</a> below.</p>
+<h3 id="layerspy"><code>layers.py</code><a class="headerlink" href="#layerspy" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>What it verifies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>test_extract_layers_permissive_returns_empty_on_failure</code></td>
+<td>Default (<code>strict=False</code>) behavior: a simulated Overpass failure on one layer (<code>health_facilities</code>) is caught, recorded as a warning, and that layer returns empty — while other layers (<code>roads</code>) still extract successfully. Explicitly asserts this is the original, must-not-regress behavior.</td>
+</tr>
+<tr>
+<td><code>test_extract_layers_strict_raises_on_genuine_failure</code></td>
+<td>The same simulated failure, but with <code>strict=True</code>, must now raise <code>LayerExtractionError</code> immediately rather than being silently swallowed.</td>
+</tr>
+<tr>
+<td><code>test_extract_layers_strict_does_not_raise_on_genuine_empty_result</code></td>
+<td>The critical distinction the whole <code>strict</code> feature depends on: a layer that queries <em>successfully</em> but genuinely finds zero features must <strong>not</strong> raise, even in strict mode — only an actual exception from the underlying query should raise. Directly guards against <code>strict</code> mode being accidentally too aggressive.</td>
+</tr>
+</tbody>
+</table>
+<p>Both failure-simulating tests use <code>unittest.mock.patch</code> on
+<code>lga_extractor.layers.ox.features_from_polygon</code> — patched at the point of
+use inside the <code>layers</code> module's namespace, not at <code>osmnx</code>'s own namespace,
+which is the correct pattern for how <code>layers.py</code> imports <code>osmnx</code> (<code>import
+osmnx as ox</code>, then calls <code>ox.features_from_polygon</code>).</p>
+<h3 id="boundarypy"><code>boundary.py</code><a class="headerlink" href="#boundarypy" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>What it verifies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>test_resolve_boundary_accepts_plausible_akure_sized_boundary</code></td>
+<td>The happy path: a realistically-sized boundary near Akure passes validation cleanly with no warnings — confirms nothing regressed for the actual study area.</td>
+</tr>
+<tr>
+<td><code>test_resolve_boundary_rejects_centroid_outside_nigeria</code></td>
+<td>A boundary centered near Paris raises <code>BoundaryResolutionError</code> matching <code>"outside Nigeria"</code> — the geographic bounding-box hard check.</td>
+</tr>
+<tr>
+<td><code>test_resolve_boundary_rejects_implausibly_tiny_area</code></td>
+<td>A boundary only a few meters across (a buffered point) raises, matching <code>"implausibly small"</code> — the minimum-area hard check.</td>
+</tr>
+<tr>
+<td><code>test_resolve_boundary_rejects_implausibly_huge_area</code></td>
+<td>A boundary roughly the size of the whole country raises, matching <code>"implausibly large"</code> — the maximum-area hard check, the opposite failure mode from the tiny-area test.</td>
+</tr>
+<tr>
+<td><code>test_validate_and_standardize_display_name_mismatch_warns_not_raises</code></td>
+<td>The <code>display_name</code> soft check produces a warning (containing the requested LGA name) but never raises — tested directly against <code>_validate_and_standardize()</code> rather than <code>resolve_boundary()</code>, since manual-file boundaries never carry a <code>display_name</code> column at all, so this behavior can only be exercised by calling the internal function directly with a synthetic <code>display_name</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>All four boundary tests use <code>_write_manual_boundary()</code> (a local helper) to
+write a synthetic geometry to a temp GeoJSON file and exercise
+<code>resolve_boundary()</code>'s <code>manual_boundary_path</code> code path — this avoids
+needing a live Nominatim call to test validation logic that is, by design,
+identical regardless of which resolution path produced the candidate
+boundary.</p>
+<h3 id="exportpy"><code>export.py</code><a class="headerlink" href="#exportpy" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>What it verifies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>test_export_layers_writes_geojson_and_shapefile</code></td>
+<td>Basic export: GeoJSON and Shapefile paths both exist on disk for a non-empty layer; an empty layer (<code>schools</code>) is correctly recorded under <code>_skipped</code>, not exported.</td>
+</tr>
+<tr>
+<td><code>test_export_layers_splits_mixed_geometry_types</code></td>
+<td><strong>Regression test</strong>, explicitly documented as such in its own docstring: verifies the exact <code>highway=*</code> mixed Point/LineString scenario splits into separate <code>roads_line.shp</code> and <code>roads_point.shp</code> files, both existing on disk, both recorded under the category-keyed <code>shapefile</code> dict, and the layer name appears in <code>_split_layers</code>. This is the test that would fail if the Shapefile-splitting logic in <code>export.py</code> were ever removed or broken — protecting against the exact <code>pyogrio</code> <code>FeatureError</code> the module's own docstring describes as the original problem.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="visualizepy"><code>visualize.py</code><a class="headerlink" href="#visualizepy" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>What it verifies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>test_strip_mapbox_token_removes_real_token_from_export</code></td>
+<td><strong>The most operationally important test in this file.</strong> Builds an actual <code>KeplerGl</code> preview map end-to-end (real <code>keplergl</code> import, not mocked) and confirms the Mapbox token pattern is genuinely absent from the resulting HTML afterward — not just theoretically stripped by inspecting the function in isolation. Its docstring explicitly notes this caused a real GitHub push-protection failure during development, which is exactly why this test exists as a genuine regression guard rather than a nice-to-have. Uses <code>pytest.importorskip("keplergl", ...)</code> so it — and only it — skips cleanly in an environment where <code>keplergl</code> can't be imported, without affecting collection of any other test in the file (consistent with <code>visualize.py</code>'s own lazy-import design, see <a href="../modules/visualize/"><code>visualize.md</code></a>). Also asserts <code>&lt;/html&gt;</code> is still present, confirming the regex-based stripping doesn't corrupt the file.</td>
+</tr>
+<tr>
+<td><code>test_strip_mapbox_token_returns_false_when_no_token_present</code></td>
+<td><code>_strip_mapbox_token()</code> returns <code>False</code> (not an error) on a file with no token — e.g. an already-stripped file, or a future <code>keplergl</code> version that stops bundling one.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pipelinepy-integration"><code>pipeline.py</code> (integration)<a class="headerlink" href="#pipelinepy-integration" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>What it verifies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>test_extract_lga_end_to_end_live_osm</code></td>
+<td>Marked <code>@pytest.mark.integration</code>, excluded from default test runs, requires network access. Runs the full real pipeline for Akure North against live OSM/Nominatim, and asserts: <code>boundary_source</code> starts with <code>"osm_geocode"</code> (not manual); <code>run_log</code> path exists on disk; <code>target_crs</code> is exactly <code>"EPSG:32631"</code> — confirming the UTM auto-selection gives the <em>correct real-world</em> answer for the project's actual original study area, not just a synthetic/mocked one. Run explicitly with <code>pytest -m integration</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="test-helpers">Test Helpers<a class="headerlink" href="#test-helpers" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong><code>_dummy_raw_layers()</code></strong> — builds a small synthetic <code>layers_dict</code>
+  resembling <code>extract_layers()</code>'s real output shape: two point features
+  (hospital, school), one line feature (a residential road), one genuinely
+  empty layer (<code>schools</code>), plus a <code>"_warnings"</code> entry — used across most of
+  the <code>clean.py</code>/<code>export.py</code> tests as shared fixture data.</li>
+<li><strong><code>_synthetic_boundary()</code></strong> — a fixed small <code>box()</code> boundary near Akure
+  (<code>5.15, 7.2, 5.25, 7.3</code>), used across the <code>layers.py</code> mock-based tests.</li>
+<li><strong><code>_write_manual_boundary(geom, crs="EPSG:4326")</code></strong> — writes an arbitrary
+  Shapely geometry to a temp GeoJSON file and returns its path, used across
+  all four <code>boundary.py</code> validation tests to exercise <code>resolve_boundary()</code>'s
+  <code>manual_boundary_path</code> path without a live geocode call.</li>
+</ul>
+<h2 id="gaps-worth-closing">Gaps Worth Closing<a class="headerlink" href="#gaps-worth-closing" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong><code>_collapse_areas_to_points()</code> has no dedicated unit test in this file.</strong>
+  Given this is the function behind the project's most significant
+  documented bug fix (see <a href="../../reference/known-issues/">Known Issues</a>), a
+  direct test with mixed Point/Polygon input — asserting only the Polygon
+  rows change, and that outputs are true <code>Point</code> geometries — would be
+  valuable, explicit regression coverage for exactly the failure mode that
+  motivated the fix. Current coverage only reaches it indirectly, through
+  <code>clean_layers()</code> on <code>POINT_LAYERS</code>-designated layers, without isolating
+  the collapse behavior itself.</li>
+<li><strong><code>app.py</code> and <code>cli.py</code> have no test coverage at all.</strong> Both are thin
+  wrappers around <code>extract_lga()</code>, which reduces risk, but <code>cli.py</code>'s
+  argument-parsing and exit-code behavior, and <code>app.py</code>'s layer-zoom
+  fallback logic (see <a href="../app/"><code>app.md</code></a>'s detailed writeup of the
+  zoom-to-layer bug it works around), are both non-trivial enough to be
+  worth at least minimal direct coverage.</li>
+<li><strong><code>logging_utils.py</code> has no direct test.</strong> <code>log_run()</code> and
+  <code>_capture_environment()</code> are exercised only implicitly via the live
+  integration test (which asserts the log file exists, but not its
+  contents in detail).</li>
+</ul>
 
 
 

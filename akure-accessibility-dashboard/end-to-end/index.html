@@ -9,8 +9,10 @@
         <meta name="description" content="Deep technical documentation for the lga-osm-extractor and akure-accessibility-dashboard repositories (Map<>kathon 2026, UseOSM).">
       
       
-        <meta name="author" content="Noah">
+        <meta name="author" content="Marvellous Adeleke">
       
+      
+        <link rel="canonical" href="https://mapkathon2026-useosm.github.io/UseOSM_Mapkathon-Submission-documentation/akure-accessibility-dashboard/end-to-end/">
       
       
         <link rel="prev" href="../dashboard-app/">
@@ -27,7 +29,7 @@
     
     
       
-        <title>End-to-End Walkthrough - Akure Geospatial Systems Documentation</title>
+        <title>End-to-End Walkthrough - UseOSM Mapkathon Submission Documentation</title>
       
     
     
@@ -53,6 +55,8 @@
       
     
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -69,7 +73,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -94,7 +98,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Akure Geospatial Systems Documentation" class="md-header__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../.." title="UseOSM Mapkathon Submission Documentation" class="md-header__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -108,7 +112,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Akure Geospatial Systems Documentation
+            UseOSM Mapkathon Submission Documentation
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -127,7 +131,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
     
       <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
@@ -137,7 +141,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
@@ -196,13 +200,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
       </div>
@@ -349,23 +353,23 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Akure Geospatial Systems Documentation" class="md-nav__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../.." title="UseOSM Mapkathon Submission Documentation" class="md-nav__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    Akure Geospatial Systems Documentation
+    UseOSM Mapkathon Submission Documentation
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
     </div>
@@ -1383,22 +1387,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#trace" class="md-nav__link">
+  <a href="#part-1-offline-analysis-run-via-the-projects-notebooks-not-the-dashboard" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Trace
+        Part 1: Offline Analysis (run via the project's notebooks, not the dashboard)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Trace">
+    <nav class="md-nav" aria-label="Part 1: Offline Analysis (run via the project&#39;s notebooks, not the dashboard)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-entry-point" class="md-nav__link">
+  <a href="#1-start-extractor-output-already-on-disk" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Entry point
+        1. Start: extractor output already on disk
       
     </span>
   </a>
@@ -1406,10 +1410,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
+  <a href="#2-build-the-road-network" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. ...
+        2. Build the road network
       
     </span>
   </a>
@@ -1417,10 +1421,54 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#n-final-output" class="md-nav__link">
+  <a href="#3-build-the-grid" class="md-nav__link">
     <span class="md-ellipsis">
       
-        N. Final output
+        3. Build the grid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-score-accessibility-per-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Score accessibility, per mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-flag-completeness-independently" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Flag completeness, independently
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-sanitize-once-at-the-very-end" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Sanitize, once, at the very end
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-generate-static-outputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Generate static outputs
       
     </span>
   </a>
@@ -1429,6 +1477,100 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-dashboard-runtime-what-happens-on-streamlit-run-dashboardapppy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 2: Dashboard Runtime (what happens on streamlit run dashboard/app.py)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 2: Dashboard Runtime (what happens on streamlit run dashboard/app.py)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#8-process-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Process start
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-widget-state-on-every-rerun" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Widget state, on every rerun
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-map-rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Map rendering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-captions-recomputed-live-from-already-scored-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Captions, recomputed live from already-scored data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-ranked-table-and-findings-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Ranked table and Findings Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-static-maps-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Static maps section
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-state-lives-summarized" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where State Lives, Summarized
+      
+    </span>
+  </a>
   
 </li>
       
@@ -1653,22 +1795,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#trace" class="md-nav__link">
+  <a href="#part-1-offline-analysis-run-via-the-projects-notebooks-not-the-dashboard" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Trace
+        Part 1: Offline Analysis (run via the project's notebooks, not the dashboard)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Trace">
+    <nav class="md-nav" aria-label="Part 1: Offline Analysis (run via the project&#39;s notebooks, not the dashboard)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-entry-point" class="md-nav__link">
+  <a href="#1-start-extractor-output-already-on-disk" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Entry point
+        1. Start: extractor output already on disk
       
     </span>
   </a>
@@ -1676,10 +1818,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
+  <a href="#2-build-the-road-network" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. ...
+        2. Build the road network
       
     </span>
   </a>
@@ -1687,10 +1829,54 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#n-final-output" class="md-nav__link">
+  <a href="#3-build-the-grid" class="md-nav__link">
     <span class="md-ellipsis">
       
-        N. Final output
+        3. Build the grid
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-score-accessibility-per-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Score accessibility, per mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-flag-completeness-independently" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Flag completeness, independently
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-sanitize-once-at-the-very-end" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Sanitize, once, at the very end
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-generate-static-outputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Generate static outputs
       
     </span>
   </a>
@@ -1699,6 +1885,100 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-dashboard-runtime-what-happens-on-streamlit-run-dashboardapppy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 2: Dashboard Runtime (what happens on streamlit run dashboard/app.py)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part 2: Dashboard Runtime (what happens on streamlit run dashboard/app.py)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#8-process-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Process start
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-widget-state-on-every-rerun" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Widget state, on every rerun
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-map-rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Map rendering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-captions-recomputed-live-from-already-scored-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Captions, recomputed live from already-scored data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-ranked-table-and-findings-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Ranked table and Findings Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-static-maps-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Static maps section
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-state-lives-summarized" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where State Lives, Summarized
+      
+    </span>
+  </a>
   
 </li>
       
@@ -1723,22 +2003,159 @@
 
 
 <h1 id="end-to-end-walkthrough-akure-accessibility-dashboard">End-to-End Walkthrough — akure-accessibility-dashboard<a class="headerlink" href="#end-to-end-walkthrough-akure-accessibility-dashboard" title="Permanent link">&para;</a></h1>
-<p><em>TODO: a single, concrete trace of what happens from process start to final output — written as a narrative, not a diagram. Should answer:</em></p>
+<p>This page traces a concrete function-call sequence for one real analysis
+run, split into two parts: <strong>offline analysis</strong> (the notebook-driven part
+that actually computes everything, run once per LGA/data-update) and
+<strong>dashboard runtime</strong> (what happens each time a user opens or interacts
+with the Streamlit app, which never re-runs the analysis itself). For how
+the <em>data</em> changes shape at each stage, see <a href="../data-flow/">Data Flow</a>.</p>
+<h2 id="part-1-offline-analysis-run-via-the-projects-notebooks-not-the-dashboard">Part 1: Offline Analysis (run via the project's notebooks, not the dashboard)<a class="headerlink" href="#part-1-offline-analysis-run-via-the-projects-notebooks-not-the-dashboard" title="Permanent link">&para;</a></h2>
+<h3 id="1-start-extractor-output-already-on-disk">1. Start: extractor output already on disk<a class="headerlink" href="#1-start-extractor-output-already-on-disk" title="Permanent link">&para;</a></h3>
+<p>Everything here assumes <code>lga-osm-extractor</code> has already been run for the
+target LGA, and its GeoJSON/Shapefile output already exists on disk (see
+<a href="../../cross-repo/integration/">Cross-Repo Integration</a>).</p>
+<h3 id="2-build-the-road-network">2. Build the road network<a class="headerlink" href="#2-build-the-road-network" title="Permanent link">&para;</a></h3>
+<p>For each mode being analyzed (typically all three:
+<code>walk</code>/<code>okada</code>/<code>drive</code>): <code>network_graph.graph_from_roads(roads_gdf,
+boundary_polygon=boundary_wgs84, mode=mode)</code> is called. Internally, this
+hits OSM again (<code>ox.graph_from_polygon()</code>) — <strong>this is the offline
+pipeline's own network dependency</strong>, separate from and in addition to
+whatever network calls <code>lga-osm-extractor</code> already made to produce the
+roads layer in the first place. <code>_assign_travel_times()</code> populates
+<code>travel_time_min</code> on every edge using that mode's speed assumption.</p>
+<h3 id="3-build-the-grid">3. Build the grid<a class="headerlink" href="#3-build-the-grid" title="Permanent link">&para;</a></h3>
+<p><code>scoring.build_grid(boundary_gdf, cell_size_m=500)</code> produces the fishnet
+grid, clipped to the LGA's actual shape. <code>scoring.add_building_density(grid,
+buildings_gdf)</code> adds the <code>building_count</code> column via a spatial join against
+the buildings layer.</p>
+<h3 id="4-score-accessibility-per-mode">4. Score accessibility, per mode<a class="headerlink" href="#4-score-accessibility-per-mode" title="Permanent link">&para;</a></h3>
+<p>For each mode:</p>
 <ul>
-<li>What happens when the application starts?</li>
-<li>Which module executes first?</li>
-<li>Which modules call which others, in what order?</li>
-<li>How are requests (CLI args / Streamlit interactions) processed?</li>
-<li>How are results generated?</li>
-<li>Where is state stored, and for how long?</li>
+<li><code>isochrones.batch_nearest_facility_distances(G, health_gdf)</code> runs <strong>one</strong>
+  multi-source Dijkstra pass across the <em>entire</em> graph, returning
+  <code>{node: distance}</code> for every reachable node relative to every health
+  facility simultaneously. Repeated once more for <code>schools_gdf</code>. <strong>This is
+  the single most expensive computational step in the whole pipeline</strong>, and
+  the module's own performance framing (over an hour → roughly one Dijkstra
+  run per mode per service) is specifically about this step.</li>
+<li><code>scoring.add_access_times(grid, roads_gdf, health_gdf, schools_gdf,
+  boundary_polygon_wgs84=boundary_wgs84, modes=(mode,))</code> loops over every
+  <em>settled</em> grid cell (<code>building_count &gt; 0</code>), calling
+  <code>isochrones.lookup_nearest_distance_time()</code> — a cheap O(1) dictionary
+  lookup against the already-computed distance dict, not a fresh graph
+  search — twice per cell (health, education).</li>
+<li><code>scoring.add_access_deficit_score(grid, threshold_min=mode_threshold,
+  mode=mode)</code> derives the 0/1/2 composite score from the just-computed time
+  columns for this mode. <strong>Critically, <code>inf</code> values are preserved through
+  this entire sequence</strong> — nothing converts them to <code>NaN</code> yet.</li>
 </ul>
-<h2 id="trace">Trace<a class="headerlink" href="#trace" title="Permanent link">&para;</a></h2>
-<h3 id="1-entry-point">1. Entry point<a class="headerlink" href="#1-entry-point" title="Permanent link">&para;</a></h3>
-<p><em>TODO</em></p>
-<h3 id="2">2. ...<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
-<p><em>TODO</em></p>
-<h3 id="n-final-output">N. Final output<a class="headerlink" href="#n-final-output" title="Permanent link">&para;</a></h3>
-<p><em>TODO</em></p>
+<h3 id="5-flag-completeness-independently">5. Flag completeness, independently<a class="headerlink" href="#5-flag-completeness-independently" title="Permanent link">&para;</a></h3>
+<p><code>grid_check.flag_completeness(grid, health_gdf, schools_gdf)</code> runs
+entirely separately from steps 2–4 above — no graph, no routing, just a
+spatial-index nearest-neighbor search (<code>sjoin_nearest()</code>) per service,
+against the grid's <code>building_count</code> (using its own, stricter threshold).</p>
+<h3 id="6-sanitize-once-at-the-very-end">6. Sanitize, once, at the very end<a class="headerlink" href="#6-sanitize-once-at-the-very-end" title="Permanent link">&para;</a></h3>
+<p>Only after steps 4 and 5 have run for <strong>every</strong> mode/service of interest:
+<code>scoring.sanitize_for_export(grid)</code> converts every remaining <code>inf</code> to
+<code>NaN</code>. Calling this any earlier would have caused
+<code>add_access_deficit_score()</code> (already run in step 4) to have silently
+misclassified unreachable cells as adequately served — see
+<a href="../modules/accessibility/scoring/"><code>scoring.md</code></a> for the full reasoning.
+The resulting grid is written to
+<code>data/processed/{lga}/grid_access_scored.geojson</code>.</p>
+<h3 id="7-generate-static-outputs">7. Generate static outputs<a class="headerlink" href="#7-generate-static-outputs" title="Permanent link">&para;</a></h3>
+<p><code>visualization.static_maps.generate_all_static_outputs(lga_name, grid,
+out_dir="visuals/{lga}")</code> is called (still entirely offline, part of the
+notebook run, not the dashboard). Internally, for every mode/service
+combination present in the grid: <code>plot_deficit_map()</code> / <code>plot_continuous_map()</code>
+/ <code>plot_completeness_map()</code> are called, each fetching fresh OSM basemap
+tiles via <code>add_osm_basemap()</code> (a separate network dependency again,
+distinct from steps 2 and the extractor's own OSM calls), and each
+generating a caption via a direct call into <code>insights.py</code>'s
+<code>describe_*()</code> functions. A <code>mode_comparison</code> chart is generated once at
+the end. Every caption is written to <code>visuals/{lga}/captions.json</code>.</p>
+<h2 id="part-2-dashboard-runtime-what-happens-on-streamlit-run-dashboardapppy">Part 2: Dashboard Runtime (what happens on <code>streamlit run dashboard/app.py</code>)<a class="headerlink" href="#part-2-dashboard-runtime-what-happens-on-streamlit-run-dashboardapppy" title="Permanent link">&para;</a></h2>
+<h3 id="8-process-start">8. Process start<a class="headerlink" href="#8-process-start" title="Permanent link">&para;</a></h3>
+<p>Streamlit starts, executes <code>dashboard/app.py</code> top-to-bottom once: the
+<code>sys.path</code> fix runs first (before any <code>akure_access</code> import), page config
+and CSS are set, <code>load_data()</code> (decorated <code>@st.cache_data</code>) is called —
+this is the <strong>only</strong> point in the dashboard's entire runtime that touches
+disk for the grid data — reading both LGAs'
+<code>grid_access_scored.geojson</code> files (already fully scored and sanitized by
+Part 1, steps 1–6) directly into memory, cached for the remainder of the
+app process's lifetime.</p>
+<h3 id="9-widget-state-on-every-rerun">9. Widget state, on every rerun<a class="headerlink" href="#9-widget-state-on-every-rerun" title="Permanent link">&para;</a></h3>
+<p>Streamlit reruns the whole script on every user interaction. The current
+values of the Study area / Access view / Transport mode / Basemap /
+colorblind-safe selectors are all read fresh from Streamlit's
+widget-state system at the top of each rerun — none of this state is
+computed, only read.</p>
+<h3 id="10-map-rendering">10. Map rendering<a class="headerlink" href="#10-map-rendering" title="Permanent link">&para;</a></h3>
+<p><code>render_map(gdf, view, mode, ...)</code> is called (once, or twice side-by-side
+for the "Both (compare)" case) — <code>score_column(view, mode)</code> resolves which
+already-present column to visualize, a Leafmap map is built and displayed.
+<strong>No routing, scoring, or facility-lookup computation happens here</strong> — this
+step only ever reads already-computed columns off the in-memory grid
+loaded in step 8.</p>
+<h3 id="11-captions-recomputed-live-from-already-scored-data">11. Captions, recomputed live from already-scored data<a class="headerlink" href="#11-captions-recomputed-live-from-already-scored-data" title="Permanent link">&para;</a></h3>
+<p><code>insights.describe_interactive_view(grid, lga_name, mode, view_choice)</code> is
+called immediately after each map render — recomputing the caption's
+actual numbers fresh from the loaded grid on every single rerun (not
+cached), which is exactly what guarantees the caption always matches
+whatever selector state produced the map above it.</p>
+<h3 id="12-ranked-table-and-findings-summary">12. Ranked table and Findings Summary<a class="headerlink" href="#12-ranked-table-and-findings-summary" title="Permanent link">&para;</a></h3>
+<p>Both sections filter/aggregate the already-loaded grid live (<code>pd.concat()</code>,
+<code>.sort_values()</code>, <code>.mean()</code> calls) — again, no new computation beyond what
+was already present in the loaded GeoJSON, purely display-layer
+aggregation.</p>
+<h3 id="13-static-maps-section">13. Static maps section<a class="headerlink" href="#13-static-maps-section" title="Permanent link">&para;</a></h3>
+<p>Reads <code>visuals/{lga}/</code> (and <code>visuals/{lga}/web/</code>) off disk directly —
+<strong>a second, independent point where this dashboard touches disk</strong>, separate
+from <code>load_data()</code>'s GeoJSON read in step 8, and entirely dependent on
+Part 1's step 7 having already been run and its output files present at
+the expected paths.</p>
+<h2 id="where-state-lives-summarized">Where State Lives, Summarized<a class="headerlink" href="#where-state-lives-summarized" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Where it lives</th>
+<th>How long it persists</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The road network graph (per mode)</td>
+<td>In-memory, during the offline analysis run only</td>
+<td>Not persisted at all — rebuilt from scratch on every notebook re-run</td>
+</tr>
+<tr>
+<td>The multi-source Dijkstra distance dict</td>
+<td>In-memory, during the offline analysis run only</td>
+<td>Not persisted — this is exactly why <code>batch_nearest_facility_distances()</code>'s one-pass-per-mode-per-service efficiency matters; if it had to be recomputed per dashboard pageview instead of once offline, the dashboard would be unusably slow</td>
+</tr>
+<tr>
+<td>The fully-scored, sanitized grid</td>
+<td>Disk, <code>data/processed/{lga}/grid_access_scored.geojson</code></td>
+<td>Persists indefinitely; the dashboard's sole data source</td>
+</tr>
+<tr>
+<td>Static JPEG maps + <code>captions.json</code></td>
+<td>Disk, <code>visuals/{lga}/</code> and <code>visuals/{lga}/web/</code></td>
+<td>Persists indefinitely</td>
+</tr>
+<tr>
+<td>The loaded grid, in the dashboard process</td>
+<td>Streamlit's <code>@st.cache_data</code> cache (server memory)</td>
+<td>Persists for the life of the Streamlit server process, shared across all sessions/users</td>
+</tr>
+<tr>
+<td>Widget selections (Study area, Access view, etc.)</td>
+<td>Streamlit's per-session widget state</td>
+<td>Persists only for the current browser session</td>
+</tr>
+</tbody>
+</table>
 
 
 

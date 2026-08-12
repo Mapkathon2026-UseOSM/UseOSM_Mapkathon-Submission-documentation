@@ -9,8 +9,10 @@
         <meta name="description" content="Deep technical documentation for the lga-osm-extractor and akure-accessibility-dashboard repositories (Map<>kathon 2026, UseOSM).">
       
       
-        <meta name="author" content="Noah">
+        <meta name="author" content="Marvellous Adeleke">
       
+      
+        <link rel="canonical" href="https://mapkathon2026-useosm.github.io/UseOSM_Mapkathon-Submission-documentation/akure-accessibility-dashboard/modules/visualization/static_maps/">
       
       
         <link rel="prev" href="../../completeness/grid_check/">
@@ -27,7 +29,7 @@
     
     
       
-        <title>visualization/static_maps.py - Akure Geospatial Systems Documentation</title>
+        <title>visualization/static_maps.py - UseOSM Mapkathon Submission Documentation</title>
       
     
     
@@ -53,6 +55,8 @@
       
     
     
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -69,7 +73,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -94,7 +98,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../../.." title="Akure Geospatial Systems Documentation" class="md-header__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../../../.." title="UseOSM Mapkathon Submission Documentation" class="md-header__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -108,7 +112,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Akure Geospatial Systems Documentation
+            UseOSM Mapkathon Submission Documentation
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -127,7 +131,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
     
       <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
@@ -137,7 +141,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
@@ -196,13 +200,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
       </div>
@@ -349,23 +353,23 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../../.." title="Akure Geospatial Systems Documentation" class="md-nav__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../../../.." title="UseOSM Mapkathon Submission Documentation" class="md-nav__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    Akure Geospatial Systems Documentation
+    UseOSM Mapkathon Submission Documentation
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
     </div>
@@ -1315,22 +1319,44 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#functions-classes" class="md-nav__link">
+  <a href="#why-this-module-exists-and-why-its-vector-based-not-raster" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Functions &amp; Classes
+        Why This Module Exists, and Why It's Vector-Based, Not Raster
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Functions &amp; Classes">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-level-constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module-Level Constants
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions-classes-cartographic-building-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions &amp; Classes — Cartographic Building Blocks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions &amp; Classes — Cartographic Building Blocks">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_ensure_lonlat" class="md-nav__link">
+  <a href="#_ensure_lonlatgdf" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _ensure_lonlat()
+        _ensure_lonlat(gdf)
       
     </span>
   </a>
@@ -1338,10 +1364,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#add_north_arrow" class="md-nav__link">
+  <a href="#add_north_arrowax-xy094-094" class="md-nav__link">
     <span class="md-ellipsis">
       
-        add_north_arrow()
+        add_north_arrow(ax, xy=(0.94, 0.94))
       
     </span>
   </a>
@@ -1349,10 +1375,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#add_scale_bar" class="md-nav__link">
+  <a href="#add_scale_barax-bounds_lonlat-length_kmnone-xy005-005" class="md-nav__link">
     <span class="md-ellipsis">
       
-        add_scale_bar()
+        add_scale_bar(ax, bounds_lonlat, length_km=None, xy=(0.05, 0.05))
       
     </span>
   </a>
@@ -1360,10 +1386,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#add_gridlines" class="md-nav__link">
+  <a href="#add_gridlinesax-bounds_lonlat-intervalnone-colorgray-alpha06-fontsize9-label_sidesleft-bottom" class="md-nav__link">
     <span class="md-ellipsis">
       
-        add_gridlines()
+        add_gridlines(ax, bounds_lonlat, interval=None, color="gray", alpha=0.6, fontsize=9, label_sides=("left", "bottom"))
       
     </span>
   </a>
@@ -1371,10 +1397,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#add_osm_basemap" class="md-nav__link">
+  <a href="#add_osm_basemapax-crsepsg4326-timeout8" class="md-nav__link">
     <span class="md-ellipsis">
       
-        add_osm_basemap()
+        add_osm_basemap(ax, crs="EPSG:4326", timeout=8)
       
     </span>
   </a>
@@ -1382,10 +1408,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_figure_bounds" class="md-nav__link">
+  <a href="#_figure_boundsgdf-pad_frac004" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _figure_bounds()
+        _figure_bounds(gdf, pad_frac=0.04)
       
     </span>
   </a>
@@ -1393,10 +1419,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_finalize_and_save" class="md-nav__link">
+  <a href="#_finalize_and_savefig-ax-bounds-title-out_path-scale_bar_km-dpi-web_pathnone-web_dpinone" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _finalize_and_save()
+        _finalize_and_save(fig, ax, bounds, title, out_path, scale_bar_km, dpi, web_path=None, web_dpi=None)
       
     </span>
   </a>
@@ -1404,10 +1430,38 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_map_title" class="md-nav__link">
+  <a href="#_map_titlelga_name-metric_label" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _map_title()
+        _map_title(lga_name, metric_label)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions-classes-map-builders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions &amp; Classes — Map Builders
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions &amp; Classes — Map Builders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#plot_deficit_mapgrid_gdf-mode-title-out_path-settled_onlytrue-palettestandard-scale_bar_kmnone-dpi300-web_pathnone-web_dpinone-figsize11-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot_deficit_map(grid_gdf, mode, title, out_path, settled_only=True, palette="standard", scale_bar_km=None, dpi=300, web_path=None, web_dpi=None, figsize=(11, 12))
       
     </span>
   </a>
@@ -1415,10 +1469,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#plot_deficit_map" class="md-nav__link">
+  <a href="#plot_continuous_mapgrid_gdf-value_col-title-out_path-colorbar_label-settled_onlytrue-cmapturbo-vminnone-vmaxnone-alpha09-scale_bar_kmnone-dpi300-web_pathnone-web_dpinone-figsize11-12" class="md-nav__link">
     <span class="md-ellipsis">
       
-        plot_deficit_map()
+        plot_continuous_map(grid_gdf, value_col, title, out_path, colorbar_label, settled_only=True, cmap="turbo", vmin=None, vmax=None, alpha=0.9, scale_bar_km=None, dpi=300, web_path=None, web_dpi=None, figsize=(11, 12))
       
     </span>
   </a>
@@ -1426,43 +1480,66 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#plot_continuous_map" class="md-nav__link">
+  <a href="#plot_completeness_mapgrid_gdf-service-title-out_path-scale_bar_kmnone-dpi300-web_pathnone-web_dpinone-figsize11-12" class="md-nav__link">
     <span class="md-ellipsis">
       
-        plot_continuous_map()
+        plot_completeness_map(grid_gdf, service, title, out_path, scale_bar_km=None, dpi=300, web_path=None, web_dpi=None, figsize=(11, 12))
       
     </span>
   </a>
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#plot_completeness_map" class="md-nav__link">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions-classes-charts" class="md-nav__link">
     <span class="md-ellipsis">
       
-        plot_completeness_map()
+        Functions &amp; Classes — Charts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions &amp; Classes — Charts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#plot_mode_comparison_chartmode_stats-title-out_path-dpi300-web_pathnone-web_dpinone-figsize8-55" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot_mode_comparison_chart(mode_stats, title, out_path, dpi=300, web_path=None, web_dpi=None, figsize=(8, 5.5))
       
     </span>
   </a>
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#plot_mode_comparison_chart" class="md-nav__link">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-orchestrator" class="md-nav__link">
     <span class="md-ellipsis">
       
-        plot_mode_comparison_chart()
+        The Orchestrator
       
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="The Orchestrator">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#generate_all_static_outputs" class="md-nav__link">
+  <a href="#generate_all_static_outputslga_name-grid_gdf-out_dir-modeswalk-okada-drive-palettestandard-dpi300-web_dpi150" class="md-nav__link">
     <span class="md-ellipsis">
       
-        generate_all_static_outputs()
+        generate_all_static_outputs(lga_name, grid_gdf, out_dir, modes=("walk", "okada", "drive"), palette="standard", dpi=300, web_dpi=150)
       
     </span>
   </a>
@@ -1820,22 +1897,44 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#functions-classes" class="md-nav__link">
+  <a href="#why-this-module-exists-and-why-its-vector-based-not-raster" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Functions &amp; Classes
+        Why This Module Exists, and Why It's Vector-Based, Not Raster
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Functions &amp; Classes">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-level-constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module-Level Constants
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions-classes-cartographic-building-blocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions &amp; Classes — Cartographic Building Blocks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions &amp; Classes — Cartographic Building Blocks">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_ensure_lonlat" class="md-nav__link">
+  <a href="#_ensure_lonlatgdf" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _ensure_lonlat()
+        _ensure_lonlat(gdf)
       
     </span>
   </a>
@@ -1843,10 +1942,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#add_north_arrow" class="md-nav__link">
+  <a href="#add_north_arrowax-xy094-094" class="md-nav__link">
     <span class="md-ellipsis">
       
-        add_north_arrow()
+        add_north_arrow(ax, xy=(0.94, 0.94))
       
     </span>
   </a>
@@ -1854,10 +1953,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#add_scale_bar" class="md-nav__link">
+  <a href="#add_scale_barax-bounds_lonlat-length_kmnone-xy005-005" class="md-nav__link">
     <span class="md-ellipsis">
       
-        add_scale_bar()
+        add_scale_bar(ax, bounds_lonlat, length_km=None, xy=(0.05, 0.05))
       
     </span>
   </a>
@@ -1865,10 +1964,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#add_gridlines" class="md-nav__link">
+  <a href="#add_gridlinesax-bounds_lonlat-intervalnone-colorgray-alpha06-fontsize9-label_sidesleft-bottom" class="md-nav__link">
     <span class="md-ellipsis">
       
-        add_gridlines()
+        add_gridlines(ax, bounds_lonlat, interval=None, color="gray", alpha=0.6, fontsize=9, label_sides=("left", "bottom"))
       
     </span>
   </a>
@@ -1876,10 +1975,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#add_osm_basemap" class="md-nav__link">
+  <a href="#add_osm_basemapax-crsepsg4326-timeout8" class="md-nav__link">
     <span class="md-ellipsis">
       
-        add_osm_basemap()
+        add_osm_basemap(ax, crs="EPSG:4326", timeout=8)
       
     </span>
   </a>
@@ -1887,10 +1986,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_figure_bounds" class="md-nav__link">
+  <a href="#_figure_boundsgdf-pad_frac004" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _figure_bounds()
+        _figure_bounds(gdf, pad_frac=0.04)
       
     </span>
   </a>
@@ -1898,10 +1997,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_finalize_and_save" class="md-nav__link">
+  <a href="#_finalize_and_savefig-ax-bounds-title-out_path-scale_bar_km-dpi-web_pathnone-web_dpinone" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _finalize_and_save()
+        _finalize_and_save(fig, ax, bounds, title, out_path, scale_bar_km, dpi, web_path=None, web_dpi=None)
       
     </span>
   </a>
@@ -1909,10 +2008,38 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_map_title" class="md-nav__link">
+  <a href="#_map_titlelga_name-metric_label" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _map_title()
+        _map_title(lga_name, metric_label)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions-classes-map-builders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions &amp; Classes — Map Builders
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions &amp; Classes — Map Builders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#plot_deficit_mapgrid_gdf-mode-title-out_path-settled_onlytrue-palettestandard-scale_bar_kmnone-dpi300-web_pathnone-web_dpinone-figsize11-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot_deficit_map(grid_gdf, mode, title, out_path, settled_only=True, palette="standard", scale_bar_km=None, dpi=300, web_path=None, web_dpi=None, figsize=(11, 12))
       
     </span>
   </a>
@@ -1920,10 +2047,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#plot_deficit_map" class="md-nav__link">
+  <a href="#plot_continuous_mapgrid_gdf-value_col-title-out_path-colorbar_label-settled_onlytrue-cmapturbo-vminnone-vmaxnone-alpha09-scale_bar_kmnone-dpi300-web_pathnone-web_dpinone-figsize11-12" class="md-nav__link">
     <span class="md-ellipsis">
       
-        plot_deficit_map()
+        plot_continuous_map(grid_gdf, value_col, title, out_path, colorbar_label, settled_only=True, cmap="turbo", vmin=None, vmax=None, alpha=0.9, scale_bar_km=None, dpi=300, web_path=None, web_dpi=None, figsize=(11, 12))
       
     </span>
   </a>
@@ -1931,43 +2058,66 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#plot_continuous_map" class="md-nav__link">
+  <a href="#plot_completeness_mapgrid_gdf-service-title-out_path-scale_bar_kmnone-dpi300-web_pathnone-web_dpinone-figsize11-12" class="md-nav__link">
     <span class="md-ellipsis">
       
-        plot_continuous_map()
+        plot_completeness_map(grid_gdf, service, title, out_path, scale_bar_km=None, dpi=300, web_path=None, web_dpi=None, figsize=(11, 12))
       
     </span>
   </a>
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#plot_completeness_map" class="md-nav__link">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions-classes-charts" class="md-nav__link">
     <span class="md-ellipsis">
       
-        plot_completeness_map()
+        Functions &amp; Classes — Charts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions &amp; Classes — Charts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#plot_mode_comparison_chartmode_stats-title-out_path-dpi300-web_pathnone-web_dpinone-figsize8-55" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plot_mode_comparison_chart(mode_stats, title, out_path, dpi=300, web_path=None, web_dpi=None, figsize=(8, 5.5))
       
     </span>
   </a>
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#plot_mode_comparison_chart" class="md-nav__link">
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-orchestrator" class="md-nav__link">
     <span class="md-ellipsis">
       
-        plot_mode_comparison_chart()
+        The Orchestrator
       
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="The Orchestrator">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#generate_all_static_outputs" class="md-nav__link">
+  <a href="#generate_all_static_outputslga_name-grid_gdf-out_dir-modeswalk-okada-drive-palettestandard-dpi300-web_dpi150" class="md-nav__link">
     <span class="md-ellipsis">
       
-        generate_all_static_outputs()
+        generate_all_static_outputs(lga_name, grid_gdf, out_dir, modes=("walk", "okada", "drive"), palette="standard", dpi=300, web_dpi=150)
       
     </span>
   </a>
@@ -2013,61 +2163,79 @@
 <h1 id="static_mapspy">static_maps.py<a class="headerlink" href="#static_mapspy" title="Permanent link">&para;</a></h1>
 <div class="admonition info">
 <p class="admonition-title">Source</p>
-<p><code>akure_access/visualization/static_maps.py</code></p>
+<p><code>akure_access/visualization/static_maps.py</code> (670 lines — the largest
+single module in this repository)</p>
 </div>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p><em>TODO: 1-2 paragraphs - what this module is responsible for and why it exists as a separate module.</em></p>
+<p>Generates publication-styled static maps and charts (JPEG, at both print
+and web resolution) from the project's scored grid: categorical
+access-deficit maps, continuous travel-time choropleths, OSM-completeness
+maps, and a mode-comparison bar chart — each carrying standard reference-map
+cartographic furniture (OSM basemap, lat/lon gridlines, north arrow, scale
+bar, legend) and a data-driven caption from
+<a href="../../insights/"><code>insights.py</code></a>.</p>
 <h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
-<p><em>TODO: what this module imports, what imports it.</em></p>
-<h2 id="functions-classes">Functions &amp; Classes<a class="headerlink" href="#functions-classes" title="Permanent link">&para;</a></h2>
-<h3 id="_ensure_lonlat"><code>_ensure_lonlat()</code><a class="headerlink" href="#_ensure_lonlat" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Imports:</strong> <code>json</code>, <code>os</code>, <code>warnings</code>, <code>geopandas</code>,
+  <code>matplotlib.patches</code>/<code>matplotlib.pyplot</code>, <code>numpy</code>,
+  <code>matplotlib.lines.Line2D</code>; <code>describe_deficit_map</code>,
+  <code>describe_continuous_map</code>, <code>describe_completeness_map</code>,
+  <code>describe_mode_comparison_chart</code> from <code>akure_access.insights</code> (imported
+  under underscore-prefixed aliases, e.g. <code>_describe_deficit_map</code>, to
+  distinguish the imported caption function from this module's own
+  <code>plot_*</code> functions of similar purpose without a naming collision).
+  Optionally imports <code>contextily</code> for the OSM basemap — see below for why
+  this import is wrapped in a <code>try/except</code>.</li>
+<li><strong>Imported by:</strong> the project's analysis notebook (for producing the
+  full static export set); not imported by <code>dashboard/app.py</code> directly —
+  the live dashboard uses its own lighter-weight rendering path, this
+  module is specifically for the downloadable/publication artifact set.</li>
+</ul>
+<h2 id="why-this-module-exists-and-why-its-vector-based-not-raster">Why This Module Exists, and Why It's Vector-Based, Not Raster<a class="headerlink" href="#why-this-module-exists-and-why-its-vector-based-not-raster" title="Permanent link">&para;</a></h2>
+<p>This reasoning is stated directly in the module's own top-of-file
+docstring and is worth preserving here in full, since it explains a design
+decision that shapes every function in the file: standard reference-map
+styling (OSM basemap, gridlines, north arrow, scale bar, legend) is
+normally built for single/multi-band <em>rasters</em> — satellite imagery,
+<code>rasterio</code> plus a GeoTIFF per layer. This project's accessibility outputs
+are <em>vector</em> data instead — a polygon grid with per-cell scores, plus
+point/line facility and road layers — so this module ports the
+cartographic <em>styling conventions</em> (gridlines, north arrow, scale bar, OSM
+basemap, legend/colorbar placement, dpi/format choices) to vector plotting
+via <code>gdf.plot()</code> (GeoPandas' matplotlib-based vector plotting), rather than
+<code>ax.imshow()</code>.</p>
+<p>Every plotting function accepts a <code>GeoDataFrame</code> in EPSG:4326 (lat/lon) and
+reprojects internally to Web Mercator only for the OSM basemap layer, via
+<code>contextily.add_basemap(..., crs='EPSG:4326')</code> — reprojecting the <em>tiles</em>
+on the fly rather than reprojecting the data itself. This keeps every
+function's public interface in the same CRS the rest of <code>akure_access</code>
+already standardizes on (well, mostly — see the <code>EPSG:4326</code>-vs-<code>EPSG:32631</code>
+tension addressed by <code>_ensure_lonlat()</code> below).</p>
+<h2 id="module-level-constants">Module-Level Constants<a class="headerlink" href="#module-level-constants" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th></th>
-<th></th>
+<th>Constant</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td><code>DEFICIT_PALETTES</code></td>
+<td><code>{"standard": [green, amber, red], "colorblind_safe": [blue, orange, vermillion]}</code> — explicitly documented as reusing <strong>the exact same palette</strong> as the Streamlit dashboard's discrete legend, so a downloaded static JPEG and the live interactive map never disagree on what a given color means.</td>
 </tr>
 <tr>
-<td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td><code>DEFICIT_LABELS</code></td>
+<td><code>["Well served", "Underserved (1 service)", "Underserved (both services)"]</code> — the three category labels matching <code>DEFICIT_PALETTES</code>' three colors.</td>
 </tr>
 <tr>
-<td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
-</tr>
-<tr>
-<td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
-</tr>
-<tr>
-<td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
-</tr>
-<tr>
-<td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td><code>ACCENT_PRIMARY</code>/<code>ACCENT_SECONDARY</code>/<code>ACCENT_HIGHLIGHT</code></td>
+<td>Brand accent colors, documented as being reused from the dashboard's own theme, "so charts/maps produced by the notebook visually match the Streamlit app they'll sit alongside, rather than looking like a separate, disconnected artifact."</td>
 </tr>
 </tbody>
 </table>
-<h3 id="add_north_arrow"><code>add_north_arrow()</code><a class="headerlink" href="#add_north_arrow" title="Permanent link">&para;</a></h3>
+<h2 id="functions-classes-cartographic-building-blocks">Functions &amp; Classes — Cartographic Building Blocks<a class="headerlink" href="#functions-classes-cartographic-building-blocks" title="Permanent link">&para;</a></h2>
+<h3 id="_ensure_lonlatgdf"><code>_ensure_lonlat(gdf)</code><a class="headerlink" href="#_ensure_lonlatgdf" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -2078,43 +2246,39 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Reprojects <code>gdf</code> to EPSG:4326 if it isn't already there (or has no CRS set, in which case it's assumed to already be EPSG:4326 and just tagged as such, with a warning).</td>
 </tr>
 <tr>
-<td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td><strong>Why written this way — a real, previously-hit failure this function exists to prevent.</strong></td>
+<td>The module's docstring is explicit: gridline spacing, the scale bar's km-per-degree math, and the OSM basemap's <code>crs=</code> argument all assume geographic coordinates. But <code>akure_access.accessibility</code> deliberately reprojects everything to a metric UTM CRS (EPSG:32631) for correct distance/area math — meaning the real <code>grid_access_scored.geojson</code> this module actually receives in practice is in UTM meters, not lon/lat degrees. Without this conversion, gridline/scale-bar spacing code that assumes degree-scale coordinates would instead be handed meter-scale UTM values — attempting to draw gridlines at fractional-degree intervals across a value range spanning tens of thousands (UTM meters, not degrees) would produce tens of thousands of gridlines and hang the plotting call. The docstring states this is exactly the failure caught while testing this module against real Akure North data — not a hypothetical concern.</td>
 </tr>
 <tr>
-<td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><strong>Inputs / Outputs</strong></td>
+<td><code>gdf: GeoDataFrame</code> in, reprojected (or CRS-tagged) <code>GeoDataFrame</code> out.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. If <code>gdf.crs</code> is <code>None</code>: warn, then <code>set_crs("EPSG:4326")</code> (tags without reprojecting — assumes the untagged data is already lon/lat).<br>2. If <code>gdf.crs</code> is set but isn't <code>EPSG:4326</code>/<code>OGC:CRS84</code>: <code>to_crs("EPSG:4326")</code> (actually reprojects).<br>3. Otherwise, return unchanged.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>The no-CRS branch assumes untagged input is already geographic — a reasonable default, but if an untagged UTM-coordinate <code>GeoDataFrame</code> were ever passed in, this function would tag it as EPSG:4326 without reprojecting, silently producing wildly wrong coordinates rather than the hang this function is designed to prevent for the <em>tagged</em>-but-wrong-CRS case.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
-</tr>
-<tr>
-<td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>O(N) — a reprojection pass over N features, when reprojection is actually needed; O(1) otherwise.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../../tests/">tests.md</a> — <code>test_static_maps.py</code>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="add_scale_bar"><code>add_scale_bar()</code><a class="headerlink" href="#add_scale_bar" title="Permanent link">&para;</a></h3>
+<h3 id="add_north_arrowax-xy094-094"><code>add_north_arrow(ax, xy=(0.94, 0.94))</code><a class="headerlink" href="#add_north_arrowax-xy094-094" title="Permanent link">&para;</a></h3>
+<p>A simple "N" arrow annotation in the upper-right of the axes (position
+configurable, defaulting to a consistent placement used throughout the
+module). Pure matplotlib annotation logic — no geospatial computation.</p>
+<h3 id="add_scale_barax-bounds_lonlat-length_kmnone-xy005-005"><code>add_scale_bar(ax, bounds_lonlat, length_km=None, xy=(0.05, 0.05))</code><a class="headerlink" href="#add_scale_barax-bounds_lonlat-length_kmnone-xy005-005" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -2125,43 +2289,39 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Draws a ground-truth-length scale bar in the lower-left of the map, auto-sizing to a "nice" round number if <code>length_km</code> isn't specified.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>Two things worth explaining. <strong>(1) Why length can't just be "N pixels":</strong> since the axes are in geographic degrees, a fixed pixel/axis-fraction length would represent a <em>different real-world distance</em> depending on latitude — the physical length of one degree of longitude shrinks toward the poles (<code>cos(latitude)</code> scaling), so the function explicitly converts a target kilometer length into the correct number of degrees at the map's actual mid-latitude, using the standard 111.32 km/degree-of-latitude constant. The docstring is upfront this is a spherical approximation (not ellipsoid-accurate) — acceptable at map-reading scale, not survey-grade. <strong>(2) The "nice round number" auto-sizing:</strong> mirrors how QGIS/ArcGIS auto-scale bars behave — targets roughly a fifth of the map's width, then snaps to the nearest of <code>{1, 2, 5, 10, 20, 50, 100...} × 10^n</code>, so an LGA-scale map and a wider comparison view each get a sensibly-sized bar rather than sharing one hardcoded length that would look wrong at one scale or the other.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>ax</code> (matplotlib axes); <code>bounds_lonlat: tuple</code> (west, south, east, north); <code>length_km</code>, optional; <code>xy: tuple</code>, default <code>(0.05, 0.05)</code> (axes-fraction position).</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>None</code> — draws directly on <code>ax</code>.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. Compute <code>lat_mid</code>, then <code>km_per_deg_lon = 111.32 * cos(radians(lat_mid))</code>.<br>2. Compute the map's actual width in km from its lon/lat extent.<br>3. If <code>length_km</code> not given: target = width/5; find the magnitude via <code>10 ** floor(log10(target))</code>; loop through candidate multipliers <code>(1, 2, 5, 10)</code> of that magnitude, picking the first that's <code>&gt;= target</code> (a <code>for...else</code> construction — the <code>else</code> branch, reached only if no candidate satisfied the condition, falls back to <code>10 * magnitude</code>, guaranteeing <code>length_km</code> is always set by the end of this block).<br>4. Convert <code>length_km</code> back to degrees (<code>bar_deg</code>) using the same <code>km_per_deg_lon</code> conversion.<br>5. Compute bar start position from <code>xy</code> (fraction of the map's bounds), draw a horizontal line of that length, and label it with the km value.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes the spherical-Earth approximation is acceptable at the LGA scale this project operates at — explicitly not survey-grade, as the docstring states.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
-</tr>
-<tr>
-<td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>O(1) — fixed number of arithmetic operations and one drawing call, independent of data size.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="add_gridlines"><code>add_gridlines()</code><a class="headerlink" href="#add_gridlines" title="Permanent link">&para;</a></h3>
+<h3 id="add_gridlinesax-bounds_lonlat-intervalnone-colorgray-alpha06-fontsize9-label_sidesleft-bottom"><code>add_gridlines(ax, bounds_lonlat, interval=None, color="gray", alpha=0.6, fontsize=9, label_sides=("left", "bottom"))</code><a class="headerlink" href="#add_gridlinesax-bounds_lonlat-intervalnone-colorgray-alpha06-fontsize9-label_sidesleft-bottom" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -2172,43 +2332,39 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Draws a lat/long graticule (grid of reference lines) with edge coordinate labels, styled after standard printed reference maps.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>Two deliberate cartographic conventions, both explained in the docstring. <strong>(1) Single-side labeling</strong>: coordinate labels appear on the left (latitude) and bottom (longitude) only, not mirrored on all four sides — the docstring is explicit that mirrored labeling (showing the same values on opposite sides) is "a plotting-library default, not a cartographic convention"; standard topographic/reference maps label each axis once. The implementation still allows <em>tick marks</em> (short lines, not text) on all sides for a finished "boxed" frame look, only the text labels themselves are restricted to <code>label_sides</code>. <strong>(2) Auto-picked interval scaled to map extent</strong>: an LGA is only a few km wide, so a continental-map-scale interval like 1.0° would draw zero or one gridline across the whole map and be useless — the function instead picks from a candidate list <code>(0.005, 0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0)</code>, choosing the finest interval that still produces no more than 8 gridlines across the map's larger dimension (<code>span / candidate &lt;= 8</code>), so grid density scales sensibly whether plotting a single ward, a full LGA, or a wider multi-LGA comparison view.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>ax</code>; <code>bounds_lonlat: tuple</code>; <code>interval</code>, optional (degrees); styling kwargs; <code>label_sides: tuple</code>, default <code>("left", "bottom")</code>.</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>None</code> — draws directly on <code>ax</code>.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. Auto-pick <code>interval</code> if not given, per the candidate-list logic above.<br>2. Build <code>lons</code>/<code>lats</code> arrays via <code>np.arange()</code>, snapped to interval boundaries starting below <code>west</code>/<code>south</code> (via <code>np.floor(west/interval) * interval</code>) so gridlines align to round coordinate values rather than starting at the map's arbitrary edge.<br>3. Draw a vertical line (<code>axvline</code>) per longitude, horizontal line (<code>axhline</code>) per latitude.<br>4. Format tick labels with degree symbols and hemisphere letters (<code>_fmt_lon</code>/<code>_fmt_lat</code> closures) — e.g. <code>"5.234°E"</code>, <code>"7.123°N"</code>.<br>5. Set tick positions/labels, then call <code>ax.tick_params()</code> with per-side boolean flags derived from <code>label_sides</code>, controlling label visibility independently per side while ticks themselves remain visible on top/bottom and left/right regardless.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes an 8-gridline cap across the larger dimension is a reasonable density — a readability judgment, not derived from any formal cartographic standard.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
-</tr>
-<tr>
-<td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>O(G) where G = number of gridlines drawn (bounded by the 8-per-axis cap, so effectively a small constant regardless of map size).</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="add_osm_basemap"><code>add_osm_basemap()</code><a class="headerlink" href="#add_osm_basemap" title="Permanent link">&para;</a></h3>
+<h3 id="add_osm_basemapax-crsepsg4326-timeout8"><code>add_osm_basemap(ax, crs="EPSG:4326", timeout=8)</code><a class="headerlink" href="#add_osm_basemapax-crsepsg4326-timeout8" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -2219,43 +2375,48 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Adds OpenStreetMap tiles behind the plotted data (<code>zorder=0</code>), reprojecting tiles on the fly via <code>contextily</code> to match <code>crs</code>, rather than reprojecting the data into Web Mercator first.</td>
 </tr>
 <tr>
-<td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td><strong>Why written this way — graceful degradation is the central design goal here, not basemap-fetching itself.</strong></td>
+<td>Two independent failure modes are handled, both falling back to the same plain light-gray background with an explanatory note rather than raising: <strong>(1) <code>contextily</code> not installed at all</strong> — checked once at module import time (<code>_HAS_CONTEXTILY</code>), avoiding a hard dependency on what the module docstring calls an "optional/heavy" package; <strong>(2) tiles can't be fetched</strong> (no internet access, timeout, tile-server error) — caught via a broad <code>except Exception</code>, with the warning message explicitly noting this is expected in offline/sandboxed environments, and that Colab/Streamlit Cloud (both having internet access) would normally succeed. The <code>timeout=8</code> parameter exists specifically so a blocked/unreachable tile server fails fast rather than hanging the whole map-generation run indefinitely, since <code>contextily</code>'s own default behavior is to retry without a bounded timeout. This graceful-degradation design is what makes every other function in this module safe to call from automated/CI/testing contexts without needing live network access or a basemap-mocking setup — the rest of the map (data, gridlines, legend, scale bar) still renders correctly either way.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>ax</code>; <code>crs: str</code>, default <code>"EPSG:4326"</code>; <code>timeout: int</code>, default <code>8</code> seconds.</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>None</code> — side effect on <code>ax</code> (either real tiles, or a gray background + note).</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. If <code>contextily</code> isn't available: set a light-gray facecolor, add an explanatory centered text annotation, return.<br>2. Otherwise, try <code>ctx.add_basemap(ax, crs=crs, source=ctx.providers.OpenStreetMap.Mapnik, ..., timeout=timeout)</code>.<br>3. On any exception: warn with a message including the actual exception and the offline-context explanation, fall back to the same gray facecolor (though notably, without the explanatory text annotation the no-<code>contextily</code> branch adds — see Gotchas).</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes a broad <code>except Exception</code> is the right granularity for "basemap fetch failed for any reason" — deliberately not distinguishing network timeout from a <code>contextily</code>-internal error from a malformed CRS, since the user-facing remedy (proceed without a basemap) is the same regardless of the specific cause.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
+<td>Dominated by the network I/O of tile fetching when it succeeds; O(1) in this function's own logic for either fallback path.</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>None introduced by this function; tile-fetch network calls are synchronous, not parallelized.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../../tests/">tests.md</a> — the two distinct fallback paths (no <code>contextily</code> vs. <code>contextily</code> present but fetch fails) are each worth direct coverage given they're marked <code># pragma: no cover</code> in the source for the network-dependent branch, meaning that specific path likely isn't exercised in the existing automated test suite — see <a href="../../../tests/">tests.md</a> for what's actually covered.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="_figure_bounds"><code>_figure_bounds()</code><a class="headerlink" href="#_figure_bounds" title="Permanent link">&para;</a></h3>
+<h3 id="_figure_boundsgdf-pad_frac004"><code>_figure_bounds(gdf, pad_frac=0.04)</code><a class="headerlink" href="#_figure_boundsgdf-pad_frac004" title="Permanent link">&para;</a></h3>
+<p>A small helper: returns <code>gdf.total_bounds</code> (lon/lat) padded outward by
+<code>pad_frac</code> (default 4%) on each side, "so the data doesn't touch the frame
+edge, matching standard reference-map use of the raster's own bounds as
+the map extent."</p>
+<h3 id="_finalize_and_savefig-ax-bounds-title-out_path-scale_bar_km-dpi-web_pathnone-web_dpinone"><code>_finalize_and_save(fig, ax, bounds, title, out_path, scale_bar_km, dpi, web_path=None, web_dpi=None)</code><a class="headerlink" href="#_finalize_and_savefig-ax-bounds-title-out_path-scale_bar_km-dpi-web_pathnone-web_dpinone" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -2266,43 +2427,42 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>The shared finishing sequence for every map function: adds gridlines/north arrow/scale bar, sets title/axis labels/extent, then saves the figure once at <code>dpi</code> and optionally a second time at <code>web_dpi</code> to a different path.</td>
 </tr>
 <tr>
-<td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td><strong>Why written this way — the dual-save mechanism is a deliberate, documented performance optimization, not incidental convenience.</strong></td>
+<td>The docstring is explicit: the second save is "nearly free" — by the time this function runs, the expensive parts (fetching OSM basemap tiles, plotting the data layer, computing gridlines) have already happened exactly once; a second <code>fig.savefig()</code> call at a different dpi simply re-rasterizes the same already-rendered, already-in-memory figure — it does <strong>not</strong> re-fetch tiles or re-run the plot. This is what makes generating a "print-quality download" + "fast web display" pair practical to produce together in one pass, rather than needing to build the whole figure twice, which would also double the load placed on OSM's tile servers for no visual benefit — directly connecting this function's design back to <code>add_osm_basemap()</code>'s network-fetch concern above.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>fig</code>, <code>ax</code> (matplotlib objects); <code>bounds</code>; <code>title: str</code>; <code>out_path: str</code>; <code>scale_bar_km</code>, optional; <code>dpi: int</code>; <code>web_path</code>, <code>web_dpi</code>, optional.</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>str</code> — returns <code>out_path</code> (the print-tier path) regardless of whether a web-tier copy was also saved.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
-</tr>
-<tr>
-<td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>1. Call <code>add_gridlines()</code>, <code>add_north_arrow()</code>, <code>add_scale_bar()</code> in sequence against the given <code>bounds</code>.<br>2. Set title, axis labels, and explicit x/y limits from <code>bounds</code> (locking the final displayed extent).<br>3. Ensure <code>out_path</code>'s parent directory exists; save at <code>dpi</code>.<br>4. If <code>web_path</code> given: ensure its parent directory exists too; save again at <code>web_dpi</code> (falling back to <code>dpi</code> if <code>web_dpi</code> wasn't specified) — the "nearly free" second save described above.<br>5. <code>plt.close(fig)</code> — releases the figure's memory; important given this function may be called many times in a row inside <code>generate_all_static_outputs()</code>'s loop, where leaving figures open would accumulate memory across dozens of maps in one run.<br>6. Return <code>out_path</code>.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
-</tr>
-<tr>
-<td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>O(1) in this function's own logic (fixed number of drawing/saving calls); the actual cost is dominated by matplotlib's rasterization, proportional to figure size/dpi, done once (or twice, cheaply, per the dual-save reasoning) per call.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="_finalize_and_save"><code>_finalize_and_save()</code><a class="headerlink" href="#_finalize_and_save" title="Permanent link">&para;</a></h3>
+<h3 id="_map_titlelga_name-metric_label"><code>_map_title(lga_name, metric_label)</code><a class="headerlink" href="#_map_titlelga_name-metric_label" title="Permanent link">&para;</a></h3>
+<p>One line: <code>f"{lga_name}: {metric_label}"</code> — the single shared title
+convention every map/chart type uses (e.g. <code>"Akure South: Access Deficit
+(Walk)"</code>), kept as one function specifically so every figure type uses the
+exact same formatting rather than each caller phrasing titles slightly
+differently.</p>
+<h2 id="functions-classes-map-builders">Functions &amp; Classes — Map Builders<a class="headerlink" href="#functions-classes-map-builders" title="Permanent link">&para;</a></h2>
+<h3 id="plot_deficit_mapgrid_gdf-mode-title-out_path-settled_onlytrue-palettestandard-scale_bar_kmnone-dpi300-web_pathnone-web_dpinone-figsize11-12"><code>plot_deficit_map(grid_gdf, mode, title, out_path, settled_only=True, palette="standard", scale_bar_km=None, dpi=300, web_path=None, web_dpi=None, figsize=(11, 12))</code><a class="headerlink" href="#plot_deficit_mapgrid_gdf-mode-title-out_path-settled_onlytrue-palettestandard-scale_bar_kmnone-dpi300-web_pathnone-web_dpinone-figsize11-12" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -2313,43 +2473,39 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>The categorical (0/1/2) access-deficit map for one mode, styled to match the reference cartographic conventions (basemap, gridlines, north arrow, scale bar, legend), using the same palette as the interactive dashboard.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td><code>settled_only=True</code> (the default) excludes unsettled cells from the plotted layer <strong>entirely</strong>, rather than coloring them a fourth "unscored" color — the docstring's reasoning: "no people, no score" is a conceptually different situation from "well served," and coloring unsettled land as if it were a positive finding (or even a neutral fourth category sitting visually alongside the other three) would misrepresent empty land as meaningful analysis output. The map's overall extent (<code>bounds</code>) is still computed from the <em>full</em> grid (not just settled cells) "for context" — so the map frame shows the whole LGA even though only settled portions are actually colored, giving geographic context without implying unsettled areas were scored.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>grid_gdf: GeoDataFrame</code>; <code>mode: str</code>; <code>title</code>, <code>out_path: str</code>; <code>settled_only: bool</code>, default <code>True</code>; <code>palette: str</code>, default <code>"standard"</code>; <code>scale_bar_km</code>, <code>dpi</code>, <code>web_path</code>, <code>web_dpi</code>, <code>figsize</code> — the last five all passed straight through to <code>_finalize_and_save()</code>.</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>str</code> (the saved print-tier path, from <code>_finalize_and_save()</code>).</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. Resolve the mode-specific deficit-score column name; raise <code>KeyError</code> with an explicit, actionable message (naming the expected column and its source function) if it doesn't exist — a clearer failure than a generic pandas <code>KeyError</code> would produce.<br>2. <code>_ensure_lonlat()</code> the input.<br>3. Filter to settled cells if <code>settled_only</code>; raise <code>ValueError</code> if the result is empty (nothing to plot).<br>4. Compute the full-grid <code>bounds</code> (before the settled filter, per the "for context" reasoning above).<br>5. Create the figure, add the OSM basemap.<br>6. For each of the three score values (0, 1, 2), filter to matching rows and plot them in that category's color — plotted as three separate <code>.plot()</code> calls rather than one call with a categorical colormap, giving explicit control over each category's exact color and allowing empty categories (a mode/LGA combination with, say, zero cells scoring <code>2</code>) to be skipped cleanly without an empty/broken legend entry.<br>7. Build legend patches matching the three colors/labels, add as a titled legend.<br>8. Delegate to <code>_finalize_and_save()</code> for the shared finishing sequence.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes the three-category palette adequately represents the deficit score's full 0–2 range — true given the scoring model in <code>scoring.add_access_deficit_score()</code> only ever produces exactly these three integer values (plus <code>NaN</code> for unsettled cells, which are excluded here rather than plotted).</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
-</tr>
-<tr>
-<td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>O(N) for the settled filter and per-category subsetting (N = grid cell count); plotting cost itself scales with the number of settled cells drawn.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="_map_title"><code>_map_title()</code><a class="headerlink" href="#_map_title" title="Permanent link">&para;</a></h3>
+<h3 id="plot_continuous_mapgrid_gdf-value_col-title-out_path-colorbar_label-settled_onlytrue-cmapturbo-vminnone-vmaxnone-alpha09-scale_bar_kmnone-dpi300-web_pathnone-web_dpinone-figsize11-12"><code>plot_continuous_map(grid_gdf, value_col, title, out_path, colorbar_label, settled_only=True, cmap="turbo", vmin=None, vmax=None, alpha=0.9, scale_bar_km=None, dpi=300, web_path=None, web_dpi=None, figsize=(11, 12))</code><a class="headerlink" href="#plot_continuous_mapgrid_gdf-value_col-title-out_path-colorbar_label-settled_onlytrue-cmapturbo-vminnone-vmaxnone-alpha09-scale_bar_kmnone-dpi300-web_pathnone-web_dpinone-figsize11-12" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -2360,43 +2516,39 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>The continuous choropleth map (e.g. <code>health_time_min_walk</code>) with a colorbar, for any single numeric column.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td><code>NaN</code> cells (unsettled, or genuinely unreachable-then-sanitized via <code>scoring.sanitize_for_export()</code>) are filtered out and left uncolored/transparent, rather than plotted with some placeholder value — explicitly described as the same "don't visually claim a score exists where it doesn't" principle used throughout the scoring pipeline itself (directly echoing <code>scoring.py</code>'s own design philosophy around <code>NaN</code>/<code>inf</code> handling, applied here at the visualization layer). <code>vmin</code>/<code>vmax</code> default to the actual data's min/max if not explicitly given, so the color scale is always meaningful for whatever's actually being plotted, rather than assuming a fixed range that might not match a given LGA/mode/service combination's real value distribution.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>grid_gdf</code>; <code>value_col: str</code> (any numeric column, generic — this function isn't hardcoded to a specific metric); <code>title</code>, <code>out_path</code>, <code>colorbar_label: str</code>; <code>settled_only</code>, <code>cmap</code>, <code>vmin</code>, <code>vmax</code>, <code>alpha</code>, plus the shared <code>scale_bar_km</code>/<code>dpi</code>/<code>web_path</code>/<code>web_dpi</code>/<code>figsize</code> set.</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>str</code>.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. Raise <code>KeyError</code> (with the full column list for debugging) if <code>value_col</code> doesn't exist.<br>2. <code>_ensure_lonlat()</code>.<br>3. Filter to settled cells if requested, then filter again to non-null values of <code>value_col</code> — raise <code>ValueError</code> if nothing remains after both filters.<br>4. Compute full-grid <code>bounds</code> for context (same pattern as <code>plot_deficit_map()</code>).<br>5. Create figure, add basemap.<br>6. Resolve <code>vmin</code>/<code>vmax</code> from the plotted data's actual range if not explicitly given.<br>7. Single <code>.plot()</code> call using GeoPandas' built-in <code>column=</code>/<code>cmap=</code>/<code>legend=True</code> continuous-choropleth support, with <code>legend_kwds</code> controlling the colorbar's label, size (<code>shrink=0.6</code>), and padding.<br>8. Delegate to <code>_finalize_and_save()</code>.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes <code>"turbo"</code> is a reasonable default colormap for travel-time data — a perceptually broad, high-contrast colormap; no explicit justification given in the docstring for this specific choice over alternatives like <code>"viridis"</code>.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
-</tr>
-<tr>
-<td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>O(N) for filtering; plotting cost scales with the number of valid cells drawn.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="plot_deficit_map"><code>plot_deficit_map()</code><a class="headerlink" href="#plot_deficit_map" title="Permanent link">&para;</a></h3>
+<h3 id="plot_completeness_mapgrid_gdf-service-title-out_path-scale_bar_kmnone-dpi300-web_pathnone-web_dpinone-figsize11-12"><code>plot_completeness_map(grid_gdf, service, title, out_path, scale_bar_km=None, dpi=300, web_path=None, web_dpi=None, figsize=(11, 12))</code><a class="headerlink" href="#plot_completeness_mapgrid_gdf-service-title-out_path-scale_bar_kmnone-dpi300-web_pathnone-web_dpinone-figsize11-12" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -2407,43 +2559,40 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>A two-category map (confirmed nearby vs. possible OSM data gap) for one service's completeness flag.</td>
 </tr>
 <tr>
-<td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td><strong>Why written this way — deliberately NOT reusing <code>plot_deficit_map()</code>.</strong></td>
+<td>The docstring states this explicitly: this is kept as its own function rather than generalizing <code>plot_deficit_map()</code> to handle it, because the underlying <em>concept</em> is genuinely different — this map is about OSM coverage confidence, not about access itself — and the docstring warns that conflating the two palettes "would blur exactly the distinction the completeness module exists to preserve." This mirrors, at the visualization layer, the same architectural separation documented in <code>completeness/grid_check.py</code> and the <a href="../../../overview/">repository overview</a>: completeness and accessibility are kept as visibly, deliberately distinct concerns throughout the codebase, not just in the underlying data model but in how each is presented.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>grid_gdf</code>; <code>service: str</code>; <code>title</code>, <code>out_path: str</code>; plus the shared styling/output parameter set.</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>str</code>.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. Raise <code>KeyError</code> if the expected <code>{service}_completeness_flag</code> column is missing, with a message pointing at <code>grid_check.flag_completeness()</code> as the expected source.<br>2. <code>_ensure_lonlat()</code>, filter to settled cells, raise <code>ValueError</code> if empty.<br>3. Compute full-grid <code>bounds</code>, create figure, add basemap.<br>4. Split settled cells into <code>confirmed</code> (<code>flag_col == False</code>) and <code>possible_gap</code> (<code>flag_col == True</code>) — both comparisons use explicit <code>== True</code>/<code>== False</code> rather than boolean truthiness directly, with an inline <code># noqa: E712</code> comment explaining this is deliberate: explicit comparison behaves correctly against a nullable boolean dtype (where a bare truthiness check could behave unexpectedly on a <code>pd.NA</code> value, whereas an explicit <code>== True</code>/<code>== False</code> comparison evaluates cleanly to <code>False</code> for either branch on a null, silently excluding it from both categories rather than raising or misclassifying it).<br>5. Plot each non-empty subset in its accent color (<code>ACCENT_SECONDARY</code> for confirmed, <code>ACCENT_HIGHLIGHT</code> for gap).<br>6. Build a two-entry legend.<br>7. Delegate to <code>_finalize_and_save()</code>.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes the flag column, while typically a plain Python <code>bool</code> dtype in practice, might sometimes carry a nullable/<code>pd.NA</code>-capable dtype — the explicit <code>==</code> comparisons are defensive against that possibility, per the inline comment's reasoning.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
-</tr>
-<tr>
-<td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>O(N) for the settled filter and category split.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="plot_continuous_map"><code>plot_continuous_map()</code><a class="headerlink" href="#plot_continuous_map" title="Permanent link">&para;</a></h3>
+<h2 id="functions-classes-charts">Functions &amp; Classes — Charts<a class="headerlink" href="#functions-classes-charts" title="Permanent link">&para;</a></h2>
+<h3 id="plot_mode_comparison_chartmode_stats-title-out_path-dpi300-web_pathnone-web_dpinone-figsize8-55"><code>plot_mode_comparison_chart(mode_stats, title, out_path, dpi=300, web_path=None, web_dpi=None, figsize=(8, 5.5))</code><a class="headerlink" href="#plot_mode_comparison_chartmode_stats-title-out_path-dpi300-web_pathnone-web_dpinone-figsize8-55" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -2454,43 +2603,40 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>A grouped bar chart (matplotlib, not GeoPandas — this is the one function in the module that isn't a map) comparing "underserved (≥1 service)" and "underserved (both services)" percentages across travel modes.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>Explicitly documented as the static-export equivalent of the Streamlit dashboard's "Findings Summary" metric cards — "so the same headline numbers a judge sees on the live dashboard are also available as a standalone, downloadable figure for a report/slide deck." <code>mode_stats</code> (a plain sequence of <code>(mode_name, pct_any, pct_both)</code> tuples) is deliberately kept as a plain tuple sequence rather than a bespoke data class, specifically "so both the notebook and the Streamlit app can build this input the same simple way" — minimizing the shape of data either caller needs to construct.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>mode_stats: Sequence[tuple]</code>; <code>title</code>, <code>out_path: str</code>; <code>dpi</code>, <code>web_path</code>, <code>web_dpi</code>, <code>figsize</code>.</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>str</code>.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. Raise <code>ValueError</code> immediately if <code>mode_stats</code> is empty — nothing to chart.<br>2. Unpack labels (capitalized mode names) and the two percentage series.<br>3. Standard matplotlib grouped-bar-chart construction: side-by-side bars per mode (<code>width=0.35</code>, offset <code>± width/2</code>) for the two percentage series, each in its own accent color.<br>4. Annotate each bar with its exact percentage value as text above the bar.<br>5. Style: x-tick labels, y-axis label, y-limit padded to <code>1.2×</code> the max value (headroom for the text annotations above the tallest bars), title, legend, and hiding the top/right plot spines (a common "cleaner chart" styling convention).<br>6. Save at <code>dpi</code>, optionally also at <code>web_path</code>/<code>web_dpi</code> — the same dual-save pattern as <code>_finalize_and_save()</code>, but implemented inline here rather than delegating to that function, since this is a chart (no basemap, gridlines, scale bar, or north arrow apply) rather than a map.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes at most a handful of modes will ever be compared (currently 3: walk/okada/drive) — the <code>width=0.35</code> grouped-bar spacing is tuned for a small number of categories and would look cramped with significantly more.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
-</tr>
-<tr>
-<td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>O(M) where M = number of modes in <code>mode_stats</code> (at most 3 in practice).</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="plot_completeness_map"><code>plot_completeness_map()</code><a class="headerlink" href="#plot_completeness_map" title="Permanent link">&para;</a></h3>
+<h2 id="the-orchestrator">The Orchestrator<a class="headerlink" href="#the-orchestrator" title="Permanent link">&para;</a></h2>
+<h3 id="generate_all_static_outputslga_name-grid_gdf-out_dir-modeswalk-okada-drive-palettestandard-dpi300-web_dpi150"><code>generate_all_static_outputs(lga_name, grid_gdf, out_dir, modes=("walk", "okada", "drive"), palette="standard", dpi=300, web_dpi=150)</code><a class="headerlink" href="#generate_all_static_outputslga_name-grid_gdf-out_dir-modeswalk-okada-drive-palettestandard-dpi300-web_dpi150" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -2501,138 +2647,68 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Produces the <strong>full standard set</strong> of publication-styled outputs for one LGA in a single call: a deficit map + health-time map + education-time map per mode, one completeness map per service, and one mode-comparison chart — every image saved at both print and web resolution, plus a <code>captions.json</code> mapping every filename to its data-driven caption.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>Three design decisions worth calling out. <strong>(1) Conditional generation, not blind generation</strong>: a continuous time map for a given <code>(mode, service)</code> combination is only produced if the corresponding column both exists in <code>grid_gdf</code> <em>and</em> has at least one non-null value (<code>grid_gdf[col].notna().any()</code>) — meaning a partially-scored grid (e.g. scored for <code>walk</code> only) produces exactly the outputs that data supports, not empty/broken figures for missing modes. Same conditional pattern applies to completeness maps (only generated if the flag column exists) and the mode-comparison chart (only generated if at least one mode's deficit-score column exists in the settled data). <strong>(2) Captions are written to disk, not just returned</strong> — every caption is included in the function's return dict <em>and</em> written to <code>out_dir/captions.json</code>, specifically so a consumer that only has file paths later (not this function's original return value) — the docstring's example is <code>dashboard/app.py</code> reading exported files back off disk in a later session — can still look up the correct caption for a given image without needing to regenerate or hand-write it separately. <strong>(3) The <code>_web_kwargs()</code> inline closure</strong> centralizes the repeated "build a web-tier path, register it in <code>produced['web']</code>, return the kwargs to pass through" logic used identically across all four plot-function call types (deficit, continuous, completeness, chart), rather than repeating that bookkeeping at each of the roughly half-dozen call sites within this function.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>lga_name: str</code>; <code>grid_gdf: GeoDataFrame</code> (fully-scored, expected to already have gone through the complete <code>scoring.py</code> + <code>grid_check.py</code> pipeline for whichever modes/services are being exported); <code>out_dir: str</code>; <code>modes: Iterable[str]</code>, default all three; <code>palette: str</code>, default <code>"standard"</code>; <code>dpi: int</code>, default <code>300</code>; <code>web_dpi: Optional[int]</code>, default <code>150</code> (pass <code>None</code> to skip web-tier generation entirely).</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>dict</code> with keys <code>"print"</code> (list of print-tier file paths), <code>"web"</code> (list of web-tier file paths, empty if <code>web_dpi is None</code>), <code>"captions"</code> (dict mapping each print-tier filename to its caption string). Also writes <code>out_dir/captions.json</code> as a side effect.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. Create <code>out_dir</code> and, if <code>web_dpi is not None</code>, <code>out_dir/web/</code>.<br>2. Define the <code>_web_kwargs(fname)</code> closure described above.<br>3. <strong>Per-mode loop</strong>: for each mode, always generate the deficit map (via <code>plot_deficit_map()</code>) and its caption; then, for each of health/education, generate the continuous time map <em>only if</em> the column exists with at least one non-null value.<br>4. <strong>Per-service loop</strong>: for each of health/education, generate the completeness map only if the flag column exists.<br>5. <strong>Mode-comparison chart</strong>: filter to settled cells; for each mode with a deficit-score column present, compute <code>pct_any</code>/<code>pct_both</code> and collect into <code>mode_stats</code>; if <code>mode_stats</code> ended up non-empty, generate the chart and its caption.<br>6. Write <code>produced["captions"]</code> to <code>out_dir/captions.json</code> as indented JSON.<br>7. Return <code>produced</code>.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes filenames are unique and stable across runs for the same LGA (<code>f"{safe_lga}_{...}.jpg"</code> naming, where <code>safe_lga = lga_name.replace(" ", "_")</code>) — re-running this function for the same LGA will silently overwrite previous outputs at the same paths, which is presumably the intended behavior for a re-run with updated data, but worth being aware of (no versioning or backup of previous outputs happens here).</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
+<td>O(M × (map generation cost)) where M = number of modes, dominated by the sum of all individual <code>plot_*()</code> calls' costs — the dominant real-world cost is almost certainly the repeated OSM basemap tile fetches (one per generated map/chart, each independently calling <code>add_osm_basemap()</code>), not the underlying data plotting itself.</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>None — fully sequential generation, no threading; this means total wall-clock time for a full LGA export (up to ~11 figures: 3 deficit + up to 6 continuous + 2 completeness + 1 chart) is the sum of every individual figure's generation time, including basemap fetch latency for each one independently — a plausible target for future parallelization, though not currently implemented.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
-</tr>
-</tbody>
-</table>
-<h3 id="plot_mode_comparison_chart"><code>plot_mode_comparison_chart()</code><a class="headerlink" href="#plot_mode_comparison_chart" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
-</tr>
-<tr>
-<td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
-</tr>
-<tr>
-<td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
-</tr>
-<tr>
-<td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
-</tr>
-</tbody>
-</table>
-<h3 id="generate_all_static_outputs"><code>generate_all_static_outputs()</code><a class="headerlink" href="#generate_all_static_outputs" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
-</tr>
-<tr>
-<td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
-</tr>
-<tr>
-<td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
-</tr>
-<tr>
-<td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
-<p><em>TODO: non-obvious behavior, edge cases, things that bit us during development.</em></p>
+<ul>
+<li><strong><code>add_osm_basemap()</code>'s two fallback paths produce visually different
+  results.</strong> The no-<code>contextily</code>-installed path adds an explanatory text
+  annotation ("OSM basemap unavailable...") directly on the figure; the
+  tile-fetch-failed path (network/timeout error) only sets the gray
+  background and emits a Python <code>warnings.warn()</code> — which won't be visible
+  on the figure itself, only in whatever captured stderr/logs a caller
+  happens to be watching. A generated map with a plain gray background and
+  no on-figure explanation could be mistaken for a rendering bug rather
+  than a network-access limitation, unless the accompanying warning is
+  actually seen.</li>
+<li><strong>The network-dependent branch of <code>add_osm_basemap()</code> is marked
+  <code># pragma: no cover</code></strong> in the source, signaling it's excluded from
+  code-coverage accounting — meaning the actual tile-fetch-failure recovery
+  path likely isn't exercised by the automated test suite in the normal
+  course of running tests (see <a href="../../../tests/">tests.md</a> for what
+  <code>test_static_maps.py</code> actually covers).</li>
+<li><strong><code>generate_all_static_outputs()</code> silently overwrites previous output
+  files</strong> on a re-run for the same LGA — no versioning, timestamping, or
+  backup of prior figures happens automatically.</li>
+<li><strong><code>plot_completeness_map()</code>'s explicit <code>== True</code>/<code>== False</code> comparisons
+  are a deliberate defensive choice</strong>, not an oversight the linter is
+  merely tolerating — see that function's own documentation above for the
+  nullable-dtype reasoning.</li>
+</ul>
 
 
 

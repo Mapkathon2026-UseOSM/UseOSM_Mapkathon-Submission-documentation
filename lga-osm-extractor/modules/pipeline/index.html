@@ -9,8 +9,10 @@
         <meta name="description" content="Deep technical documentation for the lga-osm-extractor and akure-accessibility-dashboard repositories (Map<>kathon 2026, UseOSM).">
       
       
-        <meta name="author" content="Noah">
+        <meta name="author" content="Marvellous Adeleke">
       
+      
+        <link rel="canonical" href="https://mapkathon2026-useosm.github.io/UseOSM_Mapkathon-Submission-documentation/lga-osm-extractor/modules/pipeline/">
       
       
         <link rel="prev" href="../logging_utils/">
@@ -27,7 +29,7 @@
     
     
       
-        <title>pipeline.py - Akure Geospatial Systems Documentation</title>
+        <title>pipeline.py - UseOSM Mapkathon Submission Documentation</title>
       
     
     
@@ -53,6 +55,8 @@
       
     
     
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -69,7 +73,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -94,7 +98,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="Akure Geospatial Systems Documentation" class="md-header__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../../.." title="UseOSM Mapkathon Submission Documentation" class="md-header__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -108,7 +112,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Akure Geospatial Systems Documentation
+            UseOSM Mapkathon Submission Documentation
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -127,7 +131,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
     
       <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
@@ -137,7 +141,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
@@ -196,13 +200,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
       </div>
@@ -349,23 +353,23 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="Akure Geospatial Systems Documentation" class="md-nav__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../../.." title="UseOSM Mapkathon Submission Documentation" class="md-nav__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    Akure Geospatial Systems Documentation
+    UseOSM Mapkathon Submission Documentation
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
     </div>
@@ -872,10 +876,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#extract_lga" class="md-nav__link">
+  <a href="#extract_lgalga_name-state_namenone-output_dirnone-tag_confignone-manual_boundary_pathnone-strictfalse" class="md-nav__link">
     <span class="md-ellipsis">
       
-        extract_lga()
+        extract_lga(lga_name, state_name=None, output_dir=None, tag_config=None, manual_boundary_path=None, strict=False)
       
     </span>
   </a>
@@ -1700,10 +1704,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#extract_lga" class="md-nav__link">
+  <a href="#extract_lgalga_name-state_namenone-output_dirnone-tag_confignone-manual_boundary_pathnone-strictfalse" class="md-nav__link">
     <span class="md-ellipsis">
       
-        extract_lga()
+        extract_lga(lga_name, state_name=None, output_dir=None, tag_config=None, manual_boundary_path=None, strict=False)
       
     </span>
   </a>
@@ -1749,14 +1753,30 @@
 <h1 id="pipelinepy">pipeline.py<a class="headerlink" href="#pipelinepy" title="Permanent link">&para;</a></h1>
 <div class="admonition info">
 <p class="admonition-title">Source</p>
-<p><code>lga_extractor/pipeline.py</code></p>
+<p><code>lga_extractor/pipeline.py</code> (116 lines)</p>
 </div>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p><em>TODO: 1-2 paragraphs - what this module is responsible for and why it exists as a separate module.</em></p>
+<p>The single high-level entry point that runs the full extraction pipeline
+for one Nigerian LGA end to end: boundary resolution → layer extraction →
+cleaning → export → run logging. This is a thin orchestrator — it contains
+almost no logic of its own; its job is purely to call the other five
+modules in the right order and thread state (the boundary, the resolved
+CRS, accumulated warnings) between them correctly.</p>
+<p>Both <a href="../../app/"><code>app.py</code></a> (the Streamlit UI) and <a href="../../cli/"><code>cli.py</code></a>
+call this same function rather than reimplementing pipeline logic — this
+module is the reason those two very different interfaces stay in sync with
+each other automatically.</p>
 <h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
-<p><em>TODO: what this module imports, what imports it.</em></p>
+<ul>
+<li><strong>Imports:</strong> <code>resolve_boundary</code> from <code>boundary.py</code>; <code>extract_layers</code>,
+  <code>DEFAULT_TAG_CONFIG</code>, <code>LayerExtractionError</code> from <code>layers.py</code>;
+  <code>clean_layers</code>, <code>resolve_target_crs</code> from <code>clean.py</code>; <code>export_layers</code>
+  from <code>export.py</code>; <code>log_run</code> from <code>logging_utils.py</code>. This is the <em>only</em>
+  module in the repository that imports from all five other core modules.</li>
+<li><strong>Imported by:</strong> <code>app.py</code>, <code>cli.py</code>.</li>
+</ul>
 <h2 id="functions-classes">Functions &amp; Classes<a class="headerlink" href="#functions-classes" title="Permanent link">&para;</a></h2>
-<h3 id="extract_lga"><code>extract_lga()</code><a class="headerlink" href="#extract_lga" title="Permanent link">&para;</a></h3>
+<h3 id="extract_lgalga_name-state_namenone-output_dirnone-tag_confignone-manual_boundary_pathnone-strictfalse"><code>extract_lga(lga_name, state_name=None, output_dir=None, tag_config=None, manual_boundary_path=None, strict=False)</code><a class="headerlink" href="#extract_lgalga_name-state_namenone-output_dirnone-tag_confignone-manual_boundary_pathnone-strictfalse" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1767,44 +1787,71 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Runs the complete pipeline for one LGA and returns a summary dict of everything that happened: where the boundary came from, what CRS was used, what was exported, what warnings occurred, and where the run log was written.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>Every parameter here is a direct pass-through to the corresponding parameter on the underlying stage function (<code>lga_name</code>/<code>state_name</code>/<code>manual_boundary_path</code> → <code>resolve_boundary()</code>; <code>tag_config</code>/<code>strict</code> → <code>extract_layers()</code>), rather than this function inventing its own parallel parameter set — this keeps the orchestration layer thin and means the detailed behavior documentation for each parameter lives in exactly one place (the stage function's own docstring), not duplicated and potentially drifting out of sync here.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>lga_name: str</code> (required); <code>state_name: str</code>, optional; <code>output_dir: str</code>, optional (defaults to <code>"output/{lga_name}"</code> with spaces replaced by underscores and lowercased, if not given); <code>tag_config: dict</code>, optional (defaults to <code>layers.DEFAULT_TAG_CONFIG</code>); <code>manual_boundary_path: str</code>, optional; <code>strict: bool</code>, default <code>False</code> (see <code>layers.extract_layers()</code>'s docstring for the full failure-handling explanation this defers to).</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>dict</code> with keys: <code>lga_name</code>, <code>state_name</code>, <code>output_dir</code>, <code>boundary_source</code>, <code>target_crs</code>, <code>exported</code> (the full dict from <code>export_layers()</code>), <code>warnings</code> (combined boundary + layer warnings), <code>run_log</code> (path to the written JSON log).</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. Default <code>output_dir</code> if not given, via a simple slugify (<code>strip().replace(" ", "_").lower()</code>).<br>2. Default <code>tag_config</code> if not given.<br>3. Call <code>resolve_boundary()</code> — raises <code>BoundaryResolutionError</code> here if resolution fails, which propagates straight up out of <code>extract_lga()</code> uncaught (no try/except around this call).<br>4. Extract <code>boundary_source</code> and <code>validation_warnings</code> from the resolved boundary's columns.<br>5. Call <code>extract_layers(boundary_gdf, tag_config=tag_config, strict=strict)</code> — in strict mode, a genuine layer failure raises <code>LayerExtractionError</code> here, which likewise propagates up uncaught.<br>6. Pull the <code>"_warnings"</code> list out of the raw layers dict. If the boundary had its own soft validation warning, prepend a <code>"Boundary validation: ..."</code>-prefixed version of it to the front of the warnings list — folding both warning sources into one combined list for anyone reviewing the run.<br>7. Call <code>clean_layers(raw_layers, boundary_gdf=boundary_gdf)</code>, then pop <code>"_warnings"</code> off the cleaned dict (it isn't a real layer, and <code>export_layers()</code> doesn't need it — <code>export_layers()</code> already knows to skip a <code>"_warnings"</code> key on its own, so this pop is technically redundant, but harmless and arguably clearer here).<br>8. Call <code>export_layers(cleaned, output_dir)</code>.<br>9. Call <code>resolve_target_crs(boundary_gdf)</code> <strong>again</strong> — see Gotchas below — purely to have the resolved CRS string available to pass into <code>log_run()</code>.<br>10. Call <code>log_run()</code> with everything gathered so far, get back the log file path.<br>11. Assemble and return the summary dict.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes callers want boundary-resolution and layer-extraction failures to propagate as exceptions rather than being caught and folded into the returned summary dict — this is a real design choice: <code>warnings</code> in the return value only ever contains <em>non-fatal</em> concerns (soft boundary checks, empty layers), never the fatal errors that would have stopped execution before reaching the <code>return</code> statement at all. A caller (like <code>app.py</code>) that wants to show a friendly error message rather than crash must wrap its own call to <code>extract_lga()</code> in a try/except.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
+<td>O(1) in its own logic — all real complexity lives in the five stage functions it calls; this function is pure sequencing.</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>None introduced by this function itself. <code>extract_layers()</code> (called from here) is the one stage with internal threading — see <a href="../layers/"><code>layers.md</code></a>. <code>extract_lga()</code> does not run multiple LGAs concurrently; calling it for two different LGAs from separate threads/processes simultaneously would be safe as long as their <code>output_dir</code> values don't collide (each writes independently to its own directory tree).</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
-<p><em>TODO: non-obvious behavior, edge cases, things that bit us during development.</em></p>
+<ul>
+<li><strong><code>resolve_target_crs()</code> is called twice per run, not once.</strong> It's called
+  once internally by <code>clean_layers()</code> (to actually reproject the layers),
+  and called <em>again</em>, independently, at the end of <code>extract_lga()</code> (step 9
+  above) purely to obtain the CRS string for the run log. This is a
+  deliberate choice, not an oversight — the code comment explains that
+  inferring the CRS from the <em>cleaned layer output</em> instead (e.g. reading
+  <code>cleaned["buildings"].crs</code>) would risk getting a wrong or <code>None</code> answer if
+  the first-checked layer happens to be empty, since <code>_clean_single_layer()</code>
+  returns an empty <code>GeoDataFrame</code> early, before reprojection, for empty
+  inputs. Calling <code>resolve_target_crs(boundary_gdf)</code> directly guarantees a
+  correct answer regardless of which individual layers are empty — at the
+  minor cost of resolving the same boundary-based CRS lookup twice per run.
+  Since <code>resolve_target_crs()</code> is O(1) and cheap, this redundancy has no
+  meaningful performance impact — it's a correctness-over-elegance trade
+  worth knowing about if refactoring this function.</li>
+<li><strong>No exception handling around the pipeline stages.</strong> As noted in
+  "Assumptions" above, this function does not catch
+  <code>BoundaryResolutionError</code> or <code>LayerExtractionError</code> — both propagate
+  directly to the caller. Anyone building a new interface on top of
+  <code>extract_lga()</code> (beyond the existing <code>app.py</code>/<code>cli.py</code>) needs to handle
+  these explicitly.</li>
+<li><strong>The <code>_warnings</code> pop after <code>clean_layers()</code> is functionally redundant.</strong>
+  <code>export_layers()</code> already explicitly skips a <code>"_warnings"</code> key if present
+  (see <a href="../export/"><code>export.md</code></a>) — so <code>cleaned.pop("_warnings", None)</code> at
+  step 7 doesn't change behavior, it's just tidiness/defensiveness rather
+  than a required step.</li>
+</ul>
 
 
 

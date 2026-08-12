@@ -9,8 +9,10 @@
         <meta name="description" content="Deep technical documentation for the lga-osm-extractor and akure-accessibility-dashboard repositories (Map<>kathon 2026, UseOSM).">
       
       
-        <meta name="author" content="Noah">
+        <meta name="author" content="Marvellous Adeleke">
       
+      
+        <link rel="canonical" href="https://mapkathon2026-useosm.github.io/UseOSM_Mapkathon-Submission-documentation/akure-accessibility-dashboard/dashboard-app/">
       
       
         <link rel="prev" href="../modules/insights/">
@@ -27,7 +29,7 @@
     
     
       
-        <title>Dashboard App (dashboard/app.py) - Akure Geospatial Systems Documentation</title>
+        <title>Dashboard App (dashboard/app.py) - UseOSM Mapkathon Submission Documentation</title>
       
     
     
@@ -53,6 +55,8 @@
       
     
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -69,7 +73,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -94,7 +98,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Akure Geospatial Systems Documentation" class="md-header__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../.." title="UseOSM Mapkathon Submission Documentation" class="md-header__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -108,7 +112,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Akure Geospatial Systems Documentation
+            UseOSM Mapkathon Submission Documentation
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -127,7 +131,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
     
       <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
@@ -137,7 +141,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
@@ -196,13 +200,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
       </div>
@@ -349,23 +353,23 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Akure Geospatial Systems Documentation" class="md-nav__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../.." title="UseOSM Mapkathon Submission Documentation" class="md-nav__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    Akure Geospatial Systems Documentation
+    UseOSM Mapkathon Submission Documentation
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
     </div>
@@ -1366,22 +1370,66 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#functions" class="md-nav__link">
+  <a href="#dependencies" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Functions
+        Dependencies
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Functions">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visual-design-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visual Design System
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-syspath-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The sys.path Fix
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#page-structure-and-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Page Structure and Functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Page Structure and Functions">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#section_divider" class="md-nav__link">
+  <a href="#section-page-config-css-lines-47244" class="md-nav__link">
     <span class="md-ellipsis">
       
-        section_divider()
+        Section: Page config + CSS (lines ~47–244)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#section_dividertitle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        section_divider(title)
       
     </span>
   </a>
@@ -1400,10 +1448,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#score_column" class="md-nav__link">
+  <a href="#section-hero-header-missing-data-handling-lines-294320" class="md-nav__link">
     <span class="md-ellipsis">
       
-        score_column()
+        Section: Hero header + missing-data handling (lines ~294–320)
       
     </span>
   </a>
@@ -1411,10 +1459,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#render_map" class="md-nav__link">
+  <a href="#section-control-widgets-lines-322362" class="md-nav__link">
     <span class="md-ellipsis">
       
-        render_map()
+        Section: Control widgets (lines ~322–362)
       
     </span>
   </a>
@@ -1422,10 +1470,87 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_categorize" class="md-nav__link">
+  <a href="#section-score-column-palette-configuration-lines-366393" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _categorize()
+        Section: Score-column / palette configuration (lines ~366–393)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#score_columnview-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        score_column(view, mode)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#render_mapgdf-view-mode-basemapcartodbpositron-colorblind_safefalse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        render_map(gdf, view, mode, basemap="CartoDB.Positron", colorblind_safe=False)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#section-access-map-lines-436485" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Section: Access map (lines ~436–485)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#section-most-underserved-settlements-lines-487520" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Section: Most underserved settlements (lines ~487–520)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#section-findings-summary-lines-522602" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Section: Findings summary (lines ~522–602)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#section-static-publication-maps-lines-604718" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Section: Static / publication maps (lines ~604–718)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#section-footer-lines-720741" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Section: Footer (lines ~720–741)
       
     </span>
   </a>
@@ -1438,10 +1563,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#pagesection-structure" class="md-nav__link">
+  <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Page/Section Structure
+        Gotchas
       
     </span>
   </a>
@@ -1708,22 +1833,66 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#functions" class="md-nav__link">
+  <a href="#dependencies" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Functions
+        Dependencies
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Functions">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visual-design-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visual Design System
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-syspath-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The sys.path Fix
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#page-structure-and-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Page Structure and Functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Page Structure and Functions">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#section_divider" class="md-nav__link">
+  <a href="#section-page-config-css-lines-47244" class="md-nav__link">
     <span class="md-ellipsis">
       
-        section_divider()
+        Section: Page config + CSS (lines ~47–244)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#section_dividertitle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        section_divider(title)
       
     </span>
   </a>
@@ -1742,10 +1911,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#score_column" class="md-nav__link">
+  <a href="#section-hero-header-missing-data-handling-lines-294320" class="md-nav__link">
     <span class="md-ellipsis">
       
-        score_column()
+        Section: Hero header + missing-data handling (lines ~294–320)
       
     </span>
   </a>
@@ -1753,10 +1922,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#render_map" class="md-nav__link">
+  <a href="#section-control-widgets-lines-322362" class="md-nav__link">
     <span class="md-ellipsis">
       
-        render_map()
+        Section: Control widgets (lines ~322–362)
       
     </span>
   </a>
@@ -1764,10 +1933,87 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_categorize" class="md-nav__link">
+  <a href="#section-score-column-palette-configuration-lines-366393" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _categorize()
+        Section: Score-column / palette configuration (lines ~366–393)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#score_columnview-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        score_column(view, mode)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#render_mapgdf-view-mode-basemapcartodbpositron-colorblind_safefalse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        render_map(gdf, view, mode, basemap="CartoDB.Positron", colorblind_safe=False)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#section-access-map-lines-436485" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Section: Access map (lines ~436–485)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#section-most-underserved-settlements-lines-487520" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Section: Most underserved settlements (lines ~487–520)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#section-findings-summary-lines-522602" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Section: Findings summary (lines ~522–602)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#section-static-publication-maps-lines-604718" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Section: Static / publication maps (lines ~604–718)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#section-footer-lines-720741" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Section: Footer (lines ~720–741)
       
     </span>
   </a>
@@ -1780,10 +2026,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#pagesection-structure" class="md-nav__link">
+  <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Page/Section Structure
+        Gotchas
       
     </span>
   </a>
@@ -1813,34 +2059,115 @@
 <h1 id="dashboard-app-dashboardapppy">Dashboard App — dashboard/app.py<a class="headerlink" href="#dashboard-app-dashboardapppy" title="Permanent link">&para;</a></h1>
 <div class="admonition info">
 <p class="admonition-title">Source</p>
-<p><code>dashboard/app.py</code> (741 lines — the largest single file in either repo)</p>
+<p><code>dashboard/app.py</code> (742 lines — the largest single file across both
+repositories)</p>
 </div>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p><em>TODO: what this Streamlit app does end-to-end, its main sections/tabs.</em></p>
-<h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
-<h3 id="section_divider"><code>section_divider()</code><a class="headerlink" href="#section_divider" title="Permanent link">&para;</a></h3>
+<p>The interactive Streamlit dashboard: the project's primary public-facing
+deliverable, presenting the health/education accessibility analysis for
+Akure North and Akure South LGAs. Unlike <code>lga-osm-extractor</code>'s <code>app.py</code>
+(which triggers a live extraction pipeline), this dashboard is entirely a
+<strong>consumer of pre-computed outputs</strong> — it never runs any of
+<code>accessibility.scoring</code>, <code>accessibility.isochrones</code>, or
+<code>completeness.grid_check</code> itself. It reads already-scored GeoJSON files
+(produced by the project's analysis notebooks 01–04) and already-generated
+static image exports (from <code>visualization.static_maps</code>'s notebook-driven
+run), and presents both interactively.</p>
+<p>Run with <code>streamlit run dashboard/app.py</code> from the repo root.</p>
+<h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Imports:</strong> <code>json</code>, <code>os</code>, <code>sys</code>, <code>geopandas</code>, <code>pandas</code>, <code>streamlit</code>,
+  <code>leafmap.foliumap</code>; <code>describe_interactive_view</code> from
+  <code>akure_access.insights</code> (see the <code>sys.path</code> handling below for why this
+  import needs special care).</li>
+<li><strong>Reads from disk (not imported as code):</strong> <code>data/processed/{lga}/
+  grid_access_scored.geojson</code> (the scored grid, output of notebooks 01–04);
+  <code>visuals/{lga}/</code> and <code>visuals/{lga}/web/</code> (static images and
+  <code>captions.json</code>, output of <code>visualization.static_maps.generate_all_static_outputs()</code>).</li>
+</ul>
+<h2 id="visual-design-system">Visual Design System<a class="headerlink" href="#visual-design-system" title="Permanent link">&para;</a></h2>
+<p>The file opens with a substantial, deliberately-documented CSS block —
+worth summarizing since it's a real, considered design decision, not
+boilerplate Streamlit theming:</p>
 <table>
 <thead>
 <tr>
-<th></th>
-<th></th>
+<th>Element</th>
+<th>Choice</th>
+<th>Stated reasoning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Palette</td>
+<td><code>#141625</code> background (adire indigo-black), <code>#C4622D</code> primary accent (laterite road/soil red-orange), <code>#4C9A8C</code> secondary accent (vegetation teal), <code>#E8B84B</code> highlight gold</td>
+<td>Grounded in the subject matter rather than a generic dashboard theme — accent colors reference Akure's actual laterite-red roads/soil and Southwest Nigeria's adire indigo-dyeing tradition.</td>
 </tr>
 <tr>
-<td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>Type</td>
+<td>Space Grotesk (headings), IBM Plex Sans (body), IBM Plex Mono (data figures)</td>
+<td>IBM Plex Mono specifically for data/metrics "ties to the coordinate/data nature of a GIS tool."</td>
 </tr>
 <tr>
-<td><strong>Inputs / Outputs</strong></td>
-<td><em>TODO</em></td>
+<td>Signature motif</td>
+<td>Concentric rings (◎)</td>
+<td>Tied to the accessibility/catchment concept at the conceptual core of the study — used as the page icon and every section divider.</td>
 </tr>
 </tbody>
 </table>
+<p>Two specific CSS decisions are worth noting for anyone maintaining this
+file, since both are explained via inline comments addressing a subtlety
+that isn't obvious from the CSS alone:</p>
+<ul>
+<li><strong>The global <code>html { font-size: 118%; }</code> bump is deliberately not
+  applied to the hero title/subtitle.</strong> Since Streamlit's own built-in
+  widgets, labels, radio buttons, and dataframes all size themselves in
+  <code>rem</code> units (relative to the root font size), bumping the root value is
+  what makes "everything else" larger app-wide. The hero title/subtitle are
+  set in fixed <code>px</code> specifically so they <em>don't</em> also get multiplied by
+  this root increase — keeping their size bump independent and
+  intentionally smaller.</li>
+<li><strong><code>[data-testid="stWidgetLabel"] p</code> is targeted app-wide, but
+  <code>st.caption()</code> is handled differently.</strong> The former is safe to target
+  globally because every widget label in the app happens to sit above the
+  interactive map (verified, per the inline comment, that none appear
+  below it) — so a global rule can't accidentally affect anything in the
+  lower half of the page. <code>st.caption()</code>, by contrast, is used both above
+  <em>and</em> below the map (the static-maps section reuses it for image
+  captions), so it can't be safely resized globally without also affecting
+  those — the two explanatory captions above the map are instead rendered
+  via a custom <code>.pre-map-caption</code> CSS class specifically so they can be
+  sized independently of <code>st.caption()</code>'s other, unrelated uses further
+  down the page.</li>
+</ul>
+<h2 id="the-syspath-fix">The <code>sys.path</code> Fix<a class="headerlink" href="#the-syspath-fix" title="Permanent link">&para;</a></h2>
+<p>Before any <code>akure_access</code> import, the file does this:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">_REPO_ROOT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">if</span> <span class="n">_REPO_ROOT</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">_REPO_ROOT</span><span class="p">)</span>
+</span></code></pre></div>
+<p>This is a documented, real deployment fix, not defensive boilerplate. The
+inline comment explains: Streamlit Cloud installs from
+<code>dashboard/requirements.txt</code>, not <code>pyproject.toml</code> — and that
+<code>requirements.txt</code> has never actually <code>pip install</code>ed the local
+<code>akure_access</code> package (confirmed, per the comment, by checking the full
+list of installed packages in actual deploy logs). <code>akure_access</code> was only
+ever importable on Streamlit Cloud "by accident of working directory," not
+because it was properly installed as a package. Rather than continuing to
+depend on that accident of working directory continuing to hold,
+<code>_REPO_ROOT</code> is computed explicitly (this file's grandparent directory:
+<code>dashboard/app.py</code> → <code>dashboard/</code> → repo root) and inserted into <code>sys.path</code>
+directly, making the import work correctly regardless of how or where the
+app is actually launched from.</p>
+<h2 id="page-structure-and-functions">Page Structure and Functions<a class="headerlink" href="#page-structure-and-functions" title="Permanent link">&para;</a></h2>
+<h3 id="section-page-config-css-lines-47244">Section: Page config + CSS (lines ~47–244)<a class="headerlink" href="#section-page-config-css-lines-47244" title="Permanent link">&para;</a></h3>
+<p><code>st.set_page_config()</code>, then the CSS block described above.</p>
+<h3 id="section_dividertitle"><code>section_divider(title)</code><a class="headerlink" href="#section_dividertitle" title="Permanent link">&para;</a></h3>
+<p>A small helper rendering the concentric-ring section divider (the ◎ motif)
+in place of Streamlit's default <code>st.subheader()</code> styling — used
+consistently at every major section break throughout the rest of the file,
+keeping the signature visual motif consistent app-wide rather than each
+section header being styled ad hoc.</p>
 <h3 id="load_data"><code>load_data()</code><a class="headerlink" href="#load_data" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -1852,43 +2179,71 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Loads both LGAs' scored GeoJSON files, tagging each with an <code>"lga"</code> column; any LGA whose file can't be loaded (missing, corrupt) gets <code>None</code> in the returned dict rather than raising and crashing the whole app.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO — caching decorator, what gets cached and cache-invalidation triggers</em></td>
+<td>Decorated with <code>@st.cache_data</code> (no arguments — this function takes none, so the cache key is trivial/constant, meaning this only actually runs once per app process lifetime, not once per user session or per interaction). The broad <code>except Exception: frames[lga] = None</code> per-LGA (not a single try/except around the whole loop) means one LGA's data being unavailable (e.g. only Akure North's notebooks have been run so far) doesn't prevent the other LGA from loading successfully — the app can run in a genuinely partial state, which the code immediately downstream explicitly checks for and surfaces to the user (see below) rather than silently proceeding as if both LGAs were present.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td>None (reads from the module-level <code>DATA_PATHS</code> dict).</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Internal workflow</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td><code>dict[str, Optional[GeoDataFrame]]</code> — <code>{"Akure North": gdf_or_None, "Akure South": gdf_or_None}</code>.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO</em></td>
+<td>O(1) relative to app runtime — file I/O for two GeoJSON files, cached after the first call.</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO — shared cache across concurrent dashboard sessions</em></td>
+<td><code>@st.cache_data</code>'s shared-across-sessions caching (the same consideration documented in <code>lga_extractor.app.py</code>'s <code>_cached_extract()</code>) applies here too, though with lower practical stakes — this function has no arguments and no side effects beyond reading static files that don't change during the app's runtime, so concurrent cache population by multiple users would, at worst, mean the same read happening more than once before the cache settles, not any inconsistent-state risk.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO</em></td>
+<td>See <a href="../tests/">tests.md</a> — like <code>lga_extractor.app.py</code>'s Streamlit-specific functions, direct unit testing of a <code>@st.cache_data</code>-decorated function is limited; core scoring/data-shape logic is tested via <code>accessibility</code>/<code>completeness</code> module tests instead.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="score_column"><code>score_column()</code><a class="headerlink" href="#score_column" title="Permanent link">&para;</a></h3>
+<h3 id="section-hero-header-missing-data-handling-lines-294320">Section: Hero header + missing-data handling (lines ~294–320)<a class="headerlink" href="#section-hero-header-missing-data-handling-lines-294320" title="Permanent link">&para;</a></h3>
+<p>Renders the hero banner, calls <code>load_data()</code>, then explicitly checks for
+missing LGAs: <code>st.warning()</code> lists any LGA with no data found, naming which
+notebooks need to be run. If <strong>no</strong> LGA loaded successfully at all,
+<code>st.stop()</code> halts the entire script here — the rest of the app (which
+assumes at least one LGA's data exists) never executes, rather than
+proceeding into a cascade of downstream errors against empty/missing data.</p>
+<h3 id="section-control-widgets-lines-322362">Section: Control widgets (lines ~322–362)<a class="headerlink" href="#section-control-widgets-lines-322362" title="Permanent link">&para;</a></h3>
+<p>Three columns of controls: <strong>Study area</strong> (a selectbox — <code>"Both (compare)"</code>
+is only offered as an option if <em>both</em> LGAs actually loaded successfully;
+otherwise the available LGA list is just whichever single LGA is present),
+<strong>Access view</strong> (<code>"Combined"</code> / <code>"Health only"</code> / <code>"Education only"</code> —
+directly feeds <code>insights.describe_interactive_view()</code>'s <code>view_choice</code>
+parameter), <strong>Transport mode</strong>. A second row adds <strong>Basemap</strong> choice and a
+<strong>colorblind-safe palette</strong> checkbox.</p>
+<p>The default-selection logic for Study area is worth noting: <code>default_lga_index</code>
+picks <code>"Both (compare)"</code> as the default <em>only if it's actually present</em> in
+the options list (i.e. both LGAs loaded), falling back to index <code>0</code>
+(whichever single LGA is available) otherwise — avoiding an <code>IndexError</code>
+or a nonsensical default that references an option that doesn't exist for
+a partial-data run.</p>
+<h3 id="section-score-column-palette-configuration-lines-366393">Section: Score-column / palette configuration (lines ~366–393)<a class="headerlink" href="#section-score-column-palette-configuration-lines-366393" title="Permanent link">&para;</a></h3>
+<p><code>MODE_LABELS</code>, <code>DEFICIT_COLORS</code> (mirroring <code>visualization.static_maps</code>'s
+own palette constants — standard traffic-light vs. Okabe-Ito
+colorblind-safe), <code>DEFICIT_LABELS</code>, <code>CONTINUOUS_CMAP</code> (<code>"YlOrRd"</code> standard
+vs. <code>"viridis"</code> colorblind-safe) are all defined here, independently of
+<code>static_maps.py</code>'s equivalent constants — see Gotchas below on this
+duplication.</p>
+<h3 id="score_columnview-mode"><code>score_column(view, mode)</code><a class="headerlink" href="#score_columnview-mode" title="Permanent link">&para;</a></h3>
+<p>A small pure function: given the current <code>view</code> and <code>mode</code> selector state,
+returns the correct grid column name to visualize — <code>health_time_min_{mode}</code>,
+<code>education_time_min_{mode}</code>, or <code>{mode}_access_deficit_score</code> for
+<code>"Combined"</code>. This is the dashboard's equivalent of <code>insights.py</code>'s own
+internal column-name resolution logic, kept here as its own tiny function
+specifically because <code>render_map()</code> needs the resolved column name for
+plotting, not just for caption text.</p>
+<h3 id="render_mapgdf-view-mode-basemapcartodbpositron-colorblind_safefalse"><code>render_map(gdf, view, mode, basemap="CartoDB.Positron", colorblind_safe=False)</code><a class="headerlink" href="#render_mapgdf-view-mode-basemapcartodbpositron-colorblind_safefalse" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1899,90 +2254,173 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Builds and displays one Leafmap interactive map for one LGA, styled according to the current view/mode/basemap/colorblind-safe selections.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Inputs / Outputs</strong></td>
-<td><em>TODO</em></td>
-</tr>
-</tbody>
-</table>
-<h3 id="render_map"><code>render_map()</code><a class="headerlink" href="#render_map" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>The <code>"Combined"</code> view and the two continuous (health-only/education-only) views use genuinely different Leafmap rendering schemes, matching the same categorical-vs-continuous distinction documented in <code>visualization.static_maps.py</code>: <code>"Combined"</code> uses <code>scheme="UserDefined"</code> with explicit <code>bins=[0, 1, 2]</code> and explicit colors/labels — deliberately explicit rather than an automatic numeric quantile legend, because a raw numeric legend would show score values (0, 1, 2) with no explanation of what each number actually means; the continuous views use <code>scheme="Quantiles"</code> with <code>k=6</code> bins and a continuous colormap instead, appropriate for a genuinely continuous minutes-to-facility value.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>gdf: GeoDataFrame</code> (one LGA's scored grid); <code>view</code>, <code>mode: str</code>; <code>basemap: str</code>, default <code>"CartoDB.Positron"</code>; <code>colorblind_safe: bool</code>, default <code>False</code>.</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>None</code> — renders directly into the Streamlit page via <code>m.to_streamlit(height=600)</code>.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO</em></td>
+<td>1. Create the Leafmap map, add the chosen basemap.<br>2. Resolve the column via <code>score_column()</code>; filter to settled cells (<code>building_count &gt; 0</code>).<br>3. If settled data exists and the column is present: branch on <code>view == "Combined"</code> to choose the categorical vs. continuous rendering scheme, calling <code>m.add_data()</code> with the appropriate <code>scheme</code>/<code>colors</code>/<code>cmap</code>/<code>legend_title</code> for that branch.<br>4. If the column genuinely doesn't exist (e.g. this mode wasn't included in the notebook run that produced the current data), show <code>st.info()</code> with actionable guidance (which notebook, which mode) rather than a raw exception or a blank map.<br>5. Render via <code>m.to_streamlit()</code>.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes <code>building_count &gt; 0</code> is the correct settlement filter for map display — consistent with <code>scoring.py</code>'s own convention, not <code>completeness.grid_check.py</code>'s stricter 3-building threshold (see that module's own gotcha about the two different thresholds coexisting in the codebase).</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO</em></td>
+<td>O(N) where N = settled cell count, for the filter and rendering — Leafmap/Folium's own rendering cost dominates for large cell counts.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO</em></td>
+<td>See <a href="../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="_categorize"><code>_categorize()</code><a class="headerlink" href="#_categorize" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Inputs / Outputs</strong></td>
-<td><em>TODO</em></td>
-</tr>
-</tbody>
-</table>
-<h2 id="pagesection-structure">Page/Section Structure<a class="headerlink" href="#pagesection-structure" title="Permanent link">&para;</a></h2>
-<p><em>TODO: walk through the app section by section (sidebar controls, tabs, map panel, chart panel, narrative panel), noting what state each depends on.</em></p>
+<h3 id="section-access-map-lines-436485">Section: Access map (lines ~436–485)<a class="headerlink" href="#section-access-map-lines-436485" title="Permanent link">&para;</a></h3>
+<p>Calls <code>render_map()</code> for either one LGA, or — if <code>"Both (compare)"</code> is
+selected — <strong>side-by-side columns</strong>, not tabs. The inline comment is
+explicit about why: "'compare' implies seeing both LGAs at once; tabs would
+only let you switch between them one at a time, which isn't actually a
+comparison view." Each map is immediately followed by its
+<code>describe_interactive_view()</code> caption, recomputed fresh on every script
+rerun (Streamlit reruns the whole script on every widget interaction) —
+the inline comment notes this guarantees the caption shown always matches
+exactly what the map is currently displaying, "rather than a fixed caption
+written once that could silently drift out of sync with the actual
+selection," directly echoing <code>insights.py</code>'s own foundational design
+principle in the specific context of a live, interactive UI.</p>
+<h3 id="section-most-underserved-settlements-lines-487520">Section: Most underserved settlements (lines ~487–520)<a class="headerlink" href="#section-most-underserved-settlements-lines-487520" title="Permanent link">&para;</a></h3>
+<p>A ranked table of the top-15 most-underserved individual grid cells for
+the current mode (across both LGAs if <code>"Both (compare)"</code> is selected),
+built via <code>pd.concat()</code> of the relevant frame(s), filtered to
+<code>deficit_col &gt; 0</code>, sorted descending. Column names are mapped to
+human-readable headers (<code>friendly_names</code> dict) and values rounded to 1
+decimal before display — a small but real usability detail (raw column
+names like <code>health_time_min_walk</code> and five-decimal floats would be
+technically correct but harder to scan at a glance).</p>
+<h3 id="section-findings-summary-lines-522602">Section: Findings summary (lines ~522–602)<a class="headerlink" href="#section-findings-summary-lines-522602" title="Permanent link">&para;</a></h3>
+<p><strong>This section carries a documented regression fix worth reproducing in
+full</strong>, since it's a genuine example of a subtle, easy-to-reintroduce UI
+bug:</p>
+<blockquote>
+<p>"Match the same LGA-selection behavior as 'Most underserved settlements'
+above: respect <code>lga_choice</code> rather than always combining every LGA.
+Before this fix, this section silently ignored <code>lga_choice</code> and always
+showed a combined North+South statistic, so switching the LGA tab
+visibly updated the map and table above but left these percentage cards
+unchanged — a confusing inconsistency for anyone comparing the two
+sections side by side."</p>
+</blockquote>
+<p>The current code builds <code>settled_frames</code> conditionally on <code>lga_choice</code>
+(exactly matching the pattern used for <code>frames_to_rank</code> in the section
+above), rather than unconditionally concatenating both LGAs — this is the
+actual fix. The section then computes:</p>
+<ul>
+<li><strong>Per-mode metric cards</strong>: <code>pct_any</code>/<code>pct_both</code> computed live for
+  whichever modes have score columns present in the currently-scoped data,
+  rendered as styled metric cards (one per available mode).</li>
+<li><strong>A walking-vs-fastest-mode gap callout</strong>: if more than one mode is
+  available, computes the percentage-point gap between walking's
+  underserved rate and the <em>best</em> (lowest) non-walking mode's rate, and
+  surfaces it as a headline finding — "Walking-only analysis would
+  overstate underserved communities by roughly N percentage points..." —
+  directly connecting back to the project's own stated headline finding
+  about why modeling multiple modes matters (see <a href="../overview/">repository
+  overview</a>).</li>
+<li><strong>A completeness cross-check callout</strong>: computed live, conditional on
+  both <code>health_completeness_flag</code> and <code>walk_access_deficit_score</code> being
+  present — among <em>walking-underserved</em> cells specifically (not all
+  settled cells), what percentage also carry a possible OSM data gap for
+  health, and separately for education. This is the dashboard's most
+  direct, quantified expression of the project's core problem statement:
+  explicitly warning the reader, with a live-computed number, that "some
+  portion of the underserved findings above may reflect incomplete OSM
+  tagging rather than a confirmed absence of nearby facilities."</li>
+</ul>
+<h3 id="section-static-publication-maps-lines-604718">Section: Static / publication maps (lines ~604–718)<a class="headerlink" href="#section-static-publication-maps-lines-604718" title="Permanent link">&para;</a></h3>
+<p>Displays the pre-generated static images from <code>visuals/{lga}/</code>, produced
+separately (offline, via the analysis notebook calling
+<code>generate_all_static_outputs()</code>) rather than generated live by the
+dashboard itself.</p>
+<ul>
+<li><strong>Web-tier preference with fallback</strong>: for each LGA, checks whether a
+  <code>visuals/{lga}/web/</code> subfolder exists (the lower-resolution tier from
+  <code>generate_all_static_outputs()</code>'s dual-save mechanism) and prefers it if
+  present — "loads faster," per the inline comment — falling back to the
+  top-level (print-resolution) folder for compatibility with older runs
+  generated before the <code>web/</code> subfolder convention existed.</li>
+<li><strong>Caption lookup</strong>: reads <code>captions.json</code> from the top-level LGA folder
+  (always written there by <code>generate_all_static_outputs()</code>, regardless of
+  which tier is being displayed) — the inline comment clarifies this
+  lookup works correctly either way since <code>captions.json</code>'s keys are plain
+  filenames shared by both tiers (same figure, same filename, different
+  folder/resolution only).</li>
+<li><strong><code>_categorize(filename)</code></strong>: a small local closure classifying each
+  filename into one of six display categories (<code>"Access deficit"</code>,
+  <code>"Health access time"</code>, <code>"Education access time"</code>, <code>"Data completeness"</code>,
+  <code>"Mode comparison"</code>, <code>"Other"</code>) via substring matching on the filename —
+  grouping related figures together (across LGAs and modes) into
+  expandable sections, "rather than one long alphabetical list."</li>
+<li><strong>Fixed 3-column image grid</strong>: the inline comment documents a second
+  concrete regression fix here — using <code>min(3, len(cat_files))</code> for the
+  column count previously meant a category with only <em>one</em> image (e.g.
+  "Mode comparison," which only ever produces a single chart) got a single
+  full-width column, stretching that one image to fill the entire page
+  width while every other category's images stayed a normal, consistent
+  size. The current code always allocates a fixed <code>st.columns(3)</code>
+  regardless of image count, producing visually consistent image sizing
+  across every category.</li>
+<li><strong>Caption fallback for pre-<code>captions.json</code> runs</strong>: if a specific filename
+  has no entry in the loaded <code>captions.json</code> (or no <code>captions.json</code> exists
+  at all for that LGA), falls back to a readable label derived from the
+  filename itself (underscore-to-space conversion) — explicit backward
+  compatibility with static exports generated before the caption-writing
+  feature existed.</li>
+<li><strong>Bulk download</strong>: if <code>visuals/akure_access_static_maps.zip</code> exists on
+  disk, offers it via <code>st.download_button()</code>.</li>
+</ul>
+<h3 id="section-footer-lines-720741">Section: Footer (lines ~720–741)<a class="headerlink" href="#section-footer-lines-720741" title="Permanent link">&para;</a></h3>
+<p>A GitHub link back to the source repository, with an inline SVG GitHub
+mark icon (avoiding an external image dependency for a small UI element).</p>
+<h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Palette/colormap constants are defined independently in two places</strong>:
+  <code>dashboard/app.py</code>'s own <code>DEFICIT_COLORS</code>/<code>CONTINUOUS_CMAP</code> and
+  <code>visualization/static_maps.py</code>'s <code>DEFICIT_PALETTES</code>. Both are documented
+  (in their respective files) as intentionally using the <em>same actual
+  color values</em>, specifically so the live dashboard and static exports
+  never visually disagree — but the values themselves are duplicated in
+  source, not imported from one shared location. A future palette change
+  applied to only one of the two files would silently break that
+  consistency, with no test or code-level check that would catch the
+  drift.</li>
+<li><strong><code>load_data()</code>'s file paths are hardcoded module-level constants</strong>
+  (<code>DATA_PATHS</code>), not derived from any shared configuration with the
+  analysis notebooks that actually produce those files — the path
+  convention (<code>data/processed/{lga_slug}/grid_access_scored.geojson</code>) is
+  an implicit contract between the notebooks and this dashboard, similar
+  in kind to the implicit filename contract documented between
+  <code>lga_extractor.export.py</code> and <code>lga_extractor.visualize.py</code>.</li>
+<li><strong>The dashboard has zero test coverage</strong> — being almost entirely
+  Streamlit UI/layout code operating on already-tested data (the
+  <code>accessibility</code>/<code>completeness</code> modules' own test suites cover the
+  underlying scoring logic this dashboard only <em>displays</em>), this is a
+  reasonable trade-off, but the two documented regression fixes in this
+  file (the Findings Summary LGA-scope bug, and the single-image-stretch
+  layout bug) are both exactly the class of UI-state bug that direct test
+  coverage — even lightweight <code>streamlit.testing</code> framework smoke tests —
+  could have caught before manual discovery.</li>
+</ul>
 
 
 

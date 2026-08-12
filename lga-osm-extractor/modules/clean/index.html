@@ -9,8 +9,10 @@
         <meta name="description" content="Deep technical documentation for the lga-osm-extractor and akure-accessibility-dashboard repositories (Map<>kathon 2026, UseOSM).">
       
       
-        <meta name="author" content="Noah">
+        <meta name="author" content="Marvellous Adeleke">
       
+      
+        <link rel="canonical" href="https://mapkathon2026-useosm.github.io/UseOSM_Mapkathon-Submission-documentation/lga-osm-extractor/modules/clean/">
       
       
         <link rel="prev" href="../layers/">
@@ -27,7 +29,7 @@
     
     
       
-        <title>clean.py - Akure Geospatial Systems Documentation</title>
+        <title>clean.py - UseOSM Mapkathon Submission Documentation</title>
       
     
     
@@ -53,6 +55,8 @@
       
     
     
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -69,7 +73,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -94,7 +98,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="Akure Geospatial Systems Documentation" class="md-header__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../../.." title="UseOSM Mapkathon Submission Documentation" class="md-header__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -108,7 +112,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Akure Geospatial Systems Documentation
+            UseOSM Mapkathon Submission Documentation
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -127,7 +131,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
     
       <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
@@ -137,7 +141,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
@@ -196,13 +200,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
       </div>
@@ -349,23 +353,23 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="Akure Geospatial Systems Documentation" class="md-nav__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../../.." title="UseOSM Mapkathon Submission Documentation" class="md-nav__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    Akure Geospatial Systems Documentation
+    UseOSM Mapkathon Submission Documentation
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
     </div>
@@ -760,10 +764,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#utm_epsg_for_longitude" class="md-nav__link">
+  <a href="#module-level-constants" class="md-nav__link">
     <span class="md-ellipsis">
       
-        utm_epsg_for_longitude()
+        Module-level constants
       
     </span>
   </a>
@@ -771,10 +775,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#resolve_target_crs" class="md-nav__link">
+  <a href="#utm_epsg_for_longitudelongitude-latitude00" class="md-nav__link">
     <span class="md-ellipsis">
       
-        resolve_target_crs()
+        utm_epsg_for_longitude(longitude, latitude=0.0)
       
     </span>
   </a>
@@ -782,10 +786,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#clean_layers" class="md-nav__link">
+  <a href="#resolve_target_crsboundary_gdfnone" class="md-nav__link">
     <span class="md-ellipsis">
       
-        clean_layers()
+        resolve_target_crs(boundary_gdf=None)
       
     </span>
   </a>
@@ -793,10 +797,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_clean_single_layer" class="md-nav__link">
+  <a href="#clean_layerslayers_dict-boundary_gdfnone" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _clean_single_layer()
+        clean_layers(layers_dict, boundary_gdf=None)
       
     </span>
   </a>
@@ -804,10 +808,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_collapse_areas_to_points" class="md-nav__link">
+  <a href="#_clean_single_layergdf-target_crsfallback_crs-collapse_to_pointfalse" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _collapse_areas_to_points()
+        _clean_single_layer(gdf, target_crs=FALLBACK_CRS, collapse_to_point=False)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_collapse_areas_to_pointsgdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        _collapse_areas_to_points(gdf)
       
     </span>
   </a>
@@ -1744,10 +1759,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#utm_epsg_for_longitude" class="md-nav__link">
+  <a href="#module-level-constants" class="md-nav__link">
     <span class="md-ellipsis">
       
-        utm_epsg_for_longitude()
+        Module-level constants
       
     </span>
   </a>
@@ -1755,10 +1770,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#resolve_target_crs" class="md-nav__link">
+  <a href="#utm_epsg_for_longitudelongitude-latitude00" class="md-nav__link">
     <span class="md-ellipsis">
       
-        resolve_target_crs()
+        utm_epsg_for_longitude(longitude, latitude=0.0)
       
     </span>
   </a>
@@ -1766,10 +1781,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#clean_layers" class="md-nav__link">
+  <a href="#resolve_target_crsboundary_gdfnone" class="md-nav__link">
     <span class="md-ellipsis">
       
-        clean_layers()
+        resolve_target_crs(boundary_gdf=None)
       
     </span>
   </a>
@@ -1777,10 +1792,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_clean_single_layer" class="md-nav__link">
+  <a href="#clean_layerslayers_dict-boundary_gdfnone" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _clean_single_layer()
+        clean_layers(layers_dict, boundary_gdf=None)
       
     </span>
   </a>
@@ -1788,10 +1803,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_collapse_areas_to_points" class="md-nav__link">
+  <a href="#_clean_single_layergdf-target_crsfallback_crs-collapse_to_pointfalse" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _collapse_areas_to_points()
+        _clean_single_layer(gdf, target_crs=FALLBACK_CRS, collapse_to_point=False)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_collapse_areas_to_pointsgdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        _collapse_areas_to_points(gdf)
       
     </span>
   </a>
@@ -1837,61 +1863,57 @@
 <h1 id="cleanpy">clean.py<a class="headerlink" href="#cleanpy" title="Permanent link">&para;</a></h1>
 <div class="admonition info">
 <p class="admonition-title">Source</p>
-<p><code>lga_extractor/clean.py</code></p>
+<p><code>lga_extractor/clean.py</code> (264 lines)</p>
 </div>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p><em>TODO: 1-2 paragraphs - what this module is responsible for and why it exists as a separate module.</em></p>
+<p>Takes the raw layers produced by <a href="../layers/"><code>layers.py</code></a> and turns them
+into a consistent, analysis-ready form: correct metric projection, valid
+non-duplicate geometries, a predictable minimal attribute schema across
+every layer and every LGA run — and, critically, a single uniform geometry
+<em>type</em> per layer, even when OSM itself mixed types for the same kind of
+real-world feature.</p>
+<p>This module is the architectural center of the repository. <code>boundary.py</code>
+imports from it (for area-check projection); <code>export.py</code> and <code>visualize.py</code>
+both operate on its output rather than on raw extracted layers; and its
+point-collapse logic is the direct fix for the most significant technical
+issue found in the wider Map&lt;&gt;kathon 2026 project (see
+<a href="../../../reference/known-issues/">Known Issues</a>).</p>
 <h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
-<p><em>TODO: what this module imports, what imports it.</em></p>
+<ul>
+<li><strong>Imports:</strong> <code>geopandas</code> only.</li>
+<li><strong>Imported by:</strong> <code>pipeline.py</code> (third stage, after <code>layers.extract_layers()</code>);
+  <code>boundary.py</code> (imports <code>resolve_target_crs()</code> only, locally, for its area
+  sanity check — see <a href="../boundary/"><code>boundary.md</code></a>).</li>
+</ul>
 <h2 id="functions-classes">Functions &amp; Classes<a class="headerlink" href="#functions-classes" title="Permanent link">&para;</a></h2>
-<h3 id="utm_epsg_for_longitude"><code>utm_epsg_for_longitude()</code><a class="headerlink" href="#utm_epsg_for_longitude" title="Permanent link">&para;</a></h3>
+<h3 id="module-level-constants">Module-level constants<a class="headerlink" href="#module-level-constants" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
-<th></th>
-<th></th>
+<th>Constant</th>
+<th>Value</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td><code>FALLBACK_CRS</code></td>
+<td><code>"EPSG:32631"</code></td>
+<td>UTM Zone 31N — correct for Southwest Nigeria (Ondo State) specifically. Used only when no boundary geometry is available to auto-select a zone from. <strong>Not</strong> universally correct across Nigeria.</td>
 </tr>
 <tr>
-<td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td><code>KEEP_COLUMNS</code></td>
+<td><code>["osmid", "name", "geometry"]</code></td>
+<td>The minimal attribute schema every cleaned layer is reduced to, regardless of what extra columns OSM's raw response included.</td>
 </tr>
 <tr>
-<td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
-</tr>
-<tr>
-<td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
-</tr>
-<tr>
-<td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
-</tr>
-<tr>
-<td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td><code>POINT_LAYERS</code></td>
+<td><code>{"health_facilities", "schools"}</code></td>
+<td>Layers that downstream consumers (network routing, isochrone snapping, completeness nearest-neighbor checks) require as Point geometries, and therefore get polygon-to-centroid collapse applied.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="resolve_target_crs"><code>resolve_target_crs()</code><a class="headerlink" href="#resolve_target_crs" title="Permanent link">&para;</a></h3>
+<h3 id="utm_epsg_for_longitudelongitude-latitude00"><code>utm_epsg_for_longitude(longitude, latitude=0.0)</code><a class="headerlink" href="#utm_epsg_for_longitudelongitude-latitude00" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1902,43 +1924,43 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Returns the correct UTM zone EPSG code (e.g. <code>"EPSG:32631"</code>) for a given longitude/latitude, using the standard UTM zone formula.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>Nigeria spans three UTM zones — 31N (Lagos/Ondo/Oyo), 32N (Abuja/Kaduna), 33N (Borno/Adamawa). Hardcoding a single zone for the whole country (as <code>FALLBACK_CRS</code> does) would distort every distance and area calculation for LGAs outside that one zone's true coverage. This function is what makes the tool correct for <em>any</em> Nigerian LGA, not only the original Akure/Ondo study area it was built and tested against.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>longitude: float</code> (WGS84 decimal degrees, typically an LGA boundary's centroid); <code>latitude: float</code>, default <code>0.0</code> (used only to select the northern (<code>326xx</code>) vs. southern (<code>327xx</code>) hemisphere EPSG prefix — defaults to northern since Nigeria lies entirely in the northern hemisphere; the parameter exists mainly so the function isn't silently wrong if ever reused outside Nigeria).</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>str</code>, an EPSG code, e.g. <code>"EPSG:32631"</code>.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. <code>zone = int((longitude + 180) / 6) + 1</code> — the standard UTM zone formula (each zone is 6° of longitude wide, numbered from the antimeridian).<br>2. Clamp <code>zone</code> to <code>[1, 60]</code> (the valid UTM zone range) in case of a longitude at or beyond ±180°.<br>3. Pick hemisphere prefix <code>326</code> (north) or <code>327</code> (south) from the sign of <code>latitude</code>.<br>4. Return <code>f"EPSG:{prefix}{zone:02d}"</code>.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes <code>longitude</code> is a valid WGS84 value; no bounds-checking beyond the zone clamp. Assumes the caller has already picked an appropriate representative point (e.g. a boundary's centroid) — this function has no awareness of "Nigeria" itself, it's a generic UTM-zone lookup.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
+<td>O(1) — pure arithmetic.</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>None — pure function.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../tests/">tests.md</a> — includes docstring doctests for known reference points (Akure → <code>EPSG:32631</code>, Abuja → <code>EPSG:32632</code>, Maiduguri → <code>EPSG:32633</code>).</td>
 </tr>
 </tbody>
 </table>
-<h3 id="clean_layers"><code>clean_layers()</code><a class="headerlink" href="#clean_layers" title="Permanent link">&para;</a></h3>
+<h3 id="resolve_target_crsboundary_gdfnone"><code>resolve_target_crs(boundary_gdf=None)</code><a class="headerlink" href="#resolve_target_crsboundary_gdfnone" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1949,43 +1971,43 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Determines the correct projected CRS to clean/export layers in, by auto-selecting a UTM zone from a boundary's actual centroid location — falling back to <code>FALLBACK_CRS</code> with a printed warning if no usable boundary is available.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>This function is the bridge between the generic zone-lookup math in <code>utm_epsg_for_longitude()</code> and the rest of the pipeline's actual inputs (a boundary <code>GeoDataFrame</code>, which might be missing, empty, or in an arbitrary CRS). Falling back rather than raising matters for usability: <code>clean_layers()</code> can be called standalone (e.g. from tests or ad-hoc scripts) without a boundary on hand, and still get a usable — if less precise — result, rather than being forced to always thread a boundary through. <code>pipeline.extract_lga()</code>, which always has a boundary available, gets the accurate, location-aware behavior by default; only callers without one pay the fallback's imprecision.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>boundary_gdf: GeoDataFrame</code>, optional. Any CRS is accepted — it's reprojected to WGS84 internally before computing a centroid.</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>str</code>, an EPSG code appropriate for the boundary's location, or <code>FALLBACK_CRS</code> if none could be determined.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. If <code>boundary_gdf</code> is <code>None</code> or empty: print a warning, return <code>FALLBACK_CRS</code>.<br>2. Otherwise, try: reproject to WGS84 if it has a CRS, else assume it's already WGS84 and just tag it (<code>set_crs</code>); compute <code>union_all().centroid</code> (dissolving all rows into one geometry first, so multi-row inputs still produce a single sensible centroid); call <code>utm_epsg_for_longitude()</code> on that centroid's <code>x</code>/<code>y</code>.<br>3. If anything in that <code>try</code> block raises, catch it, print a warning including the exception, and fall back to <code>FALLBACK_CRS</code>.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes a boundary's centroid is a reasonable proxy for "which UTM zone should this LGA use" — true for any LGA that doesn't itself straddle a UTM zone boundary (unlikely at LGA scale, but not impossible for LGAs very close to a zone edge).</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
+<td>O(1) beyond the geometry operations, which themselves are effectively O(1) for a single boundary (not scaling with feature count in downstream layers).</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>None — pure function, no shared state. Note the fallback path uses <code>print()</code> for warnings rather than the <code>logging</code> module or an exception — this is a deliberate but informal choice; a caller running many extractions in a batch/headless context won't see these warnings unless stdout is being captured.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="_clean_single_layer"><code>_clean_single_layer()</code><a class="headerlink" href="#_clean_single_layer" title="Permanent link">&para;</a></h3>
+<h3 id="clean_layerslayers_dict-boundary_gdfnone"><code>clean_layers(layers_dict, boundary_gdf=None)</code><a class="headerlink" href="#clean_layerslayers_dict-boundary_gdfnone" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1996,43 +2018,45 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Cleans every layer in <code>layers_dict</code> (as returned by <code>layers.extract_layers()</code>) using a shared target CRS resolved once for the whole batch.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>Resolving the target CRS <em>once</em>, outside the per-layer loop, rather than inside <code>_clean_single_layer()</code> per call, guarantees every layer from the same extraction run ends up in the <em>same</em> projection — essential, since downstream consumers (<code>akure_access</code>) need roads, buildings, and facilities to all align in one coordinate space for routing and spatial joins to work correctly.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>layers_dict: dict</code> (layer_name → raw <code>GeoDataFrame</code>, may include a <code>"_warnings"</code> key); <code>boundary_gdf</code>, optional (passed straight through to <code>resolve_target_crs()</code>).</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>dict</code>, layer_name → cleaned <code>GeoDataFrame</code>, all in the same resolved target CRS. The <code>"_warnings"</code> entry, if present, is passed through completely unchanged — cleaning doesn't inspect or alter extraction warnings.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. Resolve <code>target_crs</code> once via <code>resolve_target_crs(boundary_gdf)</code>.<br>2. Iterate <code>layers_dict.items()</code>: pass <code>"_warnings"</code> through unchanged; for every real layer, call <code>_clean_single_layer(gdf, target_crs, collapse_to_point=(layer_name in POINT_LAYERS))</code>.<br>3. Return the new dict.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes <code>layers_dict</code>'s keys match the same layer names <code>POINT_LAYERS</code> expects (<code>"health_facilities"</code>, <code>"schools"</code>) — a custom <code>tag_config</code> passed to <code>extract_layers()</code> with different layer names for facilities would silently <em>not</em> get point-collapse treatment, since the membership check is purely string-based.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
+<td>O(L × N) where L = number of layers, N = average features per layer — dominated by <code>_clean_single_layer()</code>'s per-row operations (see below).</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>None — sequential loop, no threading (unlike <code>layers.py</code>).</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="_collapse_areas_to_points"><code>_collapse_areas_to_points()</code><a class="headerlink" href="#_collapse_areas_to_points" title="Permanent link">&para;</a></h3>
+<h3 id="_clean_single_layergdf-target_crsfallback_crs-collapse_to_pointfalse"><code>_clean_single_layer(gdf, target_crs=FALLBACK_CRS, collapse_to_point=False)</code><a class="headerlink" href="#_clean_single_layergdf-target_crsfallback_crs-collapse_to_pointfalse" title="Permanent link">&para;</a></h3>
+<p>The actual per-layer cleaning logic — no docstring in source, but the steps
+are individually commented.</p>
 <table>
 <thead>
 <tr>
@@ -2043,44 +2067,112 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Runs one <code>GeoDataFrame</code> through the full cleaning sequence: drop null/empty geometry, repair invalid geometry, normalize the index, standardize <code>osmid</code>/<code>name</code> columns, drop duplicate geometries, reproject, optionally collapse polygons to points, reduce to the minimal schema.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>Each step exists because raw OSMnx output is inconsistent in a specific, observed way (see internal workflow below for what each step is defending against). The <strong>order</strong> of steps is deliberate and load-bearing, in particular: geometry repair happens before duplicate-dropping (so an invalid geometry that would otherwise compare unequal to its valid counterpart doesn't create a spurious "duplicate"); reprojection happens before the point-collapse step (centroids computed in a geographic/lat-lon CRS are measurably distorted compared to a projected metric CRS — the same reasoning applied elsewhere to grid-cell centroids in <code>akure_access.accessibility.scoring.add_access_times()</code>).</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>gdf: GeoDataFrame</code> (one raw layer); <code>target_crs: str</code>, default <code>FALLBACK_CRS</code>; <code>collapse_to_point: bool</code>, default <code>False</code>.</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td>Cleaned <code>GeoDataFrame</code>, columns reduced to whichever of <code>KEEP_COLUMNS</code> are present, reprojected to <code>target_crs</code>, index reset to a clean <code>RangeIndex</code>. Returns the input unchanged (short-circuit) if it was already empty.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. Short-circuit: if <code>gdf.empty</code>, return it as-is — no point running the rest of the pipeline on nothing.<br>2. Copy the input (avoid mutating the caller's <code>GeoDataFrame</code>).<br>3. Drop rows with null geometry, then drop rows with empty geometry (two separate filters, since a "null" geometry and an "empty but present" geometry, e.g. an empty <code>Polygon</code>, are different states in Shapely/GeoPandas). Short-circuit again if this emptied the frame.<br>4. Repair invalid geometries via the common <code>geom.buffer(0)</code> trick, applied only to geometries that fail <code>.is_valid</code> (leaves already-valid geometries untouched, avoiding unnecessary computation).<br>5. Reset the index if it's a <code>MultiIndex</code> — OSMnx commonly returns results indexed by <code>(element_type, osmid)</code>, which is inconvenient for downstream row-wise operations; this flattens it back into regular columns.<br>6. Standardize an <code>osmid</code> column: if one doesn't already exist, look for any column whose name contains <code>"id"</code> (case-insensitive) and use that; if none exists at all, fall back to a plain <code>range(len(gdf))</code> sequential ID.<br>7. Standardize a <code>name</code> column similarly, defaulting to <code>None</code> if absent — guarantees every cleaned layer has a <code>name</code> column to select, even for layers (like <code>waterways</code>) where most features are unnamed.<br>8. Drop duplicate rows based on geometry only (<code>subset="geometry"</code>) — two features with identical geometry but different attributes are still considered duplicates here.<br>9. Reproject: tag as EPSG:4326 first if no CRS is set (OSM data is implicitly WGS84), then reproject to <code>target_crs</code>.<br>10. If <code>collapse_to_point=True</code> (only for <code>POINT_LAYERS</code>), call <code>_collapse_areas_to_points(gdf)</code> — see below.<br>11. Reduce to <code>KEEP_COLUMNS</code>, keeping only whichever of <code>osmid</code>/<code>name</code>/<code>geometry</code> are actually present.<br>12. Return with a reset, clean <code>RangeIndex</code>.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>The <code>osmid</code> fallback (step 6) assumes that if no column literally contains the substring <code>"id"</code>, a synthetic sequential ID is an acceptable substitute — this loses any real traceability back to the original OSM element for that layer, silently. The <code>.buffer(0)</code> repair trick (step 4) is a widely-used but imperfect fix for invalid geometries; it can occasionally alter a geometry's shape slightly rather than perfectly "fixing" it, this is a known trade-off, not something this function detects or reports.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
+<td>O(N) in the number of features in the layer for the filtering/column steps; the <code>.buffer(0)</code> repair and centroid computation are each O(V) in vertex count per affected geometry, so worst case O(N·V̄) where V̄ is average vertex count, for layers with many invalid or area geometries.</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>None — called sequentially from <code>clean_layers()</code>'s loop.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../tests/">tests.md</a>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_collapse_areas_to_pointsgdf"><code>_collapse_areas_to_points(gdf)</code><a class="headerlink" href="#_collapse_areas_to_pointsgdf" title="Permanent link">&para;</a></h3>
+<p><strong>This is the function behind the Akure North health-facility bug fix.</strong>
+See <a href="../../../reference/known-issues/">Known Issues</a> for the full case study;
+this section documents the function itself.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>What it does</strong></td>
+<td>Replaces every <code>Polygon</code>/<code>MultiPolygon</code> geometry in <code>gdf</code> with its centroid (a <code>Point</code>), leaving any geometries that are already <code>Point</code> untouched.</td>
+</tr>
+<tr>
+<td><strong>Why written this way</strong></td>
+<td>OSM allows the same real-world facility — a hospital, a school — to be mapped either as a single point node, <em>or</em> as a full building-outline polygon/way. Both are equally valid, common mapping choices; the outline just means someone traced the building footprint instead of dropping a node. Without this collapse step, any facility mapped as an outline has geometry with no <code>.x</code>/<code>.y</code> attributes to snap to a routing graph node, and every grid cell that would have relied on that facility for accessibility scoring silently loses access to it entirely — not as an error, just as a facility that quietly isn't there. This is precisely what happened to all 14 of Akure North's health facilities, which were uniformly mapped as building outlines rather than points, making health access in that LGA look catastrophically worse than it actually was, until this collapse logic was added.</td>
+</tr>
+<tr>
+<td><strong>Inputs</strong></td>
+<td><code>gdf: GeoDataFrame</code>, expected to already be in a <strong>projected (metric) CRS</strong> — this is a precondition, not something the function checks or enforces itself.</td>
+</tr>
+<tr>
+<td><strong>Outputs</strong></td>
+<td>A copy of <code>gdf</code> with area geometries replaced by their centroids; non-area geometries unchanged.</td>
+</tr>
+<tr>
+<td><strong>Internal workflow</strong></td>
+<td>1. Copy the input.<br>2. Build a boolean mask <code>is_area</code> via <code>gdf.geometry.geom_type.isin(["Polygon", "MultiPolygon"])</code>.<br>3. If any rows match, replace just those rows' <code>geometry</code> column with <code>.centroid</code> (vectorized, applied only to the masked subset — <code>Point</code> rows are never touched or recomputed).<br>4. Return the copy.</td>
+</tr>
+<tr>
+<td><strong>Assumptions</strong></td>
+<td><strong>Critical, undocumented-in-code assumption</strong>: the caller has already reprojected <code>gdf</code> into a projected/metric CRS before calling this function. Computing a centroid in a geographic (lat/lon) CRS distorts the result — degrees aren't a uniform distance measure, so a naive lat/lon centroid can be measurably offset from the true geometric center, especially for larger or irregularly-shaped polygons. <code>_clean_single_layer()</code>'s call site enforces this correctly (reprojection happens at step 9, collapse at step 10 — see above), but <code>_collapse_areas_to_points()</code> itself has no internal check or assertion that its input is actually projected; calling it directly on unprojected data would silently produce a subtly-wrong result rather than an error.</td>
+</tr>
+<tr>
+<td><strong>Complexity</strong></td>
+<td>O(N) for the mask computation; O(A) for the centroid computation, where A = number of area geometries (a subset of N) — each centroid computation itself is O(V) in the polygon's vertex count, so worst case O(N + A·V̄).</td>
+</tr>
+<tr>
+<td><strong>Concurrency / race conditions</strong></td>
+<td>None — pure function over a copy of its input.</td>
+</tr>
+<tr>
+<td><strong>Covered by test(s)</strong></td>
+<td>See <a href="../../tests/">tests.md</a> — this is one of the most important functions in the repository to have direct, explicit test coverage for (mixed Point/Polygon input, verifying only the Polygon rows change and that outputs are true <code>Point</code> geometries).</td>
 </tr>
 </tbody>
 </table>
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
-<p><em>TODO: non-obvious behavior, edge cases, things that bit us during development.</em></p>
+<ul>
+<li><strong><code>POINT_LAYERS</code> membership is a hardcoded string set, not driven by
+  configuration.</strong> If a caller extends <code>DEFAULT_TAG_CONFIG</code> (in <code>layers.py</code>)
+  with a new facility-type layer that should also be point-normalized (e.g.
+  a custom <code>"markets"</code> layer), it must also be manually added to
+  <code>POINT_LAYERS</code> in <code>clean.py</code> — there's no single place that couples "this
+  is a facility type" to "this needs point-collapse," so the two dictionaries
+  can silently drift out of sync.</li>
+<li><strong><code>resolve_target_crs()</code>'s fallback warnings only print to stdout.</strong> In an
+  automated/CI context, or when running many LGAs in a batch, these warnings
+  are easy to miss if stdout isn't being actively monitored — there's no
+  structured warning collection (unlike <code>layers.py</code>'s <code>_warnings</code> list
+  pattern) for this particular failure mode.</li>
+<li><strong>Duplicate-dropping is geometry-only.</strong> Two OSM features with identical
+  geometry (e.g. a data-entry artifact) but genuinely different <code>name</code>/<code>osmid</code>
+  attributes are still merged into one row by <code>drop_duplicates(subset="geometry")</code>
+  — whichever row pandas keeps first wins, the other's attributes are lost
+  silently.</li>
+</ul>
 
 
 

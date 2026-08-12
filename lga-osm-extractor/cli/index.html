@@ -9,8 +9,10 @@
         <meta name="description" content="Deep technical documentation for the lga-osm-extractor and akure-accessibility-dashboard repositories (Map<>kathon 2026, UseOSM).">
       
       
-        <meta name="author" content="Noah">
+        <meta name="author" content="Marvellous Adeleke">
       
+      
+        <link rel="canonical" href="https://mapkathon2026-useosm.github.io/UseOSM_Mapkathon-Submission-documentation/lga-osm-extractor/cli/">
       
       
         <link rel="prev" href="../app/">
@@ -27,7 +29,7 @@
     
     
       
-        <title>CLI (cli.py) - Akure Geospatial Systems Documentation</title>
+        <title>CLI (cli.py) - UseOSM Mapkathon Submission Documentation</title>
       
     
     
@@ -53,6 +55,8 @@
       
     
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -69,7 +73,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -94,7 +98,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Akure Geospatial Systems Documentation" class="md-header__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../.." title="UseOSM Mapkathon Submission Documentation" class="md-header__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -108,7 +112,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Akure Geospatial Systems Documentation
+            UseOSM Mapkathon Submission Documentation
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -127,7 +131,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
     
       <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
@@ -137,7 +141,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
@@ -196,13 +200,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
       </div>
@@ -349,23 +353,23 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Akure Geospatial Systems Documentation" class="md-nav__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../.." title="UseOSM Mapkathon Submission Documentation" class="md-nav__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    Akure Geospatial Systems Documentation
+    UseOSM Mapkathon Submission Documentation
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
     </div>
@@ -911,15 +915,26 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#functions" class="md-nav__link">
+  <a href="#dependencies" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Functions
+        Dependencies
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Functions">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions &amp; Classes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions &amp; Classes">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -943,6 +958,17 @@
     <span class="md-ellipsis">
       
         Usage Examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gotchas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gotchas
       
     </span>
   </a>
@@ -1664,15 +1690,26 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#functions" class="md-nav__link">
+  <a href="#dependencies" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Functions
+        Dependencies
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Functions">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions &amp; Classes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions &amp; Classes">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1702,6 +1739,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#gotchas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gotchas
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1725,11 +1773,24 @@
 <h1 id="cli-clipy">CLI — cli.py<a class="headerlink" href="#cli-clipy" title="Permanent link">&para;</a></h1>
 <div class="admonition info">
 <p class="admonition-title">Source</p>
-<p><code>cli.py</code></p>
+<p><code>cli.py</code> (91 lines)</p>
 </div>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p><em>TODO</em></p>
-<h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
+<p>The command-line entry point for the extractor: a thin <code>argparse</code> wrapper
+around <code>pipeline.extract_lga()</code>, intended for scripted, automated, and
+CI/batch use — the same pipeline <code>app.py</code> exposes interactively, but with a
+fuller parameter surface (<code>--manual-boundary</code>, <code>--strict</code>) and no Streamlit
+runtime overhead.</p>
+<h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Imports:</strong> <code>argparse</code>, <code>json</code>, <code>sys</code>; <code>extract_lga</code> from the
+  <code>lga_extractor</code> package (top-level re-export); <code>build_preview_map</code> from
+  <code>lga_extractor.visualize</code>, imported lazily inside <code>main()</code> only when
+  <code>--preview</code> is passed.</li>
+<li><strong>Imports from:</strong> <code>pipeline.py</code> (via package re-export), and
+  conditionally <code>visualize.py</code>.</li>
+</ul>
+<h2 id="functions-classes">Functions &amp; Classes<a class="headerlink" href="#functions-classes" title="Permanent link">&para;</a></h2>
 <h3 id="main"><code>main()</code><a class="headerlink" href="#main" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -1741,46 +1802,80 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Parses command-line arguments, calls <code>extract_lga()</code> with them, prints the resulting summary as formatted JSON to stdout, and optionally builds a Kepler.gl preview map if <code>--preview</code> was passed.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>Every CLI flag maps directly onto an <code>extract_lga()</code> parameter (<code>--lga</code>→<code>lga_name</code>, <code>--state</code>→<code>state_name</code>, <code>--output-dir</code>→<code>output_dir</code>, <code>--manual-boundary</code>→<code>manual_boundary_path</code>, <code>--strict</code>→<code>strict</code>) with no CLI-specific logic reinterpreting them — consistent with <code>pipeline.py</code>'s design (see its docstring reasoning) of keeping every interface layer a thin, faithful pass-through so parameter behavior is documented in exactly one place. <code>--preview</code> is the one flag with no <code>extract_lga()</code> equivalent, since building a Kepler preview is a separate, optional step handled entirely within <code>main()</code> itself, not part of the core pipeline.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO — argv / argparse flags</em></td>
+<td>Parsed from <code>sys.argv</code> via <code>argparse</code>: <code>--lga</code> (required); <code>--state</code>, <code>--output-dir</code>, <code>--manual-boundary</code> (all optional, default <code>None</code>); <code>--preview</code>, <code>--strict</code> (both <code>action="store_true"</code> boolean flags, default <code>False</code>).</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO — exit codes, files written</em></td>
+<td>Prints the <code>extract_lga()</code> result dict as indented JSON to stdout (success path); prints an error message to stderr and calls <code>sys.exit(1)</code> on failure. If <code>--preview</code> was given, additionally prints either a confirmation message with the saved HTML path, or a skip notice if <code>keplergl</code> isn't installed. No Python return value (it's a script entry point, not a library function) — nothing in the codebase calls <code>main()</code> expecting a return value.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO</em></td>
+<td>1. Build the <code>ArgumentParser</code> with all six flags described above.<br>2. Parse <code>sys.argv</code> via <code>parser.parse_args()</code>.<br>3. Call <code>extract_lga()</code> inside a <code>try/except Exception</code>. On any exception, print <code>f"Extraction failed: {exc}"</code> to stderr and exit with status code <code>1</code> — this is a deliberately broad <code>except Exception</code>, catching <code>BoundaryResolutionError</code>, <code>LayerExtractionError</code>, and anything else <code>extract_lga()</code> might raise, uniformly, rather than handling each exception type differently the way <code>app.py</code> does (which shows a boundary-specific error message via a separate <code>except BoundaryResolutionError</code> clause before its general <code>except Exception</code>). For a CLI/scripting context, a uniform "it failed, here's why, nonzero exit code" is the more appropriate behavior — the caller is expected to be another program or a human reading stderr, not a UI needing differentiated error presentation.<br>4. On success, <code>print(json.dumps(result, indent=2))</code> — the full result dict, human-readable and also directly parseable by any calling script (<code>subprocess</code> + <code>json.loads()</code> on stdout).<br>5. If <code>args.preview</code> is set: lazily import <code>build_preview_map</code> from <code>visualize.py</code> (deferred import here for the same reason <code>visualize.py</code> itself defers its <code>keplergl</code> import — see <a href="../modules/visualize/"><code>visualize.md</code></a> — so that <em>not</em> passing <code>--preview</code> never requires <code>keplergl</code> to be installed at all); compute the same <code>output/{slugified_name}</code> naming convention the HTML preview path uses; call <code>build_preview_map(output_dir=result["output_dir"], html_out=html_path)</code>; print a confirmation. If <code>ImportError</code> is raised (keplergl not installed), print a skip notice to stderr rather than crashing the whole run — extraction itself already succeeded and its result was already printed by this point, so a missing optional dependency for the preview step shouldn't undo that.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes the caller wants a nonzero process exit code to be the sole failure signal for scripting purposes (standard CLI convention) — there's no <code>--quiet</code>/<code>--json-errors-only</code> mode; a failure always prints a human-readable message to stderr in addition to the exit code. Assumes <code>args.lga.strip().replace(" ", "_").lower()</code> (used to compute the preview HTML path) will always match whatever slugification <code>extract_lga()</code>/<code>pipeline.py</code> used internally for its default <code>output_dir</code> — this is the same implicit-naming-convention coupling noted in <a href="../modules/visualize/"><code>visualize.md</code></a>'s gotchas, duplicated here independently rather than shared from a single source.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO</em></td>
+<td>O(1) in this function's own logic; wall-clock cost is entirely delegated to <code>extract_lga()</code> and, conditionally, <code>build_preview_map()</code>.</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td>N/A</td>
+<td>None — a CLI invocation runs once, synchronously, start to finish, in a single process. Running <code>cli.py</code> for the same LGA concurrently from two separate terminal invocations would hit the same unguarded-concurrent-write-to-same-<code>output_dir</code> consideration noted in <a href="../modules/export/"><code>export.md</code></a> and <a href="../modules/logging_utils/"><code>logging_utils.md</code></a>, but this isn't specific to the CLI itself.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO</em></td>
+<td>See <a href="../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
 <h2 id="usage-examples">Usage Examples<a class="headerlink" href="#usage-examples" title="Permanent link">&para;</a></h2>
-<p>```bash</p>
-<h1 id="todo-real-example-invocations">TODO: real example invocations<a class="headerlink" href="#todo-real-example-invocations" title="Permanent link">&para;</a></h1>
-<p>```</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Basic extraction with state disambiguation</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>python<span class="w"> </span>cli.py<span class="w"> </span>--lga<span class="w"> </span><span class="s2">&quot;Akure North&quot;</span><span class="w"> </span>--state<span class="w"> </span><span class="s2">&quot;Ondo&quot;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Custom output directory</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>python<span class="w"> </span>cli.py<span class="w"> </span>--lga<span class="w"> </span><span class="s2">&quot;Akure South&quot;</span><span class="w"> </span>--state<span class="w"> </span><span class="s2">&quot;Ondo&quot;</span><span class="w"> </span>--output-dir<span class="w"> </span>data/processed/akure_south
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># Using a manually-supplied boundary instead of OSM geocoding</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>python<span class="w"> </span>cli.py<span class="w"> </span>--lga<span class="w"> </span><span class="s2">&quot;Some LGA&quot;</span><span class="w"> </span>--manual-boundary<span class="w"> </span>path/to/boundary.geojson
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1"># Strict mode: abort immediately on any genuine extraction failure</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1"># (recommended for CI/automated pipelines)</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>python<span class="w"> </span>cli.py<span class="w"> </span>--lga<span class="w"> </span><span class="s2">&quot;Akure North&quot;</span><span class="w"> </span>--state<span class="w"> </span><span class="s2">&quot;Ondo&quot;</span><span class="w"> </span>--strict
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="c1"># Also generate a standalone Kepler.gl HTML preview</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>python<span class="w"> </span>cli.py<span class="w"> </span>--lga<span class="w"> </span><span class="s2">&quot;Akure North&quot;</span><span class="w"> </span>--state<span class="w"> </span><span class="s2">&quot;Ondo&quot;</span><span class="w"> </span>--preview
+</span></code></pre></div>
+<h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong><code>--strict</code> changes failure <em>sensitivity</em>, not failure <em>presentation</em>.</strong>
+  Both strict and permissive runs, if they fail, are reported the same way
+  by <code>main()</code> (stderr message + exit code 1) — <code>--strict</code> only changes
+  whether a single flaky layer query is treated as a fatal error in the
+  first place (see <a href="../modules/layers/"><code>layers.md</code></a>'s <code>strict</code> parameter
+  documentation), not how a failure, once it happens, is surfaced here.</li>
+<li><strong>The <code>--preview</code> HTML path naming is independently recomputed, not
+  reused from <code>extract_lga()</code>'s result.</strong> <code>main()</code> recomputes
+  <code>f"visuals/{safe_name}_preview.html"</code> itself from <code>args.lga</code> rather than
+  deriving it from anything in <code>result</code> — if the slugification logic in
+  <code>pipeline.py</code> ever changed, this would need a matching update here too,
+  the same drift risk documented in <code>visualize.py</code>.</li>
+<li><strong>A failed <code>--preview</code> step does not affect the CLI's exit code.</strong> If
+  extraction succeeds but the Kepler preview fails due to missing
+  <code>keplergl</code>, <code>main()</code> still exits <code>0</code> (success) — only the preview-specific
+  skip message goes to stderr. This is a deliberate choice: extraction is
+  the CLI's primary job, and an optional visual convenience layer failing
+  shouldn't be conflated with the primary job failing.</li>
+</ul>
 
 
 

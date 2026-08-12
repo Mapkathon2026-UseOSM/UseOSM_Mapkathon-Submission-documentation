@@ -9,8 +9,10 @@
         <meta name="description" content="Deep technical documentation for the lga-osm-extractor and akure-accessibility-dashboard repositories (Map<>kathon 2026, UseOSM).">
       
       
-        <meta name="author" content="Noah">
+        <meta name="author" content="Marvellous Adeleke">
       
+      
+        <link rel="canonical" href="https://mapkathon2026-useosm.github.io/UseOSM_Mapkathon-Submission-documentation/akure-accessibility-dashboard/modules/accessibility/isochrones/">
       
       
         <link rel="prev" href="../network_graph/">
@@ -27,7 +29,7 @@
     
     
       
-        <title>accessibility/isochrones.py - Akure Geospatial Systems Documentation</title>
+        <title>accessibility/isochrones.py - UseOSM Mapkathon Submission Documentation</title>
       
     
     
@@ -53,6 +55,8 @@
       
     
     
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -69,7 +73,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -94,7 +98,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../../.." title="Akure Geospatial Systems Documentation" class="md-header__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../../../.." title="UseOSM Mapkathon Submission Documentation" class="md-header__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -108,7 +112,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Akure Geospatial Systems Documentation
+            UseOSM Mapkathon Submission Documentation
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -127,7 +131,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
     
       <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
@@ -137,7 +141,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
@@ -196,13 +200,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
       </div>
@@ -349,23 +353,23 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../../.." title="Akure Geospatial Systems Documentation" class="md-nav__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../../../.." title="UseOSM Mapkathon Submission Documentation" class="md-nav__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    Akure Geospatial Systems Documentation
+    UseOSM Mapkathon Submission Documentation
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
     </div>
@@ -1243,10 +1247,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#nearest_graph_node" class="md-nav__link">
+  <a href="#nearest_graph_nodeg-point" class="md-nav__link">
     <span class="md-ellipsis">
       
-        nearest_graph_node()
+        nearest_graph_node(G, point)
       
     </span>
   </a>
@@ -1254,10 +1258,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#compute_isochrone_polygon" class="md-nav__link">
+  <a href="#compute_isochrone_polygong-origin_point-trip_time_min-weighttravel_time_min" class="md-nav__link">
     <span class="md-ellipsis">
       
-        compute_isochrone_polygon()
+        compute_isochrone_polygon(G, origin_point, trip_time_min, weight="travel_time_min")
       
     </span>
   </a>
@@ -1265,10 +1269,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#build_isochrones_for_facilities" class="md-nav__link">
+  <a href="#build_isochrones_for_facilitiesg-facilities_gdf-trip_times_min15-30-45" class="md-nav__link">
     <span class="md-ellipsis">
       
-        build_isochrones_for_facilities()
+        build_isochrones_for_facilities(G, facilities_gdf, trip_times_min=(15, 30, 45))
       
     </span>
   </a>
@@ -1276,10 +1280,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#nearest_facility_travel_time" class="md-nav__link">
+  <a href="#nearest_facility_travel_timeg-origin_point-facilities_gdf-weighttravel_time_min" class="md-nav__link">
     <span class="md-ellipsis">
       
-        nearest_facility_travel_time()
+        nearest_facility_travel_time(G, origin_point, facilities_gdf, weight="travel_time_min")
       
     </span>
   </a>
@@ -1287,10 +1291,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#nearest_facility_distance_and_time" class="md-nav__link">
+  <a href="#nearest_facility_distance_and_timeg-origin_point-facilities_gdf-weighttravel_time_min-distance_attrlength" class="md-nav__link">
     <span class="md-ellipsis">
       
-        nearest_facility_distance_and_time()
+        nearest_facility_distance_and_time(G, origin_point, facilities_gdf, weight="travel_time_min", distance_attr="length")
       
     </span>
   </a>
@@ -1298,10 +1302,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#batch_nearest_facility_distances" class="md-nav__link">
+  <a href="#batch_nearest_facility_distancesg-facilities_gdf-distance_attrlength" class="md-nav__link">
     <span class="md-ellipsis">
       
-        batch_nearest_facility_distances()
+        batch_nearest_facility_distances(G, facilities_gdf, distance_attr="length")
       
     </span>
   </a>
@@ -1309,10 +1313,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#lookup_nearest_distance_time" class="md-nav__link">
+  <a href="#lookup_nearest_distance_timeg-origin_point-distances_by_node" class="md-nav__link">
     <span class="md-ellipsis">
       
-        lookup_nearest_distance_time()
+        lookup_nearest_distance_time(G, origin_point, distances_by_node)
       
     </span>
   </a>
@@ -1766,10 +1770,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#nearest_graph_node" class="md-nav__link">
+  <a href="#nearest_graph_nodeg-point" class="md-nav__link">
     <span class="md-ellipsis">
       
-        nearest_graph_node()
+        nearest_graph_node(G, point)
       
     </span>
   </a>
@@ -1777,10 +1781,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#compute_isochrone_polygon" class="md-nav__link">
+  <a href="#compute_isochrone_polygong-origin_point-trip_time_min-weighttravel_time_min" class="md-nav__link">
     <span class="md-ellipsis">
       
-        compute_isochrone_polygon()
+        compute_isochrone_polygon(G, origin_point, trip_time_min, weight="travel_time_min")
       
     </span>
   </a>
@@ -1788,10 +1792,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#build_isochrones_for_facilities" class="md-nav__link">
+  <a href="#build_isochrones_for_facilitiesg-facilities_gdf-trip_times_min15-30-45" class="md-nav__link">
     <span class="md-ellipsis">
       
-        build_isochrones_for_facilities()
+        build_isochrones_for_facilities(G, facilities_gdf, trip_times_min=(15, 30, 45))
       
     </span>
   </a>
@@ -1799,10 +1803,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#nearest_facility_travel_time" class="md-nav__link">
+  <a href="#nearest_facility_travel_timeg-origin_point-facilities_gdf-weighttravel_time_min" class="md-nav__link">
     <span class="md-ellipsis">
       
-        nearest_facility_travel_time()
+        nearest_facility_travel_time(G, origin_point, facilities_gdf, weight="travel_time_min")
       
     </span>
   </a>
@@ -1810,10 +1814,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#nearest_facility_distance_and_time" class="md-nav__link">
+  <a href="#nearest_facility_distance_and_timeg-origin_point-facilities_gdf-weighttravel_time_min-distance_attrlength" class="md-nav__link">
     <span class="md-ellipsis">
       
-        nearest_facility_distance_and_time()
+        nearest_facility_distance_and_time(G, origin_point, facilities_gdf, weight="travel_time_min", distance_attr="length")
       
     </span>
   </a>
@@ -1821,10 +1825,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#batch_nearest_facility_distances" class="md-nav__link">
+  <a href="#batch_nearest_facility_distancesg-facilities_gdf-distance_attrlength" class="md-nav__link">
     <span class="md-ellipsis">
       
-        batch_nearest_facility_distances()
+        batch_nearest_facility_distances(G, facilities_gdf, distance_attr="length")
       
     </span>
   </a>
@@ -1832,10 +1836,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#lookup_nearest_distance_time" class="md-nav__link">
+  <a href="#lookup_nearest_distance_timeg-origin_point-distances_by_node" class="md-nav__link">
     <span class="md-ellipsis">
       
-        lookup_nearest_distance_time()
+        lookup_nearest_distance_time(G, origin_point, distances_by_node)
       
     </span>
   </a>
@@ -1881,14 +1885,32 @@
 <h1 id="isochronespy">isochrones.py<a class="headerlink" href="#isochronespy" title="Permanent link">&para;</a></h1>
 <div class="admonition info">
 <p class="admonition-title">Source</p>
-<p><code>akure_access/accessibility/isochrones.py</code></p>
+<p><code>akure_access/accessibility/isochrones.py</code> (444 lines — the largest and
+most algorithmically dense module in either repository)</p>
 </div>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p><em>TODO: 1-2 paragraphs - what this module is responsible for and why it exists as a separate module.</em></p>
+<p>Computes network-based travel-time isochrones from facility locations, and
+finds nearest-facility travel times/distances for arbitrary origin points
+(settlement or grid-cell centroids). Every function here operates on a
+graph from <a href="../network_graph/"><code>network_graph.py</code></a> — this module contains
+no graph-<em>building</em> logic of its own, only routing/query logic on top of an
+already-built graph.</p>
+<p>This module contains the single most consequential performance decision in
+the whole project — the shift from per-cell shortest-path search to a
+single multi-source Dijkstra pass — which is what makes scoring a full LGA
+computationally tractable at all. See <code>batch_nearest_facility_distances()</code>
+below.</p>
 <h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
-<p><em>TODO: what this module imports, what imports it.</em></p>
+<ul>
+<li><strong>Imports:</strong> <code>geopandas</code>, <code>networkx</code>, <code>numpy</code>, <code>scipy.spatial.cKDTree</code>,
+  <code>shapely.geometry</code> (<code>Point</code>, <code>MultiPoint</code>), <code>shapely.ops.unary_union</code>.</li>
+<li><strong>Imported by:</strong> <code>scoring.py</code> (<code>add_access_times()</code> uses
+  <code>batch_nearest_facility_distances()</code> + <code>lookup_nearest_distance_time()</code>);
+  <code>dashboard/app.py</code>; the project's accessibility-analysis notebook (for
+  precomputing isochrone overlays).</li>
+</ul>
 <h2 id="functions-classes">Functions &amp; Classes<a class="headerlink" href="#functions-classes" title="Permanent link">&para;</a></h2>
-<h3 id="nearest_graph_node"><code>nearest_graph_node()</code><a class="headerlink" href="#nearest_graph_node" title="Permanent link">&para;</a></h3>
+<h3 id="nearest_graph_nodeg-point"><code>nearest_graph_node(G, point)</code><a class="headerlink" href="#nearest_graph_nodeg-point" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1899,43 +1921,57 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Finds the graph node nearest to an arbitrary point, using a cached KD-tree built from each node's <code>x</code>/<code>y</code> attributes.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>Two deliberate engineering decisions here, both explained in the function's own docstring. <strong>(1) Why a KD-tree, cached on the graph object itself</strong> (<code>G.graph["_kdtree"]</code>), rather than a linear scan or a fresh tree per call: this function is called <em>very</em> frequently — once per origin point and once per candidate facility, for every settled grid cell, for every mode. A linear O(n) scan per call, or rebuilding the tree from scratch on every call, would dominate total runtime on a real road network with thousands of nodes; caching the tree means the O(n log n) build cost is paid once per graph, and every subsequent lookup is O(log n). <strong>(2) Why not just use <code>osmnx.distance.nearest_nodes()</code>:</strong> OSMnx's own nearest-node function assumes OSMnx's internal graph conventions (e.g. integer node IDs), and does not work reliably against the geometry-fallback graph produced by <code>network_graph._graph_from_geometries()</code> (which uses coordinate tuples as node IDs, not integers) — building a KD-tree directly over explicit <code>x</code>/<code>y</code> node attributes instead works uniformly regardless of which of <code>network_graph.py</code>'s two construction paths produced the graph.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>G: MultiDiGraph</code>; <code>point: Point</code> (or any Shapely geometry with a <code>.centroid</code> — see the defensive backstop below).</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td>The nearest node's identifier (whatever type that graph uses as node keys — could be an OSM integer ID or a coordinate tuple, depending on which construction path built <code>G</code>).</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. <strong>Defensive backstop</strong>: if <code>point</code> is not already a <code>Point</code> instance (e.g. a <code>Polygon</code>/<code>MultiPolygon</code> slipped through), use its <code>.centroid</code> instead of raising — see below for why this specific line exists.<br>2. Check whether a KD-tree is already cached on <code>G.graph</code> under <code>"_kdtree"</code>/<code>"_kdtree_node_ids"</code>. If not: collect all node IDs, extract <code>x</code>/<code>y</code> arrays via <code>.get("x")</code>/<code>.get("y")</code> on each node's data dict; if any value is <code>NaN</code> (meaning a node is missing the attribute entirely — <code>.get()</code> returning <code>None</code> upcast to <code>NaN</code> by the <code>dtype=float</code> array construction), raise <code>ValueError</code> immediately, rather than building a tree that would silently misbehave; otherwise build a <code>cKDTree</code> over the stacked <code>(x, y)</code> columns and cache both the tree and the parallel node-ID list.<br>3. Query the (now-cached) tree for the single nearest neighbor to <code>(point.x, point.y)</code>.<br>4. Return the corresponding node ID from the cached ID list, indexed by the query result.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes every node's <code>x</code>/<code>y</code> attributes are in the same CRS as <code>point</code> — this function does no CRS validation or reprojection itself; a mismatched CRS between the graph and the query point would silently return a nonsensical "nearest" node rather than raising. Assumes the KD-tree cache is safe to persist on the graph object for the graph's entire lifetime — true as long as the graph's node set doesn't change after the first call (adding/removing nodes after the tree is cached would leave the cache stale with no invalidation mechanism).</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
+<td>O(n log n) once per graph, for the first call (tree construction); O(log n) for every subsequent call against the same graph, where n = number of graph nodes.</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td><strong>This is worth flagging explicitly.</strong> The cache-check-then-set pattern (<code>if cache_key not in G.graph: ... G.graph[cache_key] = ...</code>) is a classic check-then-act sequence with no locking. If <code>nearest_graph_node()</code> were ever called concurrently on the <em>same</em> graph object from multiple threads before the cache is populated, two threads could both see the cache as absent, both build a tree, and both write to <code>G.graph[cache_key]</code> — the last write wins, and the other thread's tree is simply discarded (wasted work, not corrupted state, since both trees would be built from the same identical node set and be functionally equivalent). Not a correctness bug given this project's current sequential/single-threaded usage pattern, but a genuine latent race condition if this function were ever called from a parallelized scoring pipeline in the future.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="compute_isochrone_polygon"><code>compute_isochrone_polygon()</code><a class="headerlink" href="#compute_isochrone_polygon" title="Permanent link">&para;</a></h3>
+<p><strong>On the defensive backstop (step 1) — this is a real, previously-observed
+failure mode, not speculative hardening.</strong> The function's own comment is
+explicit: a <code>Polygon</code>/<code>MultiPolygon</code> facility geometry (e.g. a hospital
+mapped as a building outline rather than a point node) has no <code>.x</code>/<code>.y</code>
+attribute and would otherwise raise inside this function. Before this
+backstop existed, that exception used to propagate up and be caught by a
+bare <code>except</code> clause further up the call chain, in
+<code>batch_nearest_facility_distances()</code> — silently dropping the facility from
+routing entirely, with no visible error. <code>lga_extractor.clean.py</code>'s
+<code>POINT_LAYERS</code> centroid-collapse logic is the <em>primary</em> fix for this
+upstream (see <a href="../../../../reference/known-issues/">Known Issues</a>); this
+<code>.centroid</code> fallback here is explicitly a <strong>second line of defense</strong>, for
+any geometry that reaches this function without having gone through that
+upstream cleaning step.</p>
+<h3 id="compute_isochrone_polygong-origin_point-trip_time_min-weighttravel_time_min"><code>compute_isochrone_polygon(G, origin_point, trip_time_min, weight="travel_time_min")</code><a class="headerlink" href="#compute_isochrone_polygong-origin_point-trip_time_min-weighttravel_time_min" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1946,43 +1982,43 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Computes an approximate isochrone: the convex hull of every graph node reachable from <code>origin_point</code> within <code>trip_time_min</code>, based on network travel time.</td>
 </tr>
 <tr>
-<td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td><strong>Why written this way — and why this is explicitly NOT what the project's actual scoring uses.</strong></td>
+<td>This function underpins one specific, clearly-scoped feature: precomputed facility catchment-area overlays for the dashboard's optional "walking catchment" display (exported ahead of time by the project's analysis notebook to <code>data/processed/{lga}/isochrones_health_walk.geojson</code>, so the live dashboard never needs to build a routable graph at request time). The function's docstring is explicit about the approximation it makes and why it's acceptable <em>here specifically</em>: the returned polygon is a <strong>convex hull</strong> over reachable nodes, not the true reachable street-network footprint. Convex hulls can meaningfully overstate actual reachable area, since real street networks are rarely convex — a river, a gap in road connectivity, or a dead-end cluster can make a location <em>geometrically inside</em> the hull genuinely unreachable on the actual network. This tradeoff is accepted here because it's fast, simple, and sufficient for an illustrative map overlay — but the docstring flags, unambiguously, that the project's actual access-deficit scoring (in <code>scoring.py</code>) does <strong>not</strong> use this approximation at all; it uses exact network shortest-path distances/times via <code>nearest_facility_distance_and_time()</code> / <code>batch_nearest_facility_distances()</code> instead. Anyone reading only the dashboard's catchment overlay should not assume its precision matches the underlying deficit scores.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>G: MultiDiGraph</code>; <code>origin_point: Point</code> (facility location, same CRS as <code>G</code>); <code>trip_time_min: float</code>; <code>weight: str</code>, default <code>"travel_time_min"</code> (which edge attribute to treat as the time cost).</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td>A Shapely <code>Polygon</code> (convex hull), or <code>None</code> if the origin can't be matched to the graph, or if fewer than 3 nodes are reachable (too few points to form a meaningful polygon).</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. Try to snap <code>origin_point</code> to its nearest graph node via <code>nearest_graph_node()</code>; return <code>None</code> immediately on any exception (broad <code>except Exception</code>, deliberately tolerant — an unmatched origin is a normal, expected outcome for this function, not something worth raising over).<br>2. Use <code>nx.ego_graph(G, center_node, radius=trip_time_min, distance=weight)</code> — NetworkX's built-in function for extracting the subgraph of all nodes within a given weighted distance of a center node — to get every node reachable within the time budget.<br>3. If fewer than 3 nodes were found, return <code>None</code> (can't form a polygon from fewer than 3 points).<br>4. Extract <code>(x, y)</code> points for every reachable node, build a <code>MultiPoint</code>, return its <code>.convex_hull</code>.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes a convex hull is an acceptable approximation for the <em>specific illustrative use case</em> it's built for — explicitly not assumed acceptable for scoring, as covered above.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
+<td><code>nx.ego_graph()</code>'s complexity dominates — effectively a bounded Dijkstra/BFS search from the center node, roughly O((V + E) log V) in the worst case for the reachable subgraph size; convex hull computation over the resulting points is O(k log k) where k = number of reachable nodes.</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>None beyond what <code>nearest_graph_node()</code> already carries (see above).</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="build_isochrones_for_facilities"><code>build_isochrones_for_facilities()</code><a class="headerlink" href="#build_isochrones_for_facilities" title="Permanent link">&para;</a></h3>
+<h3 id="build_isochrones_for_facilitiesg-facilities_gdf-trip_times_min15-30-45"><code>build_isochrones_for_facilities(G, facilities_gdf, trip_times_min=(15, 30, 45))</code><a class="headerlink" href="#build_isochrones_for_facilitiesg-facilities_gdf-trip_times_min15-30-45" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1993,43 +2029,43 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Calls <code>compute_isochrone_polygon()</code> for every <code>(facility, trip_time)</code> combination, returning one row per successfully-computed isochrone.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>A straightforward batch wrapper — the interesting design decision here isn't the looping logic, it's the empty-result handling (see workflow step 3), which reflects a broader pattern in this codebase (also seen in <code>lga_extractor</code>) of representing "empty but valid" consistently as a correctly-typed, correctly-CRS'd <code>GeoDataFrame</code> with zero rows, never as <code>None</code> or an untyped empty structure.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>G: MultiDiGraph</code>; <code>facilities_gdf: GeoDataFrame</code> (point layer, cleaned/exported by <code>lga_extractor</code>, reprojected to match <code>G</code>'s CRS); <code>trip_times_min: tuple</code>, default <code>(15, 30, 45)</code> minutes.</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>GeoDataFrame</code>, one row per <code>(facility, trip_time)</code> pair that produced a valid polygon, columns <code>[facility_name, osmid, trip_time_min, geometry]</code>.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. Double loop: for each facility row, for each requested trip time, call <code>compute_isochrone_polygon()</code>; skip (don't append) any <code>None</code> result.<br>2. If no records were produced at all (empty <code>facilities_gdf</code>, or every point failed to match the graph): construct an explicitly-typed empty <code>GeoDataFrame</code> with the correct columns, <code>geometry="geometry"</code>, and the correct CRS — done this way specifically because <code>gpd.GeoDataFrame([], crs=...)</code> cannot infer a geometry column from an empty list of records and raises an error if a CRS is also supplied at the same time; constructing it explicitly sidesteps that limitation.<br>3. Otherwise, build and return the <code>GeoDataFrame</code> from the collected records normally.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes <code>facilities_gdf</code> is already reprojected to match <code>G</code>'s CRS — no reprojection happens inside this function.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
+<td>O(F × T × isochrone_cost) where F = number of facilities, T = number of trip-time bands — each isochrone computation itself bounded by <code>compute_isochrone_polygon()</code>'s own complexity.</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>None — sequential nested loop.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="nearest_facility_travel_time"><code>nearest_facility_travel_time()</code><a class="headerlink" href="#nearest_facility_travel_time" title="Permanent link">&para;</a></h3>
+<h3 id="nearest_facility_travel_timeg-origin_point-facilities_gdf-weighttravel_time_min"><code>nearest_facility_travel_time(G, origin_point, facilities_gdf, weight="travel_time_min")</code><a class="headerlink" href="#nearest_facility_travel_timeg-origin_point-facilities_gdf-weighttravel_time_min" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -2040,43 +2076,31 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Returns just the travel time (minutes) to the single nearest facility from one origin point.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>A thin wrapper — its own docstring says so directly — kept purely for backward compatibility with existing calling code that only wants the time value, not the <code>(distance, time)</code> pair <code>nearest_facility_distance_and_time()</code> returns.</td>
 </tr>
 <tr>
-<td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
-</tr>
-<tr>
-<td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><strong>Inputs / Outputs</strong></td>
+<td>See <code>nearest_facility_distance_and_time()</code> below — identical inputs, returns only the time component.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
-</tr>
-<tr>
-<td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Single line: calls <code>nearest_facility_distance_and_time()</code>, discards the distance, returns the time.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
-</tr>
-<tr>
-<td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>Identical to <code>nearest_facility_distance_and_time()</code>.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="nearest_facility_distance_and_time"><code>nearest_facility_distance_and_time()</code><a class="headerlink" href="#nearest_facility_distance_and_time" title="Permanent link">&para;</a></h3>
+<h3 id="nearest_facility_distance_and_timeg-origin_point-facilities_gdf-weighttravel_time_min-distance_attrlength"><code>nearest_facility_distance_and_time(G, origin_point, facilities_gdf, weight="travel_time_min", distance_attr="length")</code><a class="headerlink" href="#nearest_facility_distance_and_timeg-origin_point-facilities_gdf-weighttravel_time_min-distance_attrlength" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -2087,43 +2111,45 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Computes both network distance (km) and travel time (minutes) from one origin point to the single nearest facility, where "nearest" is defined by <code>weight</code> — meaning this reflects the <em>fastest</em> facility to reach, not necessarily the geometrically closest one.</td>
 </tr>
 <tr>
-<td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td><strong>Why written this way — and why this function should usually NOT be the one you call.</strong></td>
+<td>The docstring is unusually direct about this function's own limitation: it runs one full shortest-path search per facility, for a single origin — meaning scoring many origins against the same facility set (exactly what happens when scoring every grid cell in an LGA) means calling this function once per cell, each call redoing a from-scratch search across every facility. For that use case, the docstring explicitly directs readers to <code>batch_nearest_facility_distances()</code> + <code>lookup_nearest_distance_time()</code> instead, which computes the routing once via multi-source Dijkstra rather than once per origin — "dramatically faster at scale," in the module's own words. This function is retained specifically for single-lookup use cases and backward compatibility, not because it's the preferred approach for the project's actual scoring workload (<code>scoring.add_access_times()</code> uses the batch approach, not this one).</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>G: MultiDiGraph</code>; <code>origin_point: Point</code>; <code>facilities_gdf: GeoDataFrame</code>; <code>weight: str</code>, default <code>"travel_time_min"</code> (used to select the nearest facility and report time); <code>distance_attr: str</code>, default <code>"length"</code> (used to report distance, summed along the <em>same</em> shortest path the time calculation used — not independently re-optimized for shortest distance).</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>(distance_km: float, travel_time_min: float)</code> tuple. Both are <code>float('inf')</code> if no facility is reachable.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. If <code>facilities_gdf</code> is empty, return <code>(inf, inf)</code> immediately.<br>2. Snap <code>origin_point</code> to its nearest node; return <code>(inf, inf)</code> on any failure.<br>3. For each facility: snap it to its nearest node, compute the shortest path (<code>nx.shortest_path()</code>, weighted by <code>weight</code>), then compute both the time-weighted and distance-weighted total cost of that <em>same</em> path (<code>nx.path_weight()</code>, called twice with different weight attributes on the identical path — not two separate optimizations); wrap this per-facility attempt in <code>try/except Exception: continue</code>, so one unreachable or unsnappable facility doesn't abort the whole search, it's simply skipped and the loop moves to the next facility.<br>4. Track the minimum <code>travel_time</code> seen so far across all facilities, updating <code>best_distance_km</code> alongside it whenever a new minimum is found.<br>5. Return the best <code>(distance_km, travel_time)</code> pair found, or <code>(inf, inf)</code> if every facility attempt failed.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes selecting "nearest" by <code>weight</code> (typically time) rather than by distance is the semantically correct choice for this project's purposes — a facility that's geometrically further but reachable via a faster road is correctly treated as "nearer" in a meaningful, real-world sense.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
+<td>O(F × shortest_path_cost) per call, where F = number of facilities — this is the per-origin cost the module explicitly warns doesn't scale well when called once per grid cell across potentially hundreds of cells.</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>None beyond <code>nearest_graph_node()</code>'s caching consideration.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="batch_nearest_facility_distances"><code>batch_nearest_facility_distances()</code><a class="headerlink" href="#batch_nearest_facility_distances" title="Permanent link">&para;</a></h3>
+<h3 id="batch_nearest_facility_distancesg-facilities_gdf-distance_attrlength"><code>batch_nearest_facility_distances(G, facilities_gdf, distance_attr="length")</code><a class="headerlink" href="#batch_nearest_facility_distancesg-facilities_gdf-distance_attrlength" title="Permanent link">&para;</a></h3>
+<p><strong>This is the performance-critical function the whole module exists to
+support at scale.</strong></p>
 <table>
 <thead>
 <tr>
@@ -2134,43 +2160,61 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Computes, for <em>every node in the graph simultaneously</em>, the network distance to the nearest facility — in one multi-source Dijkstra pass — rather than running a separate shortest-path search per origin.</td>
 </tr>
 <tr>
-<td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td><strong>Why written this way — the actual performance story, in the module's own words.</strong></td>
+<td>The naive approach (<code>nearest_facility_distance_and_time()</code>, called once per grid cell) does <code>cells × facilities</code> separate shortest-path searches. For a real LGA, this is "hundreds × dozens" — potentially tens of thousands of Dijkstra runs, across a road network with thousands of nodes, <em>per mode, per service</em>. The module states plainly: this is what made a full analysis-notebook run take over an hour in practice. <code>nx.multi_source_dijkstra_path_length()</code> instead finds the shortest distance from the <strong>nearest of several source nodes</strong> (here, every facility's snapped graph node) to every other node, in a single pass — so the expensive routing computation happens once per <code>(mode, service)</code> combination, not once per grid cell. Snapping each facility to its nearest node is still one KD-tree lookup per facility (fast — see <code>nearest_graph_node()</code>), but that's now the only per-facility cost; the actual graph traversal is shared across the whole grid. <strong>Why distance, not travel time, is used as the Dijkstra weight:</strong> within a single mode's graph, every edge shares the same assumed speed (set uniformly by <code>network_graph.MODE_CONFIG</code> for that mode), so travel time is simply distance divided by a constant — meaning the shortest path by distance and the shortest path by travel time are <em>identical</em> for this graph structure. This means time doesn't need its own separate, second Dijkstra pass; it can be derived from the already-computed distance afterward (see <code>lookup_nearest_distance_time()</code> below) via one division, not a second expensive graph traversal. This equivalence would <strong>not</strong> hold if edge speeds varied within a single mode's graph (e.g. per-road-type speeds) — a design constraint worth remembering if that simplification is ever revisited.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>G: MultiDiGraph</code>; <code>facilities_gdf: GeoDataFrame</code>; <code>distance_attr: str</code>, default <code>"length"</code> (the Dijkstra weight, in meters).</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>dict</code> mapping <code>graph_node → distance in meters</code> to the nearest facility. A node <strong>absent</strong> from this dict means it's unreachable from every facility (equivalent to infinite distance) — this is an implicit-absence convention, not an explicit <code>inf</code> value stored for every unreachable node, which matters for how callers (<code>lookup_nearest_distance_time()</code>) must handle lookups.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. If <code>facilities_gdf</code> is empty, return <code>{}</code> immediately.<br>2. For each facility, try to snap it to its nearest graph node, collecting results into a <strong>set</strong> (<code>facility_nodes</code>) — deduplicating automatically if multiple facilities happen to snap to the same node; count and skip (via <code>try/except Exception: continue</code>) any facility that fails to snap.<br>3. <strong>If any facilities were skipped, raise a <code>UserWarning</code></strong> (not silently continue) with a message reporting the skip count and, notably, actionable guidance: check geometry type (should be Point after cleaning) and CRS before trusting the resulting scores. See below for why this warning exists at all.<br>4. If <code>facility_nodes</code> ended up empty (every facility failed to snap), return <code>{}</code>.<br>5. Otherwise, call <code>nx.multi_source_dijkstra_path_length(G, sources=facility_nodes, weight=distance_attr)</code> and return its result directly.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes every edge in a single mode's graph genuinely shares one uniform speed (the load-bearing assumption behind reusing distance-based Dijkstra results for time, as explained above) — this assumption would silently produce wrong travel times, not an error, if <code>network_graph.py</code> were ever changed to support per-edge speed variation without a corresponding change here.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
+<td><strong>This is the entire point of the function</strong>: O((V + E) log V) — a single Dijkstra-family pass over the whole graph — versus the naive O(cells × facilities × shortest_path_cost) the module explicitly contrasts itself against. The facility-snapping step is O(F log n) (F facility KD-tree lookups, each O(log n)).</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>None introduced by this function itself; inherits <code>nearest_graph_node()</code>'s caching consideration during the snapping step.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../../tests/">tests.md</a> — this function's correctness under a partial-skip vs. total-skip scenario is exactly the kind of thing worth dedicated test coverage for, given the history described below.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="lookup_nearest_distance_time"><code>lookup_nearest_distance_time()</code><a class="headerlink" href="#lookup_nearest_distance_time" title="Permanent link">&para;</a></h3>
+<p><strong>On the loud-warning-on-total-skip behavior (step 3) — this is a directly
+documented incident, not hypothetical caution.</strong> The module's own comment
+states plainly: this is exactly what happened when a whole LGA's health
+facilities were mapped as building-outline polygons upstream (the Akure
+North bug — see <a href="../../../../reference/known-issues/">Known Issues</a>) — a
+bare <code>except: continue</code> at this point in the code used to silently produce
+<strong>0% health access for an entire LGA</strong>, with no visible sign anything had
+gone wrong; every grid cell simply scored as unreachable, indistinguishable
+from a genuinely severe accessibility crisis. The current behavior
+distinguishes two very different situations: a <strong>partial</strong> skip (some
+facilities genuinely un-snappable — e.g. truly disconnected from the road
+graph) is treated as expected and unremarkable, producing only a warning;
+a <strong>total</strong> skip (every facility in a non-empty layer fails) is treated as
+almost certainly a real upstream bug, and is surfaced loudly enough that a
+caller reviewing the run cannot miss it. This is the same fail-loud
+philosophy documented in <code>lga_extractor.layers.py</code>'s <code>LayerExtractionError</code>
+design (see <a href="../../../../reference/known-issues/">Known Issues</a>), applied
+at a different layer of the pipeline.</p>
+<h3 id="lookup_nearest_distance_timeg-origin_point-distances_by_node"><code>lookup_nearest_distance_time(G, origin_point, distances_by_node)</code><a class="headerlink" href="#lookup_nearest_distance_timeg-origin_point-distances_by_node" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -2181,44 +2225,71 @@
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td><em>TODO</em></td>
+<td>Looks up the precomputed nearest-facility distance for one origin point (from <code>batch_nearest_facility_distances()</code>'s output) and converts it into <code>(distance_km, travel_time_min)</code>.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td><em>TODO</em></td>
+<td>This is the "cheap half" of the two-function pattern that replaces the expensive per-cell approach: after <code>batch_nearest_facility_distances()</code> has done the one expensive graph-wide Dijkstra pass, this function is called once per grid cell, and does only an O(1) dictionary lookup (plus one KD-tree snap for the origin point itself) — no further graph traversal. This is precisely what makes <code>scoring.add_access_times()</code> (which calls this function once per grid cell, across potentially hundreds of cells) computationally cheap despite the number of calls.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>G: MultiDiGraph</code> (the <em>same</em> graph passed to <code>batch_nearest_facility_distances()</code> — required so its <code>speed_kph</code> graph attribute, set by <code>graph_from_roads()</code>, is available to convert distance into time); <code>origin_point: Point</code>; <code>distances_by_node: dict</code> (the output of <code>batch_nearest_facility_distances()</code>).</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><em>TODO</em></td>
+<td><code>(distance_km, travel_time_min)</code> tuple. Both <code>float('inf')</code> if the origin can't be matched to the graph, or is unreachable from every facility (i.e. its node is absent from <code>distances_by_node</code>, or explicitly <code>inf</code> in it).</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td><em>TODO - step-by-step</em></td>
+<td>1. If <code>distances_by_node</code> is empty, return <code>(inf, inf)</code> immediately — no facilities were ever successfully snapped.<br>2. Snap <code>origin_point</code> to its nearest node; return <code>(inf, inf)</code> on failure.<br>3. Look up <code>distances_by_node.get(origin_node, float("inf"))</code> — the explicit default handles the "node absent from dict" convention documented in <code>batch_nearest_facility_distances()</code>'s output above.<br>4. If the looked-up distance is <code>inf</code>, short-circuit and return <code>(inf, inf)</code> — no need to attempt a speed conversion on an already-infinite value.<br>5. Read <code>speed_kph</code> off <code>G.graph</code>; if missing/falsy, return <code>(inf, inf)</code> (can't convert distance to time without a known speed — treated the same as unreachable, rather than raising).<br>6. Convert: <code>speed_m_per_min = (speed_kph * 1000) / 60</code>; <code>time_min = distance_m / speed_m_per_min</code> (guarded against division by zero the same way <code>network_graph._assign_travel_times()</code> is, returning <code>inf</code> rather than raising).<br>7. Return <code>(distance_m / 1000, time_min)</code>.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td><em>TODO</em></td>
+<td>Assumes <code>G</code>'s <code>speed_kph</code> graph attribute accurately reflects the uniform speed used when <code>distances_by_node</code> was computed — this function trusts that whatever graph is passed in is the same one (or an equivalent one) used to produce <code>distances_by_node</code>; passing a mismatched graph/distances pair would silently produce wrong times, not an error.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td><em>TODO - Big-O where relevant</em></td>
+<td>O(log n) — dominated entirely by the one KD-tree snap for <code>origin_point</code>; everything else is O(1).</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td><em>TODO - N/A if none</em></td>
+<td>None beyond <code>nearest_graph_node()</code>'s caching consideration.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td><em>TODO - link to tests.md</em></td>
+<td>See <a href="../../../tests/">tests.md</a>.</td>
 </tr>
 </tbody>
 </table>
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
-<p><em>TODO: non-obvious behavior, edge cases, things that bit us during development.</em></p>
+<ul>
+<li><strong>Two genuinely different accuracy models coexist in this file, for
+  different purposes, and it's easy to conflate them.</strong> <code>compute_isochrone_polygon()</code>
+  (and everything built on it) is a fast convex-hull <em>approximation</em>, used
+  only for illustrative dashboard overlays. Everything else in this module
+  — <code>nearest_facility_distance_and_time()</code>, <code>batch_nearest_facility_distances()</code>,
+  <code>lookup_nearest_distance_time()</code> — computes <em>exact</em> network shortest-path
+  distances/times, and is what the project's actual access-deficit scores
+  are built from. A map showing a facility's "15-minute walking catchment"
+  and a grid cell's individually-scored "18 minutes to nearest health
+  facility" are produced by genuinely different computational methods with
+  different accuracy characteristics, even though both describe the same
+  underlying concept.</li>
+<li><strong><code>batch_nearest_facility_distances()</code>'s distance-only Dijkstra trick
+  depends on a currently-true but not-enforced assumption</strong>: uniform edge
+  speed within one mode's graph. If per-road-type speed variation were ever
+  introduced into <code>network_graph.py</code>, this function's reuse of
+  distance-based results for travel time would become silently wrong,
+  without any error — a change to that module's speed model would need a
+  corresponding change here.</li>
+<li><strong>The "node absent from dict = unreachable" convention in
+  <code>batch_nearest_facility_distances()</code>'s output requires careful handling
+  by callers.</strong> <code>lookup_nearest_distance_time()</code> handles this correctly via
+  <code>.get(node, float("inf"))</code>, but any other code consuming this function's
+  raw dict output directly needs to replicate that same explicit-default
+  pattern, or risk a <code>KeyError</code> on an unreachable node rather than
+  correctly treating it as infinite distance.</li>
+</ul>
 
 
 

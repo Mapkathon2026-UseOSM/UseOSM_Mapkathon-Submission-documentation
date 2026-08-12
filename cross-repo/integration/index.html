@@ -9,8 +9,10 @@
         <meta name="description" content="Deep technical documentation for the lga-osm-extractor and akure-accessibility-dashboard repositories (Map<>kathon 2026, UseOSM).">
       
       
-        <meta name="author" content="Noah">
+        <meta name="author" content="Marvellous Adeleke">
       
+      
+        <link rel="canonical" href="https://mapkathon2026-useosm.github.io/UseOSM_Mapkathon-Submission-documentation/cross-repo/integration/">
       
       
         <link rel="prev" href="../../akure-accessibility-dashboard/tests/">
@@ -27,7 +29,7 @@
     
     
       
-        <title>Cross-Repo Integration - Akure Geospatial Systems Documentation</title>
+        <title>Cross-Repo Integration - UseOSM Mapkathon Submission Documentation</title>
       
     
     
@@ -53,6 +55,8 @@
       
     
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -69,7 +73,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -94,7 +98,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Akure Geospatial Systems Documentation" class="md-header__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../.." title="UseOSM Mapkathon Submission Documentation" class="md-header__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -108,7 +112,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Akure Geospatial Systems Documentation
+            UseOSM Mapkathon Submission Documentation
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -127,7 +131,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
     
       <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
@@ -137,7 +141,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
@@ -196,13 +200,13 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
       </div>
@@ -349,23 +353,23 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Akure Geospatial Systems Documentation" class="md-nav__button md-logo" aria-label="Akure Geospatial Systems Documentation" data-md-component="logo">
+    <a href="../.." title="UseOSM Mapkathon Submission Documentation" class="md-nav__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    Akure Geospatial Systems Documentation
+    UseOSM Mapkathon Submission Documentation
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/Mapkathon2026-UseOSM" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
   </div>
   <div class="md-source__repository">
-    Mapkathon2026-UseOSM
+    UseOSM_Mapkathon-Submission-documentation
   </div>
 </a>
     </div>
@@ -1438,6 +1442,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#why-this-test-file-exists-and-how-its-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why This Test File Exists, and How It's Run
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-the-extractor-produces" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1464,6 +1479,17 @@
     <span class="md-ellipsis">
       
         Schema Table
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-the-integration-test-actually-exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the Integration Test Actually Exercises
       
     </span>
   </a>
@@ -1639,6 +1665,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#why-this-test-file-exists-and-how-its-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why This Test File Exists, and How It's Run
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-the-extractor-produces" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1665,6 +1702,17 @@
     <span class="md-ellipsis">
       
         Schema Table
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-the-integration-test-actually-exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the Integration Test Actually Exercises
       
     </span>
   </a>
@@ -1703,13 +1751,91 @@
 
 
 <h1 id="cross-repo-integration">Cross-Repo Integration<a class="headerlink" href="#cross-repo-integration" title="Permanent link">&para;</a></h1>
-<p><em>TODO: the data contract between lga-osm-extractor and akure-accessibility-dashboard.</em></p>
-<p>Anchor this page to <code>tests/test_cross_repo_integration.py</code> in the dashboard repo —
-that test is the executable specification of this contract.</p>
+<p>This page documents the data contract between
+<a href="../../lga-osm-extractor/overview/"><code>lga-osm-extractor</code></a> (produces data) and
+<a href="../../akure-accessibility-dashboard/overview/"><code>akure-accessibility-dashboard</code></a>
+(consumes data) — anchored directly to
+<code>akure-accessibility-dashboard/tests/test_cross_repo_integration.py</code>, which
+functions as the <strong>executable specification</strong> of this contract: it's the
+one place in either codebase where both packages are actually imported and
+exercised together, end to end, against synthetic-but-realistically-shaped
+data.</p>
+<h2 id="why-this-test-file-exists-and-how-its-run">Why This Test File Exists, and How It's Run<a class="headerlink" href="#why-this-test-file-exists-and-how-its-run" title="Permanent link">&para;</a></h2>
+<p>The test file's own docstring is direct about its purpose: verifying that
+<code>lga-osm-extractor</code>'s actual output schema is what
+<code>akure-accessibility-dashboard</code>'s analysis functions expect — that the two
+sibling repositories genuinely work together, "not just that each one's own
+unit tests pass in isolation." Every other test in both repositories tests
+one package alone; this file is the only one that imports both.</p>
+<p>Two deliberate design choices keep this test practical to run:</p>
+<ul>
+<li><strong>It requires <code>lga_extractor</code> to be importable alongside <code>akure_access</code></strong>,
+  which most environments won't have set up by default — so the test uses
+  <code>pytest.importorskip("lga_extractor", ...)</code>, meaning it's automatically
+  <strong>skipped, not failed</strong>, in the regular single-repo test suite/CI job for
+  either repository. A dedicated CI workflow
+  (<code>.github/workflows/cross-repo-integration.yml</code>) checks out <em>both</em>
+  repositories and installs both packages specifically to run this file.</li>
+<li><strong>No live OSM/Overpass calls are made.</strong> <code>lga_extractor</code>'s real cleaning
+  and export functions (<code>clean_layers()</code>, <code>export_layers()</code>) are exercised
+  directly against small synthetic <code>GeoDataFrame</code>s shaped like real OSM
+  output — keeping the test fast and network-independent while still
+  testing the real schema contract between the two packages, not a
+  simplified stand-in for it.</li>
+</ul>
 <h2 id="what-the-extractor-produces">What the Extractor Produces<a class="headerlink" href="#what-the-extractor-produces" title="Permanent link">&para;</a></h2>
-<p><em>TODO: exact file formats, folder structure, CRS, expected layer names/schemas from <code>export_layers()</code>.</em></p>
+<p>From <a href="../../lga-osm-extractor/modules/export/"><code>lga_extractor.export.export_layers()</code></a>,
+after <a href="../../lga-osm-extractor/modules/clean/"><code>clean_layers()</code></a> has run:</p>
+<ul>
+<li><strong>Format</strong>: GeoJSON (always) and Shapefile (split by geometry category
+  where needed) per layer, written to a caller-specified output directory.</li>
+<li><strong>Schema</strong>: exactly three columns per layer — <code>osmid</code>, <code>name</code>,
+  <code>geometry</code> — per <code>clean.py</code>'s <code>KEEP_COLUMNS</code> constant.</li>
+<li><strong>CRS</strong>: a UTM zone auto-selected from the boundary's centroid via
+  <code>clean.resolve_target_crs()</code> — for the Akure North/South study area
+  specifically, this resolves to <strong><code>EPSG:32631</code></strong> (UTM Zone 31N), which
+  the cross-repo test explicitly asserts as a check that the auto-selected
+  zone matches what the dashboard repo hardcodes as its own fixed CRS (see
+  <a href="../../reference/known-issues/">Known Issues</a> for why these two repos
+  handle CRS selection differently).</li>
+<li><strong>Geometry guarantee for <code>health_facilities</code>/<code>schools</code></strong>: every feature
+  in these two layers is guaranteed to be a <code>Point</code> — never a <code>Polygon</code>/
+  <code>MultiPolygon</code> — because <code>clean.py</code>'s <code>_collapse_areas_to_points()</code>
+  collapses any area geometry to its centroid before export. This
+  guarantee is precisely what makes the Akure North bug fix effective at
+  the schema-contract level: the dashboard's routing/isochrone code can
+  assume <code>.x</code>/<code>.y</code> attributes exist on every facility without a defensive
+  fallback of its own having to fire (though, per
+  <a href="../../akure-accessibility-dashboard/modules/accessibility/isochrones/"><code>isochrones.md</code></a>,
+  <code>nearest_graph_node()</code> does keep a second-line-of-defense <code>.centroid</code>
+  fallback anyway).</li>
+</ul>
 <h2 id="what-the-dashboard-expects">What the Dashboard Expects<a class="headerlink" href="#what-the-dashboard-expects" title="Permanent link">&para;</a></h2>
-<p><em>TODO: what <code>akure_access</code> / <code>dashboard/app.py</code> assumes about input file structure and schema (see <code>load_data()</code>).</em></p>
+<p>From <a href="../../akure-accessibility-dashboard/modules/accessibility/network_graph/"><code>akure_access.accessibility</code></a>
+and <a href="../../akure-accessibility-dashboard/modules/completeness/grid_check/"><code>akure_access.completeness</code></a>:</p>
+<ul>
+<li><strong><code>build_grid(boundary_gdf, cell_size_m)</code></strong> needs only a boundary
+  polygon — no dependency on extractor output directly.</li>
+<li><strong><code>add_building_density(grid, buildings_gdf)</code></strong> needs the <code>buildings</code>
+  layer's <code>geometry</code> column (for the spatial join) — <code>osmid</code>/<code>name</code> aren't
+  used.</li>
+<li><strong><code>add_access_times(grid, roads_gdf, health_gdf, schools_gdf, ...)</code></strong>
+  needs: <code>roads_gdf</code>'s <code>geometry</code> (for <code>graph_from_roads()</code>); <code>health_gdf</code>/
+  <code>schools_gdf</code>'s <code>geometry</code> specifically as <code>Point</code> geometry (per the
+  extractor's collapse guarantee above) — a <code>Polygon</code> slipping through
+  would still be tolerated by <code>isochrones.nearest_graph_node()</code>'s
+  <code>.centroid</code> fallback, but is not the contract this function is written
+  to expect.</li>
+<li><strong><code>flag_completeness(grid, health_gdf, schools_gdf, ...)</code></strong> needs the
+  same <code>Point</code>-geometry facility layers, for its own nearest-neighbor
+  spatial join.</li>
+<li><strong>CRS</strong>: every function above assumes <code>EPSG:32631</code> specifically —
+  hardcoded in <code>scoring.build_grid()</code>'s reprojection step, not
+  auto-detected — meaning the contract implicitly assumes the extractor's
+  auto-selected zone for this project's actual LGAs happens to match this
+  hardcoded value (which it does, for Akure North/South, but wouldn't for
+  an LGA outside UTM Zone 31N — see <a href="../../reference/known-issues/">Known Issues</a>).</li>
+</ul>
 <h2 id="schema-table">Schema Table<a class="headerlink" href="#schema-table" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -1722,15 +1848,81 @@ that test is the executable specification of this contract.</p>
 </thead>
 <tbody>
 <tr>
-<td><em>TODO</em></td>
-<td><em>TODO</em></td>
-<td><em>TODO</em></td>
-<td><em>TODO</em></td>
+<td><code>osmid</code></td>
+<td>int/str</td>
+<td><code>lga_extractor.clean._clean_single_layer()</code></td>
+<td>Not directly used by <code>akure_access</code> scoring — retained for traceability/debugging only</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>str or <code>None</code></td>
+<td><code>lga_extractor.clean._clean_single_layer()</code></td>
+<td>Not directly used by <code>akure_access</code> scoring</td>
+</tr>
+<tr>
+<td><code>geometry</code> (roads)</td>
+<td><code>LineString</code>/<code>MultiLineString</code>/<code>Point</code> (mixed, may be split across files)</td>
+<td><code>lga_extractor.layers</code> + <code>clean</code></td>
+<td><code>network_graph.graph_from_roads()</code></td>
+</tr>
+<tr>
+<td><code>geometry</code> (buildings)</td>
+<td><code>Polygon</code>/<code>MultiPolygon</code></td>
+<td><code>lga_extractor.layers</code> + <code>clean</code></td>
+<td><code>scoring.add_building_density()</code> (spatial join only, geometry type not otherwise constrained)</td>
+</tr>
+<tr>
+<td><code>geometry</code> (health_facilities / schools)</td>
+<td><strong><code>Point</code> only</strong>, guaranteed by <code>clean._collapse_areas_to_points()</code></td>
+<td><code>lga_extractor.clean</code></td>
+<td><code>isochrones.nearest_graph_node()</code>, <code>grid_check._flag_via_spatial_index()</code></td>
+</tr>
+<tr>
+<td>CRS (all layers)</td>
+<td><code>EPSG:32631</code> for the Akure North/South study area (auto-selected upstream, hardcoded downstream)</td>
+<td><code>lga_extractor.clean.resolve_target_crs()</code></td>
+<td><code>akure_access.accessibility.scoring</code> (hardcoded assumption)</td>
 </tr>
 </tbody>
 </table>
+<h2 id="what-the-integration-test-actually-exercises">What the Integration Test Actually Exercises<a class="headerlink" href="#what-the-integration-test-actually-exercises" title="Permanent link">&para;</a></h2>
+<p><code>test_extractor_output_schema_matches_dashboard_expectations()</code> runs the
+full real chain in one test: builds synthetic raw layers → <code>clean_layers()</code>
+(with a real synthetic Akure-area boundary, exercising the actual
+auto-UTM-selection path, not just the no-boundary fallback) → asserts the
+resulting CRS is <code>EPSG:32631</code> → <code>export_layers()</code> to a temp directory →
+reads the exported GeoJSON back off disk → feeds it directly into
+<code>build_grid()</code> → <code>add_building_density()</code> (asserting the building count
+matches exactly) → <code>flag_completeness()</code> → <code>add_access_times()</code> (using the
+geometry-fallback graph path, no live OSM needed) → <code>add_access_deficit_score()</code>
+→ <code>sanitize_for_export()</code> (asserting no <code>inf</code> values remain). A second test,
+<code>test_extractor_run_log_captures_environment_for_reproducibility()</code>, checks
+the run-log side of the contract.</p>
+<p>This means the schema contract documented on this page isn't just prose —
+every claim above is backed by an assertion in this one test file, and a
+change to either repo that broke the contract (a renamed column, a changed
+CRS default, a reintroduced Polygon-facility bug) would fail this specific
+test, not silently surface as a downstream analysis bug later.</p>
 <h2 id="known-failure-modes">Known Failure Modes<a class="headerlink" href="#known-failure-modes" title="Permanent link">&para;</a></h2>
-<p><em>TODO: what happens if the extractor's output doesn't match what the dashboard expects (e.g. the Polygon-vs-Point issue — link to known-issues.md).</em></p>
+<ul>
+<li><strong>If the extractor's auto-selected UTM zone ever differed from
+  <code>EPSG:32631</code></strong> (e.g. the dashboard were pointed at an LGA outside Ondo
+  State), every downstream <code>akure_access</code> function would silently operate
+  on geometry that's technically valid but in the <em>wrong</em> metric CRS
+  relative to the dashboard's hardcoded assumption — producing plausible
+  but wrong distances/areas, not an error. See
+  <a href="../../reference/known-issues/">Known Issues</a>.</li>
+<li><strong>If a facility layer's Polygon-to-Point collapse were ever skipped or
+  broken upstream</strong> (the original Akure North bug), <code>isochrones.nearest_graph_node()</code>'s
+  <code>.centroid</code> fallback would still prevent an outright crash, but the
+  cross-repo test's own schema assertion doesn't currently check geometry
+  <em>type</em> on the exported facility layers directly — it's implicitly
+  covered by the fact that the collapse function runs as part of
+  <code>clean_layers()</code> in the test's own pipeline, but a more direct assertion
+  (<code>assert (health_gdf.geom_type == "Point").all()</code>) would make this
+  specific guarantee explicit rather than incidental to how the test
+  happens to be structured.</li>
+</ul>
 
 
 
