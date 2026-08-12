@@ -1,27 +1,31 @@
-site_name: Akure Geospatial Systems Documentation
+site_name: UseOSM Mapkathon Submission Documentation
 site_description: >-
   Deep technical documentation for the lga-osm-extractor and
   akure-accessibility-dashboard repositories (Map<>kathon 2026, UseOSM).
-site_author: Noah
-repo_url: https://github.com/Mapkathon2026-UseOSM
-repo_name: Mapkathon2026-UseOSM
+site_author: Marvellous Adeleke
+repo_url: https://github.com/Mapkathon2026-UseOSM/UseOSM_Mapkathon-Submission-documentation
+repo_name: UseOSM_Mapkathon-Submission-documentation
+site_url: https://mapkathon2026-useosm.github.io/UseOSM_Mapkathon-Submission-documentation/
 
 docs_dir: docs
+
+extra_css:
+  - stylesheets/extra.css
 
 theme:
   name: material
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: teal
-      accent: amber
+      primary: black
+      accent: cyan
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: teal
-      accent: amber
+      primary: black
+      accent: cyan
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
