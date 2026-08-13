@@ -78,7 +78,7 @@ the assumption via `graph_from_roads()`'s `speed_kph` parameter.
 | **Outputs** | `bool`. |
 | **Complexity** | O(E) — one pass over all edges. |
 | **Concurrency / race conditions** | None. |
-| **Covered by test(s)** | See [tests.md](../../tests.md). |
+| **Covered by test(s)** | No dedicated test — this is a defensive fallback check not normally triggered in practice (OSMnx already computes edge lengths internally), so there's no realistic test scenario that exercises the `False` branch without deliberately constructing a malformed graph. |
 
 ### `_assign_travel_times(G, speed_kph)`
 
@@ -92,14 +92,14 @@ the assumption via `graph_from_roads()`'s `speed_kph` parameter.
 | **Assumptions** | Assumes `length` is already in meters (true for both construction paths — OSMnx's `add_edge_lengths()` and `_graph_from_geometries()`'s own Euclidean distance calculation both produce meters, since the graph is built/queried in a projected CRS). |
 | **Complexity** | O(E) — one pass over all edges, each a constant-time computation. |
 | **Concurrency / race conditions** | Mutates the graph object in place. If this were ever called concurrently on the *same* graph object from multiple threads, edge attribute writes could race — not a concern under current usage (always called synchronously, once, immediately after graph construction), but worth flagging for anyone considering parallelizing graph-building across LGAs sharing state. |
-| **Covered by test(s)** | See [tests.md](../../tests.md). |
+| **Covered by test(s)** | See [tests.md](../../tests.md) — exercised indirectly by `test_graph_from_roads_geometry_fallback_assigns_travel_times` and `test_graph_from_roads_speed_override`, both of which check this function's output (`travel_time_min` edge attributes) rather than calling it directly. |
 
 ### `_graph_from_geometries(roads_gdf)`
 
 | | |
 |---|---|
 | **What it does** | Builds a simple `networkx.MultiGraph` directly from a cleaned roads `GeoDataFrame`'s line geometries, using raw coordinate tuples as node identifiers — the fallback construction path used when no boundary polygon is available. |
-| **Why written this way — and why the `x`/`y` node attributes matter more than they look.** | This is explicitly documented as *less robust* than OSMnx's own graph construction (no topology cleanup — e.g. two roads that visually cross but don't share an OSM-tagged intersection node won't be connected in this graph, whereas OSMnx's Overpass-based construction handles this correctly), intended only as a consistency fallback, not a routing-quality-first choice. The critical detail: **every node is given explicit `x`/`y` attributes matching its coordinate tuple**, not just relying on the node key itself (which is *also* the coordinate tuple). This duplication exists because `osmnx.distance.nearest_nodes()` — used by `isochrones.nearest_graph_node()` — and `isochrones.compute_isochrone_polygon()` both read `node['x']`/`node['y']` attributes specifically, not the node key. Without explicitly setting these attributes, nearest-node lookups against a fallback-path graph would silently fail — not raise an error, just silently return nothing useful — and every downstream distance/time computation would come back as `inf`, with no obvious signal pointing at why. This is called out explicitly in the function's own docstring precisely because it's the kind of failure mode that's easy to reintroduce accidentally in a future edit and hard to notice without dedicated test coverage. |
+| **Why written this way — and why the `x`/`y` node attributes matter more than they look.** | This is explicitly documented as *less robust* than OSMnx's own graph construction (no topology cleanup — e.g. two roads that visually cross but don't share an OSM-tagged intersection node won't be connected in this graph, whereas OSMnx's Overpass-based construction handles this correctly), intended only as a consistency fallback, not a routing-quality-first choice. The critical detail: **every node is given explicit `x`/`y` attributes matching its coordinate tuple**, not just relying on the node key itself (which is *also* the coordinate tuple). This duplication exists for [`isochrones.nearest_graph_node()`](isochrones.md)'s benefit — that function reads `node['x']`/`node['y']` attributes specifically, not the node key. **A precise note on which nearest-node lookup is actually involved here**: `isochrones.nearest_graph_node()` does *not* call `osmnx.distance.nearest_nodes()` — it deliberately replaces it with a custom `scipy.spatial.cKDTree` built directly over these `x`/`y` attributes, specifically *because* OSMnx's own nearest-node function assumes OSMnx's internal graph conventions (integer node IDs) and doesn't work reliably against this fallback graph's coordinate-tuple node IDs. This module's own docstring mentions `osmnx.distance.nearest_nodes()` in explaining *why* the `x`/`y` attributes matter, which can read as if that function is what's actually called — it isn't; see [`isochrones.md`](isochrones.md#nearest_graph_nodeg-point) for the real mechanism. Without explicitly setting these `x`/`y` attributes, the KD-tree-based lookup against a fallback-path graph would silently fail — not raise an error, just silently return nothing useful — and every downstream distance/time computation would come back as `inf`, with no obvious signal pointing at why. This is the kind of failure mode that's easy to reintroduce accidentally in a future edit and hard to notice without dedicated test coverage. |
 | **Inputs** | `roads_gdf: GeoDataFrame` (cleaned roads layer). |
 | **Outputs** | `networkx.MultiGraph` (undirected — note this differs from path 1's `MultiDiGraph`, see Gotchas), with a graph-level `crs` attribute (taken from `roads_gdf.crs` if set, else defaulting to `"EPSG:32631"`), and `x`/`y` node attributes as described above. |
 | **Internal workflow** | 1. Create an empty `MultiGraph`, tag its `crs` attribute.<br>2. For each row in `roads_gdf`: skip if geometry is `None` or empty; extract the geometry's coordinate list; for each consecutive coordinate pair `(u, v)` along the line, compute Euclidean distance as `length`, add both endpoints as nodes (with `x`/`y` attributes), add an edge between them carrying `length` and the row's `osmid` (via `.get()`, tolerant of a missing column). |
@@ -107,6 +107,25 @@ the assumption via `graph_from_roads()`'s `speed_kph` parameter.
 | **Complexity** | O(N·V̄) where N = number of road features, V̄ = average vertices per line geometry — one pass building consecutive-pair edges per line. |
 | **Concurrency / race conditions** | None — sequential row iteration, no shared mutable state beyond the graph being built. |
 | **Covered by test(s)** | See [tests.md](../../tests.md) — this is one of the more important functions here to have direct test coverage on, given the documented `x`/`y` attribute fragility described above. |
+
+## Internal Workflow
+
+```mermaid
+flowchart TD
+    A["graph_from_roads(roads_gdf, boundary_polygon, mode, speed_kph)"] --> B{mode in MODE_CONFIG?}
+    B -- no --> C["raise ValueError"]
+    B -- yes --> D["effective_speed = speed_kph or MODE_CONFIG[mode].speed_kph"]
+    D --> E{boundary_polygon given?}
+    E -- yes --> F["ox.graph_from_polygon(boundary_polygon, network_type)"]
+    F --> G{_has_lengths(G)?}
+    G -- no --> H["ox.distance.add_edge_lengths(G)"]
+    G -- yes --> I
+    H --> I
+    E -- no --> J["_graph_from_geometries(roads_gdf):<br/>coordinate-tuple nodes with x/y attrs,<br/>pairwise edges with Euclidean length"]
+    J --> I["_assign_travel_times(G, effective_speed): mutate every edge in place"]
+    I --> K["G.graph['mode'] = mode, G.graph['speed_kph'] = effective_speed"]
+    K --> L["return G"]
+```
 
 ## Gotchas
 

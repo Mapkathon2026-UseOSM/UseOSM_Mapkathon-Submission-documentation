@@ -62,7 +62,7 @@ issue found in the wider Map<>kathon 2026 project (see
 | **Assumptions** | Assumes a boundary's centroid is a reasonable proxy for "which UTM zone should this LGA use" — true for any LGA that doesn't itself straddle a UTM zone boundary (unlikely at LGA scale, but not impossible for LGAs very close to a zone edge). |
 | **Complexity** | O(1) beyond the geometry operations, which themselves are effectively O(1) for a single boundary (not scaling with feature count in downstream layers). |
 | **Concurrency / race conditions** | None — pure function, no shared state. Note the fallback path uses `print()` for warnings rather than the `logging` module or an exception — this is a deliberate but informal choice; a caller running many extractions in a batch/headless context won't see these warnings unless stdout is being captured. |
-| **Covered by test(s)** | See [tests.md](../tests.md). |
+| **Covered by test(s)** | See [tests.md](../tests.md) — `test_resolve_target_crs_falls_back_with_no_boundary`, `test_resolve_target_crs_auto_selects_zone_from_boundary`. |
 
 ### `clean_layers(layers_dict, boundary_gdf=None)`
 
@@ -76,7 +76,7 @@ issue found in the wider Map<>kathon 2026 project (see
 | **Assumptions** | Assumes `layers_dict`'s keys match the same layer names `POINT_LAYERS` expects (`"health_facilities"`, `"schools"`) — a custom `tag_config` passed to `extract_layers()` with different layer names for facilities would silently *not* get point-collapse treatment, since the membership check is purely string-based. |
 | **Complexity** | O(L × N) where L = number of layers, N = average features per layer — dominated by `_clean_single_layer()`'s per-row operations (see below). |
 | **Concurrency / race conditions** | None — sequential loop, no threading (unlike `layers.py`). |
-| **Covered by test(s)** | See [tests.md](../tests.md). |
+| **Covered by test(s)** | See [tests.md](../tests.md) — `test_clean_layers_reprojects_and_dedupes`, `test_clean_layers_standard_schema`, `test_clean_layers_uses_boundary_to_select_crs`. |
 
 ### `_clean_single_layer(gdf, target_crs=FALLBACK_CRS, collapse_to_point=False)`
 
@@ -93,7 +93,7 @@ are individually commented.
 | **Assumptions** | The `osmid` fallback (step 6) assumes that if no column literally contains the substring `"id"`, a synthetic sequential ID is an acceptable substitute — this loses any real traceability back to the original OSM element for that layer, silently. The `.buffer(0)` repair trick (step 4) is a widely-used but imperfect fix for invalid geometries; it can occasionally alter a geometry's shape slightly rather than perfectly "fixing" it, this is a known trade-off, not something this function detects or reports. |
 | **Complexity** | O(N) in the number of features in the layer for the filtering/column steps; the `.buffer(0)` repair and centroid computation are each O(V) in vertex count per affected geometry, so worst case O(N·V̄) where V̄ is average vertex count, for layers with many invalid or area geometries. |
 | **Concurrency / race conditions** | None — called sequentially from `clean_layers()`'s loop. |
-| **Covered by test(s)** | See [tests.md](../tests.md). |
+| **Covered by test(s)** | See [tests.md](../tests.md) — exercised indirectly through `test_clean_layers_reprojects_and_dedupes` and `test_clean_layers_standard_schema`, both of which call `clean_layers()` (this function's only caller) and check its output. |
 
 ### `_collapse_areas_to_points(gdf)`
 
@@ -112,6 +112,34 @@ this section documents the function itself.
 | **Complexity** | O(N) for the mask computation; O(A) for the centroid computation, where A = number of area geometries (a subset of N) — each centroid computation itself is O(V) in the polygon's vertex count, so worst case O(N + A·V̄). |
 | **Concurrency / race conditions** | None — pure function over a copy of its input. |
 | **Covered by test(s)** | See [tests.md](../tests.md) — this is one of the most important functions in the repository to have direct, explicit test coverage for (mixed Point/Polygon input, verifying only the Polygon rows change and that outputs are true `Point` geometries). |
+
+## Internal Workflow
+
+```mermaid
+flowchart TD
+    A["clean_layers(layers_dict, boundary_gdf)"] --> B["target_crs = resolve_target_crs(boundary_gdf)"]
+    B --> C{boundary_gdf given and usable?}
+    C -- yes --> D["reproject to WGS84 → centroid → utm_epsg_for_longitude()"]
+    C -- no / error --> E["print warning → FALLBACK_CRS (EPSG:32631)"]
+    D --> F
+    E --> F["for each layer_name, gdf in layers_dict:"]
+    F --> G{layer_name == '_warnings'?}
+    G -- yes --> H["pass through unchanged"]
+    G -- no --> I["_clean_single_layer(gdf, target_crs, collapse_to_point = layer in POINT_LAYERS)"]
+    I --> J["drop null/empty geometries"]
+    J --> K["repair invalid geometries: buffer(0)"]
+    K --> L["flatten MultiIndex if present"]
+    L --> M["standardize osmid / name columns"]
+    M --> N["drop duplicate geometries"]
+    N --> O["reproject to target_crs"]
+    O --> P{collapse_to_point?}
+    P -- yes --> Q["_collapse_areas_to_points:<br/>Polygon/MultiPolygon → centroid"]
+    P -- no --> R
+    Q --> R["trim to KEEP_COLUMNS, reset index"]
+    R --> S["cleaned[layer_name] = result"]
+    H --> S
+    S --> T["return cleaned dict"]
+```
 
 ## Gotchas
 

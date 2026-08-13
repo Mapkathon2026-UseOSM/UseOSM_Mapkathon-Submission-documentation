@@ -34,6 +34,20 @@ Two deliberate design choices keep this test practical to run:
   output — keeping the test fast and network-independent while still
   testing the real schema contract between the two packages, not a
   simplified stand-in for it.
+- **The synthetic coordinates are deliberately realistic, not arbitrary.**
+  The fixture builds its fake buildings/roads/facilities using small
+  offsets (thousandths of a degree) around a real reference point near
+  Akure (roughly 7.25°N, 5.20°E) — not large, arbitrary plane-scale
+  numbers. This matters for a specific, easy-to-miss reason: labeling a
+  large plane-scale coordinate pair (say, `x=650, y=650`) as if it were
+  EPSG:4326 lat/lon would place it far outside valid longitude/latitude
+  range, and reprojecting a "coordinate" like that into a UTM CRS sends
+  it toward infinity. Using genuinely realistic Akure-area coordinates
+  means the test exercises the real auto-UTM-zone-selection path under
+  the same kind of input it will actually see in production, rather than
+  accidentally sidestepping the exact class of bug (a lat/lon vs.
+  projected-coordinate mismatch) this whole cross-repo boundary is most
+  at risk of.
 
 ## What the Extractor Produces
 
@@ -121,6 +135,27 @@ every claim above is backed by an assertion in this one test file, and a
 change to either repo that broke the contract (a renamed column, a changed
 CRS default, a reintroduced Polygon-facility bug) would fail this specific
 test, not silently surface as a downstream analysis bug later.
+
+The same chain, visually:
+
+```mermaid
+flowchart TD
+    A["_synthetic_raw_extraction()<br/>(akure-accessibility-dashboard test file,<br/>shaped like real Overpass output)"] --> B["lga_extractor.clean.clean_layers(raw, boundary_gdf)"]
+    B --> C["assert cleaned roads CRS == EPSG:32631<br/>(confirms auto-UTM-zone selection picked the right zone for Akure)"]
+    C --> D["lga_extractor.export.export_layers(cleaned, tmp_dir)"]
+    D --> E["assert roads/buildings/health_facilities present,<br/>GeoJSON files actually exist on disk"]
+    E --> F["gpd.read_file() the exported GeoJSON back<br/>(reading extractor's real on-disk output, not the in-memory objects)"]
+    F --> G["akure_access.accessibility.build_grid(boundary, cell_size_m=200)"]
+    G --> H["akure_access.accessibility.add_building_density(grid, buildings_gdf)"]
+    H --> I["assert building_count.sum() == len(buildings_gdf)<br/>— the schema-agreement assertion"]
+    I --> J["akure_access.completeness.flag_completeness(grid, health_gdf, schools_gdf)"]
+    J --> K["assert health/education_completeness_flag columns present"]
+    K --> L["akure_access.accessibility.add_access_times(grid, roads_gdf, health_gdf, schools_gdf, modes=('walk',))"]
+    L --> M["assert health_time_min_walk column present"]
+    M --> N["akure_access.accessibility.add_access_deficit_score(grid, threshold_min=30, mode='walk')"]
+    N --> O["akure_access.accessibility.sanitize_for_export(grid)"]
+    O --> P["assert no inf values remain — confirms the ordering rule from scoring.py held"]
+```
 
 ## Known Failure Modes
 

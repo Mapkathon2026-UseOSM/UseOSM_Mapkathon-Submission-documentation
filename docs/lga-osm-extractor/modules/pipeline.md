@@ -40,7 +40,28 @@ each other automatically.
 | **Assumptions** | Assumes callers want boundary-resolution and layer-extraction failures to propagate as exceptions rather than being caught and folded into the returned summary dict — this is a real design choice: `warnings` in the return value only ever contains *non-fatal* concerns (soft boundary checks, empty layers), never the fatal errors that would have stopped execution before reaching the `return` statement at all. A caller (like `app.py`) that wants to show a friendly error message rather than crash must wrap its own call to `extract_lga()` in a try/except. |
 | **Complexity** | O(1) in its own logic — all real complexity lives in the five stage functions it calls; this function is pure sequencing. |
 | **Concurrency / race conditions** | None introduced by this function itself. `extract_layers()` (called from here) is the one stage with internal threading — see [`layers.md`](layers.md). `extract_lga()` does not run multiple LGAs concurrently; calling it for two different LGAs from separate threads/processes simultaneously would be safe as long as their `output_dir` values don't collide (each writes independently to its own directory tree). |
-| **Covered by test(s)** | See [tests.md](../tests.md). |
+| **Covered by test(s)** | See [tests.md](../tests.md) — `test_extract_lga_end_to_end_live_osm`. |
+
+## Internal Workflow
+
+```mermaid
+flowchart TD
+    A["extract_lga(lga_name, state_name, output_dir, tag_config, manual_boundary_path, strict)"] --> B["resolve output_dir default: output/{safe_name} if not given"]
+    B --> C["tag_config = tag_config or DEFAULT_TAG_CONFIG"]
+    C --> D["boundary.resolve_boundary(lga_name, state_name, manual_boundary_path)"]
+    D --> E["extract boundary_source, validation_warnings from result"]
+    E --> F["layers.extract_layers(boundary_gdf, tag_config, strict)"]
+    F --> G["warnings = raw_layers['_warnings']"]
+    G --> H{boundary_validation_warning present?}
+    H -- yes --> I["prepend 'Boundary validation: ...' to warnings"]
+    H -- no --> J
+    I --> J["clean.clean_layers(raw_layers, boundary_gdf)"]
+    J --> K["pop '_warnings' from cleaned dict (already captured above)"]
+    K --> L["export.export_layers(cleaned, output_dir)"]
+    L --> M["resolve_target_crs(boundary_gdf) again — for accurate logging, not inferred from cleaned output"]
+    M --> N["logging_utils.log_run(...)"]
+    N --> O["return summary dict"]
+```
 
 ## Gotchas
 

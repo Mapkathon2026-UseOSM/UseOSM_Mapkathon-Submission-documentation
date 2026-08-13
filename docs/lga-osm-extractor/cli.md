@@ -34,7 +34,7 @@ runtime overhead.
 | **Assumptions** | Assumes the caller wants a nonzero process exit code to be the sole failure signal for scripting purposes (standard CLI convention) — there's no `--quiet`/`--json-errors-only` mode; a failure always prints a human-readable message to stderr in addition to the exit code. Assumes `args.lga.strip().replace(" ", "_").lower()` (used to compute the preview HTML path) will always match whatever slugification `extract_lga()`/`pipeline.py` used internally for its default `output_dir` — this is the same implicit-naming-convention coupling noted in [`visualize.md`](modules/visualize.md)'s gotchas, duplicated here independently rather than shared from a single source. |
 | **Complexity** | O(1) in this function's own logic; wall-clock cost is entirely delegated to `extract_lga()` and, conditionally, `build_preview_map()`. |
 | **Concurrency / race conditions** | None — a CLI invocation runs once, synchronously, start to finish, in a single process. Running `cli.py` for the same LGA concurrently from two separate terminal invocations would hit the same unguarded-concurrent-write-to-same-`output_dir` consideration noted in [`export.md`](modules/export.md) and [`logging_utils.md`](modules/logging_utils.md), but this isn't specific to the CLI itself. |
-| **Covered by test(s)** | See [tests.md](tests.md). |
+| **Covered by test(s)** | No automated test coverage — `cli.py` has no dedicated test file in this repository (see [tests.md](tests.md) for the modules that do have coverage); this entry point is currently verified by manual invocation rather than an automated test. |
 
 ## Usage Examples
 
@@ -54,6 +54,24 @@ python cli.py --lga "Akure North" --state "Ondo" --strict
 
 # Also generate a standalone Kepler.gl HTML preview
 python cli.py --lga "Akure North" --state "Ondo" --preview
+```
+
+## Internal Workflow
+
+```mermaid
+flowchart TD
+    A["python cli.py --lga ... [--state] [--output-dir] [--manual-boundary] [--strict] [--preview]"] --> B["argparse.parse_args()"]
+    B --> C["extract_lga(lga_name, state_name, output_dir, manual_boundary_path, strict)"]
+    C -- exception --> D["print to stderr, sys.exit(1)"]
+    C -- success --> E["print(json.dumps(result, indent=2)) to stdout"]
+    E --> F{--preview flag set?}
+    F -- no --> G["exit 0"]
+    F -- yes --> H["lazy import keplergl"]
+    H -- ImportError --> I["print skip message to stderr, continue"]
+    H -- ok --> J["build_preview_map(output_dir=result['output_dir'], html_out='visuals/{safe_name}_preview.html')"]
+    J --> K["print preview path"]
+    I --> G
+    K --> G
 ```
 
 ## Gotchas

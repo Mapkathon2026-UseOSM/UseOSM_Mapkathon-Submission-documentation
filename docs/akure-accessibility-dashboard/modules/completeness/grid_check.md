@@ -89,7 +89,35 @@ uses (`building_count > 0`, i.e. threshold of 1) — the two modules define
 | **Assumptions** | Assumes the flag columns are already present — no validation, would raise `KeyError` if `flag_completeness()` wasn't called first. |
 | **Complexity** | O(C) where C = grid cell count — a filter plus a small constant number of aggregate operations. |
 | **Concurrency / race conditions** | None. |
-| **Covered by test(s)** | See [tests.md](../../tests.md). |
+| **Covered by test(s)** | See [tests.md](../../tests.md) — `test_summarize_completeness_reports_correct_percentages`, `test_summarize_completeness_handles_no_settled_cells`. |
+
+## Internal Workflow
+
+```mermaid
+flowchart TD
+    A["flag_completeness(grid, health_gdf, schools_gdf, building_threshold, search_radius_m)"] --> B["compute grid centroids once (shared for both services)"]
+    B --> C["_flag_via_spatial_index(centroids, building_counts, health_gdf, ...)"]
+    B --> D["_flag_via_spatial_index(centroids, building_counts, schools_gdf, ...)"]
+
+    subgraph F ["_flag_via_spatial_index (per service)"]
+        C --> E{facilities_gdf empty?}
+        E -- yes --> G["return settled_mask — every settled cell flagged by definition"]
+        E -- no --> H["gpd.sjoin_nearest(centroids, facilities) — STRtree, one query per cell"]
+        H --> I["drop duplicate rows from exact-distance ties"]
+        I --> J["reindex nearest_dist to align with original cell order"]
+        J --> K["flags = settled_mask AND (nearest_dist > search_radius_m)"]
+    end
+
+    G --> L["grid['health_completeness_flag'] = flags"]
+    K --> L
+    D --> M["grid['education_completeness_flag'] = flags"]
+    L --> N["return grid"]
+    M --> N
+
+    N --> O["summarize_completeness(grid)"]
+    O --> P["restrict to settled cells (building_count > 0)"]
+    P --> Q["counts + percentages per service"]
+```
 
 ## Gotchas
 

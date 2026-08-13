@@ -42,7 +42,7 @@ below.
 | **Assumptions** | Assumes every node's `x`/`y` attributes are in the same CRS as `point` — this function does no CRS validation or reprojection itself; a mismatched CRS between the graph and the query point would silently return a nonsensical "nearest" node rather than raising. Assumes the KD-tree cache is safe to persist on the graph object for the graph's entire lifetime — true as long as the graph's node set doesn't change after the first call (adding/removing nodes after the tree is cached would leave the cache stale with no invalidation mechanism). |
 | **Complexity** | O(n log n) once per graph, for the first call (tree construction); O(log n) for every subsequent call against the same graph, where n = number of graph nodes. |
 | **Concurrency / race conditions** | **This is worth flagging explicitly.** The cache-check-then-set pattern (`if cache_key not in G.graph: ... G.graph[cache_key] = ...`) is a classic check-then-act sequence with no locking. If `nearest_graph_node()` were ever called concurrently on the *same* graph object from multiple threads before the cache is populated, two threads could both see the cache as absent, both build a tree, and both write to `G.graph[cache_key]` — the last write wins, and the other thread's tree is simply discarded (wasted work, not corrupted state, since both trees would be built from the same identical node set and be functionally equivalent). Not a correctness bug given this project's current sequential/single-threaded usage pattern, but a genuine latent race condition if this function were ever called from a parallelized scoring pipeline in the future. |
-| **Covered by test(s)** | See [tests.md](../../tests.md). |
+| **Covered by test(s)** | Not tested directly in isolation — exercised indirectly through every other function in this module that calls it (all of which have dedicated tests below). Its KD-tree caching behavior specifically has no dedicated test. |
 
 **On the defensive backstop (step 1) — this is a real, previously-observed
 failure mode, not speculative hardening.** The function's own comment is
@@ -71,7 +71,7 @@ upstream cleaning step.
 | **Assumptions** | Assumes a convex hull is an acceptable approximation for the *specific illustrative use case* it's built for — explicitly not assumed acceptable for scoring, as covered above. |
 | **Complexity** | `nx.ego_graph()`'s complexity dominates — effectively a bounded Dijkstra/BFS search from the center node, roughly O((V + E) log V) in the worst case for the reachable subgraph size; convex hull computation over the resulting points is O(k log k) where k = number of reachable nodes. |
 | **Concurrency / race conditions** | None beyond what `nearest_graph_node()` already carries (see above). |
-| **Covered by test(s)** | See [tests.md](../../tests.md). |
+| **Covered by test(s)** | See [tests.md](../../tests.md) — `test_compute_isochrone_polygon_returns_larger_area_for_longer_trip_time`, `test_compute_isochrone_polygon_returns_none_for_unmatchable_origin`. |
 
 ### `build_isochrones_for_facilities(G, facilities_gdf, trip_times_min=(15, 30, 45))`
 
@@ -85,7 +85,7 @@ upstream cleaning step.
 | **Assumptions** | Assumes `facilities_gdf` is already reprojected to match `G`'s CRS — no reprojection happens inside this function. |
 | **Complexity** | O(F × T × isochrone_cost) where F = number of facilities, T = number of trip-time bands — each isochrone computation itself bounded by `compute_isochrone_polygon()`'s own complexity. |
 | **Concurrency / race conditions** | None — sequential nested loop. |
-| **Covered by test(s)** | See [tests.md](../../tests.md). |
+| **Covered by test(s)** | See [tests.md](../../tests.md) — `test_build_isochrones_for_facilities_one_row_per_facility_per_trip_time`, `test_build_isochrones_for_facilities_handles_empty_facilities`. |
 
 ### `nearest_facility_travel_time(G, origin_point, facilities_gdf, weight="travel_time_min")`
 
@@ -96,7 +96,7 @@ upstream cleaning step.
 | **Inputs / Outputs** | See `nearest_facility_distance_and_time()` below — identical inputs, returns only the time component. |
 | **Internal workflow** | Single line: calls `nearest_facility_distance_and_time()`, discards the distance, returns the time. |
 | **Complexity** | Identical to `nearest_facility_distance_and_time()`. |
-| **Covered by test(s)** | See [tests.md](../../tests.md). |
+| **Covered by test(s)** | No dedicated test — this is a one-line wrapper around `nearest_facility_distance_and_time()`, whose own tests (`test_nearest_facility_distance_and_time_finds_closer_facility`, `test_nearest_facility_distance_and_time_handles_empty_facilities` — see [tests.md](../../tests.md)) exercise the logic this function delegates to. |
 
 ### `nearest_facility_distance_and_time(G, origin_point, facilities_gdf, weight="travel_time_min", distance_attr="length")`
 
@@ -110,7 +110,7 @@ upstream cleaning step.
 | **Assumptions** | Assumes selecting "nearest" by `weight` (typically time) rather than by distance is the semantically correct choice for this project's purposes — a facility that's geometrically further but reachable via a faster road is correctly treated as "nearer" in a meaningful, real-world sense. |
 | **Complexity** | O(F × shortest_path_cost) per call, where F = number of facilities — this is the per-origin cost the module explicitly warns doesn't scale well when called once per grid cell across potentially hundreds of cells. |
 | **Concurrency / race conditions** | None beyond `nearest_graph_node()`'s caching consideration. |
-| **Covered by test(s)** | See [tests.md](../../tests.md). |
+| **Covered by test(s)** | See [tests.md](../../tests.md) — `test_nearest_facility_distance_and_time_finds_closer_facility`, `test_nearest_facility_distance_and_time_handles_empty_facilities`. |
 
 ### `batch_nearest_facility_distances(G, facilities_gdf, distance_attr="length")`
 
@@ -160,7 +160,34 @@ at a different layer of the pipeline.
 | **Assumptions** | Assumes `G`'s `speed_kph` graph attribute accurately reflects the uniform speed used when `distances_by_node` was computed — this function trusts that whatever graph is passed in is the same one (or an equivalent one) used to produce `distances_by_node`; passing a mismatched graph/distances pair would silently produce wrong times, not an error. |
 | **Complexity** | O(log n) — dominated entirely by the one KD-tree snap for `origin_point`; everything else is O(1). |
 | **Concurrency / race conditions** | None beyond `nearest_graph_node()`'s caching consideration. |
-| **Covered by test(s)** | See [tests.md](../../tests.md). |
+| **Covered by test(s)** | Not tested in isolation, but exercised as part of `test_batch_nearest_facility_distances_matches_naive_per_pair_approach` and `test_batch_nearest_facility_distances_much_faster_than_naive_at_scale` (see [tests.md](../../tests.md)), since those tests compare this function's output against the naive approach end to end. |
+
+## Internal Workflow
+
+```mermaid
+flowchart TD
+    A["batch_nearest_facility_distances(G, facilities_gdf)"] --> B{facilities_gdf empty?}
+    B -- yes --> C["return {}"]
+    B -- no --> D["for each facility: nearest_graph_node(G, geometry)<br/>KD-tree lookup, cached tree"]
+    D -- success --> E["add to facility_nodes set"]
+    D -- exception --> F["skipped += 1"]
+    E --> G
+    F --> G{all facilities skipped?}
+    G -- yes, skipped>0 --> H["warnings.warn — loud, investigate-worthy"]
+    G -- no, some skipped --> H2["warnings.warn — quiet, expected"]
+    G -- none skipped --> I
+    H --> I
+    H2 --> I{facility_nodes empty?}
+    I -- yes --> J["return {}"]
+    I -- no --> K["nx.multi_source_dijkstra_path_length(G, sources=facility_nodes, weight='length')<br/>ONE pass for the whole graph"]
+    K --> L["return {node: distance_m, ...}"]
+
+    L --> M["per grid cell: lookup_nearest_distance_time(G, cell_point, distances_by_node)"]
+    M --> N["nearest_graph_node(cell_point) — KD-tree, O(log n)"]
+    N --> O["distances_by_node.get(node, inf) — O(1)"]
+    O --> P["convert to time via G.graph['speed_kph']"]
+    P --> Q["(distance_km, time_min)"]
+```
 
 ## Gotchas
 

@@ -1,4 +1,4 @@
-# Akure Geospatial Systems Documentation
+# UseOSM Mapkathon Submission Documentation
 
 This site documents two connected repositories built for **Map<>kathon 2026 (UseOSM)**,
 analyzing multi-modal healthcare and education accessibility across Akure North and
@@ -24,8 +24,8 @@ SDG 4 (Education) in the Akure region.
 
 - **[lga-osm-extractor](lga-osm-extractor/overview.md)**
   Pulls an LGA boundary and its OSM feature layers (health, education, roads,
-  buildings), cleans and reprojects them, and exports analysis-ready shapefiles
-  and KML for downstream use in ArcGIS Pro, Google Earth Pro, or the dashboard
+  buildings), cleans and reprojects them, and exports analysis-ready GeoJSON
+  and Shapefile output for downstream use in ArcGIS Pro, QGIS, or the dashboard
   below.
 
 - **[akure-accessibility-dashboard](akure-accessibility-dashboard/overview.md)**
@@ -41,7 +41,7 @@ SDG 4 (Education) in the Akure region.
 
 ```mermaid
 flowchart LR
-    A[lga-osm-extractor] -->|shapefiles / KML| B[akure-accessibility-dashboard]
+    A[lga-osm-extractor] -->|GeoJSON / Shapefile| B[akure-accessibility-dashboard]
     A -->|health, education, roads, buildings layers| B
     B --> C[Streamlit Dashboard]
     B --> D[Static maps + captions]

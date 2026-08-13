@@ -7,6 +7,91 @@ that actually computes everything, run once per LGA/data-update) and
 with the Streamlit app, which never re-runs the analysis itself). For how
 the *data* changes shape at each stage, see [Data Flow](data-flow.md).
 
+## Sequence Overview
+
+Both parts at a glance, before the detailed step-by-step walkthrough below.
+
+**Part 1 — Offline Analysis:**
+
+```mermaid
+sequenceDiagram
+    participant NB as Notebook (01-04)
+    participant Extractor as lga-osm-extractor output
+    participant NG as network_graph.py
+    participant Iso as isochrones.py
+    participant Sc as scoring.py
+    participant GC as completeness/grid_check.py
+    participant SM as visualization/static_maps.py
+    participant Disk as data/processed/, visuals/
+
+    NB->>Extractor: read roads/buildings/health/schools GeoJSON
+    NB->>Sc: build_grid(boundary)
+    Sc-->>NB: grid with cell_id
+    NB->>Sc: add_building_density(grid, buildings_gdf)
+    Sc-->>NB: grid + building_count
+
+    loop for each mode in (walk, okada, drive)
+        NB->>Sc: add_access_times(grid, roads, health, schools, mode)
+        Sc->>NG: graph_from_roads(roads, boundary, mode)
+        NG-->>Sc: routable graph, tagged mode + speed_kph
+        Sc->>Iso: batch_nearest_facility_distances(G, health_pts)
+        Sc->>Iso: batch_nearest_facility_distances(G, school_pts)
+        Iso-->>Sc: {node: distance} dicts, ONE Dijkstra pass each
+        loop per settled cell
+            Sc->>Iso: lookup_nearest_distance_time(G, cell_centroid, distances)
+            Iso-->>Sc: (distance_km, time_min), inf preserved
+        end
+        Sc-->>NB: grid + time/distance columns for this mode
+        NB->>Sc: add_access_deficit_score(grid, threshold, mode)
+        Sc-->>NB: grid + underserved flags + deficit score (inf checked here)
+    end
+
+    NB->>GC: flag_completeness(grid, health_gdf, schools_gdf)
+    GC-->>NB: grid + completeness flags
+
+    NB->>Sc: sanitize_for_export(grid)
+    Note over Sc: ONLY NOW: inf -> NaN.<br/>Must run after ALL scoring above.
+    Sc-->>NB: export-safe grid
+    NB->>Disk: write grid_access_scored.geojson
+
+    NB->>SM: generate_all_static_outputs(lga_name, grid_gdf, out_dir, modes)
+    SM->>SM: plot_deficit_map / plot_continuous_map / plot_completeness_map<br/>per mode/service, using insights.py for captions
+    SM->>SM: plot_mode_comparison_chart
+    SM->>Disk: write {lga}_*.jpg (print + web tiers) + captions.json
+```
+
+**Part 2 — Dashboard Runtime:**
+
+```mermaid
+sequenceDiagram
+    participant Visitor
+    participant App as dashboard/app.py
+    participant Disk as data/processed/, visuals/
+    participant Insights as insights.py
+
+    Note over App: streamlit run dashboard/app.py<br/>Page config, CSS injected, sys.path fix applied.<br/>No analysis code runs here.
+    App->>Disk: load_data() — gpd.read_file() per LGA, cached
+    Disk-->>App: grid_access_scored.geojson per available LGA
+    alt any LGA's file missing/unreadable
+        App->>Visitor: st.warning naming which LGA(s), pointing at notebooks 01-03
+    end
+
+    Visitor->>App: selects Study area / Access view / Transport mode / Basemap
+    App->>App: score_column(view, mode) — determine which column to render
+    App->>App: render_map() — leafmap choropleth, discrete or continuous scheme
+    App->>Insights: describe_interactive_view(grid, lga, mode, view) — recomputed live, every rerun
+    Insights-->>App: caption string, always matching current selection
+    App->>Visitor: interactive map + live caption rendered
+
+    App->>App: build "Most underserved settlements" table (respects Study area scope)
+    App->>App: build "Findings summary" cards (respects Study area scope — post-bug-fix)
+    App->>App: compute walk-vs-fastest-mode gap callout, completeness cross-check callout
+
+    App->>Disk: discover visuals/{lga}/ files, prefer web/ tier
+    Disk-->>App: pre-rendered JPEGs + captions.json
+    App->>Visitor: static maps gallery, categorized, with download-all ZIP if present
+```
+
 ## Part 1: Offline Analysis (run via the project's notebooks, not the dashboard)
 
 ### 1. Start: extractor output already on disk

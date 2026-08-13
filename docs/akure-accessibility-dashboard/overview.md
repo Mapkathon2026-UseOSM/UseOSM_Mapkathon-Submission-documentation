@@ -141,10 +141,14 @@ without anyone needing to remember to manually update prose elsewhere.
 
 - `isochrones.py` depends on `network_graph.py` for its graph input — it
   has no graph-building logic of its own.
-- `scoring.py` depends on `isochrones.py` (for per-cell travel times) but
-  not on `network_graph.py` directly — the graph-building step is fully
-  encapsulated behind `isochrones.py`'s functions from `scoring.py`'s
-  perspective.
+- `scoring.py` depends on **both** `network_graph.py` and `isochrones.py`
+  directly — `add_access_times()` imports and calls `graph_from_roads()`
+  itself (once per travel mode) to build the graph it then hands to
+  `isochrones.batch_nearest_facility_distances()`. The graph-building step
+  is not encapsulated behind `isochrones.py`; `scoring.py` owns the
+  decision of *when* to build a fresh graph (once per mode, inside its own
+  mode loop) and passes the result into `isochrones.py`'s routing
+  functions.
 - `completeness/grid_check.py` depends on `scoring.build_grid()`'s grid
   output but is otherwise independent of `accessibility` — it does not use
   the road network or travel-time computations at all, consistent with it

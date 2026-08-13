@@ -84,6 +84,62 @@ self-contained HTML file with any bundled Mapbox credential stripped.
 configuration, and outcome of the run — not geospatial data itself, but a
 record of everything that produced it, for traceability.
 
+## What Changes at Each Boundary
+
+The stage-by-stage prose above describes what happens; this table makes
+the schema transformation at each step explicit and comparable at a
+glance.
+
+| Transition | Input shape | Output shape | What changes |
+|---|---|---|---|
+| User input → boundary | Two plain strings (+ optional file path) | 1-row `GeoDataFrame`, WGS84 | A name becomes a geometry, validated against Nigeria's bounding box and a plausible-area range |
+| Boundary → raw layers | 1 polygon | 6 (default) raw `GeoDataFrame`s | One geometry becomes six independent Overpass query results, each with whatever raw OSM tag columns that particular query happened to return — no two layers necessarily share the same column set at this stage |
+| Raw layers → cleaned layers | WGS84, inconsistent columns, mixed geometry types possible | Projected UTM CRS, exactly `osmid`/`name`/`geometry` | Reprojection for metric correctness; two specific layers (`health_facilities`, `schools`) have any `Polygon`/`MultiPolygon` rows collapsed to centroids — the fix for the Akure North facility-mapping bug documented on the [clean.py page](modules/clean.md) |
+| Cleaned layers → exported files | In-memory `GeoDataFrame`s | Files on disk (GeoJSON always, Shapefile split into per-geometry-category files if the layer still mixes point/line/polygon types after cleaning) | Persistence; also where Shapefile's single-geometry-type-per-file constraint is worked around |
+| Exported files → run log | Paths + warnings + metadata | One JSON file | A permanent, reproducible audit trail of exactly what happened, including which package versions were in use |
+
+## Where State Lives
+
+There is no database, no persistent server-side session state beyond
+Streamlit's own per-deployment cache, and no in-memory global registry of
+past extractions. State is entirely:
+
+1. **Ephemeral, in-process**: the `GeoDataFrame`s and dicts passed between
+   pipeline stages during a single `extract_lga()` call — nothing here
+   survives past the function call except what's explicitly written to
+   disk or returned to the caller.
+2. **On disk**: `{output_dir}/*.geojson`, `{output_dir}/shapefiles/*.shp`
+   (plus sidecar files — `.shx`, `.dbf`, `.prj`), and
+   `{output_dir}/run_log.json`. This is the *only* durable record of an
+   extraction; if it's deleted, the only way to reconstruct it is to
+   re-run the pipeline (which may produce slightly different OSM data if
+   the underlying map has changed since).
+3. **Streamlit's cache** (`app.py` only): a shared, cross-session,
+   in-memory (per deployment instance) cache keyed on
+   `(lga_name, state_name)`, holding the same summary dict
+   `extract_lga()` returns. This cache is not itself durable across an
+   app restart, but the *files* it points to (in `output_dir`) are, as
+   long as the underlying disk persists — meaning a Streamlit restart
+   loses the cache but not the actual extracted data, so a subsequent
+   identical request re-reads from disk-backed reality rather than
+   silently serving stale in-memory data from before the restart.
+
+## Why the Flow Is Linear, Not Branching
+
+Every stage transformation above is a strict one-directional dependency —
+`clean_layers()` cannot run before `extract_layers()` produces raw data,
+`export_layers()` cannot run before cleaning produces standardized
+geometry. There's no stage that reads from two different upstream stages
+simultaneously, and no stage writes back to an earlier stage's output.
+This linearity is what makes the pipeline easy to reason about and safe
+to parallelize *across* LGAs (each `extract_lga()` call is fully
+self-contained, sharing no state with any other concurrent call) even
+though it isn't parallelized *within* a single LGA's stages — the one
+exception being stage 3's per-layer Overpass queries, which run
+concurrently with each other but still block the pipeline as a whole
+from proceeding to stage 4 until every layer (or its failure) has been
+accounted for.
+
 ## Diagram
 
 ```mermaid

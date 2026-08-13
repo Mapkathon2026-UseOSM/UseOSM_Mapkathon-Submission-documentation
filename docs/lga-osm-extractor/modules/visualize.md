@@ -66,7 +66,7 @@ preview map.
 | **Assumptions** | Assumes the exported GeoJSON files at `{output_dir}/{layer_name}.geojson` follow exactly the naming convention `export_layers()` produces — this function has no awareness of `export.py`'s actual return value (it doesn't receive it as an argument), it independently reconstructs the expected paths from `output_dir` and its own hardcoded `_LAYER_FILES` list. If `export_layers()`'s naming convention ever changed, this function would need a matching update; there is no shared single source of truth for the file-naming contract between the two modules. |
 | **Complexity** | O(L × N) where L = number of layers (fixed at 6), N = features per layer, dominated by file reads and the reprojection step. |
 | **Concurrency / race conditions** | None — sequential loop, no threading. |
-| **Covered by test(s)** | See [tests.md](../tests.md). |
+| **Covered by test(s)** | No dedicated test — the two `test_strip_mapbox_token_*` tests cover the token-stripping step this function calls, but don't exercise `build_preview_map()` itself, since doing so would require either live OSM data or a fully-populated fake export directory neither test currently constructs. |
 
 ### `_strip_mapbox_token(html_path)`
 
@@ -92,7 +92,30 @@ preview map.
 | **Outputs** | `dict` — the parsed JSON config, or `{}`. |
 | **Complexity** | O(1) relative to pipeline scale — proportional to config file size, which is small and fixed. |
 | **Concurrency / race conditions** | None. |
-| **Covered by test(s)** | See [tests.md](../tests.md). |
+| **Covered by test(s)** | No dedicated test — a small, low-risk file-existence check with no current test coverage. |
+
+## Internal Workflow
+
+```mermaid
+flowchart TD
+    A["build_preview_map(output_dir, html_out, height)"] --> B["lazy import keplergl.KeplerGl"]
+    B -- ImportError --> C["raise clear ImportError with pip-install guidance"]
+    B -- ok --> D["for layer_name in _LAYER_FILES (fixed draw order):"]
+    D --> E{"{output_dir}/{layer_name}.geojson exists and non-empty?"}
+    E -- no --> D
+    E -- yes --> F["read GeoJSON, reproject to EPSG:4326, add to data dict"]
+    F --> D
+    D --> G{data dict non-empty?}
+    G -- no --> H["raise ValueError: no non-empty layers found"]
+    G -- yes --> I["config = _load_config() — JSON file or {}"]
+    I --> J["kepler_map = KeplerGl(height, data, config)"]
+    J --> K{html_out given?}
+    K -- no --> L["return kepler_map"]
+    K -- yes --> M["makedirs(dirname(html_out))"]
+    M --> N["kepler_map.save_to_html(html_out)"]
+    N --> O["_strip_mapbox_token(html_out) — regex-remove bundled token, in place"]
+    O --> L
+```
 
 ## Gotchas
 

@@ -88,6 +88,9 @@ signal — see `akure_access.completeness.grid_check`), not an error.
 |---|---|
 | **What it does** | Extracts every layer defined in `tag_config` (or `DEFAULT_TAG_CONFIG`) within `boundary_gdf`'s polygon, using bounded, staggered concurrency, and returns a dict of `layer_name -> GeoDataFrame` plus a `"_warnings"` list. |
 | **Why written this way** | The concurrency model here is the single most consequential design decision in this module, and it's empirically derived, not a default choice. Fully parallel querying (all 6 layers at once, `max_workers=6`, no stagger) was tried first and made things *worse*: the public Overpass mirror refused every connection outright (`Errno 111`, connection refused) when hit by a burst of simultaneous requests from one client — it appears to treat simultaneous connection bursts as abusive traffic regardless of whether the requests are otherwise legitimate. The current approach caps concurrency at `MAX_CONCURRENT_LAYER_QUERIES = 2` and staggers each new request's start by `REQUEST_STAGGER_SECONDS = 3`, so the server never sees more than 2 near-simultaneous connection attempts, even at the very start of a run — while still overlapping queries in pairs rather than running fully sequentially. |
+| **The stagger math, worked out concretely.** | With the default 6 layers and `MAX_CONCURRENT_LAYER_QUERIES = 2`, `start_delay = (i // 2) * 3` produces delays of `[0, 0, 3, 3, 6, 6]` seconds across `i = 0..5` — layers 0 and 1 start immediately, layers 2 and 3 start 3 seconds later, layers 4 and 5 start 6 seconds later. The *pairing* here is purely positional (dictionary insertion order in `DEFAULT_TAG_CONFIG`), not by any property of the layers themselves — `roads` and `buildings` (the first two keys) always start together, `health_facilities` and `schools` (the last two) always start last, regardless of which layers are actually slower or more likely to fail. |
+| **`as_completed()` introduces a small but real nondeterminism.** | Futures are iterated in **completion order**, not submission order — so if two layers happen to fail at nearly the same wall-clock time, which one ends up recorded as `first_error` (and therefore which message a `strict=True` caller sees in the raised `LayerExtractionError`) can vary between otherwise-identical runs. This doesn't affect *correctness* (every layer's outcome still ends up in `_warnings` in permissive mode), but it does mean a strict-mode failure message shouldn't be treated as necessarily reproducible run-to-run when multiple layers are failing simultaneously. |
+| **The returned tuple's third field means two different things depending on the fourth.** | `_extract_single_layer()` always returns `(layer_name, gdf, warning_or_message, error)` — but that third field is semantically overloaded: when `error is None`, it's either `None` (clean success) or an informational "returned no features" string; when `error is not None`, that same field holds the failure description instead. `extract_layers()` reads this correctly (appending it to `warnings` either way, and separately checking `error is not None` to decide whether to track it as `first_error`), but a future refactor renaming or restructuring this tuple should be careful not to lose that this one field is doing double duty. |
 | **Inputs** | `boundary_gdf` (single-row `GeoDataFrame` from `boundary.resolve_boundary()`); `tag_config` (optional override dict, defaults to `DEFAULT_TAG_CONFIG`); `strict: bool` (default `False` — controls failure handling, see below). |
 | **Outputs** | `dict` mapping each `layer_name` to a `GeoDataFrame` (possibly empty), plus a `"_warnings"` key holding a list of warning strings collected across all layers. |
 | **Internal workflow** | 1. Default `tag_config` if not supplied; extract the boundary polygon from `boundary_gdf`.<br>2. Open a `ThreadPoolExecutor(max_workers=MAX_CONCURRENT_LAYER_QUERIES)`.<br>3. For each `(layer_name, tags)` pair (enumerated), compute `start_delay = (i // MAX_CONCURRENT_LAYER_QUERIES) * REQUEST_STAGGER_SECONDS` — this staggers layers in batches of `MAX_CONCURRENT_LAYER_QUERIES`, so layers 0–1 start immediately, layers 2–3 start after one stagger interval, etc. — and submit `_extract_single_layer()` as a future.<br>4. As each future completes (`as_completed`, i.e. in completion order, not submission order), unpack its result tuple; store the `GeoDataFrame` in `layers[layer_name]`; append any warning; record the *first* genuine error encountered (if any) for later.<br>5. After all futures complete: if `strict=True` and at least one genuine error occurred, raise `LayerExtractionError` for the first one encountered, chaining the original exception.<br>6. Otherwise (permissive mode, or strict mode with no errors), attach `layers["_warnings"] = warnings` and return the dict. |
@@ -95,6 +98,34 @@ signal — see `akure_access.completeness.grid_check`), not an error.
 | **Complexity** | O(L) where L = number of layers, in terms of number of Overpass queries issued (one per layer, plus retries). Wall-clock time is bounded below by `(L / MAX_CONCURRENT_LAYER_QUERIES) * REQUEST_STAGGER_SECONDS` for staggering alone, before any query or retry latency. |
 | **Concurrency / race conditions** | This is the one place in the whole repository where genuine concurrency is used. Each worker thread's result is only touched by the main thread inside `as_completed()`'s loop (via `future.result()`), so there's no shared mutable state written from multiple threads simultaneously — `layers`, `warnings`, and `first_error` are all only ever mutated from the single main thread as futures complete. The design explicitly avoids relying on `ox.features_from_polygon()` (or the underlying Overpass client) being thread-safe for truly simultaneous calls, by bounding concurrency to a small number the server tolerates — this is a mitigation for *server-side* rate-limiting behavior, not a client-side race condition in this codebase. |
 | **Covered by test(s)** | See [tests.md](../tests.md) — `test_extraction.py`. |
+
+## Internal Workflow
+
+```mermaid
+flowchart TD
+    A["extract_layers(boundary_gdf, tag_config, strict)"] --> B["tag_config = tag_config or DEFAULT_TAG_CONFIG"]
+    B --> C["polygon = boundary_gdf.geometry[0]"]
+    C --> D["submit one _extract_single_layer task per layer<br/>to ThreadPoolExecutor(max_workers=2)<br/>start_delay = (i // 2) * 3s"]
+    D --> E["_extract_single_layer worker"]
+
+    subgraph W ["_extract_single_layer (runs per layer, per worker thread)"]
+        E --> F["sleep(start_delay)"]
+        F --> G["ox.features_from_polygon(polygon, tags)"]
+        G -- "success, features found" --> H["return (name, gdf, None, None)"]
+        G -- "success, zero features" --> I["return (name, empty_gdf, warning, None)"]
+        G -- "exception" --> J{"transient error?<br/>ConnectionError / Timeout"}
+        J -- "yes, attempts left" --> K["sleep(backoff = 5 * attempt)"]
+        K --> G
+        J -- "no, or retries exhausted" --> L["return (name, empty_gdf, message, last_exc)"]
+    end
+
+    H --> M["as_completed(): collect into layers dict + warnings list"]
+    I --> M
+    L --> M
+    M --> N{"strict=True and any error present?"}
+    N -- yes --> O["raise LayerExtractionError(message) from error<br/>(first failure only, others stay in _warnings)"]
+    N -- no --> P["layers['_warnings'] = warnings<br/>return layers dict"]
+```
 
 ## Gotchas
 

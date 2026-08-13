@@ -65,10 +65,18 @@ safeguards exist specifically because of this incident:
 
 ### Impact on the project's findings
 
-Fixing this bug substantially changed Akure North's key underserved
-statistics and strengthened the submission's core multi-modal findings —
-the corrected numbers are what the project's actual dashboard and static
-maps now reflect.
+This fix changes what the underserved statistics for Akure North actually
+measure: before it, the 14 health facilities affected by the tagging
+mismatch were silently excluded from every routing and scoring
+calculation, so any "underserved" figure computed prior to the fix
+understates real access by omitting those facilities entirely rather than
+correctly counting them as reachable or unreachable. The dashboard and
+static maps in their current form reflect the corrected data — with all
+mapped facilities actually participating in scoring — not the pre-fix
+output. No specific before/after percentage change is quoted here, since
+that comparison was not preserved as a tracked artifact; the point worth
+understanding is the *direction and mechanism* of the error (facilities
+dropped out silently, not mis-scored), not a specific magnitude.
 
 ## Other Notable Design Decisions Worth Understanding as a Group
 

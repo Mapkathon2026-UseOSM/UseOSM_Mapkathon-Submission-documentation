@@ -28,6 +28,20 @@ whether, say, OSMnx's version changed between runs and might be returning
 different Overpass query results — rather than facing a silent, unexplained
 difference in output with no way to investigate why.
 
+Each of the five earns its place for a specific reason rather than being a
+generic "log everything installed" list: `osmnx` is the actual OSM query
+client, and its version most directly affects *what data comes back* from
+an identical query (a version bump can change which Overpass endpoint it
+targets, how it parses responses, or how `features_from_polygon()` handles
+edge cases). `geopandas`, `shapely`, and `fiona` govern how geometry is
+read, repaired, and written — a version change in any of these could
+silently shift how `.buffer(0)` repairs invalid geometry, or how a
+Shapefile gets serialized. `pandas` underlies nearly every tabular
+operation in `clean.py`. Notably absent: `streamlit` (a UI-only
+dependency, irrelevant to what data gets produced) and `requests` (used
+only for exception-type classification in `layers.py`, not for anything
+that would change extraction results between versions).
+
 ### `_capture_environment()`
 
 | | |
@@ -38,7 +52,7 @@ difference in output with no way to investigate why.
 | **Outputs** | `dict` with keys `python_version` (e.g. `"3.11.4"`, via `sys.version.split()[0]`), `platform` (via `platform.platform()`), `package_versions` (dict of package name → version string or `"not installed"`). |
 | **Complexity** | O(P) where P = number of tracked packages (fixed at 5) — negligible. |
 | **Concurrency / race conditions** | None. |
-| **Covered by test(s)** | See [tests.md](../tests.md). |
+| **Covered by test(s)** | No dedicated unit test — indirectly exercised only via `test_extract_lga_end_to_end_live_osm`, the one live-network test that runs the full pipeline including `log_run()`. |
 
 ### `log_run(lga_name, state_name, tag_config, output_dir, boundary_source, warnings=None, exported=None, target_crs=None)`
 
@@ -52,7 +66,19 @@ difference in output with no way to investigate why.
 | **Assumptions** | Assumes `tag_config` and everything nested inside `exported` is JSON-serializable as-is — true for the current pipeline's data shapes (strings, lists, dicts of strings), but would break if `tag_config` or `exported` ever contained a non-JSON-native type (e.g. a raw Shapely geometry) without additional serialization handling. |
 | **Complexity** | O(1) relative to pipeline scale — dominated by a fixed-size dict assembly and one file write; not proportional to feature count in any layer. |
 | **Concurrency / race conditions** | None on its own. Like `export_layers()`, concurrent calls to `log_run()` targeting the *same* `output_dir` (e.g. two processes extracting the same LGA simultaneously) aren't guarded against — the second write would simply overwrite the first's `run_log.json`. Not a concern under the pipeline's current sequential single-run-at-a-time usage pattern. |
-| **Covered by test(s)** | See [tests.md](../tests.md). |
+| **Covered by test(s)** | See [tests.md](../tests.md) — `test_extract_lga_end_to_end_live_osm` is the only test exercising this function, since it's the final step of the full pipeline and has no meaningful unit-test boundary short of running the whole thing. |
+
+## Internal Workflow
+
+```mermaid
+flowchart TD
+    A["log_run(lga_name, state_name, tag_config, output_dir, boundary_source, warnings, exported, target_crs)"] --> B["_capture_environment(): python version, platform, tracked package versions"]
+    B --> C["assemble log dict: identity + timestamp + environment + boundary_source + target_crs + tag_config + warnings"]
+    C --> D["split exported dict into exported_layers / skipped_layers / split_layers"]
+    D --> E["makedirs(output_dir)"]
+    E --> F["write run_log.json (indent=2)"]
+    F --> G["return log_path"]
+```
 
 ## Gotchas
 

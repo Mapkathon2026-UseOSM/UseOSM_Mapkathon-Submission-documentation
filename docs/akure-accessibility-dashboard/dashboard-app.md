@@ -173,7 +173,7 @@ plotting, not just for caption text.
 | **Internal workflow** | 1. Create the Leafmap map, add the chosen basemap.<br>2. Resolve the column via `score_column()`; filter to settled cells (`building_count > 0`).<br>3. If settled data exists and the column is present: branch on `view == "Combined"` to choose the categorical vs. continuous rendering scheme, calling `m.add_data()` with the appropriate `scheme`/`colors`/`cmap`/`legend_title` for that branch.<br>4. If the column genuinely doesn't exist (e.g. this mode wasn't included in the notebook run that produced the current data), show `st.info()` with actionable guidance (which notebook, which mode) rather than a raw exception or a blank map.<br>5. Render via `m.to_streamlit()`. |
 | **Assumptions** | Assumes `building_count > 0` is the correct settlement filter for map display — consistent with `scoring.py`'s own convention, not `completeness.grid_check.py`'s stricter 3-building threshold (see that module's own gotcha about the two different thresholds coexisting in the codebase). |
 | **Complexity** | O(N) where N = settled cell count, for the filter and rendering — Leafmap/Folium's own rendering cost dominates for large cell counts. |
-| **Covered by test(s)** | See [tests.md](tests.md). |
+| **Covered by test(s)** | No automated test coverage — `dashboard/app.py` has no dedicated test file in this repository (see [tests.md](tests.md) for the modules that do have coverage); this function's correctness is currently verified by manual inspection of the deployed app. |
 
 ### Section: Access map (lines ~436–485)
 
@@ -288,6 +288,30 @@ dashboard itself.
 
 A GitHub link back to the source repository, with an inline SVG GitHub
 mark icon (avoiding an external image dependency for a small UI element).
+
+## Internal Workflow
+
+```mermaid
+flowchart TD
+    A["streamlit run dashboard/app.py"] --> B["set_page_config, inject CSS design system"]
+    B --> C["load_data() — cached, per-LGA try/except isolation"]
+    C --> D{any LGA missing?}
+    D -- yes --> E["st.warning naming which LGA(s)"]
+    D -- no --> F
+    E --> F{available_lgas empty?}
+    F -- yes --> G["st.stop()"]
+    F -- no --> H["render hero header"]
+    H --> I["render control widgets: Study area, Access view, Transport mode, Basemap, colorblind toggle"]
+    I --> J["Access map section"]
+    J --> K{Both compare selected?}
+    K -- yes --> L["side-by-side st.columns(2), render_map + live caption per LGA"]
+    K -- no --> M["single render_map + live caption via describe_interactive_view"]
+    L --> N["Most underserved settlements table"]
+    M --> N
+    N --> O["Findings summary: scope-matched settled_frames (bug fix),<br/>mode comparison cards, walk-vs-fastest gap callout,<br/>completeness cross-check callout"]
+    O --> P["Static / publication maps: discover visuals/{lga}/,<br/>prefer web/ tier, categorize by filename,<br/>fixed 3-column grid, caption lookup from captions.json"]
+    P --> Q["GitHub footer link"]
+```
 
 ## Gotchas
 

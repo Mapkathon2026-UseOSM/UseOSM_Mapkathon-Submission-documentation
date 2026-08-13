@@ -7,6 +7,59 @@ since it's the richest interface (the CLI path is identical from
 changes shape at each stage rather than the call sequence, see
 [Data Flow](data-flow.md).
 
+## Sequence Overview
+
+The numbered walkthrough below covers every step in prose detail; this
+diagram is the same sequence at a glance, useful as a map back to whichever
+numbered step you're reading.
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Streamlit as app.py (Streamlit)
+    participant Pipeline as pipeline.extract_lga()
+    participant Boundary as boundary.py
+    participant Layers as layers.py
+    participant Clean as clean.py
+    participant Export as export.py
+    participant Log as logging_utils.py
+    participant Overpass as OSM Overpass API
+
+    Note over Streamlit: On app load: st.set_page_config,\nCSS injection, hero copy, form render.\nNo pipeline code runs yet.
+    User->>Streamlit: Types LGA name (+ optional state), clicks "Extract OSM Data"
+    Streamlit->>Streamlit: Validate lga_name non-empty
+    Streamlit->>Pipeline: _cached_extract(lga_name, state_name)
+    alt cache hit (same LGA/state requested before, any session)
+        Pipeline-->>Streamlit: cached summary dict, instantly
+    else cache miss
+        Pipeline->>Boundary: resolve_boundary(lga_name, state_name)
+        Boundary->>Overpass: geocode_to_gdf() [Nominatim]
+        Overpass-->>Boundary: candidate boundary geometry
+        Boundary->>Boundary: hard/soft validation checks
+        Boundary-->>Pipeline: validated GeoDataFrame
+        Pipeline->>Layers: extract_layers(boundary, tag_config, strict)
+        loop 6 layers, 2 concurrent, staggered
+            Layers->>Overpass: features_from_polygon() per layer
+            Overpass-->>Layers: raw features (or transient failure -> retry)
+        end
+        Layers-->>Pipeline: dict of raw GeoDataFrames + warnings
+        Pipeline->>Clean: clean_layers(raw_layers, boundary)
+        Clean->>Clean: reproject, repair, dedupe, standardize,\ncollapse Polygon->Point (health_facilities, schools)
+        Clean-->>Pipeline: cleaned GeoDataFrames
+        Pipeline->>Export: export_layers(cleaned, output_dir)
+        Export->>Export: write GeoJSON always;\nsplit Shapefile if mixed geometry categories
+        Export-->>Pipeline: exported paths dict
+        Pipeline->>Log: log_run(... all metadata ...)
+        Log-->>Pipeline: run_log.json path
+        Pipeline-->>Streamlit: summary dict (cached for future requests)
+    end
+    Streamlit->>Streamlit: Render warnings expander (if any)
+    Streamlit->>Streamlit: Build leafmap.Map(), add each layer\n(roads first, zoom_to_layer tracked via zoomed_yet flag)
+    Streamlit->>User: Interactive map rendered
+    Streamlit->>Streamlit: Zip output_dir in-memory
+    Streamlit->>User: Download button (zip of GeoJSON + Shapefiles + run_log.json)
+```
+
 ## 1. Process start
 
 `streamlit run app.py` starts a Streamlit server process. `app.py` executes

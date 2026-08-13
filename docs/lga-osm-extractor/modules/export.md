@@ -8,7 +8,7 @@
 Writes cleaned layers (from [`clean.py`](clean.md)) to disk as GeoJSON and
 Shapefile, organized under a per-LGA output directory. This is the module
 that turns in-memory `GeoDataFrame`s into the actual deliverable files
-consumed by ArcGIS Pro, Google Earth Pro, and — most importantly — by
+consumed by ArcGIS Pro, QGIS, and — most importantly — by
 `akure-accessibility-dashboard` downstream (see
 [Cross-Repo Integration](../../cross-repo/integration.md)).
 
@@ -44,7 +44,7 @@ layer needs to be split across multiple Shapefiles.
 | **Assumptions** | Assumes every geometry type actually encountered in practice is one of the six keys in `_GEOM_CATEGORY` — a `GeometryCollection` or other exotic type would fall into `"other"` and could produce unexpected Shapefile-splitting behavior, though this hasn't been observed with OSM-sourced data. |
 | **Complexity** | O(N) in feature count — one pass over the geometry type column. |
 | **Concurrency / race conditions** | None — pure function. |
-| **Covered by test(s)** | See [tests.md](../tests.md). |
+| **Covered by test(s)** | See [tests.md](../tests.md) — exercised indirectly through `test_export_layers_splits_mixed_geometry_types`, which depends on this function correctly identifying the point/line mix that triggers the Shapefile-splitting behavior. |
 
 ### `export_layers(layers_dict, output_dir)`
 
@@ -58,7 +58,34 @@ layer needs to be split across multiple Shapefiles.
 | **Assumptions** | Assumes `gdf.to_file(..., driver="GeoJSON")` and `driver="ESRI Shapefile"` (both via GeoPandas → Fiona/pyogrio) handle CRS metadata correctly on their own — this function does no explicit CRS handling itself, relying entirely on whatever CRS `clean_layers()` already set. Assumes Shapefile's 10-character field name truncation and other format limitations (a well-known Shapefile constraint, unrelated to the geometry-type issue this module solves) aren't a practical problem given `clean.py`'s minimal `KEEP_COLUMNS` schema (`osmid`, `name`, `geometry` — none close to the 10-character limit). |
 | **Complexity** | O(L × N) where L = number of layers, N = features per layer, for the write operations themselves; the geometry-category filtering step is an additional O(N) pass per category for split layers. |
 | **Concurrency / race conditions** | None — sequential loop, no threading. Writing to `output_dir` is not guarded against concurrent calls to `export_layers()` targeting the *same* `output_dir` from multiple processes — this isn't a concern in the current pipeline (each LGA extraction run uses its own output directory sequentially), but would be worth locking if this function were ever called concurrently for the same target directory. |
-| **Covered by test(s)** | See [tests.md](../tests.md). |
+| **Covered by test(s)** | See [tests.md](../tests.md) — `test_export_layers_writes_geojson_and_shapefile`, `test_export_layers_splits_mixed_geometry_types`. |
+
+## Internal Workflow
+
+```mermaid
+flowchart TD
+    A["export_layers(layers_dict, output_dir)"] --> B["makedirs(output_dir), makedirs(output_dir/shapefiles)"]
+    B --> C["for layer_name, gdf in layers_dict:"]
+    C --> D{layer_name == '_warnings'?}
+    D -- yes --> C
+    D -- no --> E{gdf empty or None?}
+    E -- yes --> F["append to skipped list"] --> C
+    E -- no --> G["write {layer_name}.geojson (always, single file)"]
+    G --> H["categories = _geom_categories_present(gdf)"]
+    H --> I{len(categories) <= 1?}
+    I -- yes --> J["write single {layer_name}.shp"]
+    J --> K["exported[layer_name] = {geojson, shapefile: path_string}"]
+    I -- no --> L["for each category: subset by geom_type, write {layer_name}_{category}.shp"]
+    L --> M["exported[layer_name] = {geojson, shapefile: {category: path, ...}}"]
+    M --> N["record in split_layers dict"]
+    K --> C
+    N --> C
+    C --> O["exported['_skipped'] = skipped"]
+    O --> P{any split_layers?}
+    P -- yes --> Q["exported['_split_layers'] = split_layers"]
+    P -- no --> R["return exported"]
+    Q --> R
+```
 
 ## Gotchas
 

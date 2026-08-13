@@ -7,7 +7,7 @@ clean, analysis-ready geospatial dataset. Given a name like `"Akure North"`,
 it resolves the administrative boundary, pulls every relevant OpenStreetMap
 (OSM) feature layer inside that boundary — roads, buildings, waterways,
 land use, health facilities, schools — cleans and standardizes the geometry
-and attributes, and exports the result as shapefiles and KML, along with an
+and attributes, and exports the result as GeoJSON and Shapefile, along with an
 interactive Kepler.gl preview map.
 
 It is the **upstream** half of the two-repo system: everything it produces
@@ -50,7 +50,7 @@ flowchart TD
     C --> D["clean.py<br/>clean_layers()"]
     D --> E["export.py<br/>export_layers()"]
     D --> F["visualize.py<br/>build_preview_map()"]
-    E --> G["Shapefiles + KML on disk"]
+    E --> G["GeoJSON + Shapefiles on disk"]
     F --> H["Kepler.gl HTML preview"]
     B & C & D & E & F -.->|per-run metadata| I["logging_utils.py<br/>log_run()"]
 
@@ -120,6 +120,18 @@ each boundary's actual longitude. This is a few extra lines of code in
 exchange for the tool being correct anywhere in the country, not just the
 original Akure study area.
 
+**Every run is auditable after the fact.** `logging_utils.log_run()` writes
+a `run_log.json` alongside every extraction's output, capturing not just
+what was requested but *which package versions were installed at the time*
+— `osmnx`, `geopandas`, `shapely`, `fiona`, `pandas`. This matters because
+none of this pipeline's inputs are frozen: OSM's underlying map data
+changes continuously, and a library upgrade can change how a query is
+interpreted or how a geometry is repaired. Without this record, a
+discrepancy between two extractions of the same LGA run months apart would
+be nearly impossible to diagnose — was the underlying map data different,
+or did a dependency change behavior? The run log doesn't answer that
+question by itself, but it narrows the search considerably.
+
 ## Module Map
 
 | File | Responsibility |
@@ -127,7 +139,7 @@ original Akure study area.
 | `lga_extractor/boundary.py` | Resolve and validate an LGA's administrative boundary polygon |
 | `lga_extractor/layers.py` | Query OSM for each feature layer (roads, buildings, health, schools, etc.) within the boundary |
 | `lga_extractor/clean.py` | Reproject, repair, deduplicate, standardize schema; collapse polygon facilities to points |
-| `lga_extractor/export.py` | Write cleaned layers to shapefile/KML |
+| `lga_extractor/export.py` | Write cleaned layers to GeoJSON and Shapefile, splitting Shapefile output by geometry category when a layer mixes point/line/polygon types |
 | `lga_extractor/visualize.py` | Build a Kepler.gl HTML preview map of exported layers |
 | `lga_extractor/logging_utils.py` | Capture run metadata (environment, parameters, warnings) per extraction |
 | `lga_extractor/pipeline.py` | Orchestrate the full boundary → layers → clean → export → visualize sequence |

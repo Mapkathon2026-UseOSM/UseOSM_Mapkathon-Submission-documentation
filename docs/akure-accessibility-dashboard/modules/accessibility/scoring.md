@@ -63,7 +63,7 @@ function where that difference is actually felt.
 | **Assumptions** | Assumes `"intersects"` (not `"within"`) is the correct predicate — a building that straddles two cells counts toward both, rather than being assigned to a single "primary" cell. This is a reasonable, if unstated, choice for a density proxy (a building genuinely does occupy space in both cells), but does mean the sum of `building_count` across all cells can slightly exceed the true total building count in the layer, for buildings that straddle a cell boundary. |
 | **Complexity** | The spatial join itself is the dominant cost — GeoPandas'/`shapely`'s spatial-index-backed join is typically near O((B + C) log(B + C)) in practice (B = buildings, C = cells) rather than the naive O(B × C), though the exact complexity depends on the underlying spatial index implementation. The groupby/merge/fillna steps are O(B) / O(C) respectively. |
 | **Concurrency / race conditions** | None. |
-| **Covered by test(s)** | See [tests.md](../../tests.md). |
+| **Covered by test(s)** | See [tests.md](../../tests.md) — `test_add_building_density_counts_correctly`, `test_add_building_density_handles_empty_buildings`. |
 
 ### `add_access_times(grid_gdf, roads_gdf, health_gdf, schools_gdf, boundary_polygon_wgs84=None, modes=("walk",))`
 
@@ -80,7 +80,7 @@ function where that difference is actually felt.
 | **Assumptions** | Assumes `roads_gdf`/`health_gdf`/`schools_gdf` are all already in EPSG:32631 (the project's fixed CRS — see Gotchas) — no CRS validation is performed on these inputs beyond the explicit, deliberate reprojections described above. |
 | **Complexity** | O(M × (graph_build_cost + 2 × Dijkstra_cost + settled_cells × O(log n))) where M = number of requested modes — dominated by graph construction and the two Dijkstra passes per mode, **not** by grid size beyond the settled-cell lookup loop, which is the entire point of the batch approach. |
 | **Concurrency / race conditions** | None — sequential loop over modes, no threading. |
-| **Covered by test(s)** | See [tests.md](../../tests.md). |
+| **Covered by test(s)** | No dedicated fast unit test in `test_scoring.py` (its neighboring tests construct grid data with routing results already present, rather than calling this function directly, to keep unit tests independent of graph-building cost). Its actual integration with `network_graph.py` and `isochrones.py` is exercised end to end by `test_extractor_output_schema_matches_dashboard_expectations` in the [cross-repo integration test](../../../cross-repo/integration.md). |
 
 **On why `inf` is deliberately kept, not converted to `NaN`, at this
 stage** — this is directly stated in the source as an inline comment, and
@@ -108,7 +108,7 @@ easy to violate accidentally.
 | **Assumptions** | Assumes a cell being unreachable (`inf` travel time) should be scored identically to a cell that's merely slow-but-reachable-past-the-threshold — both count as "underserved," with no distinction in the deficit score itself between "45 minutes away" and "genuinely unreachable by this mode." That distinction is preserved in the underlying time columns (still `inf` vs. a large finite number) even though the deficit score collapses them together. |
 | **Complexity** | O(C) where C = grid cell count — two element-wise `.apply()` calls plus a constant number of vectorized operations. |
 | **Concurrency / race conditions** | None. |
-| **Covered by test(s)** | See [tests.md](../../tests.md). |
+| **Covered by test(s)** | See [tests.md](../../tests.md) — `test_access_deficit_score_composite_logic`, `test_access_deficit_score_mode_suffix_columns`, `test_access_deficit_score_treats_inf_as_underserved`, `test_sanitize_for_export_does_not_break_deficit_scoring`, `test_sanitize_for_export_called_before_scoring_gives_wrong_result`. |
 
 **On the settled/unsettled overwrite ordering (step 5 → step 6) — this is a
 real, subtle correctness dependency worth being explicit about.** The
@@ -135,7 +135,7 @@ result for both cases simultaneously.
 | **Internal workflow** | Wrapped in `try/except Exception: return val is None` — the `!=` comparison could theoretically raise for an exotic type that overrides `__ne__` in a way that errors rather than returns a bool; the fallback treats an outright `None` as "is NA" too, covering the case where `!=` isn't even the right question to ask (e.g. `val` genuinely is Python's `None`, not a float `NaN`, both of which are things `add_access_deficit_score()` might plausibly encounter in a `.apply()` call over a column). |
 | **Complexity** | O(1). |
 | **Concurrency / race conditions** | None. |
-| **Covered by test(s)** | See [tests.md](../../tests.md). |
+| **Covered by test(s)** | No dedicated test — this is a tiny private helper exercised only implicitly, wherever `add_access_deficit_score()`'s own tests happen to pass a `NaN` value through it. |
 
 ### `sanitize_for_export(grid_gdf)`
 
@@ -150,6 +150,36 @@ result for both cases simultaneously.
 | **Complexity** | O(C × K) where C = grid cell count, K = number of numeric columns — a full-column scan/replace. |
 | **Concurrency / race conditions** | None. |
 | **Covered by test(s)** | See [tests.md](../../tests.md) — given the strict ordering requirement, a test explicitly verifying the "called too early" failure mode (or at minimum, verifying correct behavior when called at the right time) is valuable regression coverage here. |
+
+## Internal Workflow
+
+```mermaid
+flowchart TD
+    A["build_grid(boundary_gdf, cell_size_m)"] --> B["tile bbox with squares, filter to boundary.intersects()"]
+    B --> C["add_building_density(grid, buildings_gdf)"]
+    C --> D["sjoin buildings to cells, groupby count, left-merge, fillna(0)"]
+    D --> E["add_access_times(grid, roads, health, schools, boundary_wgs84, modes)"]
+
+    subgraph PerMode ["for each mode in modes:"]
+        E --> F["graph_from_roads(roads, boundary, mode) — separate graph per mode"]
+        F --> G["grid centroids: compute in projected CRS, THEN reproject to WGS84"]
+        G --> H["batch_nearest_facility_distances(G, health_pts) — ONE Dijkstra pass"]
+        G --> I["batch_nearest_facility_distances(G, school_pts) — ONE Dijkstra pass"]
+        H --> J["for each settled cell: lookup_nearest_distance_time — O(1)-ish"]
+        I --> J
+        J --> K["unsettled cells (building_count==0): NaN, never routed"]
+        K --> L["write {service}_time_min_{mode} columns<br/>inf PRESERVED, not converted to NaN"]
+    end
+
+    L --> M["add_access_deficit_score(grid, threshold_min, mode)"]
+    M --> N["_underserved(): NaN if unsettled; else time > threshold OR time == inf"]
+    N --> O["deficit_score = health_flag.fillna(0) + edu_flag.fillna(0)"]
+    O --> P["re-mask: deficit_score[building_count==0] = NaN"]
+    P --> Q{More modes to score?}
+    Q -- yes --> M
+    Q -- no, all scoring done --> R["sanitize_for_export(grid) — NOW safe to convert inf -> NaN"]
+    R --> S["ready for GeoJSON export / dashboard rendering"]
+```
 
 ## Gotchas
 

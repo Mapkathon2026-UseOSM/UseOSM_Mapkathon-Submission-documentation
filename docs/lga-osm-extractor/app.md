@@ -100,6 +100,37 @@ naive approach has a real bug the code explicitly works around:
   just that one layer being reported as un-previewable while the rest (and
   the download) continue to work.
 
+## Internal Workflow
+
+```mermaid
+flowchart TD
+    A["User loads app"] --> B["Page config, CSS, hero copy, explanatory markdown render"]
+    B --> C["Form: LGA name + optional state name"]
+    C --> D{Extract OSM Data clicked?}
+    D -- no --> C
+    D -- yes --> E{lga_name blank?}
+    E -- yes --> F["st.error, stop"]
+    E -- no --> G["_cached_extract(lga_name, state_name) — st.cache_data"]
+    G -- cache hit --> H["instant return"]
+    G -- cache miss --> I["pipeline.extract_lga() — full 5-stage pipeline runs"]
+    I --> H
+    H -- BoundaryResolutionError --> J["st.error: boundary-specific message"]
+    H -- other Exception --> K["st.error: generic extraction-failed message"]
+    H -- success --> L["st.success + show warnings expander if any"]
+    L --> M["sort layers: roads first, rest after"]
+    M --> N["for each layer: add_geojson with zoom_to_layer = not zoomed_yet"]
+    N -- add succeeds --> O["zoomed_yet = True"]
+    N -- IndexError/KeyError/ValueError --> P["record in skipped_layers, continue loop"]
+    O --> N
+    P --> N
+    N --> Q{skipped_layers non-empty?}
+    Q -- yes --> R["st.warning listing unreadable layers"]
+    Q -- no --> S
+    R --> S["render map + layer control"]
+    S --> T["zip output_dir in-memory"]
+    T --> U["st.download_button"]
+```
+
 ## Gotchas
 
 - **The Streamlit cache is shared across users, not per-session.** As noted

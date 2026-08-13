@@ -75,6 +75,68 @@ paths, generated independently of each other:
   from disk — the dashboard never runs any scoring/flagging itself, it's a
   pure consumer of both prior outputs.
 
+## What Changes at Each Boundary
+
+| Transition | Input shape | Output shape | What changes |
+|---|---|---|---|
+| Extractor output → grid | Point/Line/Polygon layers, per LGA | Regular square grid, `cell_id` | The analysis unit shifts from arbitrary OSM features to a uniform spatial sampling grid |
+| Grid → building density | Grid with no attributes | Grid + `building_count` | A population proxy is attached per cell via spatial join |
+| Roads + boundary → graph | GeoDataFrame / polygon | `nx.MultiDiGraph`, per mode | Geometry becomes topology; edges gain time weights |
+| Graph + facilities → distances | Graph + facility points | `{node: distance}` dict, per mode per service | Routing collapses from "per cell per facility" to "per graph node," computed once |
+| Distances → scored grid | Node-distance dict | Grid + time/distance/deficit columns | Per-cell lookup; `inf` deliberately preserved through scoring |
+| Scored grid → completeness-flagged grid | Grid + `building_count` | Grid + completeness flags | A parallel, independent analytical track is layered on, not derived from the deficit score |
+| Flagged grid → exportable grid | `inf` present | `inf` replaced with `NaN` | The one-way, order-dependent sanitization step — must be last |
+| Exportable grid → persisted file | In-memory `GeoDataFrame` | `grid_access_scored.geojson` on disk | The single artifact both output tracks (dashboard, static maps) independently consume |
+| Persisted grid → static figures | GeoJSON | `.jpg` files + `captions.json` | Cartographic styling and data-driven prose are layered on top, produced once and reused by the dashboard |
+
+## Where State Lives
+
+There is no database and no analysis-time computation inside the
+Streamlit app itself. State is:
+
+1. **Ephemeral, in-process, during notebook execution**: the graph
+   objects, distance dicts, and intermediate grids passed between
+   `network_graph.py` → `isochrones.py` → `scoring.py` →
+   `completeness/grid_check.py` calls — nothing here persists beyond the
+   notebook run except what's explicitly written to disk.
+2. **On disk, the single source of truth for both output tracks**:
+   `data/processed/{lga}/grid_access_scored.geojson` (the fully scored +
+   flagged + sanitized grid) and `visuals/{lga}/*.jpg` + `captions.json`
+   (pre-rendered static outputs). Both `dashboard/app.py` and
+   `static_maps.generate_all_static_outputs()` read from — but never
+   write back to — this same persisted grid file, and `dashboard/app.py`
+   additionally reads the *output* of `static_maps.py` (the JPEG files
+   and captions), without ever running `static_maps.py`'s code itself at
+   app runtime.
+3. **Streamlit's session-independent, cross-visitor cache**
+   (`app.py`'s `@st.cache_data` on `load_data()`): the loaded
+   `GeoDataFrame`s are cached in memory once per deployed app instance,
+   shared across visitors, same caching model as `lga-osm-extractor`'s
+   `app.py`.
+4. **`nearest_graph_node`'s per-graph KD-tree cache** (`isochrones.py`):
+   a smaller-scoped, per-graph-object cache, living only as long as the
+   graph object itself does within a single notebook run — not
+   persisted to disk, not shared across runs, and rebuilt from scratch
+   the next time the notebook is re-executed.
+
+## Why Two Independent Analyses Never Talk to Each Other
+
+Stage 4's split between accessibility scoring and completeness flagging
+is worth dwelling on, since it's easy to assume one feeds the other when
+skimming the diagram. They don't: `flag_completeness()` never reads any
+`*_time_min_*` or `*_access_deficit_score` column, and
+`add_access_deficit_score()` never reads either completeness flag
+column. Both independently derive from the same upstream
+`building_count` signal, but compute entirely separate things from it.
+This is deliberate — see [`grid_check.py`](modules/completeness/grid_check.md)'s
+own documentation for why keeping "is this area underserved" and "is
+this area possibly under-mapped in OSM" as genuinely separate,
+non-blended signals matters for how a viewer should interpret either one.
+Only at the presentation layer (`dashboard/app.py`'s Findings Summary
+cross-check callout) are the two ever brought into the same sentence,
+and even there, only as a caveat on the accessibility numbers, not as
+an adjustment to them.
+
 ## Diagram
 
 ```mermaid

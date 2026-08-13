@@ -95,7 +95,7 @@ the two different settlement thresholds in use across the codebase).
 | **Assumptions** | Assumes an 8% skew threshold is a reasonable, if unvalidated, cutoff for "worth mentioning in prose" — not derived from any statistical significance test, a judgment call about what reads as a meaningful directional pattern versus noise. |
 | **Complexity** | O(N) for the centroid mean computations (N = rows in each input `GeoDataFrame`); everything else O(1). |
 | **Concurrency / race conditions** | `warnings.catch_warnings()` as a context manager is documented by Python's own standard library as **not thread-safe** — it saves and restores global warnings-filter state, which is process-wide, not thread-local. If this function were ever called concurrently from multiple threads, one thread's warning-suppression window could unintentionally suppress or unsuppress warnings in another thread's unrelated code running at the same time. Not a concern under this module's current synchronous, single-threaded usage (called from Streamlit's single request-handling flow, or from the static-export pipeline's sequential generation loop), but worth flagging as a real constraint if caption generation were ever parallelized. |
-| **Covered by test(s)** | See [tests.md](../tests.md). |
+| **Covered by test(s)** | See [tests.md](../tests.md) — exercised indirectly through `test_describe_deficit_map_reports_directional_skew`, which checks the caption text this function's output feeds into, rather than testing the helper in isolation. |
 
 ### `_mode_ranking_phrase(grid_gdf, mode)`
 
@@ -108,7 +108,7 @@ the two different settlement thresholds in use across the codebase).
 | **Internal workflow** | 1. Filter to settled cells; return `None` if empty.<br>2. For each of the three known modes, check if its deficit-score column exists in the settled data; if so, compute that mode's underserved rate as `(settled[col] > 0).mean() * 100` (percentage of settled cells with a deficit score above zero, i.e. underserved for at least one service).<br>3. If the requested `mode` isn't among the modes found, or fewer than 2 modes total were found, return `None` — no meaningful ranking is possible.<br>4. Sort the available modes by rate, descending (worst/most-restrictive first); find the requested mode's position in that ranking.<br>5. Return `"the most restrictive..."` if it ranks first, `"the least restrictive..."` if it ranks last, `"in between the other modes shown here"` for any middle position (handles the 3-mode case where the middle position isn't literally "second of three" in a way that needs special-casing — the same phrase covers any non-extreme rank). |
 | **Assumptions** | Assumes "underserved for at least one service" (`deficit_score > 0`) is the right single number to rank modes by — a mode with many cells scoring exactly `1` (underserved for one service) versus a mode with fewer cells but more scoring `2` (underserved for both) could plausibly be argued either way as "more restrictive"; this function collapses that distinction into one rate. |
 | **Complexity** | O(C) where C = settled cell count, for computing each mode's rate; O(1) for the ranking/lookup once rates are computed (at most 3 items). |
-| **Covered by test(s)** | See [tests.md](../tests.md). |
+| **Covered by test(s)** | No dedicated test — not directly exercised by any test in `test_insights.py`; the mode-ranking sentence it produces is an optional addition to `describe_deficit_map()`'s output that none of the current caption tests specifically check for. |
 
 ### `describe_deficit_map(grid_gdf, lga_name, mode, thresholds=None)`
 
@@ -121,7 +121,7 @@ the two different settlement thresholds in use across the codebase).
 | **Internal workflow** | 1. Resolve `thresholds`, `mode_label`, `threshold` (this mode's specific value), and the deficit-score column name to read.<br>2. Filter to settled cells; if empty, or the expected column doesn't exist (grid hasn't been scored for this mode yet), return an early, specific "no scored data available... re-run the analysis" message rather than proceeding.<br>3. Compute `pct_any` (share underserved for ≥1 service) and `pct_both` (share underserved for both).<br>4. Get the ranking phrase via `_mode_ranking_phrase()` and the compass direction of underserved cells (relative to all settled cells) via `_compass_skew()`.<br>5. Build the legend sentence (what the colors mean, including the numeric threshold in the "well served" description if one is available).<br>6. Build the results sentence (the actual percentages).<br>7. Conditionally append the ranking sentence (only if `_mode_ranking_phrase()` returned something) and the directional sentence (only if `_compass_skew()` returned something) — both optional additions, gracefully omitted when there isn't enough data/signal to support them, rather than the caption ever containing a placeholder or "N/A" for a sentence that couldn't be generated. |
 | **Assumptions** | Assumes callers pass a `mode` that's one of the three known keys — an unrecognized mode string would still "work" (fall back to using the raw string itself via `.get(mode, mode)` for the label, and simply produce a column name that likely doesn't exist in the grid, triggering the "no scored data" early return) rather than raising, a graceful-degradation choice consistent with the rest of the module. |
 | **Complexity** | O(C) — dominated by the settled-cell filter and the percentage computations, all linear in grid size. |
-| **Covered by test(s)** | See [tests.md](../tests.md). |
+| **Covered by test(s)** | See [tests.md](../tests.md) — `test_describe_deficit_map_returns_real_numbers`, `test_describe_deficit_map_missing_mode_column_does_not_crash`, `test_describe_deficit_map_reports_directional_skew`. |
 
 ### `describe_continuous_map(grid_gdf, lga_name, mode, service, thresholds=None)`
 
@@ -134,7 +134,7 @@ the two different settlement thresholds in use across the codebase).
 | **Internal workflow** | 1. Resolve labels/threshold/column name (`{service}_time_min_{mode}`).<br>2. Filter to settled cells with a non-null value in that column; if none exist (empty settled set, missing column, or all-null column — the third case checked explicitly via `.notna().sum() == 0`, distinct from the column simply not existing), return an early "no data available" message.<br>3. Compute `mean_t`, `median_t` over the valid (non-null) values.<br>4. Build the legend sentence describing the gradient direction (cooler/darker = shorter, warmer = longer).<br>5. Build the results sentence with mean/median.<br>6. If a threshold is known: compute and append the percentage exceeding it, and use the over-threshold subset as `worst` for the directional note. If no threshold: skip the percentage-exceeding sentence, and use the top-quartile subset as `worst` instead.<br>7. Get the compass direction of `worst` relative to all settled cells; append if non-`None`. |
 | **Assumptions** | Assumes the top-quartile fallback (when no threshold is known) is a reasonable proxy for "notably long" travel times — an arbitrary but defensible statistical choice, not derived from any domain-specific reasoning the way the threshold-based cutoff is. |
 | **Complexity** | O(C) — filtering plus a small number of statistical aggregations over the settled/valid subset. |
-| **Covered by test(s)** | See [tests.md](../tests.md). |
+| **Covered by test(s)** | See [tests.md](../tests.md) — `test_describe_continuous_map_returns_real_numbers`, `test_describe_continuous_map_all_nan_column_does_not_crash`, `test_describe_continuous_map_missing_column_does_not_crash`. |
 
 ### `describe_completeness_map(grid_gdf, lga_name, service)`
 
@@ -147,7 +147,7 @@ the two different settlement thresholds in use across the codebase).
 | **Internal workflow** | 1. Resolve `service_label`, the completeness-flag column name (`{service}_completeness_flag`).<br>2. Filter to settled cells; early-return a "no data available" message if empty or the column is missing.<br>3. Compute `pct_gap` (`== True` share — the `# noqa: E712` comment acknowledges this is normally a lint warning, since `== True` is usually discouraged in favor of just using the boolean value directly, but is kept here for explicitness/readability in this specific comparison) and `pct_confirmed` as its complement.<br>4. Build the legend sentence with the article-aware `_article(service_label)` helper for grammatical correctness (`"a health facility"` / `"an education facility"`).<br>5. Build the results sentence with both percentages. |
 | **Assumptions** | Assumes `pct_confirmed = 100 - pct_gap` correctly represents "not flagged," which is true given the flag column is boolean and every settled cell is definitionally either flagged or not — no third state to account for. |
 | **Complexity** | O(C). |
-| **Covered by test(s)** | See [tests.md](../tests.md). |
+| **Covered by test(s)** | See [tests.md](../tests.md) — `test_describe_completeness_map_returns_real_numbers`, `test_describe_completeness_map_missing_column_does_not_crash`, `test_describe_completeness_map_uses_correct_article`. |
 
 ### `describe_mode_comparison_chart(mode_stats, lga_name)`
 
@@ -172,7 +172,27 @@ the two different settlement thresholds in use across the codebase).
 | **Outputs** | `str` — delegates entirely to one of `describe_continuous_map()` (health or education) or `describe_deficit_map()` (the default/combined case). |
 | **Internal workflow** | Simple if/elif/else dispatch on `view_choice`'s exact string value; anything other than `"Health only"` or `"Education only"` (including the expected `"Combined"` value, and, as a side effect, any unrecognized string) falls through to the combined deficit-map caption. |
 | **Assumptions** | Assumes `view_choice` will only ever be one of the three values the dashboard's own selector widget presents — an unrecognized string silently falls through to the combined-map branch rather than raising, which is graceful but could mask a genuine bug (e.g. a typo in the dashboard's widget option string) by producing a plausible-looking caption for the wrong view rather than an error. |
-| **Covered by test(s)** | See [tests.md](../tests.md). |
+| **Covered by test(s)** | See [tests.md](../tests.md) — `test_describe_interactive_view_dispatches_correctly`. |
+
+## Internal Workflow
+
+```mermaid
+flowchart TD
+    A["describe_interactive_view(grid_gdf, lga_name, mode, view_choice)"] --> B{view_choice}
+    B -- "Health only" --> C["describe_continuous_map(..., service='health')"]
+    B -- "Education only" --> D["describe_continuous_map(..., service='education')"]
+    B -- "Combined / default" --> E["describe_deficit_map(...)"]
+
+    C --> F["_settled(grid) → filter valid values"]
+    D --> F
+    E --> F
+    F --> G{data present?}
+    G -- no --> H["return 'no data yet' fallback string"]
+    G -- yes --> I["compute real stats: mean/median/pct from grid_gdf directly"]
+    I --> J["_mode_ranking_phrase / _compass_skew — optional extra sentences"]
+    J --> K["assemble legend explanation + result sentence(s)"]
+    K --> L["return caption string"]
+```
 
 ## Gotchas
 

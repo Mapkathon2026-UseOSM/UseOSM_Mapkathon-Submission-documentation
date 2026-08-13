@@ -93,7 +93,7 @@ module). Pure matplotlib annotation logic — no geospatial computation.
 | **Internal workflow** | 1. Compute `lat_mid`, then `km_per_deg_lon = 111.32 * cos(radians(lat_mid))`.<br>2. Compute the map's actual width in km from its lon/lat extent.<br>3. If `length_km` not given: target = width/5; find the magnitude via `10 ** floor(log10(target))`; loop through candidate multipliers `(1, 2, 5, 10)` of that magnitude, picking the first that's `>= target` (a `for...else` construction — the `else` branch, reached only if no candidate satisfied the condition, falls back to `10 * magnitude`, guaranteeing `length_km` is always set by the end of this block).<br>4. Convert `length_km` back to degrees (`bar_deg`) using the same `km_per_deg_lon` conversion.<br>5. Compute bar start position from `xy` (fraction of the map's bounds), draw a horizontal line of that length, and label it with the km value. |
 | **Assumptions** | Assumes the spherical-Earth approximation is acceptable at the LGA scale this project operates at — explicitly not survey-grade, as the docstring states. |
 | **Complexity** | O(1) — fixed number of arithmetic operations and one drawing call, independent of data size. |
-| **Covered by test(s)** | See [tests.md](../../tests.md). |
+| **Covered by test(s)** | No dedicated test — exercised only as a side effect of the `plot_*_map` tests (e.g. `test_plot_deficit_map_saves_file`), which check that a figure is produced, not that the scale bar itself is drawn at the correct length. |
 
 ### `add_gridlines(ax, bounds_lonlat, interval=None, color="gray", alpha=0.6, fontsize=9, label_sides=("left", "bottom"))`
 
@@ -106,7 +106,7 @@ module). Pure matplotlib annotation logic — no geospatial computation.
 | **Internal workflow** | 1. Auto-pick `interval` if not given, per the candidate-list logic above.<br>2. Build `lons`/`lats` arrays via `np.arange()`, snapped to interval boundaries starting below `west`/`south` (via `np.floor(west/interval) * interval`) so gridlines align to round coordinate values rather than starting at the map's arbitrary edge.<br>3. Draw a vertical line (`axvline`) per longitude, horizontal line (`axhline`) per latitude.<br>4. Format tick labels with degree symbols and hemisphere letters (`_fmt_lon`/`_fmt_lat` closures) — e.g. `"5.234°E"`, `"7.123°N"`.<br>5. Set tick positions/labels, then call `ax.tick_params()` with per-side boolean flags derived from `label_sides`, controlling label visibility independently per side while ticks themselves remain visible on top/bottom and left/right regardless. |
 | **Assumptions** | Assumes an 8-gridline cap across the larger dimension is a reasonable density — a readability judgment, not derived from any formal cartographic standard. |
 | **Complexity** | O(G) where G = number of gridlines drawn (bounded by the 8-per-axis cap, so effectively a small constant regardless of map size). |
-| **Covered by test(s)** | See [tests.md](../../tests.md). |
+| **Covered by test(s)** | See [tests.md](../../tests.md) — `test_scale_bar_and_gridlines_do_not_hang_on_projected_bounds` covers this function directly, specifically regression-testing the projected-CRS hang bug described in this module's Gotchas. |
 
 ### `add_osm_basemap(ax, crs="EPSG:4326", timeout=8)`
 
@@ -139,7 +139,7 @@ the map extent."
 | **Outputs** | `str` — returns `out_path` (the print-tier path) regardless of whether a web-tier copy was also saved. |
 | **Internal workflow** | 1. Call `add_gridlines()`, `add_north_arrow()`, `add_scale_bar()` in sequence against the given `bounds`.<br>2. Set title, axis labels, and explicit x/y limits from `bounds` (locking the final displayed extent).<br>3. Ensure `out_path`'s parent directory exists; save at `dpi`.<br>4. If `web_path` given: ensure its parent directory exists too; save again at `web_dpi` (falling back to `dpi` if `web_dpi` wasn't specified) — the "nearly free" second save described above.<br>5. `plt.close(fig)` — releases the figure's memory; important given this function may be called many times in a row inside `generate_all_static_outputs()`'s loop, where leaving figures open would accumulate memory across dozens of maps in one run.<br>6. Return `out_path`. |
 | **Complexity** | O(1) in this function's own logic (fixed number of drawing/saving calls); the actual cost is dominated by matplotlib's rasterization, proportional to figure size/dpi, done once (or twice, cheaply, per the dual-save reasoning) per call. |
-| **Covered by test(s)** | See [tests.md](../../tests.md). |
+| **Covered by test(s)** | No dedicated test in isolation, but exercised by every `plot_*_map`/`plot_mode_comparison_chart` test, since all of them delegate their actual file-saving step to this function. |
 
 ### `_map_title(lga_name, metric_label)`
 
@@ -162,7 +162,7 @@ differently.
 | **Internal workflow** | 1. Resolve the mode-specific deficit-score column name; raise `KeyError` with an explicit, actionable message (naming the expected column and its source function) if it doesn't exist — a clearer failure than a generic pandas `KeyError` would produce.<br>2. `_ensure_lonlat()` the input.<br>3. Filter to settled cells if `settled_only`; raise `ValueError` if the result is empty (nothing to plot).<br>4. Compute the full-grid `bounds` (before the settled filter, per the "for context" reasoning above).<br>5. Create the figure, add the OSM basemap.<br>6. For each of the three score values (0, 1, 2), filter to matching rows and plot them in that category's color — plotted as three separate `.plot()` calls rather than one call with a categorical colormap, giving explicit control over each category's exact color and allowing empty categories (a mode/LGA combination with, say, zero cells scoring `2`) to be skipped cleanly without an empty/broken legend entry.<br>7. Build legend patches matching the three colors/labels, add as a titled legend.<br>8. Delegate to `_finalize_and_save()` for the shared finishing sequence. |
 | **Assumptions** | Assumes the three-category palette adequately represents the deficit score's full 0–2 range — true given the scoring model in `scoring.add_access_deficit_score()` only ever produces exactly these three integer values (plus `NaN` for unsettled cells, which are excluded here rather than plotted). |
 | **Complexity** | O(N) for the settled filter and per-category subsetting (N = grid cell count); plotting cost itself scales with the number of settled cells drawn. |
-| **Covered by test(s)** | See [tests.md](../../tests.md). |
+| **Covered by test(s)** | See [tests.md](../../tests.md) — `test_plot_deficit_map_missing_column_raises_clear_error`. |
 
 ### `plot_continuous_map(grid_gdf, value_col, title, out_path, colorbar_label, settled_only=True, cmap="turbo", vmin=None, vmax=None, alpha=0.9, scale_bar_km=None, dpi=300, web_path=None, web_dpi=None, figsize=(11, 12))`
 
@@ -175,7 +175,7 @@ differently.
 | **Internal workflow** | 1. Raise `KeyError` (with the full column list for debugging) if `value_col` doesn't exist.<br>2. `_ensure_lonlat()`.<br>3. Filter to settled cells if requested, then filter again to non-null values of `value_col` — raise `ValueError` if nothing remains after both filters.<br>4. Compute full-grid `bounds` for context (same pattern as `plot_deficit_map()`).<br>5. Create figure, add basemap.<br>6. Resolve `vmin`/`vmax` from the plotted data's actual range if not explicitly given.<br>7. Single `.plot()` call using GeoPandas' built-in `column=`/`cmap=`/`legend=True` continuous-choropleth support, with `legend_kwds` controlling the colorbar's label, size (`shrink=0.6`), and padding.<br>8. Delegate to `_finalize_and_save()`. |
 | **Assumptions** | Assumes `"turbo"` is a reasonable default colormap for travel-time data — a perceptually broad, high-contrast colormap; no explicit justification given in the docstring for this specific choice over alternatives like `"viridis"`. |
 | **Complexity** | O(N) for filtering; plotting cost scales with the number of valid cells drawn. |
-| **Covered by test(s)** | See [tests.md](../../tests.md). |
+| **Covered by test(s)** | See [tests.md](../../tests.md) — `test_plot_continuous_map_excludes_nan_and_unsettled`, `test_plot_continuous_map_all_nan_raises_clear_error`. |
 
 ### `plot_completeness_map(grid_gdf, service, title, out_path, scale_bar_km=None, dpi=300, web_path=None, web_dpi=None, figsize=(11, 12))`
 
@@ -188,7 +188,7 @@ differently.
 | **Internal workflow** | 1. Raise `KeyError` if the expected `{service}_completeness_flag` column is missing, with a message pointing at `grid_check.flag_completeness()` as the expected source.<br>2. `_ensure_lonlat()`, filter to settled cells, raise `ValueError` if empty.<br>3. Compute full-grid `bounds`, create figure, add basemap.<br>4. Split settled cells into `confirmed` (`flag_col == False`) and `possible_gap` (`flag_col == True`) — both comparisons use explicit `== True`/`== False` rather than boolean truthiness directly, with an inline `# noqa: E712` comment explaining this is deliberate: explicit comparison behaves correctly against a nullable boolean dtype (where a bare truthiness check could behave unexpectedly on a `pd.NA` value, whereas an explicit `== True`/`== False` comparison evaluates cleanly to `False` for either branch on a null, silently excluding it from both categories rather than raising or misclassifying it).<br>5. Plot each non-empty subset in its accent color (`ACCENT_SECONDARY` for confirmed, `ACCENT_HIGHLIGHT` for gap).<br>6. Build a two-entry legend.<br>7. Delegate to `_finalize_and_save()`. |
 | **Assumptions** | Assumes the flag column, while typically a plain Python `bool` dtype in practice, might sometimes carry a nullable/`pd.NA`-capable dtype — the explicit `==` comparisons are defensive against that possibility, per the inline comment's reasoning. |
 | **Complexity** | O(N) for the settled filter and category split. |
-| **Covered by test(s)** | See [tests.md](../../tests.md). |
+| **Covered by test(s)** | See [tests.md](../../tests.md) — `test_plot_completeness_map_saves_file`. |
 
 ## Functions & Classes — Charts
 
@@ -203,7 +203,7 @@ differently.
 | **Internal workflow** | 1. Raise `ValueError` immediately if `mode_stats` is empty — nothing to chart.<br>2. Unpack labels (capitalized mode names) and the two percentage series.<br>3. Standard matplotlib grouped-bar-chart construction: side-by-side bars per mode (`width=0.35`, offset `± width/2`) for the two percentage series, each in its own accent color.<br>4. Annotate each bar with its exact percentage value as text above the bar.<br>5. Style: x-tick labels, y-axis label, y-limit padded to `1.2×` the max value (headroom for the text annotations above the tallest bars), title, legend, and hiding the top/right plot spines (a common "cleaner chart" styling convention).<br>6. Save at `dpi`, optionally also at `web_path`/`web_dpi` — the same dual-save pattern as `_finalize_and_save()`, but implemented inline here rather than delegating to that function, since this is a chart (no basemap, gridlines, scale bar, or north arrow apply) rather than a map. |
 | **Assumptions** | Assumes at most a handful of modes will ever be compared (currently 3: walk/okada/drive) — the `width=0.35` grouped-bar spacing is tuned for a small number of categories and would look cramped with significantly more. |
 | **Complexity** | O(M) where M = number of modes in `mode_stats` (at most 3 in practice). |
-| **Covered by test(s)** | See [tests.md](../../tests.md). |
+| **Covered by test(s)** | See [tests.md](../../tests.md) — `test_plot_mode_comparison_chart_saves_file`, `test_plot_mode_comparison_chart_empty_input_raises`. |
 
 ## The Orchestrator
 
@@ -219,7 +219,28 @@ differently.
 | **Assumptions** | Assumes filenames are unique and stable across runs for the same LGA (`f"{safe_lga}_{...}.jpg"` naming, where `safe_lga = lga_name.replace(" ", "_")`) — re-running this function for the same LGA will silently overwrite previous outputs at the same paths, which is presumably the intended behavior for a re-run with updated data, but worth being aware of (no versioning or backup of previous outputs happens here). |
 | **Complexity** | O(M × (map generation cost)) where M = number of modes, dominated by the sum of all individual `plot_*()` calls' costs — the dominant real-world cost is almost certainly the repeated OSM basemap tile fetches (one per generated map/chart, each independently calling `add_osm_basemap()`), not the underlying data plotting itself. |
 | **Concurrency / race conditions** | None — fully sequential generation, no threading; this means total wall-clock time for a full LGA export (up to ~11 figures: 3 deficit + up to 6 continuous + 2 completeness + 1 chart) is the sum of every individual figure's generation time, including basemap fetch latency for each one independently — a plausible target for future parallelization, though not currently implemented. |
-| **Covered by test(s)** | See [tests.md](../../tests.md). |
+| **Covered by test(s)** | See [tests.md](../../tests.md) — `test_generate_all_static_outputs_produces_expected_file_count`, `test_generate_all_static_outputs_skips_web_tier_when_disabled`, `test_generate_all_static_outputs_skips_all_nan_service_layer`. |
+
+## Internal Workflow
+
+```mermaid
+flowchart TD
+    A["generate_all_static_outputs(lga_name, grid_gdf, out_dir, modes, ...)"] --> B["makedirs(out_dir), makedirs(out_dir/web) if web_dpi set"]
+    B --> C["for each mode:"]
+    C --> D["plot_deficit_map() — settled cells only, categorical palette"]
+    D --> E["_finalize_and_save(): gridlines, arrow, scale bar,<br/>savefig print-dpi, savefig web-dpi (same figure, no re-fetch)"]
+    E --> F["describe_deficit_map() caption stored"]
+    F --> G["for health, education: plot_continuous_map() if column exists and has data"]
+    G --> H["describe_continuous_map() caption stored"]
+    H --> C
+    C --> I["for health, education: plot_completeness_map() if flag column exists"]
+    I --> J["describe_completeness_map() caption stored"]
+    J --> K["compute mode_stats: %any, %both underserved per mode, from settled cells"]
+    K --> L["plot_mode_comparison_chart()"]
+    L --> M["describe_mode_comparison_chart() caption stored"]
+    M --> N["write captions.json to out_dir"]
+    N --> O["return {print: [...], web: [...], captions: {...}}"]
+```
 
 ## Gotchas
 
