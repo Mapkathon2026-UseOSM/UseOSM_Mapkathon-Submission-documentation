@@ -932,6 +932,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#sequence-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequence Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#1-process-start" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1739,6 +1750,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#sequence-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequence Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#1-process-start" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1897,6 +1919,54 @@ since it's the richest interface (the CLI path is identical from
 <code>extract_lga()</code> onward, just without the UI layer). For how the <em>data</em>
 changes shape at each stage rather than the call sequence, see
 <a href="../data-flow/">Data Flow</a>.</p>
+<h2 id="sequence-overview">Sequence Overview<a class="headerlink" href="#sequence-overview" title="Permanent link">&para;</a></h2>
+<p>The numbered walkthrough below covers every step in prose detail; this
+diagram is the same sequence at a glance, useful as a map back to whichever
+numbered step you're reading.</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant User
+    participant Streamlit as app.py (Streamlit)
+    participant Pipeline as pipeline.extract_lga()
+    participant Boundary as boundary.py
+    participant Layers as layers.py
+    participant Clean as clean.py
+    participant Export as export.py
+    participant Log as logging_utils.py
+    participant Overpass as OSM Overpass API
+
+    Note over Streamlit: On app load: st.set_page_config,\nCSS injection, hero copy, form render.\nNo pipeline code runs yet.
+    User-&gt;&gt;Streamlit: Types LGA name (+ optional state), clicks "Extract OSM Data"
+    Streamlit-&gt;&gt;Streamlit: Validate lga_name non-empty
+    Streamlit-&gt;&gt;Pipeline: _cached_extract(lga_name, state_name)
+    alt cache hit (same LGA/state requested before, any session)
+        Pipeline--&gt;&gt;Streamlit: cached summary dict, instantly
+    else cache miss
+        Pipeline-&gt;&gt;Boundary: resolve_boundary(lga_name, state_name)
+        Boundary-&gt;&gt;Overpass: geocode_to_gdf() [Nominatim]
+        Overpass--&gt;&gt;Boundary: candidate boundary geometry
+        Boundary-&gt;&gt;Boundary: hard/soft validation checks
+        Boundary--&gt;&gt;Pipeline: validated GeoDataFrame
+        Pipeline-&gt;&gt;Layers: extract_layers(boundary, tag_config, strict)
+        loop 6 layers, 2 concurrent, staggered
+            Layers-&gt;&gt;Overpass: features_from_polygon() per layer
+            Overpass--&gt;&gt;Layers: raw features (or transient failure -&gt; retry)
+        end
+        Layers--&gt;&gt;Pipeline: dict of raw GeoDataFrames + warnings
+        Pipeline-&gt;&gt;Clean: clean_layers(raw_layers, boundary)
+        Clean-&gt;&gt;Clean: reproject, repair, dedupe, standardize,\ncollapse Polygon-&gt;Point (health_facilities, schools)
+        Clean--&gt;&gt;Pipeline: cleaned GeoDataFrames
+        Pipeline-&gt;&gt;Export: export_layers(cleaned, output_dir)
+        Export-&gt;&gt;Export: write GeoJSON always;\nsplit Shapefile if mixed geometry categories
+        Export--&gt;&gt;Pipeline: exported paths dict
+        Pipeline-&gt;&gt;Log: log_run(... all metadata ...)
+        Log--&gt;&gt;Pipeline: run_log.json path
+        Pipeline--&gt;&gt;Streamlit: summary dict (cached for future requests)
+    end
+    Streamlit-&gt;&gt;Streamlit: Render warnings expander (if any)
+    Streamlit-&gt;&gt;Streamlit: Build leafmap.Map(), add each layer\n(roads first, zoom_to_layer tracked via zoomed_yet flag)
+    Streamlit-&gt;&gt;User: Interactive map rendered
+    Streamlit-&gt;&gt;Streamlit: Zip output_dir in-memory
+    Streamlit-&gt;&gt;User: Download button (zip of GeoJSON + Shapefiles + run_log.json)</code></pre>
 <h2 id="1-process-start">1. Process start<a class="headerlink" href="#1-process-start" title="Permanent link">&para;</a></h2>
 <p><code>streamlit run app.py</code> starts a Streamlit server process. <code>app.py</code> executes
 top-to-bottom <strong>once</strong> at startup (page config, CSS injection, hero text,

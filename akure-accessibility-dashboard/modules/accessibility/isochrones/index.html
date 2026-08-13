@@ -1329,6 +1329,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1852,6 +1863,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1953,7 +1975,7 @@ below.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../../tests/">tests.md</a>.</td>
+<td>Not tested directly in isolation — exercised indirectly through every other function in this module that calls it (all of which have dedicated tests below). Its KD-tree caching behavior specifically has no dedicated test.</td>
 </tr>
 </tbody>
 </table>
@@ -2014,7 +2036,7 @@ upstream cleaning step.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../../tests/">tests.md</a>.</td>
+<td>See <a href="../../../tests/">tests.md</a> — <code>test_compute_isochrone_polygon_returns_larger_area_for_longer_trip_time</code>, <code>test_compute_isochrone_polygon_returns_none_for_unmatchable_origin</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -2061,7 +2083,7 @@ upstream cleaning step.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../../tests/">tests.md</a>.</td>
+<td>See <a href="../../../tests/">tests.md</a> — <code>test_build_isochrones_for_facilities_one_row_per_facility_per_trip_time</code>, <code>test_build_isochrones_for_facilities_handles_empty_facilities</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -2096,7 +2118,7 @@ upstream cleaning step.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../../tests/">tests.md</a>.</td>
+<td>No dedicated test — this is a one-line wrapper around <code>nearest_facility_distance_and_time()</code>, whose own tests (<code>test_nearest_facility_distance_and_time_finds_closer_facility</code>, <code>test_nearest_facility_distance_and_time_handles_empty_facilities</code> — see <a href="../../../tests/">tests.md</a>) exercise the logic this function delegates to.</td>
 </tr>
 </tbody>
 </table>
@@ -2143,7 +2165,7 @@ upstream cleaning step.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../../tests/">tests.md</a>.</td>
+<td>See <a href="../../../tests/">tests.md</a> — <code>test_nearest_facility_distance_and_time_finds_closer_facility</code>, <code>test_nearest_facility_distance_and_time_handles_empty_facilities</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -2257,10 +2279,33 @@ at a different layer of the pipeline.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../../tests/">tests.md</a>.</td>
+<td>Not tested in isolation, but exercised as part of <code>test_batch_nearest_facility_distances_matches_naive_per_pair_approach</code> and <code>test_batch_nearest_facility_distances_much_faster_than_naive_at_scale</code> (see <a href="../../../tests/">tests.md</a>), since those tests compare this function's output against the naive approach end to end.</td>
 </tr>
 </tbody>
 </table>
+<h2 id="internal-workflow">Internal Workflow<a class="headerlink" href="#internal-workflow" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    A["batch_nearest_facility_distances(G, facilities_gdf)"] --&gt; B{facilities_gdf empty?}
+    B -- yes --&gt; C["return {}"]
+    B -- no --&gt; D["for each facility: nearest_graph_node(G, geometry)&lt;br/&gt;KD-tree lookup, cached tree"]
+    D -- success --&gt; E["add to facility_nodes set"]
+    D -- exception --&gt; F["skipped += 1"]
+    E --&gt; G
+    F --&gt; G{all facilities skipped?}
+    G -- yes, skipped&gt;0 --&gt; H["warnings.warn — loud, investigate-worthy"]
+    G -- no, some skipped --&gt; H2["warnings.warn — quiet, expected"]
+    G -- none skipped --&gt; I
+    H --&gt; I
+    H2 --&gt; I{facility_nodes empty?}
+    I -- yes --&gt; J["return {}"]
+    I -- no --&gt; K["nx.multi_source_dijkstra_path_length(G, sources=facility_nodes, weight='length')&lt;br/&gt;ONE pass for the whole graph"]
+    K --&gt; L["return {node: distance_m, ...}"]
+
+    L --&gt; M["per grid cell: lookup_nearest_distance_time(G, cell_point, distances_by_node)"]
+    M --&gt; N["nearest_graph_node(cell_point) — KD-tree, O(log n)"]
+    N --&gt; O["distances_by_node.get(node, inf) — O(1)"]
+    O --&gt; P["convert to time via G.graph['speed_kph']"]
+    P --&gt; Q["(distance_km, time_min)"]</code></pre>
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Two genuinely different accuracy models coexist in this file, for

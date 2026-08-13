@@ -667,6 +667,39 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#what-changes-at-each-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Changes at Each Boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-state-lives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where State Lives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-the-flow-is-linear-not-branching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why the Flow Is Linear, Not Branching
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#diagram" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1806,6 +1839,39 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#what-changes-at-each-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Changes at Each Boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-state-lives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where State Lives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-the-flow-is-linear-not-branching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why the Flow Is Linear, Not Branching
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#diagram" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1905,6 +1971,91 @@ self-contained HTML file with any bundled Mapbox credential stripped.</p>
 <code>run_log.json</code> alongside the exported layers, capturing the environment,
 configuration, and outcome of the run — not geospatial data itself, but a
 record of everything that produced it, for traceability.</p>
+<h2 id="what-changes-at-each-boundary">What Changes at Each Boundary<a class="headerlink" href="#what-changes-at-each-boundary" title="Permanent link">&para;</a></h2>
+<p>The stage-by-stage prose above describes what happens; this table makes
+the schema transformation at each step explicit and comparable at a
+glance.</p>
+<table>
+<thead>
+<tr>
+<th>Transition</th>
+<th>Input shape</th>
+<th>Output shape</th>
+<th>What changes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>User input → boundary</td>
+<td>Two plain strings (+ optional file path)</td>
+<td>1-row <code>GeoDataFrame</code>, WGS84</td>
+<td>A name becomes a geometry, validated against Nigeria's bounding box and a plausible-area range</td>
+</tr>
+<tr>
+<td>Boundary → raw layers</td>
+<td>1 polygon</td>
+<td>6 (default) raw <code>GeoDataFrame</code>s</td>
+<td>One geometry becomes six independent Overpass query results, each with whatever raw OSM tag columns that particular query happened to return — no two layers necessarily share the same column set at this stage</td>
+</tr>
+<tr>
+<td>Raw layers → cleaned layers</td>
+<td>WGS84, inconsistent columns, mixed geometry types possible</td>
+<td>Projected UTM CRS, exactly <code>osmid</code>/<code>name</code>/<code>geometry</code></td>
+<td>Reprojection for metric correctness; two specific layers (<code>health_facilities</code>, <code>schools</code>) have any <code>Polygon</code>/<code>MultiPolygon</code> rows collapsed to centroids — the fix for the Akure North facility-mapping bug documented on the <a href="../modules/clean/">clean.py page</a></td>
+</tr>
+<tr>
+<td>Cleaned layers → exported files</td>
+<td>In-memory <code>GeoDataFrame</code>s</td>
+<td>Files on disk (GeoJSON always, Shapefile split into per-geometry-category files if the layer still mixes point/line/polygon types after cleaning)</td>
+<td>Persistence; also where Shapefile's single-geometry-type-per-file constraint is worked around</td>
+</tr>
+<tr>
+<td>Exported files → run log</td>
+<td>Paths + warnings + metadata</td>
+<td>One JSON file</td>
+<td>A permanent, reproducible audit trail of exactly what happened, including which package versions were in use</td>
+</tr>
+</tbody>
+</table>
+<h2 id="where-state-lives">Where State Lives<a class="headerlink" href="#where-state-lives" title="Permanent link">&para;</a></h2>
+<p>There is no database, no persistent server-side session state beyond
+Streamlit's own per-deployment cache, and no in-memory global registry of
+past extractions. State is entirely:</p>
+<ol>
+<li><strong>Ephemeral, in-process</strong>: the <code>GeoDataFrame</code>s and dicts passed between
+   pipeline stages during a single <code>extract_lga()</code> call — nothing here
+   survives past the function call except what's explicitly written to
+   disk or returned to the caller.</li>
+<li><strong>On disk</strong>: <code>{output_dir}/*.geojson</code>, <code>{output_dir}/shapefiles/*.shp</code>
+   (plus sidecar files — <code>.shx</code>, <code>.dbf</code>, <code>.prj</code>), and
+   <code>{output_dir}/run_log.json</code>. This is the <em>only</em> durable record of an
+   extraction; if it's deleted, the only way to reconstruct it is to
+   re-run the pipeline (which may produce slightly different OSM data if
+   the underlying map has changed since).</li>
+<li><strong>Streamlit's cache</strong> (<code>app.py</code> only): a shared, cross-session,
+   in-memory (per deployment instance) cache keyed on
+   <code>(lga_name, state_name)</code>, holding the same summary dict
+   <code>extract_lga()</code> returns. This cache is not itself durable across an
+   app restart, but the <em>files</em> it points to (in <code>output_dir</code>) are, as
+   long as the underlying disk persists — meaning a Streamlit restart
+   loses the cache but not the actual extracted data, so a subsequent
+   identical request re-reads from disk-backed reality rather than
+   silently serving stale in-memory data from before the restart.</li>
+</ol>
+<h2 id="why-the-flow-is-linear-not-branching">Why the Flow Is Linear, Not Branching<a class="headerlink" href="#why-the-flow-is-linear-not-branching" title="Permanent link">&para;</a></h2>
+<p>Every stage transformation above is a strict one-directional dependency —
+<code>clean_layers()</code> cannot run before <code>extract_layers()</code> produces raw data,
+<code>export_layers()</code> cannot run before cleaning produces standardized
+geometry. There's no stage that reads from two different upstream stages
+simultaneously, and no stage writes back to an earlier stage's output.
+This linearity is what makes the pipeline easy to reason about and safe
+to parallelize <em>across</em> LGAs (each <code>extract_lga()</code> call is fully
+self-contained, sharing no state with any other concurrent call) even
+though it isn't parallelized <em>within</em> a single LGA's stages — the one
+exception being stage 3's per-layer Overpass queries, which run
+concurrently with each other but still block the pipeline as a whole
+from proceeding to stage 4 until every layer (or its failure) has been
+accounted for.</p>
 <h2 id="diagram">Diagram<a class="headerlink" href="#diagram" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>flowchart TD
     A["LGA name (+ optional state / manual boundary path)"] --&gt; B["ONE polygon&lt;br/&gt;(GeoDataFrame, EPSG:4326)"]

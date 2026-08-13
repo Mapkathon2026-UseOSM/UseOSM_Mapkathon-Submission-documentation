@@ -835,6 +835,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1830,6 +1841,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2003,7 +2025,7 @@ issue found in the wider Map&lt;&gt;kathon 2026 project (see
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../tests/">tests.md</a>.</td>
+<td>See <a href="../../tests/">tests.md</a> — <code>test_resolve_target_crs_falls_back_with_no_boundary</code>, <code>test_resolve_target_crs_auto_selects_zone_from_boundary</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -2050,7 +2072,7 @@ issue found in the wider Map&lt;&gt;kathon 2026 project (see
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../tests/">tests.md</a>.</td>
+<td>See <a href="../../tests/">tests.md</a> — <code>test_clean_layers_reprojects_and_dedupes</code>, <code>test_clean_layers_standard_schema</code>, <code>test_clean_layers_uses_boundary_to_select_crs</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -2099,7 +2121,7 @@ are individually commented.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../tests/">tests.md</a>.</td>
+<td>See <a href="../../tests/">tests.md</a> — exercised indirectly through <code>test_clean_layers_reprojects_and_dedupes</code> and <code>test_clean_layers_standard_schema</code>, both of which call <code>clean_layers()</code> (this function's only caller) and check its output.</td>
 </tr>
 </tbody>
 </table>
@@ -2153,6 +2175,30 @@ this section documents the function itself.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="internal-workflow">Internal Workflow<a class="headerlink" href="#internal-workflow" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    A["clean_layers(layers_dict, boundary_gdf)"] --&gt; B["target_crs = resolve_target_crs(boundary_gdf)"]
+    B --&gt; C{boundary_gdf given and usable?}
+    C -- yes --&gt; D["reproject to WGS84 → centroid → utm_epsg_for_longitude()"]
+    C -- no / error --&gt; E["print warning → FALLBACK_CRS (EPSG:32631)"]
+    D --&gt; F
+    E --&gt; F["for each layer_name, gdf in layers_dict:"]
+    F --&gt; G{layer_name == '_warnings'?}
+    G -- yes --&gt; H["pass through unchanged"]
+    G -- no --&gt; I["_clean_single_layer(gdf, target_crs, collapse_to_point = layer in POINT_LAYERS)"]
+    I --&gt; J["drop null/empty geometries"]
+    J --&gt; K["repair invalid geometries: buffer(0)"]
+    K --&gt; L["flatten MultiIndex if present"]
+    L --&gt; M["standardize osmid / name columns"]
+    M --&gt; N["drop duplicate geometries"]
+    N --&gt; O["reproject to target_crs"]
+    O --&gt; P{collapse_to_point?}
+    P -- yes --&gt; Q["_collapse_areas_to_points:&lt;br/&gt;Polygon/MultiPolygon → centroid"]
+    P -- no --&gt; R
+    Q --&gt; R["trim to KEEP_COLUMNS, reset index"]
+    R --&gt; S["cleaned[layer_name] = result"]
+    H --&gt; S
+    S --&gt; T["return cleaned dict"]</code></pre>
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong><code>POINT_LAYERS</code> membership is a hardcoded string set, not driven by

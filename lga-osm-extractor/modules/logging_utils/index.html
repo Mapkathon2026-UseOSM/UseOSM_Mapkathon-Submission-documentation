@@ -886,6 +886,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1764,6 +1775,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1819,6 +1841,19 @@ results on a re-extraction) is much easier to diagnose if you can check
 whether, say, OSMnx's version changed between runs and might be returning
 different Overpass query results — rather than facing a silent, unexplained
 difference in output with no way to investigate why.</p>
+<p>Each of the five earns its place for a specific reason rather than being a
+generic "log everything installed" list: <code>osmnx</code> is the actual OSM query
+client, and its version most directly affects <em>what data comes back</em> from
+an identical query (a version bump can change which Overpass endpoint it
+targets, how it parses responses, or how <code>features_from_polygon()</code> handles
+edge cases). <code>geopandas</code>, <code>shapely</code>, and <code>fiona</code> govern how geometry is
+read, repaired, and written — a version change in any of these could
+silently shift how <code>.buffer(0)</code> repairs invalid geometry, or how a
+Shapefile gets serialized. <code>pandas</code> underlies nearly every tabular
+operation in <code>clean.py</code>. Notably absent: <code>streamlit</code> (a UI-only
+dependency, irrelevant to what data gets produced) and <code>requests</code> (used
+only for exception-type classification in <code>layers.py</code>, not for anything
+that would change extraction results between versions).</p>
 <h3 id="_capture_environment"><code>_capture_environment()</code><a class="headerlink" href="#_capture_environment" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -1854,7 +1889,7 @@ difference in output with no way to investigate why.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../tests/">tests.md</a>.</td>
+<td>No dedicated unit test — indirectly exercised only via <code>test_extract_lga_end_to_end_live_osm</code>, the one live-network test that runs the full pipeline including <code>log_run()</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -1901,10 +1936,18 @@ difference in output with no way to investigate why.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../tests/">tests.md</a>.</td>
+<td>See <a href="../../tests/">tests.md</a> — <code>test_extract_lga_end_to_end_live_osm</code> is the only test exercising this function, since it's the final step of the full pipeline and has no meaningful unit-test boundary short of running the whole thing.</td>
 </tr>
 </tbody>
 </table>
+<h2 id="internal-workflow">Internal Workflow<a class="headerlink" href="#internal-workflow" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    A["log_run(lga_name, state_name, tag_config, output_dir, boundary_source, warnings, exported, target_crs)"] --&gt; B["_capture_environment(): python version, platform, tracked package versions"]
+    B --&gt; C["assemble log dict: identity + timestamp + environment + boundary_source + target_crs + tag_config + warnings"]
+    C --&gt; D["split exported dict into exported_layers / skipped_layers / split_layers"]
+    D --&gt; E["makedirs(output_dir)"]
+    E --&gt; F["write run_log.json (indent=2)"]
+    F --&gt; G["return log_path"]</code></pre>
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>This log captures the environment at the moment logging happens (end of

@@ -1633,6 +1633,26 @@
 <td><strong>Nominatim</strong></td>
 <td>OSM's geocoding service, used by <code>lga_extractor.boundary.resolve_boundary()</code> to turn an LGA name into a boundary polygon.</td>
 </tr>
+<tr>
+<td><strong>KD-tree</strong></td>
+<td>A spatial data structure enabling fast (<code>O(log n)</code>) nearest-neighbor lookups over a fixed set of points, as an alternative to a slow (<code>O(n)</code>) linear scan comparing a query point against every candidate. This project builds one via <code>scipy.spatial.cKDTree</code> inside <code>isochrones.nearest_graph_node()</code>, caching it on the graph object so the expensive build step happens once per graph rather than once per lookup — see <a href="../../akure-accessibility-dashboard/modules/accessibility/isochrones/"><code>isochrones.py</code></a>.</td>
+</tr>
+<tr>
+<td><strong>STRtree</strong></td>
+<td>A spatial index (Sort-Tile-Recursive tree) that GeoPandas builds internally for operations like <code>sjoin_nearest()</code>, serving a similar purpose to a KD-tree but for polygon/line geometries rather than plain points. This project relies on it implicitly in <code>grid_check.py</code>'s completeness-flagging join, rather than building one explicitly — see <a href="../../akure-accessibility-dashboard/modules/completeness/grid_check/"><code>grid_check.py</code></a>.</td>
+</tr>
+<tr>
+<td><strong>MultiDiGraph</strong></td>
+<td>NetworkX's directed multigraph type — "multi" meaning more than one edge can exist between the same pair of nodes (useful for divided roads or multiple OSM ways connecting the same two intersections), "directed" meaning an edge from A to B is distinct from B to A (needed to correctly represent one-way streets). <code>network_graph.graph_from_roads()</code>'s OSMnx-based construction path produces a true <code>MultiDiGraph</code>; its fallback path (<code>_graph_from_geometries()</code>) produces a plain undirected <code>MultiGraph</code> instead — a real, documented fidelity gap between the two construction paths, since the fallback has no way to represent one-way restrictions.</td>
+</tr>
+<tr>
+<td><strong><code>sjoin_nearest()</code></strong></td>
+<td>The GeoPandas function used to find, for every row in one <code>GeoDataFrame</code>, its nearest match in another — internally backed by an STRtree spatial index. Used in <code>grid_check.py</code> to find each grid cell's nearest facility, and mentioned by name because its specific tie-handling behavior (returning duplicate rows when multiple facilities are exactly equidistant) is a real, documented edge case <code>_flag_via_spatial_index()</code> has to guard against.</td>
+</tr>
+<tr>
+<td><strong>Settled cell</strong></td>
+<td>A grid cell judged to have meaningful building presence, used as a proxy for "populated." <strong>Not a single fixed threshold across this project</strong> — <code>scoring.add_access_times()</code> treats any cell with <code>building_count &gt; 0</code> as settled (routes it for scoring), while <code>grid_check.py</code> requires <code>building_count &gt;= 3</code> by default (<code>DEFAULT_BUILDING_PRESENCE_THRESHOLD</code>) before flagging it for completeness checking. See <a href="../known-issues/">Known Issues</a> for why this inconsistency exists and what it means in practice.</td>
+</tr>
 </tbody>
 </table>
 

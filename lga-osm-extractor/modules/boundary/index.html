@@ -746,6 +746,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1764,6 +1775,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1845,6 +1867,14 @@ on a bad boundary later in the pipeline.</p>
 <td>Two resolution paths are supported — manual file and OSM geocode — and both are funneled through the <em>same</em> validation function (<code>_validate_and_standardize()</code>) at the end, so a manually-supplied boundary gets exactly the same sanity checks as an OSM-geocoded one. This matters: a manual file is a human-supplied escape hatch, but a typo'd path to the wrong file, or an outdated boundary, is just as capable of silently corrupting the run as a bad geocode.</td>
 </tr>
 <tr>
+<td><strong>Error messages are written to be actionable, not just descriptive.</strong></td>
+<td>Every <code>BoundaryResolutionError</code> raised here ends with a concrete next step rather than stopping at "what went wrong." A failed OSM lookup says <em>"Consider supplying manual_boundary_path"</em>; an empty OSM result says <em>"This LGA may be missing or mistagged in OSM; consider a manual boundary."</em> This reflects a deliberate choice about who reads these messages: not just a developer reading a traceback, but potentially a non-technical user of <code>app.py</code>'s Streamlit interface, who needs to know what to <em>do</em>, not just that something failed.</td>
+</tr>
+<tr>
+<td><strong>The original exception is never swallowed.</strong></td>
+<td>When <code>ox.geocode_to_gdf(query)</code> raises for any reason (network timeout, malformed query, Nominatim downtime), the wrapping <code>BoundaryResolutionError</code> is raised with <code>from exc</code> — Python's exception chaining. This means a traceback still shows the <em>original</em> underlying error beneath the friendlier message, which matters for debugging a failure that the friendly message alone can't diagnose (e.g. distinguishing "Nominatim is down" from "the query string was malformed" — both would otherwise look identical from the outside).</td>
+</tr>
+<tr>
 <td><strong>Inputs</strong></td>
 <td><code>lga_name: str</code> (required, e.g. <code>"Akure North"</code>); <code>state_name: str</code> (optional, e.g. <code>"Ondo"</code> — recommended to disambiguate LGAs that share a name across states); <code>manual_boundary_path: str</code> (optional path to a GeoJSON/Shapefile, used instead of querying OSM).</td>
 </tr>
@@ -1855,6 +1885,10 @@ on a bad boundary later in the pipeline.</p>
 <tr>
 <td><strong>Internal workflow</strong></td>
 <td>1. If <code>manual_boundary_path</code> is given: read it with <code>gpd.read_file()</code>, check it's non-empty with valid geometry, pass to <code>_validate_and_standardize()</code> with <code>source="manual:&lt;path&gt;"</code>, return.<br>2. Otherwise: build a Nominatim-style query string (<code>"{lga_name}, {state_name}, Nigeria"</code> or <code>"{lga_name}, Nigeria"</code> if no state given), call <code>ox.geocode_to_gdf(query)</code>.<br>3. If that raises, wrap it in <code>BoundaryResolutionError</code> with the original exception chained (<code>from exc</code>), so the underlying cause isn't lost.<br>4. If it returns an empty result, raise <code>BoundaryResolutionError</code> — OSM found nothing for that query.<br>5. Otherwise pass the result to <code>_validate_and_standardize()</code> with <code>source="osm_geocode:&lt;query&gt;"</code>, return its result.</td>
+</tr>
+<tr>
+<td><strong>A subtlety in the manual path's empty check.</strong></td>
+<td>The check is <code>gdf.empty or gdf.geometry.isnull().all()</code> — two distinct failure modes handled together. <code>gdf.empty</code> catches a file with zero rows (e.g. an empty GeoJSON <code>FeatureCollection</code>). <code>gdf.geometry.isnull().all()</code> catches a file that <em>has</em> rows but every one of them has a null geometry (e.g. a shapefile with attribute data but corrupted or missing geometry columns) — a real, different failure mode a naive <code>.empty</code> check alone would miss, since a GeoDataFrame with null-geometry rows is not itself "empty" by pandas' definition.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
@@ -1870,7 +1904,7 @@ on a bad boundary later in the pipeline.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../tests/">tests.md</a> — <code>test_extraction.py</code>.</td>
+<td>See <a href="../../tests/">tests.md</a> — <code>test_resolve_boundary_accepts_plausible_akure_sized_boundary</code>, <code>test_resolve_boundary_rejects_centroid_outside_nigeria</code>, <code>test_resolve_boundary_rejects_implausibly_tiny_area</code>, <code>test_resolve_boundary_rejects_implausibly_huge_area</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -1894,6 +1928,14 @@ resolved (from either path above) and decides whether to trust it.</p>
 <td>The hard/soft split reflects a deliberate confidence judgment. Geometry validity, being inside Nigeria's bounding box, and having a plausible LGA-scale area are all strong, mechanical signals that something went <em>badly</em> wrong (wrong place entirely) — these block. Whether Nominatim's free-text <code>display_name</code> field happens to mention the requested LGA/state name is a much weaker signal — Nominatim's naming and abbreviation conventions vary a lot, so a mismatch is often nothing, not necessarily a wrong resolution — so this only warns, never blocks. Treating a weak signal as a hard failure would create false rejections; treating a strong signal as just a warning would let genuinely wrong boundaries slip through silently.</td>
 </tr>
 <tr>
+<td><strong>A real gap in the soft check, worth knowing about.</strong></td>
+<td>The <code>display_name</code> check tests <code>lga_name.split()[0].lower()</code> — only the <strong>first word</strong> of the requested LGA name — against the display name, but tests <code>state_name.lower()</code> — the <strong>entire</strong> state string — with no splitting. For a single-word LGA like <code>"Akure"</code> this distinction doesn't matter. But for a multi-word LGA like <code>"Akure North"</code>, only <code>"akure"</code> is checked; <code>"north"</code> is never verified at all. In practice, this means the soft check <strong>cannot distinguish Akure North from Akure South</strong> — a boundary resolved for the wrong one of the two, but still genuinely within Nigeria, still within a plausible area range, would pass every check in this function with no warning whatsoever. This isn't a bug exactly — the check was always meant to be soft, and disambiguating same-first-word LGA variants was never its stated job — but it's a real blind spot worth knowing about specifically for a two-LGA study area (Akure North vs. Akure South) like this project's own.</td>
+</tr>
+<tr>
+<td><strong>The centroid check is a bounding-box test, not a distance test.</strong></td>
+<td><code>NIGERIA_BBOX</code> validation is <code>min_lon &lt;= x &lt;= max_lon and min_lat &lt;= y &lt;= max_lat</code> — a rectangle containment check, not "within N km of Nigeria's actual outline." This means the check can't catch a boundary that's centered in, say, western Cameroon or northern Benin — both fall inside a <em>rectangle</em> loosely bounding Nigeria even though they're outside the country itself. The bbox is deliberately generous (per the module's own comment) specifically to avoid false-rejecting genuine Nigerian LGAs near the border, accepting this blind spot as the trade-off.</td>
+</tr>
+<tr>
 <td><strong>Inputs</strong></td>
 <td><code>gdf</code> (raw resolved <code>GeoDataFrame</code>, from either source); <code>source: str</code> (human-readable provenance string, e.g. <code>"osm_geocode:Akure North, Ondo, Nigeria"</code>, recorded verbatim in the output); <code>lga_name</code>, <code>state_name</code> (optional, used only for the soft <code>display_name</code> check).</td>
 </tr>
@@ -1904,6 +1946,10 @@ resolved (from either path above) and decides whether to trust it.</p>
 <tr>
 <td><strong>Internal workflow</strong></td>
 <td>1. Grab the first geometry; raise if it's <code>None</code>, not a valid Shapely geometry, or empty.<br>2. Standardize CRS: <code>set_crs("EPSG:4326")</code> if the input has no CRS at all, otherwise <code>to_crs("EPSG:4326")</code> to reproject.<br>3. <strong>Hard check — geography:</strong> compute the geometry's centroid, raise if it falls outside <code>NIGERIA_BBOX</code> (a generous approximate bounding box for the whole country). This catches name collisions with similarly-named places elsewhere in the world.<br>4. <strong>Hard check — area:</strong> call <code>resolve_target_crs(gdf)</code> (from <code>clean.py</code>) to get the correct local UTM zone, reproject a copy into it, compute area in km². Raise if area is below <code>MIN_PLAUSIBLE_LGA_AREA_KM2</code> (2 km² — catches "a single point/building was resolved") or above <code>MAX_PLAUSIBLE_LGA_AREA_KM2</code> (10,000 km² — catches "a whole state/country was resolved").<br>5. <strong>Soft check — display name:</strong> if the input has a <code>display_name</code> column and an <code>lga_name</code>/<code>state_name</code> was supplied, lowercase-substring-check whether the first word of <code>lga_name</code> and/or <code>state_name</code> appears in it; append a warning string (not a raise) for each miss.<br>6. Take just the first row (<code>.iloc[[0]]</code>), attach <code>boundary_source</code> and <code>validation_warnings</code>, return.</td>
+</tr>
+<tr>
+<td><strong>Why <code>.iloc[[0]]</code> and not <code>.iloc[0]</code>.</strong></td>
+<td>The double-bracket form <code>.iloc[[0]]</code> returns a one-row <em>DataFrame</em>; the single-bracket form <code>.iloc[0]</code> would return a <em>Series</em> (a single row flattened to a 1-D structure, losing the GeoDataFrame's column/geometry structure). This distinction matters here specifically because the next two lines immediately assign new columns (<code>boundary_source</code>, <code>validation_warnings</code>) onto the result — an operation that requires a DataFrame, not a Series.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
@@ -1919,12 +1965,46 @@ resolved (from either path above) and decides whether to trust it.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../tests/">tests.md</a> — <code>test_extraction.py</code>.</td>
+<td>See <a href="../../tests/">tests.md</a> — <code>test_validate_and_standardize_display_name_mismatch_warns_not_raises</code>.</td>
 </tr>
 </tbody>
 </table>
+<h2 id="internal-workflow">Internal Workflow<a class="headerlink" href="#internal-workflow" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    A["resolve_boundary(lga_name, state_name, manual_boundary_path)"] --&gt; B{manual_boundary_path given?}
+    B -- yes --&gt; C["gpd.read_file(manual_boundary_path)"]
+    C --&gt; D{empty or all-null geometry?}
+    D -- yes --&gt; E["raise BoundaryResolutionError"]
+    D -- no --&gt; H
+
+    B -- no --&gt; F["build query = lga_name, state_name, Nigeria"]
+    F --&gt; G["ox.geocode_to_gdf(query)"]
+    G -- exception --&gt; E
+    G -- empty result --&gt; E
+    G -- ok --&gt; H["_validate_and_standardize(gdf, source, lga_name, state_name)"]
+
+    H --&gt; I{"geometry valid?&lt;br/&gt;not None / not empty"}
+    I -- no --&gt; E
+    I -- yes --&gt; J["normalize CRS → EPSG:4326"]
+    J --&gt; K{"centroid inside NIGERIA_BBOX?"}
+    K -- no --&gt; E
+    K -- yes --&gt; L["import clean.resolve_target_crs (local import)"]
+    L --&gt; M{"area within 2–10,000 km²?"}
+    M -- no --&gt; E
+    M -- yes --&gt; N["display_name mentions lga_name / state_name?"]
+    N -- mismatch --&gt; O["append to validation_warnings (SOFT, no raise)"]
+    N -- match / no display_name --&gt; P
+    O --&gt; P["collapse to 1 row, tag boundary_source + validation_warnings"]
+    P --&gt; Q["return GeoDataFrame to pipeline.extract_lga()"]</code></pre>
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
 <ul>
+<li><strong>The display-name soft check cannot distinguish Akure North from Akure
+  South (or any same-first-word LGA pair).</strong> Covered in detail in
+  <code>_validate_and_standardize()</code>'s table above — worth repeating here since
+  it's exactly the kind of thing a Gotchas section exists to surface. For
+  this project's own two-LGA study area, a boundary resolved for the wrong
+  one of the pair would raise zero warnings if it otherwise looked
+  geographically plausible.</li>
 <li><strong>The area check depends on <code>clean.py</code>, creating an import that only
   resolves at call time.</strong> <code>_validate_and_standardize()</code> does
   <code>from .clean import resolve_target_crs</code> <em>inside</em> the function body, not at

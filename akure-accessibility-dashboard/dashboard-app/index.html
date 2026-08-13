@@ -1563,6 +1563,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2026,6 +2037,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2282,7 +2304,7 @@ plotting, not just for caption text.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../tests/">tests.md</a>.</td>
+<td>No automated test coverage — <code>dashboard/app.py</code> has no dedicated test file in this repository (see <a href="../tests/">tests.md</a> for the modules that do have coverage); this function's correctness is currently verified by manual inspection of the deployed app.</td>
 </tr>
 </tbody>
 </table>
@@ -2392,6 +2414,26 @@ dashboard itself.</p>
 <h3 id="section-footer-lines-720741">Section: Footer (lines ~720–741)<a class="headerlink" href="#section-footer-lines-720741" title="Permanent link">&para;</a></h3>
 <p>A GitHub link back to the source repository, with an inline SVG GitHub
 mark icon (avoiding an external image dependency for a small UI element).</p>
+<h2 id="internal-workflow">Internal Workflow<a class="headerlink" href="#internal-workflow" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    A["streamlit run dashboard/app.py"] --&gt; B["set_page_config, inject CSS design system"]
+    B --&gt; C["load_data() — cached, per-LGA try/except isolation"]
+    C --&gt; D{any LGA missing?}
+    D -- yes --&gt; E["st.warning naming which LGA(s)"]
+    D -- no --&gt; F
+    E --&gt; F{available_lgas empty?}
+    F -- yes --&gt; G["st.stop()"]
+    F -- no --&gt; H["render hero header"]
+    H --&gt; I["render control widgets: Study area, Access view, Transport mode, Basemap, colorblind toggle"]
+    I --&gt; J["Access map section"]
+    J --&gt; K{Both compare selected?}
+    K -- yes --&gt; L["side-by-side st.columns(2), render_map + live caption per LGA"]
+    K -- no --&gt; M["single render_map + live caption via describe_interactive_view"]
+    L --&gt; N["Most underserved settlements table"]
+    M --&gt; N
+    N --&gt; O["Findings summary: scope-matched settled_frames (bug fix),&lt;br/&gt;mode comparison cards, walk-vs-fastest gap callout,&lt;br/&gt;completeness cross-check callout"]
+    O --&gt; P["Static / publication maps: discover visuals/{lga}/,&lt;br/&gt;prefer web/ tier, categorize by filename,&lt;br/&gt;fixed 3-column grid, caption lookup from captions.json"]
+    P --&gt; Q["GitHub footer link"]</code></pre>
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Palette/colormap constants are defined independently in two places</strong>:

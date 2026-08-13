@@ -796,6 +796,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1808,6 +1819,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1980,6 +2002,18 @@ signal — see <code>akure_access.completeness.grid_check</code>), not an error.
 <td>The concurrency model here is the single most consequential design decision in this module, and it's empirically derived, not a default choice. Fully parallel querying (all 6 layers at once, <code>max_workers=6</code>, no stagger) was tried first and made things <em>worse</em>: the public Overpass mirror refused every connection outright (<code>Errno 111</code>, connection refused) when hit by a burst of simultaneous requests from one client — it appears to treat simultaneous connection bursts as abusive traffic regardless of whether the requests are otherwise legitimate. The current approach caps concurrency at <code>MAX_CONCURRENT_LAYER_QUERIES = 2</code> and staggers each new request's start by <code>REQUEST_STAGGER_SECONDS = 3</code>, so the server never sees more than 2 near-simultaneous connection attempts, even at the very start of a run — while still overlapping queries in pairs rather than running fully sequentially.</td>
 </tr>
 <tr>
+<td><strong>The stagger math, worked out concretely.</strong></td>
+<td>With the default 6 layers and <code>MAX_CONCURRENT_LAYER_QUERIES = 2</code>, <code>start_delay = (i // 2) * 3</code> produces delays of <code>[0, 0, 3, 3, 6, 6]</code> seconds across <code>i = 0..5</code> — layers 0 and 1 start immediately, layers 2 and 3 start 3 seconds later, layers 4 and 5 start 6 seconds later. The <em>pairing</em> here is purely positional (dictionary insertion order in <code>DEFAULT_TAG_CONFIG</code>), not by any property of the layers themselves — <code>roads</code> and <code>buildings</code> (the first two keys) always start together, <code>health_facilities</code> and <code>schools</code> (the last two) always start last, regardless of which layers are actually slower or more likely to fail.</td>
+</tr>
+<tr>
+<td><strong><code>as_completed()</code> introduces a small but real nondeterminism.</strong></td>
+<td>Futures are iterated in <strong>completion order</strong>, not submission order — so if two layers happen to fail at nearly the same wall-clock time, which one ends up recorded as <code>first_error</code> (and therefore which message a <code>strict=True</code> caller sees in the raised <code>LayerExtractionError</code>) can vary between otherwise-identical runs. This doesn't affect <em>correctness</em> (every layer's outcome still ends up in <code>_warnings</code> in permissive mode), but it does mean a strict-mode failure message shouldn't be treated as necessarily reproducible run-to-run when multiple layers are failing simultaneously.</td>
+</tr>
+<tr>
+<td><strong>The returned tuple's third field means two different things depending on the fourth.</strong></td>
+<td><code>_extract_single_layer()</code> always returns <code>(layer_name, gdf, warning_or_message, error)</code> — but that third field is semantically overloaded: when <code>error is None</code>, it's either <code>None</code> (clean success) or an informational "returned no features" string; when <code>error is not None</code>, that same field holds the failure description instead. <code>extract_layers()</code> reads this correctly (appending it to <code>warnings</code> either way, and separately checking <code>error is not None</code> to decide whether to track it as <code>first_error</code>), but a future refactor renaming or restructuring this tuple should be careful not to lose that this one field is doing double duty.</td>
+</tr>
+<tr>
 <td><strong>Inputs</strong></td>
 <td><code>boundary_gdf</code> (single-row <code>GeoDataFrame</code> from <code>boundary.resolve_boundary()</code>); <code>tag_config</code> (optional override dict, defaults to <code>DEFAULT_TAG_CONFIG</code>); <code>strict: bool</code> (default <code>False</code> — controls failure handling, see below).</td>
 </tr>
@@ -2009,6 +2043,30 @@ signal — see <code>akure_access.completeness.grid_check</code>), not an error.
 </tr>
 </tbody>
 </table>
+<h2 id="internal-workflow">Internal Workflow<a class="headerlink" href="#internal-workflow" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    A["extract_layers(boundary_gdf, tag_config, strict)"] --&gt; B["tag_config = tag_config or DEFAULT_TAG_CONFIG"]
+    B --&gt; C["polygon = boundary_gdf.geometry[0]"]
+    C --&gt; D["submit one _extract_single_layer task per layer&lt;br/&gt;to ThreadPoolExecutor(max_workers=2)&lt;br/&gt;start_delay = (i // 2) * 3s"]
+    D --&gt; E["_extract_single_layer worker"]
+
+    subgraph W ["_extract_single_layer (runs per layer, per worker thread)"]
+        E --&gt; F["sleep(start_delay)"]
+        F --&gt; G["ox.features_from_polygon(polygon, tags)"]
+        G -- "success, features found" --&gt; H["return (name, gdf, None, None)"]
+        G -- "success, zero features" --&gt; I["return (name, empty_gdf, warning, None)"]
+        G -- "exception" --&gt; J{"transient error?&lt;br/&gt;ConnectionError / Timeout"}
+        J -- "yes, attempts left" --&gt; K["sleep(backoff = 5 * attempt)"]
+        K --&gt; G
+        J -- "no, or retries exhausted" --&gt; L["return (name, empty_gdf, message, last_exc)"]
+    end
+
+    H --&gt; M["as_completed(): collect into layers dict + warnings list"]
+    I --&gt; M
+    L --&gt; M
+    M --&gt; N{"strict=True and any error present?"}
+    N -- yes --&gt; O["raise LayerExtractionError(message) from error&lt;br/&gt;(first failure only, others stay in _warnings)"]
+    N -- no --&gt; P["layers['_warnings'] = warnings&lt;br/&gt;return layers dict"]</code></pre>
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong><code>strict</code> only affects genuine failures, never emptiness.</strong> It's easy to

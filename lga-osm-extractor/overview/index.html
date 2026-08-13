@@ -1765,7 +1765,7 @@ clean, analysis-ready geospatial dataset. Given a name like <code>"Akure North"<
 it resolves the administrative boundary, pulls every relevant OpenStreetMap
 (OSM) feature layer inside that boundary — roads, buildings, waterways,
 land use, health facilities, schools — cleans and standardizes the geometry
-and attributes, and exports the result as shapefiles and KML, along with an
+and attributes, and exports the result as GeoJSON and Shapefile, along with an
 interactive Kepler.gl preview map.</p>
 <p>It is the <strong>upstream</strong> half of the two-repo system: everything it produces
 is consumed downstream by <code>akure-accessibility-dashboard</code> for network
@@ -1802,7 +1802,7 @@ as-is.</p>
     C --&gt; D["clean.py&lt;br/&gt;clean_layers()"]
     D --&gt; E["export.py&lt;br/&gt;export_layers()"]
     D --&gt; F["visualize.py&lt;br/&gt;build_preview_map()"]
-    E --&gt; G["Shapefiles + KML on disk"]
+    E --&gt; G["GeoJSON + Shapefiles on disk"]
     F --&gt; H["Kepler.gl HTML preview"]
     B &amp; C &amp; D &amp; E &amp; F -.-&gt;|per-run metadata| I["logging_utils.py&lt;br/&gt;log_run()"]
 
@@ -1863,6 +1863,17 @@ elsewhere in Nigeria), <code>clean.py</code> auto-selects the correct UTM zone f
 each boundary's actual longitude. This is a few extra lines of code in
 exchange for the tool being correct anywhere in the country, not just the
 original Akure study area.</p>
+<p><strong>Every run is auditable after the fact.</strong> <code>logging_utils.log_run()</code> writes
+a <code>run_log.json</code> alongside every extraction's output, capturing not just
+what was requested but <em>which package versions were installed at the time</em>
+— <code>osmnx</code>, <code>geopandas</code>, <code>shapely</code>, <code>fiona</code>, <code>pandas</code>. This matters because
+none of this pipeline's inputs are frozen: OSM's underlying map data
+changes continuously, and a library upgrade can change how a query is
+interpreted or how a geometry is repaired. Without this record, a
+discrepancy between two extractions of the same LGA run months apart would
+be nearly impossible to diagnose — was the underlying map data different,
+or did a dependency change behavior? The run log doesn't answer that
+question by itself, but it narrows the search considerably.</p>
 <h2 id="module-map">Module Map<a class="headerlink" href="#module-map" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -1886,7 +1897,7 @@ original Akure study area.</p>
 </tr>
 <tr>
 <td><code>lga_extractor/export.py</code></td>
-<td>Write cleaned layers to shapefile/KML</td>
+<td>Write cleaned layers to GeoJSON and Shapefile, splitting Shapefile output by geometry category when a layer mixes point/line/polygon types</td>
 </tr>
 <tr>
 <td><code>lga_extractor/visualize.py</code></td>

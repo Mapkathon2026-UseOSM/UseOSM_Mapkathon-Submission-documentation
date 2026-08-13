@@ -1290,6 +1290,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1830,6 +1841,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1988,7 +2010,7 @@ the assumption via <code>graph_from_roads()</code>'s <code>speed_kph</code> para
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../../tests/">tests.md</a>.</td>
+<td>No dedicated test — this is a defensive fallback check not normally triggered in practice (OSMnx already computes edge lengths internally), so there's no realistic test scenario that exercises the <code>False</code> branch without deliberately constructing a malformed graph.</td>
 </tr>
 </tbody>
 </table>
@@ -2035,7 +2057,7 @@ the assumption via <code>graph_from_roads()</code>'s <code>speed_kph</code> para
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../../tests/">tests.md</a>.</td>
+<td>See <a href="../../../tests/">tests.md</a> — exercised indirectly by <code>test_graph_from_roads_geometry_fallback_assigns_travel_times</code> and <code>test_graph_from_roads_speed_override</code>, both of which check this function's output (<code>travel_time_min</code> edge attributes) rather than calling it directly.</td>
 </tr>
 </tbody>
 </table>
@@ -2054,7 +2076,7 @@ the assumption via <code>graph_from_roads()</code>'s <code>speed_kph</code> para
 </tr>
 <tr>
 <td><strong>Why written this way — and why the <code>x</code>/<code>y</code> node attributes matter more than they look.</strong></td>
-<td>This is explicitly documented as <em>less robust</em> than OSMnx's own graph construction (no topology cleanup — e.g. two roads that visually cross but don't share an OSM-tagged intersection node won't be connected in this graph, whereas OSMnx's Overpass-based construction handles this correctly), intended only as a consistency fallback, not a routing-quality-first choice. The critical detail: <strong>every node is given explicit <code>x</code>/<code>y</code> attributes matching its coordinate tuple</strong>, not just relying on the node key itself (which is <em>also</em> the coordinate tuple). This duplication exists because <code>osmnx.distance.nearest_nodes()</code> — used by <code>isochrones.nearest_graph_node()</code> — and <code>isochrones.compute_isochrone_polygon()</code> both read <code>node['x']</code>/<code>node['y']</code> attributes specifically, not the node key. Without explicitly setting these attributes, nearest-node lookups against a fallback-path graph would silently fail — not raise an error, just silently return nothing useful — and every downstream distance/time computation would come back as <code>inf</code>, with no obvious signal pointing at why. This is called out explicitly in the function's own docstring precisely because it's the kind of failure mode that's easy to reintroduce accidentally in a future edit and hard to notice without dedicated test coverage.</td>
+<td>This is explicitly documented as <em>less robust</em> than OSMnx's own graph construction (no topology cleanup — e.g. two roads that visually cross but don't share an OSM-tagged intersection node won't be connected in this graph, whereas OSMnx's Overpass-based construction handles this correctly), intended only as a consistency fallback, not a routing-quality-first choice. The critical detail: <strong>every node is given explicit <code>x</code>/<code>y</code> attributes matching its coordinate tuple</strong>, not just relying on the node key itself (which is <em>also</em> the coordinate tuple). This duplication exists for <a href="../isochrones/"><code>isochrones.nearest_graph_node()</code></a>'s benefit — that function reads <code>node['x']</code>/<code>node['y']</code> attributes specifically, not the node key. <strong>A precise note on which nearest-node lookup is actually involved here</strong>: <code>isochrones.nearest_graph_node()</code> does <em>not</em> call <code>osmnx.distance.nearest_nodes()</code> — it deliberately replaces it with a custom <code>scipy.spatial.cKDTree</code> built directly over these <code>x</code>/<code>y</code> attributes, specifically <em>because</em> OSMnx's own nearest-node function assumes OSMnx's internal graph conventions (integer node IDs) and doesn't work reliably against this fallback graph's coordinate-tuple node IDs. This module's own docstring mentions <code>osmnx.distance.nearest_nodes()</code> in explaining <em>why</em> the <code>x</code>/<code>y</code> attributes matter, which can read as if that function is what's actually called — it isn't; see <a href="../isochrones/#nearest_graph_nodeg-point"><code>isochrones.md</code></a> for the real mechanism. Without explicitly setting these <code>x</code>/<code>y</code> attributes, the KD-tree-based lookup against a fallback-path graph would silently fail — not raise an error, just silently return nothing useful — and every downstream distance/time computation would come back as <code>inf</code>, with no obvious signal pointing at why. This is the kind of failure mode that's easy to reintroduce accidentally in a future edit and hard to notice without dedicated test coverage.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
@@ -2086,6 +2108,21 @@ the assumption via <code>graph_from_roads()</code>'s <code>speed_kph</code> para
 </tr>
 </tbody>
 </table>
+<h2 id="internal-workflow">Internal Workflow<a class="headerlink" href="#internal-workflow" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    A["graph_from_roads(roads_gdf, boundary_polygon, mode, speed_kph)"] --&gt; B{mode in MODE_CONFIG?}
+    B -- no --&gt; C["raise ValueError"]
+    B -- yes --&gt; D["effective_speed = speed_kph or MODE_CONFIG[mode].speed_kph"]
+    D --&gt; E{boundary_polygon given?}
+    E -- yes --&gt; F["ox.graph_from_polygon(boundary_polygon, network_type)"]
+    F --&gt; G{_has_lengths(G)?}
+    G -- no --&gt; H["ox.distance.add_edge_lengths(G)"]
+    G -- yes --&gt; I
+    H --&gt; I
+    E -- no --&gt; J["_graph_from_geometries(roads_gdf):&lt;br/&gt;coordinate-tuple nodes with x/y attrs,&lt;br/&gt;pairwise edges with Euclidean length"]
+    J --&gt; I["_assign_travel_times(G, effective_speed): mutate every edge in place"]
+    I --&gt; K["G.graph['mode'] = mode, G.graph['speed_kph'] = effective_speed"]
+    K --&gt; L["return G"]</code></pre>
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Path 1 and Path 2 return different graph types.</strong> <code>ox.graph_from_polygon()</code>

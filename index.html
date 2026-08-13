@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#akure-geospatial-systems-documentation" class="md-skip">
+        <a href="#useosm-mapkathon-submission-documentation" class="md-skip">
           Skip to content
         </a>
       
@@ -1704,7 +1704,7 @@
   
 
 
-<h1 id="akure-geospatial-systems-documentation">Akure Geospatial Systems Documentation<a class="headerlink" href="#akure-geospatial-systems-documentation" title="Permanent link">&para;</a></h1>
+<h1 id="useosm-mapkathon-submission-documentation">UseOSM Mapkathon Submission Documentation<a class="headerlink" href="#useosm-mapkathon-submission-documentation" title="Permanent link">&para;</a></h1>
 <p>This site documents two connected repositories built for <strong>Map&lt;&gt;kathon 2026 (UseOSM)</strong>,
 analyzing multi-modal healthcare and education accessibility across Akure North and
 Akure South Local Government Areas (LGAs), Ondo State, Nigeria.</p>
@@ -1725,8 +1725,8 @@ SDG 4 (Education) in the Akure region.</p>
 <li>
 <p><strong><a href="lga-osm-extractor/overview/">lga-osm-extractor</a></strong>
   Pulls an LGA boundary and its OSM feature layers (health, education, roads,
-  buildings), cleans and reprojects them, and exports analysis-ready shapefiles
-  and KML for downstream use in ArcGIS Pro, Google Earth Pro, or the dashboard
+  buildings), cleans and reprojects them, and exports analysis-ready GeoJSON
+  and Shapefile output for downstream use in ArcGIS Pro, QGIS, or the dashboard
   below.</p>
 </li>
 <li>
@@ -1741,7 +1741,7 @@ SDG 4 (Education) in the Akure region.</p>
 </div>
 <h2 id="how-they-relate">How They Relate<a class="headerlink" href="#how-they-relate" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>flowchart LR
-    A[lga-osm-extractor] --&gt;|shapefiles / KML| B[akure-accessibility-dashboard]
+    A[lga-osm-extractor] --&gt;|GeoJSON / Shapefile| B[akure-accessibility-dashboard]
     A --&gt;|health, education, roads, buildings layers| B
     B --&gt; C[Streamlit Dashboard]
     B --&gt; D[Static maps + captions]</code></pre>

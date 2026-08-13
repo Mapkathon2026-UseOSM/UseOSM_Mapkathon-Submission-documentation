@@ -1782,6 +1782,20 @@ one package alone; this file is the only one that imports both.</p>
   output — keeping the test fast and network-independent while still
   testing the real schema contract between the two packages, not a
   simplified stand-in for it.</li>
+<li><strong>The synthetic coordinates are deliberately realistic, not arbitrary.</strong>
+  The fixture builds its fake buildings/roads/facilities using small
+  offsets (thousandths of a degree) around a real reference point near
+  Akure (roughly 7.25°N, 5.20°E) — not large, arbitrary plane-scale
+  numbers. This matters for a specific, easy-to-miss reason: labeling a
+  large plane-scale coordinate pair (say, <code>x=650, y=650</code>) as if it were
+  EPSG:4326 lat/lon would place it far outside valid longitude/latitude
+  range, and reprojecting a "coordinate" like that into a UTM CRS sends
+  it toward infinity. Using genuinely realistic Akure-area coordinates
+  means the test exercises the real auto-UTM-zone-selection path under
+  the same kind of input it will actually see in production, rather than
+  accidentally sidestepping the exact class of bug (a lat/lon vs.
+  projected-coordinate mismatch) this whole cross-repo boundary is most
+  at risk of.</li>
 </ul>
 <h2 id="what-the-extractor-produces">What the Extractor Produces<a class="headerlink" href="#what-the-extractor-produces" title="Permanent link">&para;</a></h2>
 <p>From <a href="../../lga-osm-extractor/modules/export/"><code>lga_extractor.export.export_layers()</code></a>,
@@ -1903,6 +1917,23 @@ every claim above is backed by an assertion in this one test file, and a
 change to either repo that broke the contract (a renamed column, a changed
 CRS default, a reintroduced Polygon-facility bug) would fail this specific
 test, not silently surface as a downstream analysis bug later.</p>
+<p>The same chain, visually:</p>
+<pre class="mermaid"><code>flowchart TD
+    A["_synthetic_raw_extraction()&lt;br/&gt;(akure-accessibility-dashboard test file,&lt;br/&gt;shaped like real Overpass output)"] --&gt; B["lga_extractor.clean.clean_layers(raw, boundary_gdf)"]
+    B --&gt; C["assert cleaned roads CRS == EPSG:32631&lt;br/&gt;(confirms auto-UTM-zone selection picked the right zone for Akure)"]
+    C --&gt; D["lga_extractor.export.export_layers(cleaned, tmp_dir)"]
+    D --&gt; E["assert roads/buildings/health_facilities present,&lt;br/&gt;GeoJSON files actually exist on disk"]
+    E --&gt; F["gpd.read_file() the exported GeoJSON back&lt;br/&gt;(reading extractor's real on-disk output, not the in-memory objects)"]
+    F --&gt; G["akure_access.accessibility.build_grid(boundary, cell_size_m=200)"]
+    G --&gt; H["akure_access.accessibility.add_building_density(grid, buildings_gdf)"]
+    H --&gt; I["assert building_count.sum() == len(buildings_gdf)&lt;br/&gt;— the schema-agreement assertion"]
+    I --&gt; J["akure_access.completeness.flag_completeness(grid, health_gdf, schools_gdf)"]
+    J --&gt; K["assert health/education_completeness_flag columns present"]
+    K --&gt; L["akure_access.accessibility.add_access_times(grid, roads_gdf, health_gdf, schools_gdf, modes=('walk',))"]
+    L --&gt; M["assert health_time_min_walk column present"]
+    M --&gt; N["akure_access.accessibility.add_access_deficit_score(grid, threshold_min=30, mode='walk')"]
+    N --&gt; O["akure_access.accessibility.sanitize_for_export(grid)"]
+    O --&gt; P["assert no inf values remain — confirms the ordering rule from scoring.py held"]</code></pre>
 <h2 id="known-failure-modes">Known Failure Modes<a class="headerlink" href="#known-failure-modes" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>If the extractor's auto-selected UTM zone ever differed from

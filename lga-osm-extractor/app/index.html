@@ -948,6 +948,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1762,6 +1773,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1922,6 +1944,33 @@ naive approach has a real bug the code explicitly works around:</p>
   just that one layer being reported as un-previewable while the rest (and
   the download) continue to work.</li>
 </ul>
+<h2 id="internal-workflow">Internal Workflow<a class="headerlink" href="#internal-workflow" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    A["User loads app"] --&gt; B["Page config, CSS, hero copy, explanatory markdown render"]
+    B --&gt; C["Form: LGA name + optional state name"]
+    C --&gt; D{Extract OSM Data clicked?}
+    D -- no --&gt; C
+    D -- yes --&gt; E{lga_name blank?}
+    E -- yes --&gt; F["st.error, stop"]
+    E -- no --&gt; G["_cached_extract(lga_name, state_name) — st.cache_data"]
+    G -- cache hit --&gt; H["instant return"]
+    G -- cache miss --&gt; I["pipeline.extract_lga() — full 5-stage pipeline runs"]
+    I --&gt; H
+    H -- BoundaryResolutionError --&gt; J["st.error: boundary-specific message"]
+    H -- other Exception --&gt; K["st.error: generic extraction-failed message"]
+    H -- success --&gt; L["st.success + show warnings expander if any"]
+    L --&gt; M["sort layers: roads first, rest after"]
+    M --&gt; N["for each layer: add_geojson with zoom_to_layer = not zoomed_yet"]
+    N -- add succeeds --&gt; O["zoomed_yet = True"]
+    N -- IndexError/KeyError/ValueError --&gt; P["record in skipped_layers, continue loop"]
+    O --&gt; N
+    P --&gt; N
+    N --&gt; Q{skipped_layers non-empty?}
+    Q -- yes --&gt; R["st.warning listing unreadable layers"]
+    Q -- no --&gt; S
+    R --&gt; S["render map + layer control"]
+    S --&gt; T["zip output_dir in-memory"]
+    T --&gt; U["st.download_button"]</code></pre>
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>The Streamlit cache is shared across users, not per-session.</strong> As noted

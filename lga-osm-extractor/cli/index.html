@@ -965,6 +965,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1740,6 +1751,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1834,7 +1856,7 @@ runtime overhead.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../tests/">tests.md</a>.</td>
+<td>No automated test coverage — <code>cli.py</code> has no dedicated test file in this repository (see <a href="../tests/">tests.md</a> for the modules that do have coverage); this entry point is currently verified by manual invocation rather than an automated test.</td>
 </tr>
 </tbody>
 </table>
@@ -1855,6 +1877,20 @@ runtime overhead.</p>
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="c1"># Also generate a standalone Kepler.gl HTML preview</span>
 </span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>python<span class="w"> </span>cli.py<span class="w"> </span>--lga<span class="w"> </span><span class="s2">&quot;Akure North&quot;</span><span class="w"> </span>--state<span class="w"> </span><span class="s2">&quot;Ondo&quot;</span><span class="w"> </span>--preview
 </span></code></pre></div>
+<h2 id="internal-workflow">Internal Workflow<a class="headerlink" href="#internal-workflow" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    A["python cli.py --lga ... [--state] [--output-dir] [--manual-boundary] [--strict] [--preview]"] --&gt; B["argparse.parse_args()"]
+    B --&gt; C["extract_lga(lga_name, state_name, output_dir, manual_boundary_path, strict)"]
+    C -- exception --&gt; D["print to stderr, sys.exit(1)"]
+    C -- success --&gt; E["print(json.dumps(result, indent=2)) to stdout"]
+    E --&gt; F{--preview flag set?}
+    F -- no --&gt; G["exit 0"]
+    F -- yes --&gt; H["lazy import keplergl"]
+    H -- ImportError --&gt; I["print skip message to stderr, continue"]
+    H -- ok --&gt; J["build_preview_map(output_dir=result['output_dir'], html_out='visuals/{safe_name}_preview.html')"]
+    J --&gt; K["print preview path"]
+    I --&gt; G
+    K --&gt; G</code></pre>
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong><code>--strict</code> changes failure <em>sensitivity</em>, not failure <em>presentation</em>.</strong>

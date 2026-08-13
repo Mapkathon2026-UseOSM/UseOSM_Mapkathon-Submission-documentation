@@ -880,6 +880,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1808,6 +1819,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1946,7 +1968,7 @@ preview map.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../tests/">tests.md</a>.</td>
+<td>No dedicated test — the two <code>test_strip_mapbox_token_*</code> tests cover the token-stripping step this function calls, but don't exercise <code>build_preview_map()</code> itself, since doing so would require either live OSM data or a fully-populated fake export directory neither test currently constructs.</td>
 </tr>
 </tbody>
 </table>
@@ -2032,10 +2054,29 @@ preview map.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../tests/">tests.md</a>.</td>
+<td>No dedicated test — a small, low-risk file-existence check with no current test coverage.</td>
 </tr>
 </tbody>
 </table>
+<h2 id="internal-workflow">Internal Workflow<a class="headerlink" href="#internal-workflow" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    A["build_preview_map(output_dir, html_out, height)"] --&gt; B["lazy import keplergl.KeplerGl"]
+    B -- ImportError --&gt; C["raise clear ImportError with pip-install guidance"]
+    B -- ok --&gt; D["for layer_name in _LAYER_FILES (fixed draw order):"]
+    D --&gt; E{"{output_dir}/{layer_name}.geojson exists and non-empty?"}
+    E -- no --&gt; D
+    E -- yes --&gt; F["read GeoJSON, reproject to EPSG:4326, add to data dict"]
+    F --&gt; D
+    D --&gt; G{data dict non-empty?}
+    G -- no --&gt; H["raise ValueError: no non-empty layers found"]
+    G -- yes --&gt; I["config = _load_config() — JSON file or {}"]
+    I --&gt; J["kepler_map = KeplerGl(height, data, config)"]
+    J --&gt; K{html_out given?}
+    K -- no --&gt; L["return kepler_map"]
+    K -- yes --&gt; M["makedirs(dirname(html_out))"]
+    M --&gt; N["kepler_map.save_to_html(html_out)"]
+    N --&gt; O["_strip_mapbox_token(html_out) — regex-remove bundled token, in place"]
+    O --&gt; L</code></pre>
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Reprojection to EPSG:4326 happens here, not in <code>export.py</code>.</strong> The

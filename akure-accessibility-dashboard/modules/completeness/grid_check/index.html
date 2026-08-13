@@ -1352,6 +1352,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1786,6 +1797,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2014,10 +2036,34 @@ uses (<code>building_count &gt; 0</code>, i.e. threshold of 1) — the two modul
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../../tests/">tests.md</a>.</td>
+<td>See <a href="../../../tests/">tests.md</a> — <code>test_summarize_completeness_reports_correct_percentages</code>, <code>test_summarize_completeness_handles_no_settled_cells</code>.</td>
 </tr>
 </tbody>
 </table>
+<h2 id="internal-workflow">Internal Workflow<a class="headerlink" href="#internal-workflow" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    A["flag_completeness(grid, health_gdf, schools_gdf, building_threshold, search_radius_m)"] --&gt; B["compute grid centroids once (shared for both services)"]
+    B --&gt; C["_flag_via_spatial_index(centroids, building_counts, health_gdf, ...)"]
+    B --&gt; D["_flag_via_spatial_index(centroids, building_counts, schools_gdf, ...)"]
+
+    subgraph F ["_flag_via_spatial_index (per service)"]
+        C --&gt; E{facilities_gdf empty?}
+        E -- yes --&gt; G["return settled_mask — every settled cell flagged by definition"]
+        E -- no --&gt; H["gpd.sjoin_nearest(centroids, facilities) — STRtree, one query per cell"]
+        H --&gt; I["drop duplicate rows from exact-distance ties"]
+        I --&gt; J["reindex nearest_dist to align with original cell order"]
+        J --&gt; K["flags = settled_mask AND (nearest_dist &gt; search_radius_m)"]
+    end
+
+    G --&gt; L["grid['health_completeness_flag'] = flags"]
+    K --&gt; L
+    D --&gt; M["grid['education_completeness_flag'] = flags"]
+    L --&gt; N["return grid"]
+    M --&gt; N
+
+    N --&gt; O["summarize_completeness(grid)"]
+    O --&gt; P["restrict to settled cells (building_count &gt; 0)"]
+    P --&gt; Q["counts + percentages per service"]</code></pre>
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong><code>grid_check.py</code>'s settlement threshold (3 buildings) is different from

@@ -830,6 +830,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1764,6 +1775,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1803,7 +1825,7 @@
 <p>Writes cleaned layers (from <a href="../clean/"><code>clean.py</code></a>) to disk as GeoJSON and
 Shapefile, organized under a per-LGA output directory. This is the module
 that turns in-memory <code>GeoDataFrame</code>s into the actual deliverable files
-consumed by ArcGIS Pro, Google Earth Pro, and — most importantly — by
+consumed by ArcGIS Pro, QGIS, and — most importantly — by
 <code>akure-accessibility-dashboard</code> downstream (see
 <a href="../../../cross-repo/integration/">Cross-Repo Integration</a>).</p>
 <p>The module's one real technical problem is a format mismatch: GeoJSON
@@ -1865,7 +1887,7 @@ layer needs to be split across multiple Shapefiles.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../tests/">tests.md</a>.</td>
+<td>See <a href="../../tests/">tests.md</a> — exercised indirectly through <code>test_export_layers_splits_mixed_geometry_types</code>, which depends on this function correctly identifying the point/line mix that triggers the Shapefile-splitting behavior.</td>
 </tr>
 </tbody>
 </table>
@@ -1912,10 +1934,33 @@ layer needs to be split across multiple Shapefiles.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../tests/">tests.md</a>.</td>
+<td>See <a href="../../tests/">tests.md</a> — <code>test_export_layers_writes_geojson_and_shapefile</code>, <code>test_export_layers_splits_mixed_geometry_types</code>.</td>
 </tr>
 </tbody>
 </table>
+<h2 id="internal-workflow">Internal Workflow<a class="headerlink" href="#internal-workflow" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    A["export_layers(layers_dict, output_dir)"] --&gt; B["makedirs(output_dir), makedirs(output_dir/shapefiles)"]
+    B --&gt; C["for layer_name, gdf in layers_dict:"]
+    C --&gt; D{layer_name == '_warnings'?}
+    D -- yes --&gt; C
+    D -- no --&gt; E{gdf empty or None?}
+    E -- yes --&gt; F["append to skipped list"] --&gt; C
+    E -- no --&gt; G["write {layer_name}.geojson (always, single file)"]
+    G --&gt; H["categories = _geom_categories_present(gdf)"]
+    H --&gt; I{len(categories) &lt;= 1?}
+    I -- yes --&gt; J["write single {layer_name}.shp"]
+    J --&gt; K["exported[layer_name] = {geojson, shapefile: path_string}"]
+    I -- no --&gt; L["for each category: subset by geom_type, write {layer_name}_{category}.shp"]
+    L --&gt; M["exported[layer_name] = {geojson, shapefile: {category: path, ...}}"]
+    M --&gt; N["record in split_layers dict"]
+    K --&gt; C
+    N --&gt; C
+    C --&gt; O["exported['_skipped'] = skipped"]
+    O --&gt; P{any split_layers?}
+    P -- yes --&gt; Q["exported['_split_layers'] = split_layers"]
+    P -- no --&gt; R["return exported"]
+    Q --&gt; R</code></pre>
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>A layer's Shapefile output shape depends on its data, not on any

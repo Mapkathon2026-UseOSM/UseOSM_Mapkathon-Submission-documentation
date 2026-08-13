@@ -1474,6 +1474,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1918,6 +1929,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2111,7 +2133,7 @@ the two different settlement thresholds in use across the codebase).</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../tests/">tests.md</a>.</td>
+<td>See <a href="../../tests/">tests.md</a> — exercised indirectly through <code>test_describe_deficit_map_reports_directional_skew</code>, which checks the caption text this function's output feeds into, rather than testing the helper in isolation.</td>
 </tr>
 </tbody>
 </table>
@@ -2154,7 +2176,7 @@ the two different settlement thresholds in use across the codebase).</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../tests/">tests.md</a>.</td>
+<td>No dedicated test — not directly exercised by any test in <code>test_insights.py</code>; the mode-ranking sentence it produces is an optional addition to <code>describe_deficit_map()</code>'s output that none of the current caption tests specifically check for.</td>
 </tr>
 </tbody>
 </table>
@@ -2197,7 +2219,7 @@ the two different settlement thresholds in use across the codebase).</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../tests/">tests.md</a>.</td>
+<td>See <a href="../../tests/">tests.md</a> — <code>test_describe_deficit_map_returns_real_numbers</code>, <code>test_describe_deficit_map_missing_mode_column_does_not_crash</code>, <code>test_describe_deficit_map_reports_directional_skew</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -2240,7 +2262,7 @@ the two different settlement thresholds in use across the codebase).</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../tests/">tests.md</a>.</td>
+<td>See <a href="../../tests/">tests.md</a> — <code>test_describe_continuous_map_returns_real_numbers</code>, <code>test_describe_continuous_map_all_nan_column_does_not_crash</code>, <code>test_describe_continuous_map_missing_column_does_not_crash</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -2283,7 +2305,7 @@ the two different settlement thresholds in use across the codebase).</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../tests/">tests.md</a>.</td>
+<td>See <a href="../../tests/">tests.md</a> — <code>test_describe_completeness_map_returns_real_numbers</code>, <code>test_describe_completeness_map_missing_column_does_not_crash</code>, <code>test_describe_completeness_map_uses_correct_article</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -2365,10 +2387,26 @@ the two different settlement thresholds in use across the codebase).</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../tests/">tests.md</a>.</td>
+<td>See <a href="../../tests/">tests.md</a> — <code>test_describe_interactive_view_dispatches_correctly</code>.</td>
 </tr>
 </tbody>
 </table>
+<h2 id="internal-workflow">Internal Workflow<a class="headerlink" href="#internal-workflow" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    A["describe_interactive_view(grid_gdf, lga_name, mode, view_choice)"] --&gt; B{view_choice}
+    B -- "Health only" --&gt; C["describe_continuous_map(..., service='health')"]
+    B -- "Education only" --&gt; D["describe_continuous_map(..., service='education')"]
+    B -- "Combined / default" --&gt; E["describe_deficit_map(...)"]
+
+    C --&gt; F["_settled(grid) → filter valid values"]
+    D --&gt; F
+    E --&gt; F
+    F --&gt; G{data present?}
+    G -- no --&gt; H["return 'no data yet' fallback string"]
+    G -- yes --&gt; I["compute real stats: mean/median/pct from grid_gdf directly"]
+    I --&gt; J["_mode_ranking_phrase / _compass_skew — optional extra sentences"]
+    J --&gt; K["assemble legend explanation + result sentence(s)"]
+    K --&gt; L["return caption string"]</code></pre>
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong><code>DEFAULT_THRESHOLDS_MIN</code> and Notebook 03's <code>ACCESS_THRESHOLDS_MIN</code>

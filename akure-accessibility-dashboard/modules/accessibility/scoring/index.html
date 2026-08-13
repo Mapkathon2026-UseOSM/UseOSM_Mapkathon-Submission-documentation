@@ -1357,6 +1357,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1852,6 +1863,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2022,7 +2044,7 @@ function where that difference is actually felt.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../../tests/">tests.md</a>.</td>
+<td>See <a href="../../../tests/">tests.md</a> — <code>test_add_building_density_counts_correctly</code>, <code>test_add_building_density_handles_empty_buildings</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -2071,7 +2093,7 @@ function where that difference is actually felt.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../../tests/">tests.md</a>.</td>
+<td>No dedicated fast unit test in <code>test_scoring.py</code> (its neighboring tests construct grid data with routing results already present, rather than calling this function directly, to keep unit tests independent of graph-building cost). Its actual integration with <code>network_graph.py</code> and <code>isochrones.py</code> is exercised end to end by <code>test_extractor_output_schema_matches_dashboard_expectations</code> in the <a href="../../../../cross-repo/integration/">cross-repo integration test</a>.</td>
 </tr>
 </tbody>
 </table>
@@ -2131,7 +2153,7 @@ easy to violate accidentally.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../../tests/">tests.md</a>.</td>
+<td>See <a href="../../../tests/">tests.md</a> — <code>test_access_deficit_score_composite_logic</code>, <code>test_access_deficit_score_mode_suffix_columns</code>, <code>test_access_deficit_score_treats_inf_as_underserved</code>, <code>test_sanitize_for_export_does_not_break_deficit_scoring</code>, <code>test_sanitize_for_export_called_before_scoring_gives_wrong_result</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -2187,7 +2209,7 @@ result for both cases simultaneously.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../../tests/">tests.md</a>.</td>
+<td>No dedicated test — this is a tiny private helper exercised only implicitly, wherever <code>add_access_deficit_score()</code>'s own tests happen to pass a <code>NaN</code> value through it.</td>
 </tr>
 </tbody>
 </table>
@@ -2238,6 +2260,32 @@ result for both cases simultaneously.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="internal-workflow">Internal Workflow<a class="headerlink" href="#internal-workflow" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    A["build_grid(boundary_gdf, cell_size_m)"] --&gt; B["tile bbox with squares, filter to boundary.intersects()"]
+    B --&gt; C["add_building_density(grid, buildings_gdf)"]
+    C --&gt; D["sjoin buildings to cells, groupby count, left-merge, fillna(0)"]
+    D --&gt; E["add_access_times(grid, roads, health, schools, boundary_wgs84, modes)"]
+
+    subgraph PerMode ["for each mode in modes:"]
+        E --&gt; F["graph_from_roads(roads, boundary, mode) — separate graph per mode"]
+        F --&gt; G["grid centroids: compute in projected CRS, THEN reproject to WGS84"]
+        G --&gt; H["batch_nearest_facility_distances(G, health_pts) — ONE Dijkstra pass"]
+        G --&gt; I["batch_nearest_facility_distances(G, school_pts) — ONE Dijkstra pass"]
+        H --&gt; J["for each settled cell: lookup_nearest_distance_time — O(1)-ish"]
+        I --&gt; J
+        J --&gt; K["unsettled cells (building_count==0): NaN, never routed"]
+        K --&gt; L["write {service}_time_min_{mode} columns&lt;br/&gt;inf PRESERVED, not converted to NaN"]
+    end
+
+    L --&gt; M["add_access_deficit_score(grid, threshold_min, mode)"]
+    M --&gt; N["_underserved(): NaN if unsettled; else time &gt; threshold OR time == inf"]
+    N --&gt; O["deficit_score = health_flag.fillna(0) + edu_flag.fillna(0)"]
+    O --&gt; P["re-mask: deficit_score[building_count==0] = NaN"]
+    P --&gt; Q{More modes to score?}
+    Q -- yes --&gt; M
+    Q -- no, all scoring done --&gt; R["sanitize_for_export(grid) — NOW safe to convert inf -&gt; NaN"]
+    R --&gt; S["ready for GeoJSON export / dashboard rendering"]</code></pre>
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>The <code>inf</code>-preservation-until-export ordering constraint is the single

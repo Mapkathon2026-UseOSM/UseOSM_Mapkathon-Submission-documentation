@@ -1552,6 +1552,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2130,6 +2141,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2317,7 +2339,7 @@ module). Pure matplotlib annotation logic — no geospatial computation.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../../tests/">tests.md</a>.</td>
+<td>No dedicated test — exercised only as a side effect of the <code>plot_*_map</code> tests (e.g. <code>test_plot_deficit_map_saves_file</code>), which check that a figure is produced, not that the scale bar itself is drawn at the correct length.</td>
 </tr>
 </tbody>
 </table>
@@ -2360,7 +2382,7 @@ module). Pure matplotlib annotation logic — no geospatial computation.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../../tests/">tests.md</a>.</td>
+<td>See <a href="../../../tests/">tests.md</a> — <code>test_scale_bar_and_gridlines_do_not_hang_on_projected_bounds</code> covers this function directly, specifically regression-testing the projected-CRS hang bug described in this module's Gotchas.</td>
 </tr>
 </tbody>
 </table>
@@ -2451,7 +2473,7 @@ the map extent."</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../../tests/">tests.md</a>.</td>
+<td>No dedicated test in isolation, but exercised by every <code>plot_*_map</code>/<code>plot_mode_comparison_chart</code> test, since all of them delegate their actual file-saving step to this function.</td>
 </tr>
 </tbody>
 </table>
@@ -2501,7 +2523,7 @@ differently.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../../tests/">tests.md</a>.</td>
+<td>See <a href="../../../tests/">tests.md</a> — <code>test_plot_deficit_map_missing_column_raises_clear_error</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -2544,7 +2566,7 @@ differently.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../../tests/">tests.md</a>.</td>
+<td>See <a href="../../../tests/">tests.md</a> — <code>test_plot_continuous_map_excludes_nan_and_unsettled</code>, <code>test_plot_continuous_map_all_nan_raises_clear_error</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -2587,7 +2609,7 @@ differently.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../../tests/">tests.md</a>.</td>
+<td>See <a href="../../../tests/">tests.md</a> — <code>test_plot_completeness_map_saves_file</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -2631,7 +2653,7 @@ differently.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../../tests/">tests.md</a>.</td>
+<td>See <a href="../../../tests/">tests.md</a> — <code>test_plot_mode_comparison_chart_saves_file</code>, <code>test_plot_mode_comparison_chart_empty_input_raises</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -2679,10 +2701,27 @@ differently.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../../tests/">tests.md</a>.</td>
+<td>See <a href="../../../tests/">tests.md</a> — <code>test_generate_all_static_outputs_produces_expected_file_count</code>, <code>test_generate_all_static_outputs_skips_web_tier_when_disabled</code>, <code>test_generate_all_static_outputs_skips_all_nan_service_layer</code>.</td>
 </tr>
 </tbody>
 </table>
+<h2 id="internal-workflow">Internal Workflow<a class="headerlink" href="#internal-workflow" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    A["generate_all_static_outputs(lga_name, grid_gdf, out_dir, modes, ...)"] --&gt; B["makedirs(out_dir), makedirs(out_dir/web) if web_dpi set"]
+    B --&gt; C["for each mode:"]
+    C --&gt; D["plot_deficit_map() — settled cells only, categorical palette"]
+    D --&gt; E["_finalize_and_save(): gridlines, arrow, scale bar,&lt;br/&gt;savefig print-dpi, savefig web-dpi (same figure, no re-fetch)"]
+    E --&gt; F["describe_deficit_map() caption stored"]
+    F --&gt; G["for health, education: plot_continuous_map() if column exists and has data"]
+    G --&gt; H["describe_continuous_map() caption stored"]
+    H --&gt; C
+    C --&gt; I["for health, education: plot_completeness_map() if flag column exists"]
+    I --&gt; J["describe_completeness_map() caption stored"]
+    J --&gt; K["compute mode_stats: %any, %both underserved per mode, from settled cells"]
+    K --&gt; L["plot_mode_comparison_chart()"]
+    L --&gt; M["describe_mode_comparison_chart() caption stored"]
+    M --&gt; N["write captions.json to out_dir"]
+    N --&gt; O["return {print: [...], web: [...], captions: {...}}"]</code></pre>
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong><code>add_osm_basemap()</code>'s two fallback paths produce visually different

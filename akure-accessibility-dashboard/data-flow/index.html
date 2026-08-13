@@ -1169,6 +1169,39 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#what-changes-at-each-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Changes at Each Boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-state-lives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where State Lives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-two-independent-analyses-never-talk-to-each-other" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Two Independent Analyses Never Talk to Each Other
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#diagram" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1784,6 +1817,39 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#what-changes-at-each-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Changes at Each Boundary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-state-lives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where State Lives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-two-independent-analyses-never-talk-to-each-other" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Two Independent Analyses Never Talk to Each Other
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#diagram" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1878,6 +1944,118 @@ paths, generated independently of each other:</p>
   from disk — the dashboard never runs any scoring/flagging itself, it's a
   pure consumer of both prior outputs.</li>
 </ul>
+<h2 id="what-changes-at-each-boundary">What Changes at Each Boundary<a class="headerlink" href="#what-changes-at-each-boundary" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Transition</th>
+<th>Input shape</th>
+<th>Output shape</th>
+<th>What changes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Extractor output → grid</td>
+<td>Point/Line/Polygon layers, per LGA</td>
+<td>Regular square grid, <code>cell_id</code></td>
+<td>The analysis unit shifts from arbitrary OSM features to a uniform spatial sampling grid</td>
+</tr>
+<tr>
+<td>Grid → building density</td>
+<td>Grid with no attributes</td>
+<td>Grid + <code>building_count</code></td>
+<td>A population proxy is attached per cell via spatial join</td>
+</tr>
+<tr>
+<td>Roads + boundary → graph</td>
+<td>GeoDataFrame / polygon</td>
+<td><code>nx.MultiDiGraph</code>, per mode</td>
+<td>Geometry becomes topology; edges gain time weights</td>
+</tr>
+<tr>
+<td>Graph + facilities → distances</td>
+<td>Graph + facility points</td>
+<td><code>{node: distance}</code> dict, per mode per service</td>
+<td>Routing collapses from "per cell per facility" to "per graph node," computed once</td>
+</tr>
+<tr>
+<td>Distances → scored grid</td>
+<td>Node-distance dict</td>
+<td>Grid + time/distance/deficit columns</td>
+<td>Per-cell lookup; <code>inf</code> deliberately preserved through scoring</td>
+</tr>
+<tr>
+<td>Scored grid → completeness-flagged grid</td>
+<td>Grid + <code>building_count</code></td>
+<td>Grid + completeness flags</td>
+<td>A parallel, independent analytical track is layered on, not derived from the deficit score</td>
+</tr>
+<tr>
+<td>Flagged grid → exportable grid</td>
+<td><code>inf</code> present</td>
+<td><code>inf</code> replaced with <code>NaN</code></td>
+<td>The one-way, order-dependent sanitization step — must be last</td>
+</tr>
+<tr>
+<td>Exportable grid → persisted file</td>
+<td>In-memory <code>GeoDataFrame</code></td>
+<td><code>grid_access_scored.geojson</code> on disk</td>
+<td>The single artifact both output tracks (dashboard, static maps) independently consume</td>
+</tr>
+<tr>
+<td>Persisted grid → static figures</td>
+<td>GeoJSON</td>
+<td><code>.jpg</code> files + <code>captions.json</code></td>
+<td>Cartographic styling and data-driven prose are layered on top, produced once and reused by the dashboard</td>
+</tr>
+</tbody>
+</table>
+<h2 id="where-state-lives">Where State Lives<a class="headerlink" href="#where-state-lives" title="Permanent link">&para;</a></h2>
+<p>There is no database and no analysis-time computation inside the
+Streamlit app itself. State is:</p>
+<ol>
+<li><strong>Ephemeral, in-process, during notebook execution</strong>: the graph
+   objects, distance dicts, and intermediate grids passed between
+   <code>network_graph.py</code> → <code>isochrones.py</code> → <code>scoring.py</code> →
+   <code>completeness/grid_check.py</code> calls — nothing here persists beyond the
+   notebook run except what's explicitly written to disk.</li>
+<li><strong>On disk, the single source of truth for both output tracks</strong>:
+   <code>data/processed/{lga}/grid_access_scored.geojson</code> (the fully scored +
+   flagged + sanitized grid) and <code>visuals/{lga}/*.jpg</code> + <code>captions.json</code>
+   (pre-rendered static outputs). Both <code>dashboard/app.py</code> and
+   <code>static_maps.generate_all_static_outputs()</code> read from — but never
+   write back to — this same persisted grid file, and <code>dashboard/app.py</code>
+   additionally reads the <em>output</em> of <code>static_maps.py</code> (the JPEG files
+   and captions), without ever running <code>static_maps.py</code>'s code itself at
+   app runtime.</li>
+<li><strong>Streamlit's session-independent, cross-visitor cache</strong>
+   (<code>app.py</code>'s <code>@st.cache_data</code> on <code>load_data()</code>): the loaded
+   <code>GeoDataFrame</code>s are cached in memory once per deployed app instance,
+   shared across visitors, same caching model as <code>lga-osm-extractor</code>'s
+   <code>app.py</code>.</li>
+<li><strong><code>nearest_graph_node</code>'s per-graph KD-tree cache</strong> (<code>isochrones.py</code>):
+   a smaller-scoped, per-graph-object cache, living only as long as the
+   graph object itself does within a single notebook run — not
+   persisted to disk, not shared across runs, and rebuilt from scratch
+   the next time the notebook is re-executed.</li>
+</ol>
+<h2 id="why-two-independent-analyses-never-talk-to-each-other">Why Two Independent Analyses Never Talk to Each Other<a class="headerlink" href="#why-two-independent-analyses-never-talk-to-each-other" title="Permanent link">&para;</a></h2>
+<p>Stage 4's split between accessibility scoring and completeness flagging
+is worth dwelling on, since it's easy to assume one feeds the other when
+skimming the diagram. They don't: <code>flag_completeness()</code> never reads any
+<code>*_time_min_*</code> or <code>*_access_deficit_score</code> column, and
+<code>add_access_deficit_score()</code> never reads either completeness flag
+column. Both independently derive from the same upstream
+<code>building_count</code> signal, but compute entirely separate things from it.
+This is deliberate — see <a href="../modules/completeness/grid_check/"><code>grid_check.py</code></a>'s
+own documentation for why keeping "is this area underserved" and "is
+this area possibly under-mapped in OSM" as genuinely separate,
+non-blended signals matters for how a viewer should interpret either one.
+Only at the presentation layer (<code>dashboard/app.py</code>'s Findings Summary
+cross-check callout) are the two ever brought into the same sentence,
+and even there, only as a caveat on the accessibility numbers, not as
+an adjustment to them.</p>
 <h2 id="diagram">Diagram<a class="headerlink" href="#diagram" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>flowchart TD
     A["lga-osm-extractor output:&lt;br/&gt;roads, buildings, health_facilities,&lt;br/&gt;schools (EPSG:32631)"] --&gt; B["graph_from_roads()&lt;br/&gt;one graph per mode"]
