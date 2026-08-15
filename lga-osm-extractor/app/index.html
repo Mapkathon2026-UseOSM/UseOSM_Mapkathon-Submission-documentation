@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://mapkathon2026-useosm.github.io/UseOSM_Mapkathon-Submission-documentation/lga-osm-extractor/app/">
       
       
-        <link rel="prev" href="../modules/pipeline/">
+        <link rel="prev" href="../modules/manifest/">
       
       
         <link rel="next" href="../cli/">
@@ -555,6 +555,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -799,6 +803,62 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modules/events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    events.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modules/manifest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    manifest.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -909,22 +969,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#functions" class="md-nav__link">
+  <a href="#new-in-this-revision-the-caching-model-changed-shape-not-just-implementation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Functions
+        New in this revision: the caching model changed shape, not just implementation
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Functions">
+    <nav class="md-nav" aria-label="New in this revision: the caching model changed shape, not just implementation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_cached_extractlga_name-state_name" class="md-nav__link">
+  <a href="#_extraction_cache" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _cached_extract(lga_name, state_name)
+        _extraction_cache()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_run_extraction_with_live_progresslga_name-state_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        _run_extraction_with_live_progress(lga_name, state_name)
       
     </span>
   </a>
@@ -937,10 +1008,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#layer-rendering-logic-the-if-submitted-block" class="md-nav__link">
+  <a href="#internal-workflow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Layer Rendering Logic (the if submitted: block)
+        Internal Workflow
       
     </span>
   </a>
@@ -948,10 +1019,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#internal-workflow" class="md-nav__link">
+  <a href="#new-in-this-revision-the-extraction-summary-expander" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Internal Workflow
+        New in this revision: the "Extraction summary" expander
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layer-rendering-logic-unchanged-from-the-previous-revision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layer Rendering Logic (unchanged from the previous revision)
       
     </span>
   </a>
@@ -1212,6 +1294,16 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -1412,6 +1504,146 @@
     
   
     insights.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../akure-accessibility-dashboard/modules/config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    config.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../akure-accessibility-dashboard/modules/data_contract/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    data_contract.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../akure-accessibility-dashboard/modules/facility_classification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    facility_classification.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../akure-accessibility-dashboard/modules/sensitivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sensitivity.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../akure-accessibility-dashboard/modules/status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    status.py
   
 
     
@@ -1734,22 +1966,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#functions" class="md-nav__link">
+  <a href="#new-in-this-revision-the-caching-model-changed-shape-not-just-implementation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Functions
+        New in this revision: the caching model changed shape, not just implementation
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Functions">
+    <nav class="md-nav" aria-label="New in this revision: the caching model changed shape, not just implementation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_cached_extractlga_name-state_name" class="md-nav__link">
+  <a href="#_extraction_cache" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _cached_extract(lga_name, state_name)
+        _extraction_cache()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_run_extraction_with_live_progresslga_name-state_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        _run_extraction_with_live_progress(lga_name, state_name)
       
     </span>
   </a>
@@ -1762,10 +2005,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#layer-rendering-logic-the-if-submitted-block" class="md-nav__link">
+  <a href="#internal-workflow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Layer Rendering Logic (the if submitted: block)
+        Internal Workflow
       
     </span>
   </a>
@@ -1773,10 +2016,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#internal-workflow" class="md-nav__link">
+  <a href="#new-in-this-revision-the-extraction-summary-expander" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Internal Workflow
+        New in this revision: the "Extraction summary" expander
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layer-rendering-logic-unchanged-from-the-previous-revision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layer Rendering Logic (unchanged from the previous revision)
       
     </span>
   </a>
@@ -1817,133 +2071,138 @@
 <h1 id="streamlit-app-apppy">Streamlit App — app.py<a class="headerlink" href="#streamlit-app-apppy" title="Permanent link">&para;</a></h1>
 <div class="admonition info">
 <p class="admonition-title">Source</p>
-<p><code>app.py</code> (289 lines)</p>
+<p><code>app.py</code> (404 lines — grew from 289 with a complete rework of the
+caching/progress model, see below)</p>
 </div>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
 <p>A Streamlit web UI wrapping <code>pipeline.extract_lga()</code>: a user types an LGA
 name (and optionally a state), clicks "Extract OSM Data," previews every
 extracted layer on an interactive Leafmap map with toggleable layers, and
 downloads everything as a zip. This is the no-code, no-GIS-software path
-into the extractor — everything it does is a thin presentation layer over
-the same <code>extract_lga()</code> function <code>cli.py</code> calls.</p>
+into the extractor.</p>
+<p><strong>This revision replaces the entire caching and feedback model.</strong> The
+previous version wrapped <code>extract_lga()</code> in a single <code>@st.cache_data</code>
+decorator and showed one generic spinner for the whole multi-minute run —
+a user had no visibility into <em>which</em> of the five pipeline stages was
+running, whether it was stuck, or whether a retry was in progress. This
+revision runs extraction on a background thread and drains a live event
+stream (from <a href="../modules/events/"><code>events.py</code></a>, new in the pipeline itself)
+onto a per-stage progress checklist — the direct UI payoff of the
+<code>on_event</code> plumbing added throughout <code>pipeline.py</code> and <code>layers.py</code> in this
+same update.</p>
 <p>Run with <code>streamlit run app.py</code>.</p>
 <h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Imports:</strong> <code>streamlit</code>, <code>leafmap.foliumap</code> (for the interactive
-  preview map), <code>os</code>, <code>zipfile</code>, <code>io</code> (for the download-as-zip feature);
-  <code>extract_lga</code> and <code>BoundaryResolutionError</code> from the <code>lga_extractor</code>
-  package's top-level <code>__init__.py</code>.</li>
-<li><strong>Imports from:</strong> <code>pipeline.py</code> (via the package's <code>__init__.py</code>
-  re-export), indirectly depends on everything <code>extract_lga()</code> itself
-  depends on.</li>
+<li><strong>Imports:</strong> <code>streamlit</code>, <code>leafmap.foliumap</code>, <code>os</code>, <code>zipfile</code>, <code>io</code>,
+  and (new) <code>threading</code>, <code>time</code>; <code>extract_lga</code>, <code>BoundaryResolutionError</code>,
+  <code>DEFAULT_TAG_CONFIG</code> from the <code>lga_extractor</code> package's top-level
+  <code>__init__.py</code>; (new) <code>ThreadSafeEventQueue</code>, <code>build_stage_order</code> from
+  <a href="../modules/events/"><code>lga_extractor.events</code></a>.</li>
+<li><strong>Imports from:</strong> <code>pipeline.py</code>, indirectly depends on everything
+  <code>extract_lga()</code> itself depends on, plus (new) <code>events.py</code> directly.</li>
 </ul>
 <h2 id="page-structure">Page Structure<a class="headerlink" href="#page-structure" title="Permanent link">&para;</a></h2>
 <ol>
-<li><strong>Page config + custom CSS</strong> — sets page title/icon/wide layout, injects
-   a small CSS block (global font-size bump, hero title/subtitle styling, a
-   colored callout box style, and orange-accented form/download buttons).</li>
-<li><strong>Hero section + "About this tool" explanation</strong> — static Markdown
-   explaining the three-step flow, why extraction can take a few minutes
-   (live Overpass queries, no cached OSM data), and what each of the six
-   layers contains.</li>
-<li><strong>Input form</strong> (<code>st.form("extract_form")</code>) — two text inputs (<code>lga_name</code>,
-   <code>state_name</code>) side by side, one primary submit button.</li>
-<li><strong><code>_cached_extract()</code> definition</strong> — see below.</li>
-<li><strong><code>LAYER_STYLES</code></strong> — a module-level dict of Folium styling
-   (color/weight/fillOpacity) per layer name, deliberately kept visually
-   consistent with <code>akure-accessibility-dashboard</code>'s own palette
-   conventions, so a given color means roughly the same thing to anyone
-   who's seen both tools.</li>
-<li><strong>On submit</strong> — validates the LGA name isn't blank, runs the (cached)
-   extraction inside a spinner, and on success: shows warnings (if any) in
-   an expander, builds and displays the preview map, offers a zip download
-   of the output directory.</li>
-<li><strong>Footer</strong> — a GitHub link back to the source repository.</li>
+<li><strong>Page config + custom CSS</strong> — unchanged from before: hero title/subtitle
+   styling, callout box, orange-accented form/download buttons.</li>
+<li><strong>Hero section + "About this tool" explanation</strong> — unchanged static
+   Markdown.</li>
+<li><strong>Input form</strong> (<code>st.form("extract_form")</code>) — unchanged: two text inputs,
+   one primary submit button.</li>
+<li><strong>New: <code>_extraction_cache()</code> and <code>_run_extraction_with_live_progress()</code></strong>
+   — replace the old single <code>_cached_extract()</code> function. See below.</li>
+<li><strong><code>LAYER_STYLES</code></strong> — unchanged.</li>
+<li><strong>On submit</strong> — validates the LGA name, checks the new session cache
+   for an exact repeat request (instant, no progress UI needed), otherwise
+   runs <code>_run_extraction_with_live_progress()</code>. On success: shows the
+   <strong>new "Extraction summary" expander</strong> (per-layer feature-count table),
+   warnings expander, preview map, zip download — the map/download logic
+   itself is unchanged from before.</li>
+<li><strong>Footer</strong> — unchanged GitHub link.</li>
 </ol>
-<h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
-<h3 id="_cached_extractlga_name-state_name"><code>_cached_extract(lga_name, state_name)</code><a class="headerlink" href="#_cached_extractlga_name-state_name" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>What it does</strong></td>
-<td>A thin wrapper around <code>extract_lga()</code>, decorated with <code>@st.cache_data(show_spinner=False)</code>.</td>
-</tr>
-<tr>
-<td><strong>Why written this way</strong></td>
-<td>Extraction is genuinely slow — it hits OpenStreetMap's live Overpass API for six separate layers, and larger/denser LGAs (especially <code>buildings</code>) can take one to five minutes. <code>st.cache_data</code> means re-running the <em>exact same</em> <code>(lga_name, state_name)</code> combination again in the same session — or from a <strong>different user entirely</strong>, since Streamlit's <code>@st.cache_data</code> cache is shared across all sessions of a running app by default, not scoped per-user — returns instantly instead of re-querying Overpass from scratch. This works correctly with <code>extract_lga()</code>'s own behavior: its <code>output_dir</code> defaults to a path deterministically derived from <code>lga_name</code>, so the files already written to disk on the first run remain valid and present for a cached return — the cache doesn't need to re-materialize any files, only skip re-computation of the returned summary dict. <code>show_spinner=False</code> is set because the app already shows its own custom spinner message around the call site (step 6 above), avoiding a redundant/generic second spinner from Streamlit's cache decorator itself.</td>
-</tr>
-<tr>
-<td><strong>Inputs</strong></td>
-<td><code>lga_name: str</code>, <code>state_name</code> (str or <code>None</code>).</td>
-</tr>
-<tr>
-<td><strong>Outputs</strong></td>
-<td>Whatever <code>extract_lga()</code> returns (see <a href="../modules/pipeline/"><code>pipeline.md</code></a>) — cached by Streamlit keyed on the exact input arguments.</td>
-</tr>
-<tr>
-<td><strong>Internal workflow</strong></td>
-<td>Single line: <code>return extract_lga(lga_name=lga_name, state_name=state_name)</code>. All the actual work is Streamlit's caching machinery plus <code>extract_lga()</code> itself.</td>
-</tr>
-<tr>
-<td><strong>Assumptions</strong></td>
-<td>Assumes <code>extract_lga()</code>'s default <code>manual_boundary_path=None</code> and <code>strict=False</code> are the right choices for this UI — the app never exposes these as user-facing options, unlike <code>cli.py</code>, which does expose both. A user needing a manual boundary or strict-mode behavior currently has no path to that through the Streamlit UI.</td>
-</tr>
-<tr>
-<td><strong>Complexity</strong></td>
-<td>O(1) in this function's own logic; wall-clock cost is entirely <code>extract_lga()</code>'s (dominated by Overpass query latency across six layers, see <a href="../modules/layers/"><code>layers.md</code></a>).</td>
-</tr>
-<tr>
-<td><strong>Concurrency / race conditions</strong></td>
-<td><strong>This is the one place in the whole repository where Streamlit's shared-cache model introduces a genuine cross-user consideration.</strong> Because <code>@st.cache_data</code>'s cache is shared across all sessions by default, two different users requesting the same LGA/state at nearly the same time could both trigger the underlying <code>extract_lga()</code> call if neither result is cached yet (Streamlit doesn't lock/dedupe concurrent misses for the same key across sessions) — both would independently query Overpass and independently write to the same deterministic <code>output_dir</code>, a benign but wasteful race (see <code>export.py</code>'s and <code>logging_utils.py</code>'s own gotchas about concurrent writes to the same output directory not being guarded against). Once either completes, subsequent requests for that same key are served from cache. This isn't a correctness bug (final state is fine, both would produce equivalent output), but it is a real, if narrow, concurrency consideration unique to the Streamlit deployment.</td>
-</tr>
-<tr>
-<td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../tests/">tests.md</a> — note <code>_cached_extract()</code> itself, being a decorated Streamlit function, isn't directly unit-testable in the same way as the core pipeline functions; <code>test_extraction.py</code> tests <code>extract_lga()</code> and its dependencies directly instead.</td>
-</tr>
-</tbody>
-</table>
-<h2 id="layer-rendering-logic-the-if-submitted-block">Layer Rendering Logic (the <code>if submitted:</code> block)<a class="headerlink" href="#layer-rendering-logic-the-if-submitted-block" title="Permanent link">&para;</a></h2>
-<p>The most detailed piece of logic in this file isn't <code>_cached_extract()</code> —
-it's how the preview map decides which layer to zoom the map to, since a
-naive approach has a real bug the code explicitly works around:</p>
-<ul>
-<li>Layers are sorted so <code>"roads"</code> is attempted first (roads typically span
-  the full LGA boundary, making it a good layer to frame the initial map
-  view around), with every other layer following in whatever order they
-  appear in <code>result["exported"]</code>.</li>
-<li><strong>The zoom-to-layer bug this avoids:</strong> an earlier, simpler approach would
-  tie <code>zoom_to_layer=True</code> to a fixed list position (e.g. "the first item").
-  But if that first item in sorted order (<code>"roads"</code>) happens to have no
-  file on disk — a real, valid case: an LGA where roads legitimately
-  extracted as empty, or was skipped — indexing by fixed position would
-  mean <strong>no layer ever gets zoomed to</strong>, since the loop simply moves to the
-  next index without the map having zoomed to anything yet, leaving the map
-  at Leaflet's global default view even though other layers loaded
-  successfully underneath, just invisible at that zoom level. The actual
-  code instead tracks a running <code>zoomed_yet: bool</code> flag across the loop,
-  and passes <code>zoom_to_layer=(not zoomed_yet)</code> to <code>m.add_geojson()</code> for each
-  layer — guaranteeing whichever layer is genuinely added <em>first</em> (in
-  practice, regardless of which earlier layers in sorted order turned out
-  to be empty) gets the zoom.</li>
-<li><strong>A second defensive layer:</strong> each <code>m.add_geojson()</code> call is wrapped in a
-  <code>try/except (IndexError, KeyError, ValueError)</code>. The comment explains this
-  shouldn't normally trigger — <code>export_layers()</code> already filters out
-  genuinely empty layers before writing any file at all (they go into
-  <code>exported["_skipped"]</code> instead of being written) — but it exists as a
-  backstop against a file that <em>exists</em> on disk but is malformed or
-  unexpectedly empty, e.g. from a partial/interrupted write during a
-  long-running extraction (a real risk given extractions can take several
-  minutes). Without this, one bad file would crash the whole preview map
-  and silently drop every layer added after it in the loop, rather than
-  just that one layer being reported as un-previewable while the rest (and
-  the download) continue to work.</li>
-</ul>
+<h2 id="new-in-this-revision-the-caching-model-changed-shape-not-just-implementation">New in this revision: the caching model changed shape, not just implementation<a class="headerlink" href="#new-in-this-revision-the-caching-model-changed-shape-not-just-implementation" title="Permanent link">&para;</a></h2>
+<h3 id="_extraction_cache"><code>_extraction_cache()</code><a class="headerlink" href="#_extraction_cache" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nd">@st</span><span class="o">.</span><span class="n">cache_resource</span><span class="p">(</span><span class="n">show_spinner</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">_extraction_cache</span><span class="p">():</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="k">return</span> <span class="p">{}</span>
+</span></code></pre></div>
+<p><strong>Why <code>st.cache_resource</code>, not <code>st.cache_data</code> (the old decorator)</strong> — this
+is a deliberate, meaningful choice, not an arbitrary swap. <code>st.cache_data</code>
+returns a <strong>copy</strong> of whatever's cached on every call; <code>st.cache_resource</code>
+returns the <strong>same object</strong> every time. The old design relied on
+<code>st.cache_data</code>'s own per-argument caching (keyed on <code>(lga_name,
+state_name)</code>) to skip re-computation. The new design needs something
+different: a single, persistent, <strong>mutable</strong> dict that the app can check
+<em>and</em> write to itself (<code>cache[cache_key] = result</code>), used as a manual
+cache the app controls directly — necessary because the actual extraction
+call now happens inside <code>_run_extraction_with_live_progress()</code>, on a
+background thread, not inside a function Streamlit's own decorator can
+transparently memoize around.</p>
+<h3 id="_run_extraction_with_live_progresslga_name-state_name"><code>_run_extraction_with_live_progress(lga_name, state_name)</code><a class="headerlink" href="#_run_extraction_with_live_progresslga_name-state_name" title="Permanent link">&para;</a></h3>
+<p><strong>What it does:</strong> runs <code>extract_lga()</code> on a background <code>threading.Thread</code>,
+passing a <code>ThreadSafeEventQueue</code> instance as <code>on_event</code>, while the main
+thread polls that queue in a loop and renders a live, per-stage progress
+checklist via <code>st.status(...)</code>.</p>
+<p><strong>Why this exact architecture — background thread + main-thread polling
+loop — rather than something simpler:</strong> stated directly in the function's
+own docstring. <code>extract_lga()</code> is a single, several-minutes-long blocking
+call; the <em>only</em> way to update the UI <em>while</em> it runs (not just before and
+after) is to have something else pushing progress updates while it's in
+flight. But Streamlit's own APIs are not safe to call directly from a
+background thread — so the background thread only ever touches the
+thread-safe event queue, never Streamlit itself, and all actual UI updates
+(<code>st.status</code>, <code>st.progress</code>, <code>st.markdown</code> per row) happen exclusively on
+the main thread, inside the polling loop. This is precisely the pattern
+<a href="../modules/events/"><code>events.py</code></a>'s own documentation describes as the
+reason <code>ThreadSafeEventQueue</code> exists.</p>
+<p><strong>Stage checklist construction:</strong> <code>build_stage_order(DEFAULT_TAG_CONFIG)</code>
+(from <code>events.py</code>) gives the fixed, ordered list of stage names — this app
+always builds its checklist against <code>DEFAULT_TAG_CONFIG</code> specifically
+(not whatever <code>tag_config</code> a call might theoretically use), since the UI
+itself never exposes a custom <code>tag_config</code> option to begin with — see
+Gotchas. Stage labels are derived automatically from stage names
+(<code>stage.split(":", 1)[-1].replace("_", " ").title()</code>, e.g.
+<code>"layer:health_facilities"</code> → <code>"Health Facilities"</code>), with three
+hand-written overrides for the non-layer stages (<code>"boundary"</code> →
+<code>"Resolving boundary"</code>, etc.) since those slugified poorly on their own.</p>
+<p><strong>The <code>outcome</code> dict pattern for cross-thread exception propagation:</strong>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">outcome</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">_worker</span><span class="p">():</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="k">try</span><span class="p">:</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        <span class="n">outcome</span><span class="p">[</span><span class="s2">&quot;result&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">extract_lga</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">on_event</span><span class="o">=</span><span class="n">events</span><span class="p">)</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="n">outcome</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">exc</span>
+</span></code></pre></div>
+A plain dict, closed over by the worker function, used to smuggle either
+the successful result or the caught exception back out of the background
+thread — <code>threading.Thread</code> has no built-in return-value or
+exception-propagation mechanism of its own, so this is the standard
+workaround: catch everything inside the thread, stash it, and after
+<code>thread.join()</code> on the main thread, explicitly <code>raise outcome["error"]</code>
+if one was captured, so the exception surfaces to <code>app.py</code>'s own
+<code>try/except BoundaryResolutionError</code> / <code>except Exception</code> block exactly as
+if <code>extract_lga()</code> had been called directly and synchronously — the
+threading layer is otherwise invisible to that error-handling code.</p>
+<p><strong>Per-stage row rendering and state machine:</strong> each stage tracks one of
+five states (<code>"pending"</code> / <code>"running"</code> / <code>"retrying"</code> / <code>"done"</code> /
+<code>"failed"</code>), each rendered with a distinct symbol (<code>○</code> / <code>⟳</code> / <code>⟳</code> / <code>✓</code> /
+<code>✗</code>) plus an optional detail string (a retry counter, a feature count on
+completion, an error message on failure) — updated directly from each
+drained event's <code>"type"</code> field (<code>stage_started</code> → running,
+<code>retry</code> → retrying, <code>stage_completed</code> → done, <code>stage_failed</code> → failed).
+<strong>Unknown stages are silently ignored</strong> (<code>if stage not in stage_state:
+continue</code>) — a forward-compatibility choice: if <code>pipeline.py</code> or
+<code>layers.py</code> ever emits an event for a stage this UI's checklist doesn't
+know about, the polling loop simply skips it rather than crashing on an
+unexpected key, so the pipeline and UI can evolve somewhat independently.</p>
+<p><strong>The polling loop's exit condition:</strong> <code>while thread.is_alive() or not
+events.empty():</code> — deliberately checks <em>both</em> conditions, not just thread
+liveness. This guards against a real, if narrow, race: the background
+thread could finish and exit right after emitting its final event but
+<em>before</em> the main thread has drained that event from the queue — checking
+only <code>thread.is_alive()</code> could exit the loop one iteration too early,
+leaving the final event(s) undrained and the UI's last row(s) stuck at
+their second-to-last state. Checking <code>events.empty()</code> too closes that gap.</p>
 <h2 id="internal-workflow">Internal Workflow<a class="headerlink" href="#internal-workflow" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>flowchart TD
     A["User loads app"] --&gt; B["Page config, CSS, hero copy, explanatory markdown render"]
@@ -1952,42 +2211,88 @@ naive approach has a real bug the code explicitly works around:</p>
     D -- no --&gt; C
     D -- yes --&gt; E{lga_name blank?}
     E -- yes --&gt; F["st.error, stop"]
-    E -- no --&gt; G["_cached_extract(lga_name, state_name) — st.cache_data"]
-    G -- cache hit --&gt; H["instant return"]
-    G -- cache miss --&gt; I["pipeline.extract_lga() — full 5-stage pipeline runs"]
-    I --&gt; H
-    H -- BoundaryResolutionError --&gt; J["st.error: boundary-specific message"]
-    H -- other Exception --&gt; K["st.error: generic extraction-failed message"]
-    H -- success --&gt; L["st.success + show warnings expander if any"]
-    L --&gt; M["sort layers: roads first, rest after"]
-    M --&gt; N["for each layer: add_geojson with zoom_to_layer = not zoomed_yet"]
-    N -- add succeeds --&gt; O["zoomed_yet = True"]
-    N -- IndexError/KeyError/ValueError --&gt; P["record in skipped_layers, continue loop"]
-    O --&gt; N
-    P --&gt; N
-    N --&gt; Q{skipped_layers non-empty?}
-    Q -- yes --&gt; R["st.warning listing unreadable layers"]
-    Q -- no --&gt; S
-    R --&gt; S["render map + layer control"]
-    S --&gt; T["zip output_dir in-memory"]
-    T --&gt; U["st.download_button"]</code></pre>
+    E -- no --&gt; G["cache_key = (lga, state).lower() in _extraction_cache()?"]
+    G -- yes --&gt; H["instant return from manual dict cache — no progress UI"]
+    G -- no --&gt; I["_run_extraction_with_live_progress()"]
+
+    subgraph Thread ["background thread"]
+        I --&gt; J["threading.Thread(target=_worker)"]
+        J --&gt; K["extract_lga(..., on_event=ThreadSafeEventQueue)"]
+        K -- success --&gt; L["outcome['result'] = ..."]
+        K -- exception --&gt; M["outcome['error'] = exc (caught, not raised, in worker)"]
+    end
+
+    subgraph MainThread ["main thread — polling loop"]
+        I --&gt; N["st.status(...) + st.progress(0.0) + one st.empty() per stage row"]
+        N --&gt; O["while thread.is_alive() or not events.empty():"]
+        O --&gt; P["drain events, update stage_state + stage_detail per event type"]
+        P --&gt; Q["re-render each changed row, update progress bar"]
+        Q --&gt; O
+        O -- loop exits --&gt; R["thread.join()"]
+    end
+
+    R --&gt; S{outcome has 'error'?}
+    S -- yes --&gt; T["status_box.update(state='error')&lt;br/&gt;raise outcome['error']"]
+    S -- no --&gt; U["status_box.update(state='complete')&lt;br/&gt;return outcome['result']"]
+    T --&gt; V["caught by outer try/except:&lt;br/&gt;BoundaryResolutionError or generic Exception"]
+    H --&gt; W
+    U --&gt; W["cache[cache_key] = result"]
+    W --&gt; X["st.success + Extraction summary expander (new)"]
+    X --&gt; Y["Warnings expander if any"]
+    Y --&gt; Z["Preview map: sort layers roads-first,&lt;br/&gt;zoom_to_layer = not zoomed_yet,&lt;br/&gt;try/except backstop per layer (unchanged from before)"]
+    Z --&gt; AA["zip output_dir in-memory, download button"]</code></pre>
+<h2 id="new-in-this-revision-the-extraction-summary-expander">New in this revision: the "Extraction summary" expander<a class="headerlink" href="#new-in-this-revision-the-extraction-summary-expander" title="Permanent link">&para;</a></h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">with</span> <span class="n">st</span><span class="o">.</span><span class="n">expander</span><span class="p">(</span><span class="s2">&quot;Extraction summary&quot;</span><span class="p">,</span> <span class="n">expanded</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">summary_rows</span> <span class="o">=</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span>  <span class="c1"># one row per layer: {&quot;Layer&quot;: ..., &quot;Features&quot;: entry.get(&quot;feature_count&quot;, &quot;?&quot;)}</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">st</span><span class="o">.</span><span class="n">table</span><span class="p">(</span><span class="n">summary_rows</span><span class="p">)</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">st</span><span class="o">.</span><span class="n">caption</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;CRS: ... • Boundary: ... • Warnings: ...&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<p>A new, simple addition sitting between the success message and the
+warnings expander: a per-layer feature-count table plus a one-line caption
+summarizing CRS, boundary source, and warning count. This is the app's
+first use of <code>export.export_layers()</code>'s <code>feature_count</code> field (new — see
+<a href="../modules/export/"><code>export.md</code></a>) — previously that number existed in the
+returned summary dict but had no dedicated place in the UI at all;
+extraction "succeeding" gave a user no quick sense of <em>how much</em> data was
+actually found per layer without opening the downloaded zip and inspecting
+files individually.</p>
+<h2 id="layer-rendering-logic-unchanged-from-the-previous-revision">Layer Rendering Logic (unchanged from the previous revision)<a class="headerlink" href="#layer-rendering-logic-unchanged-from-the-previous-revision" title="Permanent link">&para;</a></h2>
+<p>The zoom-to-layer bug fix (tracking a running <code>zoomed_yet</code> flag rather than
+a fixed list index) and the defensive <code>try/except (IndexError, KeyError,
+ValueError)</code> backstop around each <code>m.add_geojson()</code> call are both
+completely unchanged in this revision — see the previous documentation of
+this logic, still accurate: layers are sorted roads-first, each
+successfully-added layer's zoom flag is tracked independently of position,
+and a malformed-on-disk file (e.g. from an interrupted write, a real risk
+given multi-minute extraction times) is caught and reported without
+crashing the whole preview.</p>
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>The Streamlit cache is shared across users, not per-session.</strong> As noted
-  above, this is a deliberate and reasonable choice for this app's use case
-  (avoid re-querying Overpass for a popular LGA), but it does mean one
-  user's extraction can "warm the cache" for another user requesting the
-  same LGA/state, which is worth knowing if this is ever deployed somewhere
-  privacy/isolation between users matters more than it does for a public
-  demo tool.</li>
-<li><strong><code>manual_boundary_path</code> and <code>strict</code> are not exposed in the UI</strong>, even
-  though <code>extract_lga()</code> supports both — only <code>cli.py</code> currently exposes
-  the full parameter surface.</li>
-<li><strong>The download zip is built entirely in memory</strong> (<code>io.BytesIO()</code>), by
-  walking <code>output_dir</code> on disk — this means the zip always reflects
-  whatever is currently on disk at download time, not a snapshot taken at
-  extraction time; for a cached result, this is the same files from the
-  original run.</li>
+<li><strong>The manual dict cache (<code>_extraction_cache()</code>) is shared across users,
+  same as the old <code>st.cache_data</code> behavior, but now the app owns the
+  sharing semantics explicitly rather than delegating to Streamlit's own
+  decorator.</strong> <code>st.cache_resource</code> — like <code>st.cache_data</code> before it —
+  returns the same object across all sessions of a running app instance by
+  default. This app's own code (not Streamlit's caching internals) is what
+  decides to check and write into that shared dict, but the practical
+  effect for a deployed app is unchanged: one user's extraction can "warm
+  the cache" for another user requesting the same LGA/state.</li>
+<li><strong>A cache hit shows no progress UI at all</strong> — by design (there's nothing
+  to show progress <em>for</em>), but worth knowing if you're specifically trying
+  to see the new live-progress interface in action: request an LGA/state
+  combination that hasn't been extracted yet in the current app session.</li>
+<li><strong><code>build_stage_order(DEFAULT_TAG_CONFIG)</code> is called with the <em>default</em>
+  tag config, always</strong> — since this UI never exposes a custom <code>tag_config</code>
+  option (unchanged from before, see the pre-existing <code>manual_boundary_path</code>
+  / <code>strict</code> gotcha below), the progress checklist's layer rows are always
+  exactly the six default layers, regardless of what <code>extract_lga()</code> might
+  theoretically be called with elsewhere.</li>
+<li><strong><code>manual_boundary_path</code> and <code>strict</code> are still not exposed in the UI</strong>,
+  unchanged from before — only <code>cli.py</code> exposes the full parameter surface,
+  including the new <code>on_event</code>, which the CLI does <em>not</em> currently wire up
+  to anything (see <a href="../cli/"><code>cli.md</code></a>).</li>
+<li><strong>The download zip is still built entirely in memory</strong>, walking
+  <code>output_dir</code> on disk at download time — unchanged.</li>
 </ul>
 
 
@@ -2024,7 +2329,7 @@ naive approach has a real bug the code explicitly works around:</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../modules/pipeline/" class="md-footer__link md-footer__link--prev" aria-label="Previous: pipeline.py">
+          <a href="../modules/manifest/" class="md-footer__link md-footer__link--prev" aria-label="Previous: manifest.py">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2034,7 +2339,7 @@ naive approach has a real bug the code explicitly works around:</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                pipeline.py
+                manifest.py
               </div>
             </div>
           </a>

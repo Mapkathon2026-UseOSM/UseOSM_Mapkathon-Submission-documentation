@@ -12,29 +12,31 @@
         <meta name="author" content="Marvellous Adeleke">
       
       
-        <link rel="canonical" href="https://mapkathon2026-useosm.github.io/UseOSM_Mapkathon-Submission-documentation/">
+        <link rel="canonical" href="https://mapkathon2026-useosm.github.io/UseOSM_Mapkathon-Submission-documentation/lga-osm-extractor/modules/events/">
       
       
+        <link rel="prev" href="../pipeline/">
       
-        <link rel="next" href="lga-osm-extractor/overview/">
+      
+        <link rel="next" href="../manifest/">
       
       
         
       
       
-      <link rel="icon" href="assets/images/favicon.png">
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
-        <title>UseOSM Mapkathon Submission Documentation</title>
+        <title>events.py - UseOSM Mapkathon Submission Documentation</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -53,9 +55,9 @@
       
     
     
-      <link rel="stylesheet" href="stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -80,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#useosm-mapkathon-submission-documentation" class="md-skip">
+        <a href="#lga_extractoreventspy" class="md-skip">
           Skip to content
         </a>
       
@@ -96,7 +98,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="UseOSM Mapkathon Submission Documentation" class="md-header__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
+    <a href="../../.." title="UseOSM Mapkathon Submission Documentation" class="md-header__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -116,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              events.py
             
           </span>
         </div>
@@ -221,11 +223,9 @@
   
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="." class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
         
   
   
@@ -242,11 +242,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="lga-osm-extractor/overview/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../overview/" class="md-tabs__link">
           
   
   
@@ -268,7 +270,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="akure-accessibility-dashboard/overview/" class="md-tabs__link">
+        <a href="../../../akure-accessibility-dashboard/overview/" class="md-tabs__link">
           
   
   
@@ -288,7 +290,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="cross-repo/integration/" class="md-tabs__link">
+      <a href="../../../cross-repo/integration/" class="md-tabs__link">
         
   
   
@@ -309,7 +311,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="reference/glossary/" class="md-tabs__link">
+        <a href="../../../reference/glossary/" class="md-tabs__link">
           
   
   
@@ -351,7 +353,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="UseOSM Mapkathon Submission Documentation" class="md-nav__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
+    <a href="../../.." title="UseOSM Mapkathon Submission Documentation" class="md-nav__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -378,37 +380,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Home
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -424,72 +399,6 @@
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#the-problem" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Problem
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-two-repositories" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Two Repositories
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-they-relate" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How They Relate
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-to-read-this-documentation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How to Read This Documentation
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -498,8 +407,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -521,19 +432,22 @@
     
     
       
+        
+        
+      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
   
@@ -551,7 +465,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -569,7 +483,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/overview/" class="md-nav__link">
+      <a href="../../overview/" class="md-nav__link">
         
   
   
@@ -597,7 +511,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/data-flow/" class="md-nav__link">
+      <a href="../../data-flow/" class="md-nav__link">
         
   
   
@@ -622,8 +536,10 @@
                 
   
   
+    
   
   
+  
     
     
       
@@ -650,18 +566,21 @@
     
       
       
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
         
           
-          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
             
   
   
@@ -679,7 +598,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -697,7 +616,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/modules/boundary/" class="md-nav__link">
+      <a href="../boundary/" class="md-nav__link">
         
   
   
@@ -725,7 +644,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/modules/layers/" class="md-nav__link">
+      <a href="../layers/" class="md-nav__link">
         
   
   
@@ -753,7 +672,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/modules/clean/" class="md-nav__link">
+      <a href="../clean/" class="md-nav__link">
         
   
   
@@ -781,7 +700,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/modules/export/" class="md-nav__link">
+      <a href="../export/" class="md-nav__link">
         
   
   
@@ -809,7 +728,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/modules/visualize/" class="md-nav__link">
+      <a href="../visualize/" class="md-nav__link">
         
   
   
@@ -837,7 +756,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/modules/logging_utils/" class="md-nav__link">
+      <a href="../logging_utils/" class="md-nav__link">
         
   
   
@@ -865,7 +784,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/modules/pipeline/" class="md-nav__link">
+      <a href="../pipeline/" class="md-nav__link">
         
   
   
@@ -890,10 +809,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="lga-osm-extractor/modules/events/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    events.py
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -909,6 +855,144 @@
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why this exists
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#event-shape" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Event shape
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#build_stage_ordertag_config-dict-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        build_stage_order(tag_config: dict) -&gt; list
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#threadsafeeventqueue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ThreadSafeEventQueue
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_emiton_event-event-dict-private" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        _emit(on_event, event: dict) (private)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thread-safety-the-single-most-important-thing-to-understand-about-this-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thread safety — the single most important thing to understand about this module
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gotchas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gotchas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -921,7 +1005,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/modules/manifest/" class="md-nav__link">
+      <a href="../manifest/" class="md-nav__link">
         
   
   
@@ -957,7 +1041,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/app/" class="md-nav__link">
+      <a href="../../app/" class="md-nav__link">
         
   
   
@@ -985,7 +1069,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/cli/" class="md-nav__link">
+      <a href="../../cli/" class="md-nav__link">
         
   
   
@@ -1013,7 +1097,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/end-to-end/" class="md-nav__link">
+      <a href="../../end-to-end/" class="md-nav__link">
         
   
   
@@ -1041,7 +1125,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/tests/" class="md-nav__link">
+      <a href="../../tests/" class="md-nav__link">
         
   
   
@@ -1142,7 +1226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/overview/" class="md-nav__link">
+      <a href="../../../akure-accessibility-dashboard/overview/" class="md-nav__link">
         
   
   
@@ -1170,7 +1254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/data-flow/" class="md-nav__link">
+      <a href="../../../akure-accessibility-dashboard/data-flow/" class="md-nav__link">
         
   
   
@@ -1274,7 +1358,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/modules/accessibility/network_graph/" class="md-nav__link">
+      <a href="../../../akure-accessibility-dashboard/modules/accessibility/network_graph/" class="md-nav__link">
         
   
   
@@ -1302,7 +1386,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/modules/accessibility/isochrones/" class="md-nav__link">
+      <a href="../../../akure-accessibility-dashboard/modules/accessibility/isochrones/" class="md-nav__link">
         
   
   
@@ -1330,7 +1414,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/modules/accessibility/scoring/" class="md-nav__link">
+      <a href="../../../akure-accessibility-dashboard/modules/accessibility/scoring/" class="md-nav__link">
         
   
   
@@ -1358,7 +1442,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/modules/completeness/grid_check/" class="md-nav__link">
+      <a href="../../../akure-accessibility-dashboard/modules/completeness/grid_check/" class="md-nav__link">
         
   
   
@@ -1386,7 +1470,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/modules/visualization/static_maps/" class="md-nav__link">
+      <a href="../../../akure-accessibility-dashboard/modules/visualization/static_maps/" class="md-nav__link">
         
   
   
@@ -1414,7 +1498,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/modules/insights/" class="md-nav__link">
+      <a href="../../../akure-accessibility-dashboard/modules/insights/" class="md-nav__link">
         
   
   
@@ -1442,7 +1526,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/modules/config/" class="md-nav__link">
+      <a href="../../../akure-accessibility-dashboard/modules/config/" class="md-nav__link">
         
   
   
@@ -1470,7 +1554,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/modules/data_contract/" class="md-nav__link">
+      <a href="../../../akure-accessibility-dashboard/modules/data_contract/" class="md-nav__link">
         
   
   
@@ -1498,7 +1582,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/modules/facility_classification/" class="md-nav__link">
+      <a href="../../../akure-accessibility-dashboard/modules/facility_classification/" class="md-nav__link">
         
   
   
@@ -1526,7 +1610,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/modules/sensitivity/" class="md-nav__link">
+      <a href="../../../akure-accessibility-dashboard/modules/sensitivity/" class="md-nav__link">
         
   
   
@@ -1554,7 +1638,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/modules/status/" class="md-nav__link">
+      <a href="../../../akure-accessibility-dashboard/modules/status/" class="md-nav__link">
         
   
   
@@ -1590,7 +1674,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/dashboard-app/" class="md-nav__link">
+      <a href="../../../akure-accessibility-dashboard/dashboard-app/" class="md-nav__link">
         
   
   
@@ -1618,7 +1702,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/end-to-end/" class="md-nav__link">
+      <a href="../../../akure-accessibility-dashboard/end-to-end/" class="md-nav__link">
         
   
   
@@ -1646,7 +1730,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/tests/" class="md-nav__link">
+      <a href="../../../akure-accessibility-dashboard/tests/" class="md-nav__link">
         
   
   
@@ -1681,7 +1765,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cross-repo/integration/" class="md-nav__link">
+      <a href="../../../cross-repo/integration/" class="md-nav__link">
         
   
   
@@ -1766,7 +1850,7 @@
   
   
     <li class="md-nav__item">
-      <a href="reference/glossary/" class="md-nav__link">
+      <a href="../../../reference/glossary/" class="md-nav__link">
         
   
   
@@ -1794,7 +1878,7 @@
   
   
     <li class="md-nav__item">
-      <a href="reference/known-issues/" class="md-nav__link">
+      <a href="../../../reference/known-issues/" class="md-nav__link">
         
   
   
@@ -1851,10 +1935,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-problem" class="md-nav__link">
+  <a href="#purpose" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Problem
+        Purpose
       
     </span>
   </a>
@@ -1862,10 +1946,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-two-repositories" class="md-nav__link">
+  <a href="#why-this-exists" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Two Repositories
+        Why this exists
       
     </span>
   </a>
@@ -1873,10 +1957,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-they-relate" class="md-nav__link">
+  <a href="#event-shape" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How They Relate
+        Event shape
       
     </span>
   </a>
@@ -1884,10 +1968,82 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-to-read-this-documentation" class="md-nav__link">
+  <a href="#functions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How to Read This Documentation
+        Functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#build_stage_ordertag_config-dict-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        build_stage_order(tag_config: dict) -&gt; list
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#threadsafeeventqueue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ThreadSafeEventQueue
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_emiton_event-event-dict-private" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        _emit(on_event, event: dict) (private)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thread-safety-the-single-most-important-thing-to-understand-about-this-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thread safety — the single most important thing to understand about this module
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gotchas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gotchas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
       
     </span>
   </a>
@@ -1914,64 +2070,61 @@
   
 
 
-<h1 id="useosm-mapkathon-submission-documentation">UseOSM Mapkathon Submission Documentation<a class="headerlink" href="#useosm-mapkathon-submission-documentation" title="Permanent link">&para;</a></h1>
-<p>This site documents two connected repositories built for <strong>Map&lt;&gt;kathon 2026 (UseOSM)</strong>,
-analyzing multi-modal healthcare and education accessibility across Akure North and
-Akure South Local Government Areas (LGAs), Ondo State, Nigeria.</p>
-<h2 id="the-problem">The Problem<a class="headerlink" href="#the-problem" title="Permanent link">&para;</a></h2>
-<p>Planning decisions about where to site clinics, schools, and roads depend on knowing
-who can actually reach existing services — and how long that takes on foot, by
-motorcycle taxi (okada), or by car. OpenStreetMap (OSM) has rich, free data for this,
-but it is inconsistent in coverage and geometry type across regions, and turning raw
-OSM extracts into a defensible accessibility analysis requires a full geospatial
-pipeline: boundary resolution, feature extraction, cleaning, network routing,
-isochrone computation, and scoring.</p>
-<p>This system does that end to end, and packages the result as an interactive
-dashboard aimed at planners and researchers working on SDG 3 (Health) and
-SDG 4 (Education) in the Akure region.</p>
-<h2 id="the-two-repositories">The Two Repositories<a class="headerlink" href="#the-two-repositories" title="Permanent link">&para;</a></h2>
-<div class="grid cards">
+<h1 id="lga_extractoreventspy"><code>lga_extractor/events.py</code><a class="headerlink" href="#lga_extractoreventspy" title="Permanent link">&para;</a></h1>
+<h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
+<p>A new, small module with an outsized effect on the rest of the codebase: it defines the plain-dict event schema the extraction pipeline now emits as it runs, plus two tiny helpers for consuming those events safely from a UI thread. This is what makes <a href="../../app/"><code>app.py</code></a>'s new live, per-stage progress interface possible, without making the pipeline itself (<code>boundary.py</code>, <code>layers.py</code>, <code>pipeline.py</code>) depend on Streamlit — or any UI framework — at all.</p>
+<h2 id="why-this-exists">Why this exists<a class="headerlink" href="#why-this-exists" title="Permanent link">&para;</a></h2>
+<p>Before this module, the pipeline was a black box from the caller's perspective: <code>extract_lga()</code> ran for several minutes and then returned (or raised) once, with no visibility into what stage it was in or whether progress was being made. The obvious fix — sprinkling <code>st.progress(...)</code> calls directly inside <code>layers.py</code> — would have tied the core extraction logic to Streamlit specifically, breaking every other use of this package (the CLI, a notebook, a future different UI).</p>
+<p>The actual fix: every pipeline function that can take a while now accepts an optional <code>on_event</code> callback and calls it with a plain dict at each meaningful transition — a stage starting, retrying, completing, or failing. A UI supplies a callback that does something with those events; a script that doesn't care simply omits the argument, and <code>on_event</code> defaults to <code>None</code> everywhere, a guaranteed no-op regardless of whether Streamlit (or anything else) is even installed.</p>
+<h2 id="event-shape">Event shape<a class="headerlink" href="#event-shape" title="Permanent link">&para;</a></h2>
+<p>Every event is a dict with at least <code>"type"</code> and <code>"stage"</code> keys:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;stage_started&quot;</span><span class="p">,</span>   <span class="s2">&quot;stage&quot;</span><span class="p">:</span> <span class="s2">&quot;boundary&quot;</span><span class="p">}</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;stage_completed&quot;</span><span class="p">,</span> <span class="s2">&quot;stage&quot;</span><span class="p">:</span> <span class="s2">&quot;boundary&quot;</span><span class="p">,</span> <span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">}</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;stage_started&quot;</span><span class="p">,</span>   <span class="s2">&quot;stage&quot;</span><span class="p">:</span> <span class="s2">&quot;layer:roads&quot;</span><span class="p">}</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;retry&quot;</span><span class="p">,</span>           <span class="s2">&quot;stage&quot;</span><span class="p">:</span> <span class="s2">&quot;layer:roads&quot;</span><span class="p">,</span> <span class="s2">&quot;attempt&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">}</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;stage_completed&quot;</span><span class="p">,</span> <span class="s2">&quot;stage&quot;</span><span class="p">:</span> <span class="s2">&quot;layer:roads&quot;</span><span class="p">,</span> <span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="s2">&quot;2,431 features&quot;</span><span class="p">,</span> <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;success&quot;</span><span class="p">}</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;warning&quot;</span><span class="p">,</span>         <span class="s2">&quot;stage&quot;</span><span class="p">:</span> <span class="s2">&quot;layer:schools&quot;</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">}</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;stage_failed&quot;</span><span class="p">,</span>    <span class="s2">&quot;stage&quot;</span><span class="p">:</span> <span class="s2">&quot;layer:health_facilities&quot;</span><span class="p">,</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">}</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;stage_started&quot;</span><span class="p">,</span>   <span class="s2">&quot;stage&quot;</span><span class="p">:</span> <span class="s2">&quot;cleaning&quot;</span><span class="p">}</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;stage_completed&quot;</span><span class="p">,</span> <span class="s2">&quot;stage&quot;</span><span class="p">:</span> <span class="s2">&quot;cleaning&quot;</span><span class="p">}</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;stage_started&quot;</span><span class="p">,</span>   <span class="s2">&quot;stage&quot;</span><span class="p">:</span> <span class="s2">&quot;export&quot;</span><span class="p">}</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;stage_completed&quot;</span><span class="p">,</span> <span class="s2">&quot;stage&quot;</span><span class="p">:</span> <span class="s2">&quot;export&quot;</span><span class="p">}</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;pipeline_completed&quot;</span><span class="p">,</span> <span class="s2">&quot;summary&quot;</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}}</span>   <span class="c1"># the same dict extract_lga() returns</span>
+</span></code></pre></div>
+<p>Layer stages are namespaced <code>"layer:{layer_name}"</code> (e.g. <code>"layer:roads"</code>) specifically so a UI can group them separately from the top-level <code>"boundary"</code> / <code>"cleaning"</code> / <code>"export"</code> stages without needing to guess which names belong to which category.</p>
+<h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
+<h3 id="build_stage_ordertag_config-dict-list"><code>build_stage_order(tag_config: dict) -&gt; list</code><a class="headerlink" href="#build_stage_ordertag_config-dict-list" title="Permanent link">&para;</a></h3>
+<p><strong>What it does:</strong> returns the full, ordered list of stage names for a given <code>tag_config</code> — <code>["boundary", "layer:roads", "layer:buildings", ..., "cleaning", "export"]</code> — with layer stages inserted between the two static boundaries (<code>STATIC_STAGES_BEFORE_LAYERS = ["boundary"]</code>, <code>STATIC_STAGES_AFTER_LAYERS = ["cleaning", "export"]</code>).</p>
+<p><strong>Why it exists:</strong> so a UI can pre-render a fixed checklist of every stage <em>before</em> extraction starts, rather than only discovering stages as events for them happen to arrive. This matters specifically because <code>tag_config</code> is user-extensible (see <a href="../layers/"><code>layers.py</code></a>'s <code>DEFAULT_TAG_CONFIG</code>) — a caller who adds a seventh layer needs the progress checklist to have seven layer rows without any code change to this function.</p>
+<h3 id="threadsafeeventqueue"><code>ThreadSafeEventQueue</code><a class="headerlink" href="#threadsafeeventqueue" title="Permanent link">&para;</a></h3>
+<p><strong>What it does:</strong> a minimal thread-safe sink for events — a thin wrapper around <code>queue.Queue</code> exposing exactly the <code>on_event(event)</code> call signature <code>extract_lga()</code>/<code>extract_layers()</code> expect (the class implements <code>__call__</code>, so an instance of it <em>is</em> a valid <code>on_event</code> callback), plus <code>empty()</code> and <code>drain()</code> for a consumer to pull events back out.</p>
+<p><strong>The pattern this enables</strong>, straight from the class's own docstring:
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">events</span> <span class="o">=</span> <span class="n">ThreadSafeEventQueue</span><span class="p">()</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">extract_lga</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="o">...</span><span class="p">,</span> <span class="s2">&quot;on_event&quot;</span><span class="p">:</span> <span class="n">events</span><span class="p">})</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">while</span> <span class="n">thread</span><span class="o">.</span><span class="n">is_alive</span><span class="p">()</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">events</span><span class="o">.</span><span class="n">empty</span><span class="p">():</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="o">.</span><span class="n">drain</span><span class="p">():</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="o">...</span><span class="n">update</span> <span class="n">UI</span> <span class="n">state</span> <span class="kn">from</span><span class="w"> </span><span class="nn">event</span><span class="p">,</span> <span class="n">on</span> <span class="n">the</span> <span class="n">main</span> <span class="n">thread</span><span class="o">...</span>
+</span></code></pre></div></p>
+<p><strong>Why this specific pattern is necessary, not just convenient:</strong> <code>extract_lga()</code> is a single, blocking call that can take several minutes — layer extraction alone runs concurrently across worker threads (see <a href="../layers/"><code>layers.py</code></a>'s <code>ThreadPoolExecutor</code>). The only way to update a UI <em>while</em> it runs, rather than only before and after, is to run extraction on a background thread and have something else draining events on the main/UI thread — and Streamlit's own APIs are explicitly not safe to call directly from a background thread. <code>ThreadSafeEventQueue</code> is the connective tissue: safe to call <code>on_event()</code> (i.e. call the instance) from <em>any</em> thread (including the worker threads inside <code>layers.extract_layers()</code>'s thread pool), but <code>drain()</code> should only ever be called from the thread that owns the UI.</p>
+<p><strong><code>drain()</code>'s specific implementation detail:</strong> pops and returns every event currently queued <em>without blocking</em> (<code>queue.Queue.get_nowait()</code> in a loop until <code>queue.Empty</code>), so a UI polling loop can call it repeatedly without ever stalling waiting for a new event — it always returns immediately, with an empty list if nothing new has arrived yet.</p>
+<h3 id="_emiton_event-event-dict-private"><code>_emit(on_event, event: dict)</code> (private)<a class="headerlink" href="#_emiton_event-event-dict-private" title="Permanent link">&para;</a></h3>
+<p><strong>What it does:</strong> calls <code>on_event(event)</code> if <code>on_event</code> is not <code>None</code>, swallowing <em>any</em> exception the callback itself raises.</p>
+<p><strong>Why swallowing the exception is the correct choice here, not a code smell:</strong> a bug in a UI's event-handling code (a <code>KeyError</code> on an unexpected event shape, a Streamlit call from the wrong thread, anything) must never be allowed to abort a live, multi-minute extraction that was otherwise succeeding. Per the function's own docstring: that would be "a strictly worse regression than not having a progress UI at all." This is a deliberate, narrow exception to the general principle of not swallowing errors silently — justified specifically because the event system is a pure side channel with no bearing on extraction correctness; losing a progress update is a UI annoyance, aborting a real extraction because of it would be a functional regression.</p>
+<h2 id="thread-safety-the-single-most-important-thing-to-understand-about-this-module">Thread safety — the single most important thing to understand about this module<a class="headerlink" href="#thread-safety-the-single-most-important-thing-to-understand-about-this-module" title="Permanent link">&para;</a></h2>
+<p>Stated directly in the module's own docstring, and worth repeating here because it's easy to miss: layer extraction runs multiple layers concurrently in a <code>ThreadPoolExecutor</code> (see <a href="../layers/"><code>layers.py</code></a>), so <code>on_event</code> <strong>will</strong> be called from multiple worker threads at once for <code>"layer:*"</code> stages, not just from the main thread. A callback that only appends to a <code>queue.Queue</code> (thread-safe by design — exactly what <code>ThreadSafeEventQueue</code> does) or increments a <code>threading.Lock</code>-protected counter is safe to pass directly as <code>on_event</code>. A callback that touches Streamlit UI elements directly is <strong>not</strong> safe to pass straight into <code>extract_lga()</code> — this is precisely why <code>app.py</code> doesn't pass a Streamlit-touching function as <code>on_event</code> at all; it passes a <code>ThreadSafeEventQueue</code> instance and does the actual UI updates in a polling loop on the main thread instead.</p>
+<h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
 <ul>
-<li>
-<p><strong><a href="lga-osm-extractor/overview/">lga-osm-extractor</a></strong>
-  Pulls an LGA boundary and its OSM feature layers (health, education, roads,
-  buildings), cleans and reprojects them, and exports analysis-ready GeoJSON
-  and Shapefile output for downstream use in ArcGIS Pro, QGIS, or the dashboard
-  below.</p>
-</li>
-<li>
-<p><strong><a href="akure-accessibility-dashboard/overview/">akure-accessibility-dashboard</a></strong>
-  Consumes the extractor's output to build a routable road network, compute
-  travel-time isochrones per facility and mode, score a fishnet grid for
-  accessibility and data completeness, generate static publication maps and
-  narrative captions, and serve everything through an interactive Streamlit
-  dashboard.</p>
-</li>
+<li><strong>This module has zero dependency on Streamlit or any UI framework</strong> — <code>import queue</code> is the only import in the whole file. A future consumer building a different UI (a CLI progress bar, a web API with server-sent events, a Jupyter widget) can reuse this exact event schema and <code>ThreadSafeEventQueue</code> without pulling in anything Streamlit-specific.</li>
+<li><strong>Layer-stage events genuinely interleave</strong> across threads (<code>MAX_CONCURRENT_LAYER_QUERIES = 2</code> from <code>layers.py</code>, so up to two layers' events can arrive in an unpredictable interleaved order) — a consumer should not assume events for one layer complete before another layer's events begin arriving.</li>
+<li><strong><code>_emit</code>'s silent exception-swallowing</strong> means a bug in your own <code>on_event</code> callback will fail completely silently from the pipeline's perspective — if your progress UI isn't updating and you suspect a bug in your callback itself, don't expect the pipeline to surface it; you'll need to debug the callback in isolation.</li>
 </ul>
-</div>
-<h2 id="how-they-relate">How They Relate<a class="headerlink" href="#how-they-relate" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>flowchart LR
-    A[lga-osm-extractor] --&gt;|GeoJSON / Shapefile| B[akure-accessibility-dashboard]
-    A --&gt;|health, education, roads, buildings layers| B
-    B --&gt; C[Streamlit Dashboard]
-    B --&gt; D[Static maps + captions]</code></pre>
-<p>See <a href="cross-repo/integration/">Cross-Repo Integration</a> for the exact data
-contract between the two repos, and each repo's <strong>End-to-End Walkthrough</strong>
-page for a full startup-to-output trace.</p>
-<h2 id="how-to-read-this-documentation">How to Read This Documentation<a class="headerlink" href="#how-to-read-this-documentation" title="Permanent link">&para;</a></h2>
-<p>Each repository section follows the same structure:</p>
-<ol>
-<li><strong>Overview</strong> — purpose, architecture, design philosophy</li>
-<li><strong>Data Flow</strong> — how data moves through the system at a high level</li>
-<li><strong>Modules</strong> — one page per source file, documenting every significant
-   function and class: what it does, why it's written that way, inputs/outputs,
-   internal logic, complexity, assumptions, and concurrency considerations</li>
-<li><strong>End-to-End Walkthrough</strong> — a single trace from process start to final output</li>
-<li><strong>Tests</strong> — what's covered and where</li>
-</ol>
-<p>Start with whichever repository you need, or read the
-<a href="cross-repo/integration/">Cross-Repo Integration</a> page first if you want
-the full-system picture before diving into either one individually.</p>
+<h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../layers/"><code>layers.py</code></a> — the module with the richest event emission (started/retry/completed/failed per layer, from worker threads).</li>
+<li><a href="../pipeline/"><code>pipeline.py</code></a> — emits the top-level stage events (boundary/cleaning/export) and the final <code>pipeline_completed</code> event.</li>
+<li><a href="../../app/"><code>app.md</code></a> — the sole current consumer, using <code>ThreadSafeEventQueue</code> to drive a live, per-stage progress interface.</li>
+</ul>
 
 
 
@@ -2006,15 +2159,31 @@ the full-system picture before diving into either one individually.</p>
       
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
+          
+          <a href="../pipeline/" class="md-footer__link md-footer__link--prev" aria-label="Previous: pipeline.py">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                pipeline.py
+              </div>
+            </div>
+          </a>
+        
         
           
-          <a href="lga-osm-extractor/overview/" class="md-footer__link md-footer__link--next" aria-label="Next: Overview">
+          <a href="../manifest/" class="md-footer__link md-footer__link--next" aria-label="Next: manifest.py">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Overview
+                manifest.py
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -2067,10 +2236,10 @@ the full-system picture before diving into either one individually.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

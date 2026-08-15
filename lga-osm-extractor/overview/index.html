@@ -670,6 +670,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -901,6 +905,62 @@
     
   
     pipeline.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modules/events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    events.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modules/manifest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    manifest.py
   
 
     
@@ -1184,6 +1244,16 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -1384,6 +1454,146 @@
     
   
     insights.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../akure-accessibility-dashboard/modules/config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    config.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../akure-accessibility-dashboard/modules/data_contract/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    data_contract.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../akure-accessibility-dashboard/modules/facility_classification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    facility_classification.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../akure-accessibility-dashboard/modules/sensitivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sensitivity.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../akure-accessibility-dashboard/modules/status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    status.py
   
 
     
@@ -1802,8 +2012,12 @@ as-is.</p>
     C --&gt; D["clean.py&lt;br/&gt;clean_layers()"]
     D --&gt; E["export.py&lt;br/&gt;export_layers()"]
     D --&gt; F["visualize.py&lt;br/&gt;build_preview_map()"]
+    E --&gt; E2["boundary.geojson written (new)"]
     E --&gt; G["GeoJSON + Shapefiles on disk"]
     F --&gt; H["Kepler.gl HTML preview"]
+    E2 --&gt; M1["manifest.py&lt;br/&gt;build_manifest() + write_manifest() (new)"]
+    G --&gt; M1
+    M1 --&gt; M2["manifest.json on disk (new)"]
     B &amp; C &amp; D &amp; E &amp; F -.-&gt;|per-run metadata| I["logging_utils.py&lt;br/&gt;log_run()"]
 
     J["pipeline.py&lt;br/&gt;extract_lga()"] -.orchestrates.-&gt; B
@@ -1811,9 +2025,11 @@ as-is.</p>
     J -.orchestrates.-&gt; D
     J -.orchestrates.-&gt; E
     J -.orchestrates.-&gt; F
+    J -.emits progress events via.-&gt; EV["events.py&lt;br/&gt;ThreadSafeEventQueue (new)"]
 
     K[cli.py] --&gt; J
-    L["app.py (Streamlit)"] --&gt; J</code></pre>
+    L["app.py (Streamlit)&lt;br/&gt;drains events for live progress UI (new)"] --&gt; J
+    EV -.consumed by.-&gt; L</code></pre>
 <p>Two things are worth calling out about this architecture:</p>
 <ul>
 <li><strong><code>pipeline.py</code> is a thin orchestrator, not where the logic lives.</strong> Each
@@ -1828,6 +2044,15 @@ as-is.</p>
   auto-selection (<code>resolve_target_crs()</code>) and its point-collapse logic. It's
   reused rather than duplicated, which is why <code>boundary.py</code> imports from
   <code>clean.py</code> internally.</li>
+<li><strong>New: <code>events.py</code> and <code>manifest.py</code> sit outside the main data-processing
+  chain, as cross-cutting concerns.</strong> Neither module transforms geospatial
+  data itself — <code>events.py</code> is a pure observability layer (see
+  <a href="../modules/events/"><code>events.md</code></a>), and <code>manifest.py</code> is a pure
+  bookkeeping/reconciliation layer over data other modules already produced
+  (see <a href="../modules/manifest/"><code>manifest.md</code></a>). Both are additive: removing
+  either would not break the core extraction logic, only remove,
+  respectively, live progress visibility and the formal downstream contract
+  file.</li>
 </ul>
 <h2 id="design-philosophy">Design Philosophy<a class="headerlink" href="#design-philosophy" title="Permanent link">&para;</a></h2>
 <p>A few deliberate decisions run through the whole codebase:</p>
@@ -1836,22 +2061,27 @@ the wrong place raises <code>BoundaryResolutionError</code> immediately — ther
 value in extracting layers "within" a wrong boundary. But a layer that
 queries successfully and genuinely finds zero features (e.g. an LGA with no
 mapped waterways) is <em>not</em> an error, it's valid data, and is only ever
-recorded as a warning. The codebase is careful, throughout, to distinguish
-"this failed" from "this is empty" — see <code>LayerExtractionError</code>'s docstring
-in <a href="../modules/layers/"><code>layers.md</code></a> for the clearest statement of this
-principle.</p>
-<p><strong>Two-tier validation (hard vs. soft checks).</strong> <code>_validate_and_standardize()</code>
-in <code>boundary.py</code> separates checks that block execution (geometry invalid,
-centroid outside Nigeria, implausible area) from checks that only warn
-(display name doesn't obviously mention the requested LGA/state). This
-reflects a judgment about <em>confidence</em>: some signals are reliable enough to
-block on, others are just worth a human glance.</p>
+recorded as a warning (and, new, a structured <code>"success_empty"</code> status — see
+<a href="../modules/layers/"><code>layers.md</code></a>). The codebase is careful, throughout, to
+distinguish "this failed" from "this is empty" — see
+<code>LayerExtractionError</code>'s docstring in <a href="../modules/layers/"><code>layers.md</code></a> for
+the clearest statement of this principle.</p>
+<p><strong>Two-tier validation (hard vs. soft checks) — and this revision extends
+it, not just applies it.</strong> <code>_validate_and_standardize()</code> in <code>boundary.py</code>
+separates checks that block execution (geometry invalid, centroid outside
+Nigeria, implausible area, and — <strong>new</strong> — OSM class/type mismatch) from
+checks that only warn (display name doesn't obviously mention the requested
+LGA/state, and — <strong>new</strong> — non-relation OSM element type, implausible
+<code>admin_level</code>). This reflects a judgment about <em>confidence</em>: some signals
+are reliable enough to block on, others are just worth a human glance. See
+<a href="../modules/boundary/"><code>boundary.md</code></a> for the two new checks added in this
+revision.</p>
 <p><strong>Don't trust a single geocode blindly — but allow overriding it.</strong> Every
 resolution path (<code>resolve_boundary()</code>) accepts a <code>manual_boundary_path</code> as an
 explicit escape hatch, for LGAs where OSM's boundary data is missing,
 mistagged, or fails validation.</p>
 <p><strong>Respect the server you're querying.</strong> <code>layers.py</code>'s concurrency model
-(2 requests in flight at once, staggered starts, exponential backoff on
+(2 requests in flight at once, staggered starts, linear backoff on
 retry) exists because fully-parallel querying was tried first and made
 things <em>worse</em> — the public Overpass mirror refused every connection
 outright under burst load. The current approach is empirically tuned, not a
@@ -1874,6 +2104,28 @@ discrepancy between two extractions of the same LGA run months apart would
 be nearly impossible to diagnose — was the underlying map data different,
 or did a dependency change behavior? The run log doesn't answer that
 question by itself, but it narrows the search considerably.</p>
+<p><strong>New: a run's outcome should be a stable, machine-readable contract, not
+just a human-readable log.</strong> <code>run_log.json</code> (the point above) was always
+meant primarily for a human debugging a specific run. This revision adds a
+second, distinct artifact — <code>manifest.json</code> — deliberately structured and
+versioned (<code>MANIFEST_SCHEMA_VERSION</code>) as a <em>contract</em> a downstream program
+should parse and depend on, rather than something a person reads. The
+distinction matters: <code>run_log.json</code>'s shape can evolve relatively freely
+since only humans read it directly; <code>manifest.json</code>'s shape is meant to be
+stable across extractor versions, because <code>akure-accessibility-dashboard</code>'s
+<a href="../../akure-accessibility-dashboard/modules/data_contract/"><code>data_contract.py</code></a>
+now programmatically depends on it. See
+<a href="../modules/manifest/"><code>manifest.md</code></a> and
+<a href="../../cross-repo/integration/">Cross-Repo Integration</a>.</p>
+<p><strong>New: progress should be observable without coupling the pipeline to any
+specific UI framework.</strong> <code>events.py</code>'s entire design (see
+<a href="../modules/events/"><code>events.md</code></a>) exists to let <code>app.py</code>'s Streamlit
+interface show live, per-stage progress without <code>boundary.py</code>, <code>layers.py</code>,
+or <code>pipeline.py</code> importing Streamlit, or knowing anything about it. The
+event schema is plain dicts; the thread-safety primitive
+(<code>ThreadSafeEventQueue</code>) is pure-Python <code>queue.Queue</code>. A different future
+consumer (a CLI progress bar, a web API) could reuse the identical event
+stream without this module changing at all.</p>
 <h2 id="module-map">Module Map<a class="headerlink" href="#module-map" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -1893,11 +2145,11 @@ question by itself, but it narrows the search considerably.</p>
 </tr>
 <tr>
 <td><code>lga_extractor/clean.py</code></td>
-<td>Reproject, repair, deduplicate, standardize schema; collapse polygon facilities to points</td>
+<td>Reproject, repair, deduplicate, standardize schema (core + curated semantic tags + raw JSON tags); collapse polygon facilities to points</td>
 </tr>
 <tr>
 <td><code>lga_extractor/export.py</code></td>
-<td>Write cleaned layers to GeoJSON and Shapefile, splitting Shapefile output by geometry category when a layer mixes point/line/polygon types</td>
+<td>Write cleaned layers to GeoJSON (full schema) and Shapefile (core columns only), splitting Shapefile output by geometry category when a layer mixes point/line/polygon types</td>
 </tr>
 <tr>
 <td><code>lga_extractor/visualize.py</code></td>
@@ -1905,11 +2157,19 @@ question by itself, but it narrows the search considerably.</p>
 </tr>
 <tr>
 <td><code>lga_extractor/logging_utils.py</code></td>
-<td>Capture run metadata (environment, parameters, warnings) per extraction</td>
+<td>Capture run metadata (environment, parameters, warnings, per-layer status) per extraction</td>
 </tr>
 <tr>
 <td><code>lga_extractor/pipeline.py</code></td>
-<td>Orchestrate the full boundary → layers → clean → export → visualize sequence</td>
+<td>Orchestrate the full boundary → layers → clean → export → visualize sequence, plus boundary export and manifest building</td>
+</tr>
+<tr>
+<td><code>lga_extractor/events.py</code> <strong>(new)</strong></td>
+<td>Plain-dict progress event schema and a thread-safe queue, decoupling pipeline progress from any specific UI</td>
+</tr>
+<tr>
+<td><code>lga_extractor/manifest.py</code> <strong>(new)</strong></td>
+<td>Build and write <code>manifest.json</code>, the formal, versioned extraction contract read by downstream consumers</td>
 </tr>
 <tr>
 <td><code>app.py</code></td>

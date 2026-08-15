@@ -18,7 +18,7 @@
         <link rel="prev" href="../logging_utils/">
       
       
-        <link rel="next" href="../../app/">
+        <link rel="next" href="../events/">
       
       
         
@@ -557,6 +557,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -876,10 +880,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#extract_lgalga_name-state_namenone-output_dirnone-tag_confignone-manual_boundary_pathnone-strictfalse" class="md-nav__link">
+  <a href="#extract_lgalga_name-state_namenone-output_dirnone-tag_confignone-manual_boundary_pathnone-strictfalse-on_eventnone" class="md-nav__link">
     <span class="md-ellipsis">
       
-        extract_lga(lga_name, state_name=None, output_dir=None, tag_config=None, manual_boundary_path=None, strict=False)
+        extract_lga(lga_name, state_name=None, output_dir=None, tag_config=None, manual_boundary_path=None, strict=False, on_event=None)
       
     </span>
   </a>
@@ -917,6 +921,62 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    events.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manifest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    manifest.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -1192,6 +1252,16 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -1392,6 +1462,146 @@
     
   
     insights.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/modules/config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    config.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/modules/data_contract/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    data_contract.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/modules/facility_classification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    facility_classification.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/modules/sensitivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sensitivity.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/modules/status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    status.py
   
 
     
@@ -1715,10 +1925,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#extract_lgalga_name-state_namenone-output_dirnone-tag_confignone-manual_boundary_pathnone-strictfalse" class="md-nav__link">
+  <a href="#extract_lgalga_name-state_namenone-output_dirnone-tag_confignone-manual_boundary_pathnone-strictfalse-on_eventnone" class="md-nav__link">
     <span class="md-ellipsis">
       
-        extract_lga(lga_name, state_name=None, output_dir=None, tag_config=None, manual_boundary_path=None, strict=False)
+        extract_lga(lga_name, state_name=None, output_dir=None, tag_config=None, manual_boundary_path=None, strict=False, on_event=None)
       
     </span>
   </a>
@@ -1775,30 +1985,42 @@
 <h1 id="pipelinepy">pipeline.py<a class="headerlink" href="#pipelinepy" title="Permanent link">&para;</a></h1>
 <div class="admonition info">
 <p class="admonition-title">Source</p>
-<p><code>lga_extractor/pipeline.py</code> (116 lines)</p>
+<p><code>lga_extractor/pipeline.py</code> (191 lines — grew from 116 with the
+addition of progress events, boundary export, and manifest building,
+see below)</p>
 </div>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
 <p>The single high-level entry point that runs the full extraction pipeline
 for one Nigerian LGA end to end: boundary resolution → layer extraction →
-cleaning → export → run logging. This is a thin orchestrator — it contains
-almost no logic of its own; its job is purely to call the other five
-modules in the right order and thread state (the boundary, the resolved
-CRS, accumulated warnings) between them correctly.</p>
+cleaning → export → <strong>boundary export (new)</strong> → <strong>manifest building (new)</strong>
+→ run logging. This is a thin orchestrator — it contains almost no logic of
+its own; its job is purely to call the other modules in the right order and
+thread state between them correctly.</p>
+<p><strong>This revision adds three things to that orchestration</strong>, all covered in
+detail below: (1) an <code>on_event</code> callback threaded through every stage, so a
+caller can observe live progress (see <a href="../events/"><code>events.py</code></a> and
+<a href="../../app/"><code>app.py</code></a>'s new progress UI); (2) writing the boundary polygon
+itself to disk as <code>boundary.geojson</code>, closing a gap where the boundary was
+the one input a downstream consumer couldn't get from cached files alone;
+and (3) building and writing the formal <a href="../manifest/">extraction manifest</a>.</p>
 <p>Both <a href="../../app/"><code>app.py</code></a> (the Streamlit UI) and <a href="../../cli/"><code>cli.py</code></a>
 call this same function rather than reimplementing pipeline logic — this
 module is the reason those two very different interfaces stay in sync with
 each other automatically.</p>
 <h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Imports:</strong> <code>resolve_boundary</code> from <code>boundary.py</code>; <code>extract_layers</code>,
-  <code>DEFAULT_TAG_CONFIG</code>, <code>LayerExtractionError</code> from <code>layers.py</code>;
-  <code>clean_layers</code>, <code>resolve_target_crs</code> from <code>clean.py</code>; <code>export_layers</code>
-  from <code>export.py</code>; <code>log_run</code> from <code>logging_utils.py</code>. This is the <em>only</em>
-  module in the repository that imports from all five other core modules.</li>
+<li><strong>Imports:</strong> <code>os</code> (new — for <code>boundary.geojson</code>'s path); <code>resolve_boundary</code>
+  from <code>boundary.py</code>; <code>extract_layers</code>, <code>DEFAULT_TAG_CONFIG</code>,
+  <code>LayerExtractionError</code> from <code>layers.py</code>; <code>clean_layers</code>,
+  <code>resolve_target_crs</code> from <code>clean.py</code>; <code>export_layers</code> from <code>export.py</code>;
+  <code>log_run</code> from <code>logging_utils.py</code>; <code>build_manifest</code>, <code>write_manifest</code>
+  from <a href="../manifest/"><code>manifest.py</code></a> (new); <code>_emit</code> from
+  <a href="../events/"><code>events.py</code></a> (new). This is the <em>only</em> module in the
+  repository that imports from every other core module.</li>
 <li><strong>Imported by:</strong> <code>app.py</code>, <code>cli.py</code>.</li>
 </ul>
 <h2 id="functions-classes">Functions &amp; Classes<a class="headerlink" href="#functions-classes" title="Permanent link">&para;</a></h2>
-<h3 id="extract_lgalga_name-state_namenone-output_dirnone-tag_confignone-manual_boundary_pathnone-strictfalse"><code>extract_lga(lga_name, state_name=None, output_dir=None, tag_config=None, manual_boundary_path=None, strict=False)</code><a class="headerlink" href="#extract_lgalga_name-state_namenone-output_dirnone-tag_confignone-manual_boundary_pathnone-strictfalse" title="Permanent link">&para;</a></h3>
+<h3 id="extract_lgalga_name-state_namenone-output_dirnone-tag_confignone-manual_boundary_pathnone-strictfalse-on_eventnone"><code>extract_lga(lga_name, state_name=None, output_dir=None, tag_config=None, manual_boundary_path=None, strict=False, on_event=None)</code><a class="headerlink" href="#extract_lgalga_name-state_namenone-output_dirnone-tag_confignone-manual_boundary_pathnone-strictfalse-on_eventnone" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1809,87 +2031,112 @@ each other automatically.</p>
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td>Runs the complete pipeline for one LGA and returns a summary dict of everything that happened: where the boundary came from, what CRS was used, what was exported, what warnings occurred, and where the run log was written.</td>
+<td>Runs the complete pipeline for one LGA and returns a summary dict of everything that happened: where the boundary came from and where it was exported to, what CRS was used, what was exported, what warnings occurred, the full structured manifest, and where the run log and manifest files were written.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td>Every parameter here is a direct pass-through to the corresponding parameter on the underlying stage function (<code>lga_name</code>/<code>state_name</code>/<code>manual_boundary_path</code> → <code>resolve_boundary()</code>; <code>tag_config</code>/<code>strict</code> → <code>extract_layers()</code>), rather than this function inventing its own parallel parameter set — this keeps the orchestration layer thin and means the detailed behavior documentation for each parameter lives in exactly one place (the stage function's own docstring), not duplicated and potentially drifting out of sync here.</td>
+<td>Every stage parameter is a direct pass-through to the corresponding underlying stage function, keeping the orchestration layer thin. <strong>New:</strong> <code>on_event</code> is threaded through to every stage that can meaningfully report progress (<code>resolve_boundary()</code> currently does not accept <code>on_event</code> itself, so boundary-stage events are emitted directly by <code>extract_lga()</code> around that call, while <code>extract_layers()</code> and its worker threads emit their own events internally, passed straight through).</td>
+</tr>
+<tr>
+<td><strong>New: why <code>on_event</code> exists at the orchestration level, not just inside <code>layers.py</code>.</strong></td>
+<td>A UI observing only <code>layers.py</code>'s events would see nothing happen during boundary resolution, cleaning, or export — three stages that, especially boundary resolution (a live Nominatim geocode call) and export (writing several files to disk), can take a non-trivial amount of wall-clock time on their own. <code>extract_lga()</code> emits its own <code>stage_started</code>/<code>stage_completed</code> events around each of these stages directly (<code>"boundary"</code>, <code>"cleaning"</code>, <code>"export"</code>), so a UI's progress checklist (see <a href="../events/"><code>events.build_stage_order()</code></a>) has a row for every stage a user might otherwise wonder about, not just the per-layer ones.</td>
+</tr>
+<tr>
+<td><strong>New: the <code>boundary.geojson</code> export.</strong></td>
+<td>Immediately after <code>export_layers()</code> writes the layer files, <code>extract_lga()</code> writes the boundary polygon itself — <code>boundary_gdf.to_file(os.path.join(output_dir, "boundary.geojson"), driver="GeoJSON")</code>. No reprojection is needed since <code>boundary_gdf</code> is already EPSG:4326 (<code>resolve_boundary()</code>'s own standardized output CRS). This closes a real, previously-unaddressed gap: a downstream consumer needing the boundary polygon itself — not just layer data — for example <code>akure_access.accessibility.scoring.add_access_times()</code>'s <code>boundary_polygon_wgs84</code> parameter, used for consistent centroid reprojection — had no choice but to call <code>boundary.resolve_boundary()</code> again, live, even when every other input was already cached on disk. Written as part of the conceptual "export" stage (not its own separate progress-UI row) since, from an observer's perspective, it's the same kind of step as writing every other file this pipeline produces.</td>
+</tr>
+<tr>
+<td><strong>New: manifest construction.</strong></td>
+<td>After computing <code>resolved_crs</code> (see the pre-existing double-resolution gotcha below, unchanged by this revision), <code>extract_lga()</code> calls <code>build_manifest()</code> with <code>lga_name</code>, <code>state_name</code>, <code>resolved_crs</code>, <code>boundary_source</code>, <code>layer_status</code> (pulled from <code>raw_layers["_status"]</code>, new), <code>exported</code>, and <code>boundary_path</code>, then <code>write_manifest()</code> to persist it. Not treated as its own progress-UI stage — the module's own comment notes this is near-instant bookkeeping, not a user-visible step worth a checklist row of its own.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><code>lga_name: str</code> (required); <code>state_name: str</code>, optional; <code>output_dir: str</code>, optional (defaults to <code>"output/{lga_name}"</code> with spaces replaced by underscores and lowercased, if not given); <code>tag_config: dict</code>, optional (defaults to <code>layers.DEFAULT_TAG_CONFIG</code>); <code>manual_boundary_path: str</code>, optional; <code>strict: bool</code>, default <code>False</code> (see <code>layers.extract_layers()</code>'s docstring for the full failure-handling explanation this defers to).</td>
+<td><code>lga_name: str</code>; <code>state_name: str</code>, optional; <code>output_dir: str</code>, optional; <code>tag_config: dict</code>, optional; <code>manual_boundary_path: str</code>, optional; <code>strict: bool</code>, default <code>False</code>; <code>on_event: callable, optional</code> (<strong>new</strong> — default <code>None</code>, see <a href="../events/"><code>events.py</code></a> for the schema and thread-safety notes).</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><code>dict</code> with keys: <code>lga_name</code>, <code>state_name</code>, <code>output_dir</code>, <code>boundary_source</code>, <code>target_crs</code>, <code>exported</code> (the full dict from <code>export_layers()</code>), <code>warnings</code> (combined boundary + layer warnings), <code>run_log</code> (path to the written JSON log).</td>
+<td><code>dict</code> with keys: <code>lga_name</code>, <code>state_name</code>, <code>output_dir</code>, <code>boundary_source</code>, <strong><code>boundary_path</code></strong> (new — path to <code>boundary.geojson</code>), <code>target_crs</code>, <code>exported</code>, <code>warnings</code>, <strong><code>layer_status</code></strong> (new — the structured per-layer dict), <strong><code>manifest</code></strong> (new — the full manifest dict), <strong><code>manifest_path</code></strong> (new — path to <code>manifest.json</code>), <code>run_log</code>.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td>1. Default <code>output_dir</code> if not given, via a simple slugify (<code>strip().replace(" ", "_").lower()</code>).<br>2. Default <code>tag_config</code> if not given.<br>3. Call <code>resolve_boundary()</code> — raises <code>BoundaryResolutionError</code> here if resolution fails, which propagates straight up out of <code>extract_lga()</code> uncaught (no try/except around this call).<br>4. Extract <code>boundary_source</code> and <code>validation_warnings</code> from the resolved boundary's columns.<br>5. Call <code>extract_layers(boundary_gdf, tag_config=tag_config, strict=strict)</code> — in strict mode, a genuine layer failure raises <code>LayerExtractionError</code> here, which likewise propagates up uncaught.<br>6. Pull the <code>"_warnings"</code> list out of the raw layers dict. If the boundary had its own soft validation warning, prepend a <code>"Boundary validation: ..."</code>-prefixed version of it to the front of the warnings list — folding both warning sources into one combined list for anyone reviewing the run.<br>7. Call <code>clean_layers(raw_layers, boundary_gdf=boundary_gdf)</code>, then pop <code>"_warnings"</code> off the cleaned dict (it isn't a real layer, and <code>export_layers()</code> doesn't need it — <code>export_layers()</code> already knows to skip a <code>"_warnings"</code> key on its own, so this pop is technically redundant, but harmless and arguably clearer here).<br>8. Call <code>export_layers(cleaned, output_dir)</code>.<br>9. Call <code>resolve_target_crs(boundary_gdf)</code> <strong>again</strong> — see Gotchas below — purely to have the resolved CRS string available to pass into <code>log_run()</code>.<br>10. Call <code>log_run()</code> with everything gathered so far, get back the log file path.<br>11. Assemble and return the summary dict.</td>
+<td>1. Default <code>output_dir</code>/<code>tag_config</code> if not given.<br>2. Emit <code>stage_started</code> for <code>"boundary"</code>; call <code>resolve_boundary()</code>; extract <code>boundary_source</code>/<code>validation_warnings</code>; emit <code>stage_completed</code> for <code>"boundary"</code>.<br>3. Call <code>extract_layers(boundary_gdf, tag_config, strict, on_event)</code> — events for each layer flow directly from its worker threads.<br>4. Pull <code>"_warnings"</code> and (<strong>new</strong>) <code>"_status"</code> from the raw layers dict. Fold the boundary's own soft warning into the front of <code>warnings</code>, emitting a <code>"warning"</code> event (<strong>new</strong>) if present.<br>5. Emit <code>stage_started</code> for <code>"cleaning"</code>; call <code>clean_layers()</code>; pop <code>"_warnings"</code> <strong>and</strong> <code>"_status"</code> (<strong>new</strong>) off the cleaned dict; emit <code>stage_completed</code>.<br>6. Emit <code>stage_started</code> for <code>"export"</code>; call <code>export_layers()</code>; <strong>write <code>boundary.geojson</code> (new)</strong>; emit <code>stage_completed</code> for <code>"export"</code> (covering both steps).<br>7. Call <code>resolve_target_crs(boundary_gdf)</code> again (unchanged pre-existing behavior — see Gotchas).<br>8. <strong>New:</strong> <code>build_manifest()</code> + <code>write_manifest()</code>.<br>9. Call <code>log_run()</code>, now also passing <code>layer_status</code> (new).<br>10. Assemble the summary dict (with the new fields above), emit <code>pipeline_completed</code> carrying the summary itself (<strong>new</strong>), return it.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td>Assumes callers want boundary-resolution and layer-extraction failures to propagate as exceptions rather than being caught and folded into the returned summary dict — this is a real design choice: <code>warnings</code> in the return value only ever contains <em>non-fatal</em> concerns (soft boundary checks, empty layers), never the fatal errors that would have stopped execution before reaching the <code>return</code> statement at all. A caller (like <code>app.py</code>) that wants to show a friendly error message rather than crash must wrap its own call to <code>extract_lga()</code> in a try/except.</td>
+<td>Assumes callers want boundary-resolution and layer-extraction failures to propagate as exceptions rather than being caught and folded into the returned summary dict — unchanged from before. <strong>New:</strong> assumes writing <code>boundary.geojson</code> won't itself fail in a way that needs separate handling from <code>export_layers()</code>'s own potential failures — there's no dedicated try/except around this specific write; a failure here propagates as an uncaught exception exactly like any other unhandled I/O error in this function.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td>O(1) in its own logic — all real complexity lives in the five stage functions it calls; this function is pure sequencing.</td>
+<td>O(1) in its own logic — all real complexity lives in the stage functions it calls. The new <code>boundary.geojson</code> write and manifest construction are both O(1)/cheap relative to the rest of the pipeline.</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td>None introduced by this function itself. <code>extract_layers()</code> (called from here) is the one stage with internal threading — see <a href="../layers/"><code>layers.md</code></a>. <code>extract_lga()</code> does not run multiple LGAs concurrently; calling it for two different LGAs from separate threads/processes simultaneously would be safe as long as their <code>output_dir</code> values don't collide (each writes independently to its own directory tree).</td>
+<td>None introduced by this function itself beyond what already existed. <code>extract_layers()</code> remains the one stage with internal threading. <strong>New consideration:</strong> <code>on_event</code>, when supplied, is now called both directly by <code>extract_lga()</code> (single-threaded, from this function's own call site) <em>and</em> indirectly from <code>layers.py</code>'s worker threads — a callback must be safe for both calling patterns simultaneously, which is exactly what <code>events.ThreadSafeEventQueue</code> provides.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../tests/">tests.md</a> — <code>test_extract_lga_end_to_end_live_osm</code>.</td>
+<td>See <a href="../../tests/">tests.md</a> — <code>test_extract_lga_end_to_end_live_osm</code>, plus new: <code>test_extract_lga_emits_full_stage_sequence</code>, <code>test_extract_lga_writes_boundary_geojson_and_records_it_in_manifest</code>.</td>
 </tr>
 </tbody>
 </table>
 <h2 id="internal-workflow">Internal Workflow<a class="headerlink" href="#internal-workflow" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>flowchart TD
-    A["extract_lga(lga_name, state_name, output_dir, tag_config, manual_boundary_path, strict)"] --&gt; B["resolve output_dir default: output/{safe_name} if not given"]
+    A["extract_lga(lga_name, state_name, output_dir, tag_config,&lt;br/&gt;manual_boundary_path, strict, on_event)"] --&gt; B["resolve output_dir default: output/{safe_name} if not given"]
     B --&gt; C["tag_config = tag_config or DEFAULT_TAG_CONFIG"]
-    C --&gt; D["boundary.resolve_boundary(lga_name, state_name, manual_boundary_path)"]
+    C --&gt; C0["emit stage_started('boundary')"]
+    C0 --&gt; D["boundary.resolve_boundary(lga_name, state_name, manual_boundary_path)"]
     D --&gt; E["extract boundary_source, validation_warnings from result"]
-    E --&gt; F["layers.extract_layers(boundary_gdf, tag_config, strict)"]
-    F --&gt; G["warnings = raw_layers['_warnings']"]
+    E --&gt; E0["emit stage_completed('boundary')"]
+    E0 --&gt; F["layers.extract_layers(boundary_gdf, tag_config, strict, on_event)&lt;br/&gt;— per-layer events flow from worker threads"]
+    F --&gt; G["warnings = raw_layers['_warnings']&lt;br/&gt;layer_status = raw_layers['_status'] (new)"]
     G --&gt; H{boundary_validation_warning present?}
-    H -- yes --&gt; I["prepend 'Boundary validation: ...' to warnings"]
-    H -- no --&gt; J
-    I --&gt; J["clean.clean_layers(raw_layers, boundary_gdf)"]
-    J --&gt; K["pop '_warnings' from cleaned dict (already captured above)"]
-    K --&gt; L["export.export_layers(cleaned, output_dir)"]
-    L --&gt; M["resolve_target_crs(boundary_gdf) again — for accurate logging, not inferred from cleaned output"]
-    M --&gt; N["logging_utils.log_run(...)"]
-    N --&gt; O["return summary dict"]</code></pre>
+    H -- yes --&gt; I["prepend 'Boundary validation: ...' to warnings&lt;br/&gt;emit warning event (new)"]
+    H -- no --&gt; J0
+    I --&gt; J0["emit stage_started('cleaning')"]
+    J0 --&gt; J["clean.clean_layers(raw_layers, boundary_gdf)"]
+    J --&gt; K["pop '_warnings' AND '_status' from cleaned dict (new)"]
+    K --&gt; K0["emit stage_completed('cleaning')&lt;br/&gt;emit stage_started('export')"]
+    K0 --&gt; L["export.export_layers(cleaned, output_dir)"]
+    L --&gt; L2["write boundary.geojson (new)"]
+    L2 --&gt; L3["emit stage_completed('export')"]
+    L3 --&gt; M["resolve_target_crs(boundary_gdf) again — for accurate logging"]
+    M --&gt; M2["build_manifest() + write_manifest() (new)"]
+    M2 --&gt; N["logging_utils.log_run(..., layer_status)"]
+    N --&gt; O["assemble summary dict (+ boundary_path, layer_status, manifest, manifest_path)"]
+    O --&gt; O2["emit pipeline_completed(summary) (new)"]
+    O2 --&gt; P["return summary dict"]</code></pre>
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong><code>resolve_target_crs()</code> is called twice per run, not once.</strong> It's called
-  once internally by <code>clean_layers()</code> (to actually reproject the layers),
-  and called <em>again</em>, independently, at the end of <code>extract_lga()</code> (step 9
-  above) purely to obtain the CRS string for the run log. This is a
-  deliberate choice, not an oversight — the code comment explains that
-  inferring the CRS from the <em>cleaned layer output</em> instead (e.g. reading
-  <code>cleaned["buildings"].crs</code>) would risk getting a wrong or <code>None</code> answer if
-  the first-checked layer happens to be empty, since <code>_clean_single_layer()</code>
-  returns an empty <code>GeoDataFrame</code> early, before reprojection, for empty
-  inputs. Calling <code>resolve_target_crs(boundary_gdf)</code> directly guarantees a
-  correct answer regardless of which individual layers are empty — at the
-  minor cost of resolving the same boundary-based CRS lookup twice per run.
-  Since <code>resolve_target_crs()</code> is O(1) and cheap, this redundancy has no
-  meaningful performance impact — it's a correctness-over-elegance trade
-  worth knowing about if refactoring this function.</li>
-<li><strong>No exception handling around the pipeline stages.</strong> As noted in
-  "Assumptions" above, this function does not catch
-  <code>BoundaryResolutionError</code> or <code>LayerExtractionError</code> — both propagate
-  directly to the caller. Anyone building a new interface on top of
-  <code>extract_lga()</code> (beyond the existing <code>app.py</code>/<code>cli.py</code>) needs to handle
-  these explicitly.</li>
-<li><strong>The <code>_warnings</code> pop after <code>clean_layers()</code> is functionally redundant.</strong>
-  <code>export_layers()</code> already explicitly skips a <code>"_warnings"</code> key if present
-  (see <a href="../export/"><code>export.md</code></a>) — so <code>cleaned.pop("_warnings", None)</code> at
-  step 7 doesn't change behavior, it's just tidiness/defensiveness rather
-  than a required step.</li>
+<li><strong><code>resolve_target_crs()</code> is still called twice per run.</strong> Unchanged from
+  before this revision — it's called once internally by <code>clean_layers()</code>,
+  and again independently at the end of <code>extract_lga()</code> purely to obtain
+  the CRS string for the run log and (<strong>new</strong>) the manifest. This remains a
+  deliberate correctness-over-elegance trade, not an oversight — see the
+  original reasoning: inferring the CRS from cleaned layer output risks a
+  wrong/<code>None</code> answer if the first-checked layer happens to be empty.</li>
+<li><strong>No exception handling around the pipeline stages, including the new
+  ones.</strong> This function does not catch <code>BoundaryResolutionError</code> or
+  <code>LayerExtractionError</code>, and — new — does not specifically catch a failure
+  writing <code>boundary.geojson</code> or building/writing the manifest either; all
+  of these propagate directly to the caller. Anyone building a new interface
+  on top of <code>extract_lga()</code> needs to handle these explicitly.</li>
+<li><strong>New: the manifest is built <em>after</em> <code>boundary.geojson</code> is written, so
+  <code>boundary_path</code> in the manifest always points at a file that (assuming no
+  exception was raised) genuinely exists by the time the manifest is
+  constructed</strong> — there's no window where <code>manifest.json</code> could reference a
+  <code>boundary_path</code> that doesn't actually exist on disk, since a failure
+  writing the boundary file would raise before manifest construction is
+  ever reached.</li>
+<li><strong>New: <code>pipeline_completed</code>'s event payload is the entire summary dict</strong>,
+  including the full <code>manifest</code> dict nested inside it — a consumer draining
+  events (e.g. via <code>ThreadSafeEventQueue.drain()</code>) receives the complete
+  final result as the last event, not just a "done" signal; no separate
+  polling of <code>extract_lga()</code>'s return value is needed if a caller is already
+  consuming events.</li>
+<li><strong>The <code>_warnings</code>/<code>_status</code> pop after <code>clean_layers()</code> remains functionally
+  redundant</strong> for <code>_warnings</code> (as before), and the same is now true of
+  <code>_status</code> — <code>export_layers()</code> already explicitly skips both keys if
+  present (see <a href="../export/"><code>export.md</code></a>).</li>
 </ul>
 
 
@@ -1943,13 +2190,13 @@ each other automatically.</p>
         
         
           
-          <a href="../../app/" class="md-footer__link md-footer__link--next" aria-label="Next: Streamlit App (app.py)">
+          <a href="../events/" class="md-footer__link md-footer__link--next" aria-label="Next: events.py">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Streamlit App (app.py)
+                events.py
               </div>
             </div>
             <div class="md-footer__button md-icon">

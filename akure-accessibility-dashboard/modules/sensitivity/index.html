@@ -12,29 +12,31 @@
         <meta name="author" content="Marvellous Adeleke">
       
       
-        <link rel="canonical" href="https://mapkathon2026-useosm.github.io/UseOSM_Mapkathon-Submission-documentation/">
+        <link rel="canonical" href="https://mapkathon2026-useosm.github.io/UseOSM_Mapkathon-Submission-documentation/akure-accessibility-dashboard/modules/sensitivity/">
       
       
+        <link rel="prev" href="../facility_classification/">
       
-        <link rel="next" href="lga-osm-extractor/overview/">
+      
+        <link rel="next" href="../status/">
       
       
         
       
       
-      <link rel="icon" href="assets/images/favicon.png">
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
-        <title>UseOSM Mapkathon Submission Documentation</title>
+        <title>sensitivity.py - UseOSM Mapkathon Submission Documentation</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -53,9 +55,9 @@
       
     
     
-      <link rel="stylesheet" href="stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -80,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#useosm-mapkathon-submission-documentation" class="md-skip">
+        <a href="#akure_accesssensitivitypy" class="md-skip">
           Skip to content
         </a>
       
@@ -96,7 +98,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="UseOSM Mapkathon Submission Documentation" class="md-header__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
+    <a href="../../.." title="UseOSM Mapkathon Submission Documentation" class="md-header__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -116,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              sensitivity.py
             
           </span>
         </div>
@@ -221,11 +223,9 @@
   
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="." class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
         
   
   
@@ -246,7 +246,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="lga-osm-extractor/overview/" class="md-tabs__link">
+        <a href="../../../lga-osm-extractor/overview/" class="md-tabs__link">
           
   
   
@@ -264,11 +264,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="akure-accessibility-dashboard/overview/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../overview/" class="md-tabs__link">
           
   
   
@@ -288,7 +290,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="cross-repo/integration/" class="md-tabs__link">
+      <a href="../../../cross-repo/integration/" class="md-tabs__link">
         
   
   
@@ -309,7 +311,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="reference/glossary/" class="md-tabs__link">
+        <a href="../../../reference/glossary/" class="md-tabs__link">
           
   
   
@@ -351,7 +353,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="UseOSM Mapkathon Submission Documentation" class="md-nav__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
+    <a href="../../.." title="UseOSM Mapkathon Submission Documentation" class="md-nav__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -378,37 +380,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Home
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -424,72 +399,6 @@
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#the-problem" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Problem
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-two-repositories" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        The Two Repositories
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-they-relate" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How They Relate
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-to-read-this-documentation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How to Read This Documentation
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -569,7 +478,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/overview/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/overview/" class="md-nav__link">
         
   
   
@@ -597,7 +506,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/data-flow/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/data-flow/" class="md-nav__link">
         
   
   
@@ -697,7 +606,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/modules/boundary/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/modules/boundary/" class="md-nav__link">
         
   
   
@@ -725,7 +634,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/modules/layers/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/modules/layers/" class="md-nav__link">
         
   
   
@@ -753,7 +662,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/modules/clean/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/modules/clean/" class="md-nav__link">
         
   
   
@@ -781,7 +690,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/modules/export/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/modules/export/" class="md-nav__link">
         
   
   
@@ -809,7 +718,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/modules/visualize/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/modules/visualize/" class="md-nav__link">
         
   
   
@@ -837,7 +746,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/modules/logging_utils/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/modules/logging_utils/" class="md-nav__link">
         
   
   
@@ -865,7 +774,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/modules/pipeline/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/modules/pipeline/" class="md-nav__link">
         
   
   
@@ -893,7 +802,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/modules/events/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/modules/events/" class="md-nav__link">
         
   
   
@@ -921,7 +830,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/modules/manifest/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/modules/manifest/" class="md-nav__link">
         
   
   
@@ -957,7 +866,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/app/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/app/" class="md-nav__link">
         
   
   
@@ -985,7 +894,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/cli/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/cli/" class="md-nav__link">
         
   
   
@@ -1013,7 +922,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/end-to-end/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/end-to-end/" class="md-nav__link">
         
   
   
@@ -1041,7 +950,7 @@
   
   
     <li class="md-nav__item">
-      <a href="lga-osm-extractor/tests/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/tests/" class="md-nav__link">
         
   
   
@@ -1073,8 +982,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -1094,19 +1005,22 @@
     
     
       
+        
+        
+      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
   
@@ -1124,7 +1038,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1142,7 +1056,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/overview/" class="md-nav__link">
+      <a href="../../overview/" class="md-nav__link">
         
   
   
@@ -1170,7 +1084,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/data-flow/" class="md-nav__link">
+      <a href="../../data-flow/" class="md-nav__link">
         
   
   
@@ -1195,8 +1109,10 @@
                 
   
   
+    
   
   
+  
     
     
       
@@ -1227,18 +1143,21 @@
     
       
       
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
         
           
-          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
             
   
   
@@ -1256,7 +1175,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1274,7 +1193,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/modules/accessibility/network_graph/" class="md-nav__link">
+      <a href="../accessibility/network_graph/" class="md-nav__link">
         
   
   
@@ -1302,7 +1221,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/modules/accessibility/isochrones/" class="md-nav__link">
+      <a href="../accessibility/isochrones/" class="md-nav__link">
         
   
   
@@ -1330,7 +1249,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/modules/accessibility/scoring/" class="md-nav__link">
+      <a href="../accessibility/scoring/" class="md-nav__link">
         
   
   
@@ -1358,7 +1277,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/modules/completeness/grid_check/" class="md-nav__link">
+      <a href="../completeness/grid_check/" class="md-nav__link">
         
   
   
@@ -1386,7 +1305,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/modules/visualization/static_maps/" class="md-nav__link">
+      <a href="../visualization/static_maps/" class="md-nav__link">
         
   
   
@@ -1414,7 +1333,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/modules/insights/" class="md-nav__link">
+      <a href="../insights/" class="md-nav__link">
         
   
   
@@ -1442,7 +1361,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/modules/config/" class="md-nav__link">
+      <a href="../config/" class="md-nav__link">
         
   
   
@@ -1470,7 +1389,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/modules/data_contract/" class="md-nav__link">
+      <a href="../data_contract/" class="md-nav__link">
         
   
   
@@ -1498,7 +1417,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/modules/facility_classification/" class="md-nav__link">
+      <a href="../facility_classification/" class="md-nav__link">
         
   
   
@@ -1523,10 +1442,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/modules/sensitivity/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sensitivity.py
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1542,6 +1488,144 @@
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why this exists
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-central-design-decision-measuring-overlap-of-the-set-not-just-the-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The central design decision: measuring overlap of the set, not just the rate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run_threshold_sensitivitygrid_gdf-modewalk-thresholds_min20-30-45-pddataframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        run_threshold_sensitivity(grid_gdf, mode="walk", thresholds_min=(20, 30, 45)) -&gt; pd.DataFrame
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run_speed_sensitivityboundary_polygon_wgs84-roads_gdf-health_gdf-schools_gdf-grid_gdf-modewalk-speeds_kph40-50-60-threshold_min30-pddataframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        run_speed_sensitivity(boundary_polygon_wgs84, roads_gdf, health_gdf, schools_gdf, grid_gdf, mode="walk", speeds_kph=(4.0, 5.0, 6.0), threshold_min=30) -&gt; pd.DataFrame
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summarize_robustnesssensitivity_df-jaccard_threshold08-str" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        summarize_robustness(sensitivity_df, jaccard_threshold=0.8) -&gt; str
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gotchas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gotchas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1554,7 +1638,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/modules/status/" class="md-nav__link">
+      <a href="../status/" class="md-nav__link">
         
   
   
@@ -1590,7 +1674,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/dashboard-app/" class="md-nav__link">
+      <a href="../../dashboard-app/" class="md-nav__link">
         
   
   
@@ -1618,7 +1702,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/end-to-end/" class="md-nav__link">
+      <a href="../../end-to-end/" class="md-nav__link">
         
   
   
@@ -1646,7 +1730,7 @@
   
   
     <li class="md-nav__item">
-      <a href="akure-accessibility-dashboard/tests/" class="md-nav__link">
+      <a href="../../tests/" class="md-nav__link">
         
   
   
@@ -1681,7 +1765,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cross-repo/integration/" class="md-nav__link">
+      <a href="../../../cross-repo/integration/" class="md-nav__link">
         
   
   
@@ -1766,7 +1850,7 @@
   
   
     <li class="md-nav__item">
-      <a href="reference/glossary/" class="md-nav__link">
+      <a href="../../../reference/glossary/" class="md-nav__link">
         
   
   
@@ -1794,7 +1878,7 @@
   
   
     <li class="md-nav__item">
-      <a href="reference/known-issues/" class="md-nav__link">
+      <a href="../../../reference/known-issues/" class="md-nav__link">
         
   
   
@@ -1851,10 +1935,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-problem" class="md-nav__link">
+  <a href="#purpose" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Problem
+        Purpose
       
     </span>
   </a>
@@ -1862,10 +1946,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-two-repositories" class="md-nav__link">
+  <a href="#why-this-exists" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Two Repositories
+        Why this exists
       
     </span>
   </a>
@@ -1873,10 +1957,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-they-relate" class="md-nav__link">
+  <a href="#the-central-design-decision-measuring-overlap-of-the-set-not-just-the-rate" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How They Relate
+        The central design decision: measuring overlap of the set, not just the rate
       
     </span>
   </a>
@@ -1884,10 +1968,82 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-to-read-this-documentation" class="md-nav__link">
+  <a href="#functions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How to Read This Documentation
+        Functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run_threshold_sensitivitygrid_gdf-modewalk-thresholds_min20-30-45-pddataframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        run_threshold_sensitivity(grid_gdf, mode="walk", thresholds_min=(20, 30, 45)) -&gt; pd.DataFrame
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run_speed_sensitivityboundary_polygon_wgs84-roads_gdf-health_gdf-schools_gdf-grid_gdf-modewalk-speeds_kph40-50-60-threshold_min30-pddataframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        run_speed_sensitivity(boundary_polygon_wgs84, roads_gdf, health_gdf, schools_gdf, grid_gdf, mode="walk", speeds_kph=(4.0, 5.0, 6.0), threshold_min=30) -&gt; pd.DataFrame
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summarize_robustnesssensitivity_df-jaccard_threshold08-str" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        summarize_robustness(sensitivity_df, jaccard_threshold=0.8) -&gt; str
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gotchas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gotchas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
       
     </span>
   </a>
@@ -1914,64 +2070,205 @@
   
 
 
-<h1 id="useosm-mapkathon-submission-documentation">UseOSM Mapkathon Submission Documentation<a class="headerlink" href="#useosm-mapkathon-submission-documentation" title="Permanent link">&para;</a></h1>
-<p>This site documents two connected repositories built for <strong>Map&lt;&gt;kathon 2026 (UseOSM)</strong>,
-analyzing multi-modal healthcare and education accessibility across Akure North and
-Akure South Local Government Areas (LGAs), Ondo State, Nigeria.</p>
-<h2 id="the-problem">The Problem<a class="headerlink" href="#the-problem" title="Permanent link">&para;</a></h2>
-<p>Planning decisions about where to site clinics, schools, and roads depend on knowing
-who can actually reach existing services — and how long that takes on foot, by
-motorcycle taxi (okada), or by car. OpenStreetMap (OSM) has rich, free data for this,
-but it is inconsistent in coverage and geometry type across regions, and turning raw
-OSM extracts into a defensible accessibility analysis requires a full geospatial
-pipeline: boundary resolution, feature extraction, cleaning, network routing,
-isochrone computation, and scoring.</p>
-<p>This system does that end to end, and packages the result as an interactive
-dashboard aimed at planners and researchers working on SDG 3 (Health) and
-SDG 4 (Education) in the Akure region.</p>
-<h2 id="the-two-repositories">The Two Repositories<a class="headerlink" href="#the-two-repositories" title="Permanent link">&para;</a></h2>
-<div class="grid cards">
-<ul>
-<li>
-<p><strong><a href="lga-osm-extractor/overview/">lga-osm-extractor</a></strong>
-  Pulls an LGA boundary and its OSM feature layers (health, education, roads,
-  buildings), cleans and reprojects them, and exports analysis-ready GeoJSON
-  and Shapefile output for downstream use in ArcGIS Pro, QGIS, or the dashboard
-  below.</p>
-</li>
-<li>
-<p><strong><a href="akure-accessibility-dashboard/overview/">akure-accessibility-dashboard</a></strong>
-  Consumes the extractor's output to build a routable road network, compute
-  travel-time isochrones per facility and mode, score a fishnet grid for
-  accessibility and data completeness, generate static publication maps and
-  narrative captions, and serve everything through an interactive Streamlit
-  dashboard.</p>
-</li>
-</ul>
+<h1 id="akure_accesssensitivitypy"><code>akure_access/sensitivity.py</code><a class="headerlink" href="#akure_accesssensitivitypy" title="Permanent link">&para;</a></h1>
+<div class="admonition info">
+<p class="admonition-title">Source</p>
+<p><code>akure_access/sensitivity.py</code> (263 lines, entirely new module)</p>
 </div>
-<h2 id="how-they-relate">How They Relate<a class="headerlink" href="#how-they-relate" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>flowchart LR
-    A[lga-osm-extractor] --&gt;|GeoJSON / Shapefile| B[akure-accessibility-dashboard]
-    A --&gt;|health, education, roads, buildings layers| B
-    B --&gt; C[Streamlit Dashboard]
-    B --&gt; D[Static maps + captions]</code></pre>
-<p>See <a href="cross-repo/integration/">Cross-Repo Integration</a> for the exact data
-contract between the two repos, and each repo's <strong>End-to-End Walkthrough</strong>
-page for a full startup-to-output trace.</p>
-<h2 id="how-to-read-this-documentation">How to Read This Documentation<a class="headerlink" href="#how-to-read-this-documentation" title="Permanent link">&para;</a></h2>
-<p>Each repository section follows the same structure:</p>
-<ol>
-<li><strong>Overview</strong> — purpose, architecture, design philosophy</li>
-<li><strong>Data Flow</strong> — how data moves through the system at a high level</li>
-<li><strong>Modules</strong> — one page per source file, documenting every significant
-   function and class: what it does, why it's written that way, inputs/outputs,
-   internal logic, complexity, assumptions, and concurrency considerations</li>
-<li><strong>End-to-End Walkthrough</strong> — a single trace from process start to final output</li>
-<li><strong>Tests</strong> — what's covered and where</li>
-</ol>
-<p>Start with whichever repository you need, or read the
-<a href="cross-repo/integration/">Cross-Repo Integration</a> page first if you want
-the full-system picture before diving into either one individually.</p>
+<h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
+<p>Runs the accessibility scoring pipeline under several parameter variations
+— alternative time thresholds, alternative walking speeds — and reports
+whether the project's <em>conclusions</em> (which cells/areas are underserved)
+are robust to reasonable choices in the underlying assumptions, rather
+than reporting a single number as if it were uniquely correct.</p>
+<p>This is the most analytically substantial of the five new modules in this
+revision — not a bug fix or a schema formalization, but a genuinely new
+methodological capability.</p>
+<h2 id="why-this-exists">Why this exists<a class="headerlink" href="#why-this-exists" title="Permanent link">&para;</a></h2>
+<p>Stated directly in the module's own docstring: every accessibility number
+this project produces depends on assumptions that are reasonable but not
+uniquely correct — a 30-minute walking threshold, a 5 km/h walking speed, a
+500m grid cell (see <a href="../config/"><code>config.py</code></a> for where these now live).
+Reporting results under exactly one set of these numbers, with no sense of
+how sensitive the findings are to them, risks presenting one arbitrary
+scenario as if it were ground truth.</p>
+<p><strong>Two possible outcomes, both treated as valuable findings, not just one
+as "good" and the other as "bad":</strong>
+- If the same spatial hotspots remain underserved across the whole sweep
+  of tested values, that's evidence the finding is robust to reasonable
+  modeling choices, not an artifact of one specific threshold pick.
+- If the underserved set changes substantially across the sweep, that's a
+  genuine finding <em>about model sensitivity itself</em>, worth reporting
+  honestly rather than masked by presenting only one scenario as the
+  answer.</p>
+<h2 id="the-central-design-decision-measuring-overlap-of-the-set-not-just-the-rate">The central design decision: measuring overlap of the <em>set</em>, not just the <em>rate</em><a class="headerlink" href="#the-central-design-decision-measuring-overlap-of-the-set-not-just-the-rate" title="Permanent link">&para;</a></h2>
+<p>This is the module's most important idea, worth understanding before the
+individual functions: it would be easy to build a sensitivity check that
+only compares the <strong>underserved percentage</strong> across parameter values (e.g.
+"38% underserved at threshold=20, 41% at threshold=30, 45% at
+threshold=45") — but two runs with <em>nearly identical percentages</em> could,
+in principle, be flagging <strong>almost entirely different cells</strong> as
+underserved, which a percentage-only comparison would completely miss.
+Every function in this module computes a <strong>Jaccard similarity</strong> (<code>|A ∩ B|
+/ |A ∪ B|</code>) between the <em>set</em> of underserved cell indices at each tested
+parameter value and the set at the first-tested value — <code>1.0</code> means
+identical sets of cells, <code>0.0</code> means no overlap at all, regardless of how
+similar the raw percentages happen to look. This is "the number that
+actually answers 'are the conclusions robust'," per the module's own
+docstring, precisely because it can't be fooled by two different cell sets
+that coincidentally produce similar aggregate percentages.</p>
+<h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
+<h3 id="run_threshold_sensitivitygrid_gdf-modewalk-thresholds_min20-30-45-pddataframe"><code>run_threshold_sensitivity(grid_gdf, mode="walk", thresholds_min=(20, 30, 45)) -&gt; pd.DataFrame</code><a class="headerlink" href="#run_threshold_sensitivitygrid_gdf-modewalk-thresholds_min20-30-45-pddataframe" title="Permanent link">&para;</a></h3>
+<p><strong>What it does:</strong> re-derives the access-deficit score under several
+candidate <code>threshold_min</code> values, reusing the grid's <strong>already-computed</strong>
+travel-time columns — no routing is re-run.</p>
+<p><strong>Why this is cheap, and precisely why it's correct to be cheap:</strong> the
+module's docstring is explicit about the underlying invariant that makes
+this valid — changing the underserved/served threshold does not change
+any travel time, it only changes which side of the cutoff a given
+already-known travel time falls on. <code>add_access_deficit_score()</code> (see
+<a href="../accessibility/scoring/"><code>scoring.md</code></a>) is a fast, O(cells) operation
+with no graph routing involved, so this function can call it once per
+threshold value in the sweep at negligible cost — a sweep across a dozen
+threshold values costs about the same as scoring once.</p>
+<p><strong>Precondition check, with an actionable error:</strong> raises <code>KeyError</code> up
+front if neither <code>health_time_min_{mode}</code> nor the unsuffixed
+<code>health_time_min</code> column exists — i.e. <code>scoring.add_access_times()</code> hasn't
+been run for this mode yet — with a message directly naming the fix
+("run <code>accessibility.scoring.add_access_times()</code> for mode='...' first").</p>
+<p><strong>Returned columns:</strong> one row per tested threshold — <code>threshold_min</code>,
+<code>underserved_pct</code> (of settled cells), <code>both_underserved_pct</code> (deficit
+score exactly 2), <code>n_settled</code>, and <code>jaccard_vs_first</code> (this sweep's
+signature metric, described above; <code>1.0</code> for the first-tested threshold
+by construction, since it's being compared against itself).</p>
+<p><strong>A deliberate non-default:</strong> the docstring notes the project's own
+configured default threshold for a mode (from
+<a href="../config/"><code>config.get_config()</code></a>) is a reasonable value to <em>include</em> in
+<code>thresholds_min</code> for a like-for-like comparison against the project's
+actual headline number — but it is <strong>not</strong> automatically included; a
+caller must pass it explicitly if they want that specific comparison
+point in the sweep.</p>
+<h3 id="run_speed_sensitivityboundary_polygon_wgs84-roads_gdf-health_gdf-schools_gdf-grid_gdf-modewalk-speeds_kph40-50-60-threshold_min30-pddataframe"><code>run_speed_sensitivity(boundary_polygon_wgs84, roads_gdf, health_gdf, schools_gdf, grid_gdf, mode="walk", speeds_kph=(4.0, 5.0, 6.0), threshold_min=30) -&gt; pd.DataFrame</code><a class="headerlink" href="#run_speed_sensitivityboundary_polygon_wgs84-roads_gdf-health_gdf-schools_gdf-grid_gdf-modewalk-speeds_kph40-50-60-threshold_min30-pddataframe" title="Permanent link">&para;</a></h3>
+<p><strong>What it does:</strong> re-runs the <strong>entire</strong> routing pipeline — a fresh graph
+build via <code>network_graph.graph_from_roads()</code> plus a fresh
+<code>isochrones.batch_nearest_facility_distances()</code> Dijkstra pass — once per
+candidate speed value, since a different assumed travel speed genuinely
+changes which cells are reachable within any given time budget. Unlike the
+threshold sweep, there is no cheap shortcut available here.</p>
+<p><strong>Why this is explicitly called out as the expensive path, with a direct
+warning to keep the sweep small:</strong> the docstring states plainly that this
+is <code>O(len(speeds_kph))</code> <strong>full</strong> Dijkstra passes, not <code>O(1)</code> — testing
+three speeds costs roughly three times what a single <code>add_access_times()</code>
+call costs. Callers are advised to keep <code>speeds_kph</code> to "a handful of
+values, not a fine-grained grid" for exactly this reason. This is a real,
+deliberate constraint on how this function should be used, not just
+incidental advice — a caller sweeping across 50 speed values would be
+running 50 full routing passes, each potentially taking as long as a
+normal <code>add_access_times()</code> call for one mode.</p>
+<p><strong>Same output shape as the threshold sweep</strong>, keyed by <code>speed_kph</code> instead
+of <code>threshold_min</code>, using the identical Jaccard-based robustness metric —
+deliberately consistent, so <code>summarize_robustness()</code> (below) can consume
+either function's output without needing to know which sweep produced it.</p>
+<p><strong><code>threshold_min</code> held fixed across the sweep:</strong> since this function's
+whole purpose is isolating the effect of the <em>speed</em> assumption, the
+time-threshold is deliberately kept constant throughout — varying both at
+once would conflate two separate sources of sensitivity into one
+confusing result.</p>
+<h3 id="summarize_robustnesssensitivity_df-jaccard_threshold08-str"><code>summarize_robustness(sensitivity_df, jaccard_threshold=0.8) -&gt; str</code><a class="headerlink" href="#summarize_robustnesssensitivity_df-jaccard_threshold08-str" title="Permanent link">&para;</a></h3>
+<p><strong>What it does:</strong> turns either sweep function's output into one
+plain-language sentence — "robust" or "sensitive" — based on the <strong>worst</strong>
+(minimum) Jaccard overlap observed anywhere in the sweep, not the average.</p>
+<p><strong>Why the minimum, not the average or the last value:</strong> a robustness claim
+is only as strong as its weakest point — if 4 out of 5 tested parameter
+values agree closely but one diverges sharply, <code>summarize_robustness()</code>
+should (and does) flag that as a sensitivity concern, not average it away
+against the four values that happened to agree.</p>
+<p><strong><code>jaccard_threshold=0.8</code> is an explicit, named judgment call, not a
+derived statistical cutoff.</strong> The docstring states this plainly: 80%+
+overlap across the whole tested range is treated as "the same story,"
+below that as "meaningfully different results depending on the assumption
+chosen." This is a reasonable, defensible threshold, but it's worth
+knowing it's a chosen convention, not a mathematically-derived boundary —
+a caller with a different tolerance for what counts as "robust enough" can
+pass a different value.</p>
+<p><strong>Two distinct, fully-written sentences, not a template with blanks
+filled in:</strong> the module writes genuinely different phrasing for the robust
+vs. sensitive case, each including the actual minimum-overlap percentage
+and the actual percentage-point range observed — both numbers, and the
+framing around them, are specific to the sensitivity result rather than a
+generic "results may vary" disclaimer.</p>
+<p><strong>Empty-input handling:</strong> <code>if sensitivity_df.empty: return "No sensitivity
+data to summarize."</code> — a plain, safe fallback rather than an index error
+on an empty DataFrame's <code>.min()</code>/<code>.max()</code> calls.</p>
+<h2 id="internal-workflow">Internal Workflow<a class="headerlink" href="#internal-workflow" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    A["run_threshold_sensitivity(grid_gdf, mode, thresholds_min)"] --&gt; B{"health_time_min_{mode} column exists?"}
+    B -- no --&gt; C["raise KeyError — run add_access_times() first"]
+    B -- yes --&gt; D["for each threshold in thresholds_min:"]
+    D --&gt; E["add_access_deficit_score(grid_gdf, threshold, mode)&lt;br/&gt;— cheap, no routing, reuses existing time columns"]
+    E --&gt; F["settled = building_count &gt; 0&lt;br/&gt;underserved_ids = set of cell indices where deficit_score &gt; 0"]
+    F --&gt; G{first iteration?}
+    G -- yes --&gt; H["jaccard = 1.0 (baseline)"]
+    G -- no --&gt; I["jaccard = |first ∩ current| / |first ∪ current|"]
+    H --&gt; J["append row: threshold, underserved_pct, both_pct, n_settled, jaccard_vs_first"]
+    I --&gt; J
+    J --&gt; D
+    D --&gt; K["return DataFrame, one row per threshold"]
+
+    L["run_speed_sensitivity(..., speeds_kph)"] --&gt; M["for each speed in speeds_kph:"]
+    M --&gt; N["graph_from_roads(..., speed_kph=speed) — FULL graph rebuild"]
+    N --&gt; O["add_access_times(...) — FULL Dijkstra pass, expensive"]
+    O --&gt; P["add_access_deficit_score(..., threshold_min, mode) — fixed threshold"]
+    P --&gt; Q["same Jaccard computation as threshold sweep"]
+    Q --&gt; M
+    M --&gt; R["return DataFrame, one row per speed"]
+
+    K --&gt; S["summarize_robustness(df, jaccard_threshold=0.8)"]
+    R --&gt; S
+    S --&gt; T{df empty?}
+    T -- yes --&gt; U["return 'No sensitivity data to summarize.'"]
+    T -- no --&gt; V["min_jaccard = df['jaccard_vs_first'].min()&lt;br/&gt;pct_range = max(underserved_pct) - min(underserved_pct)"]
+    V --&gt; W{min_jaccard &gt;= jaccard_threshold?}
+    W -- yes --&gt; X["return robust-finding sentence, with real numbers"]
+    W -- no --&gt; Y["return sensitivity-finding sentence, with real numbers"]</code></pre>
+<h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong><code>run_speed_sensitivity()</code> is genuinely expensive — don't sweep a fine
+  grid of speeds.</strong> This bears repeating outside the function's own
+  docstring since it's the single easiest way to misuse this module: each
+  additional speed value tested is a full graph rebuild plus a full
+  Dijkstra routing pass, not a cheap re-derivation like the threshold
+  sweep. Three to five values is the intended scale; twenty would likely
+  take twenty times as long as a single <code>add_access_times()</code> call.</li>
+<li><strong>The two sweep functions are not interchangeable in cost, despite
+  sharing an output shape.</strong> <code>run_threshold_sensitivity()</code> is cheap enough
+  to call with a dozen or more threshold values without concern;
+  <code>run_speed_sensitivity()</code> is not, even though both return a DataFrame
+  with the same column structure and can both be fed into
+  <code>summarize_robustness()</code>.</li>
+<li><strong><code>jaccard_threshold=0.8</code> in <code>summarize_robustness()</code> is a stated
+  convention, not a statistically derived cutoff</strong> — treat the resulting
+  "robust" / "sensitive" language as reflecting that specific chosen
+  threshold, not an objective property of the data. A stricter or looser
+  threshold could flip the conclusion for a borderline sensitivity result.</li>
+<li><strong>This module has no dedicated notebook or dashboard integration yet</strong> —
+  like the other four new modules in this revision, it exists as a library
+  capability; <code>dashboard/app.py</code> is unchanged and does not currently
+  surface sensitivity results anywhere in the deployed interface.</li>
+</ul>
+<h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../config/"><code>config.py</code></a> — the source of the project's default threshold
+  and speed values, which a caller may want to include explicitly in a
+  sweep for a like-for-like comparison against the headline result.</li>
+<li><a href="../accessibility/scoring/"><code>accessibility/scoring.py</code></a> — supplies
+  <code>add_access_deficit_score()</code> and <code>add_access_times()</code>, the two functions
+  this module's sweeps are built around.</li>
+<li><a href="../accessibility/network_graph/"><code>accessibility/network_graph.py</code></a> /
+  <a href="../accessibility/isochrones/"><code>accessibility/isochrones.py</code></a> — the
+  routing stack <code>run_speed_sensitivity()</code> re-invokes in full, once per
+  speed value.</li>
+</ul>
 
 
 
@@ -2006,15 +2303,31 @@ the full-system picture before diving into either one individually.</p>
       
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
+          
+          <a href="../facility_classification/" class="md-footer__link md-footer__link--prev" aria-label="Previous: facility_classification.py">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                facility_classification.py
+              </div>
+            </div>
+          </a>
+        
         
           
-          <a href="lga-osm-extractor/overview/" class="md-footer__link md-footer__link--next" aria-label="Next: Overview">
+          <a href="../status/" class="md-footer__link md-footer__link--next" aria-label="Next: status.py">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Overview
+                status.py
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -2067,10 +2380,10 @@ the full-system picture before diving into either one individually.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

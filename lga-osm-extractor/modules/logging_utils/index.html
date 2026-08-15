@@ -557,6 +557,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -870,10 +874,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#log_runlga_name-state_name-tag_config-output_dir-boundary_source-warningsnone-exportednone-target_crsnone" class="md-nav__link">
+  <a href="#log_runlga_name-state_name-tag_config-output_dir-boundary_source-warningsnone-exportednone-target_crsnone-layer_statusnone" class="md-nav__link">
     <span class="md-ellipsis">
       
-        log_run(lga_name, state_name, tag_config, output_dir, boundary_source, warnings=None, exported=None, target_crs=None)
+        log_run(lga_name, state_name, tag_config, output_dir, boundary_source, warnings=None, exported=None, target_crs=None, layer_status=None)
       
     </span>
   </a>
@@ -931,6 +935,62 @@
     
   
     pipeline.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    events.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manifest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    manifest.py
   
 
     
@@ -1214,6 +1274,16 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -1414,6 +1484,146 @@
     
   
     insights.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/modules/config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    config.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/modules/data_contract/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    data_contract.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/modules/facility_classification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    facility_classification.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/modules/sensitivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sensitivity.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/modules/status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    status.py
   
 
     
@@ -1759,10 +1969,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#log_runlga_name-state_name-tag_config-output_dir-boundary_source-warningsnone-exportednone-target_crsnone" class="md-nav__link">
+  <a href="#log_runlga_name-state_name-tag_config-output_dir-boundary_source-warningsnone-exportednone-target_crsnone-layer_statusnone" class="md-nav__link">
     <span class="md-ellipsis">
       
-        log_run(lga_name, state_name, tag_config, output_dir, boundary_source, warnings=None, exported=None, target_crs=None)
+        log_run(lga_name, state_name, tag_config, output_dir, boundary_source, warnings=None, exported=None, target_crs=None, layer_status=None)
       
     </span>
   </a>
@@ -1819,7 +2029,8 @@
 <h1 id="logging_utilspy">logging_utils.py<a class="headerlink" href="#logging_utilspy" title="Permanent link">&para;</a></h1>
 <div class="admonition info">
 <p class="admonition-title">Source</p>
-<p><code>lga_extractor/logging_utils.py</code> (107 lines)</p>
+<p><code>lga_extractor/logging_utils.py</code> (120 lines — grew from 107 with the
+addition of <code>layer_status</code>, see below)</p>
 </div>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
 <p>Writes a structured JSON run log recording exactly what was queried, when,
@@ -1893,7 +2104,7 @@ that would change extraction results between versions).</p>
 </tr>
 </tbody>
 </table>
-<h3 id="log_runlga_name-state_name-tag_config-output_dir-boundary_source-warningsnone-exportednone-target_crsnone"><code>log_run(lga_name, state_name, tag_config, output_dir, boundary_source, warnings=None, exported=None, target_crs=None)</code><a class="headerlink" href="#log_runlga_name-state_name-tag_config-output_dir-boundary_source-warningsnone-exportednone-target_crsnone" title="Permanent link">&para;</a></h3>
+<h3 id="log_runlga_name-state_name-tag_config-output_dir-boundary_source-warningsnone-exportednone-target_crsnone-layer_statusnone"><code>log_run(lga_name, state_name, tag_config, output_dir, boundary_source, warnings=None, exported=None, target_crs=None, layer_status=None)</code><a class="headerlink" href="#log_runlga_name-state_name-tag_config-output_dir-boundary_source-warningsnone-exportednone-target_crsnone-layer_statusnone" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1908,11 +2119,11 @@ that would change extraction results between versions).</p>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td>The log intentionally separates <code>exported_layers</code>, <code>skipped_layers</code>, and <code>split_layers</code> into distinct top-level keys, derived by filtering <code>export_layers()</code>'s returned dict (stripping its internal <code>"_"</code>-prefixed keys and re-surfacing them under clearer names) — this makes the log human-readable and directly answers "what actually happened to each layer" without requiring the reader to know <code>export_layers()</code>'s internal key-naming convention (<code>_skipped</code>, <code>_split_layers</code>).</td>
+<td>The log intentionally separates <code>exported_layers</code>, <code>skipped_layers</code>, and <code>split_layers</code> into distinct top-level keys, derived by filtering <code>export_layers()</code>'s returned dict. <strong>New in this revision:</strong> the log now also carries a <code>"layers"</code> key holding <code>layer_status</code> verbatim — the same per-layer query-time outcome (<code>"success"</code>/<code>"success_empty"</code>/<code>"failed"</code>, feature count, retry attempts, message) that also drives the new <a href="../manifest/">extraction manifest</a>. The reasoning for including it <em>here too</em>, not only in <code>manifest.json</code>: <code>manifest.json</code> is the formal, versioned, stable contract for programmatic downstream consumers, but <code>run_log.json</code> is meant to be self-contained for a human auditing one run after the fact — someone reading <code>run_log.json</code> alone should still be able to tell "did layer X actually fail, or did it just find nothing" without needing to cross-reference a second file.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><code>lga_name</code>, <code>state_name</code>; <code>tag_config: dict</code> (the tag configuration actually used); <code>output_dir: str</code> (where the log itself is written, as <code>run_log.json</code>); <code>boundary_source: str</code> (from <code>boundary.resolve_boundary()</code>'s output column); <code>warnings: list</code>, optional; <code>exported: dict</code>, optional (the dict from <code>export.export_layers()</code>); <code>target_crs: str</code>, optional (the CRS actually used for this run, from <code>clean.resolve_target_crs()</code> — see <a href="../pipeline/"><code>pipeline.md</code></a>'s gotcha about this being resolved a second time specifically to pass in here).</td>
+<td><code>lga_name</code>, <code>state_name</code>; <code>tag_config: dict</code>; <code>output_dir: str</code>; <code>boundary_source: str</code>; <code>warnings: list</code>, optional; <code>exported: dict</code>, optional; <code>target_crs: str</code>, optional; <code>layer_status: dict</code>, optional (<strong>new</strong> — the <code>"_status"</code> dict from <code>layers.extract_layers()</code>, see <a href="../layers/"><code>layers.md</code></a>).</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
@@ -1920,31 +2131,32 @@ that would change extraction results between versions).</p>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td>1. Build the <code>log</code> dict: <code>lga_name</code>, <code>state_name</code>, a UTC ISO-format <code>timestamp_utc</code> (via <code>datetime.now(timezone.utc).isoformat()</code> — explicitly timezone-aware, not naive local time), <code>environment</code> (from <code>_capture_environment()</code>), <code>boundary_source</code>, <code>target_crs</code>, <code>tag_config</code>, <code>warnings</code> (defaulting to <code>[]</code> if <code>None</code>), <code>exported_layers</code> (every key in <code>exported</code> that does <em>not</em> start with <code>"_"</code>, i.e. the real per-layer export results), <code>skipped_layers</code> (from <code>exported["_skipped"]</code>, defaulting to <code>[]</code>), <code>split_layers</code> (from <code>exported["_split_layers"]</code>, defaulting to <code>{}</code>).<br>2. Ensure <code>output_dir</code> exists (<code>exist_ok=True</code>).<br>3. Write <code>log</code> as indented JSON to <code>{output_dir}/run_log.json</code>.<br>4. Return that path.</td>
+<td>1. Build the <code>log</code> dict: <code>lga_name</code>, <code>state_name</code>, a UTC ISO-format <code>timestamp_utc</code>, <code>environment</code> (from <code>_capture_environment()</code>), <code>boundary_source</code>, <code>target_crs</code>, <code>tag_config</code>, <code>warnings</code> (defaulting to <code>[]</code>), <strong><code>"layers"</code> (new — <code>layer_status or {}</code>, recorded verbatim, no transformation)</strong>, <code>exported_layers</code>, <code>skipped_layers</code>, <code>split_layers</code>.<br>2. Ensure <code>output_dir</code> exists.<br>3. Write <code>log</code> as indented JSON to <code>{output_dir}/run_log.json</code>.<br>4. Return that path.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td>Assumes <code>tag_config</code> and everything nested inside <code>exported</code> is JSON-serializable as-is — true for the current pipeline's data shapes (strings, lists, dicts of strings), but would break if <code>tag_config</code> or <code>exported</code> ever contained a non-JSON-native type (e.g. a raw Shapely geometry) without additional serialization handling.</td>
+<td>Assumes <code>tag_config</code> and everything nested inside <code>exported</code>/<code>layer_status</code> is JSON-serializable as-is — true for the current pipeline's data shapes.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td>O(1) relative to pipeline scale — dominated by a fixed-size dict assembly and one file write; not proportional to feature count in any layer.</td>
+<td>O(1) relative to pipeline scale — dominated by a fixed-size dict assembly and one file write.</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td>None on its own. Like <code>export_layers()</code>, concurrent calls to <code>log_run()</code> targeting the <em>same</em> <code>output_dir</code> (e.g. two processes extracting the same LGA simultaneously) aren't guarded against — the second write would simply overwrite the first's <code>run_log.json</code>. Not a concern under the pipeline's current sequential single-run-at-a-time usage pattern.</td>
+<td>None on its own. Like <code>export_layers()</code>, concurrent calls to <code>log_run()</code> targeting the <em>same</em> <code>output_dir</code> aren't guarded against.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../tests/">tests.md</a> — <code>test_extract_lga_end_to_end_live_osm</code> is the only test exercising this function, since it's the final step of the full pipeline and has no meaningful unit-test boundary short of running the whole thing.</td>
+<td>See <a href="../../tests/">tests.md</a> — <code>test_extract_lga_end_to_end_live_osm</code> and (<strong>new</strong>) <code>test_extract_lga_emits_full_stage_sequence</code>, both of which exercise this function as part of the full pipeline.</td>
 </tr>
 </tbody>
 </table>
 <h2 id="internal-workflow">Internal Workflow<a class="headerlink" href="#internal-workflow" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>flowchart TD
-    A["log_run(lga_name, state_name, tag_config, output_dir, boundary_source, warnings, exported, target_crs)"] --&gt; B["_capture_environment(): python version, platform, tracked package versions"]
-    B --&gt; C["assemble log dict: identity + timestamp + environment + boundary_source + target_crs + tag_config + warnings"]
-    C --&gt; D["split exported dict into exported_layers / skipped_layers / split_layers"]
+    A["log_run(lga_name, state_name, tag_config, output_dir,&lt;br/&gt;boundary_source, warnings, exported, target_crs, layer_status)"] --&gt; B["_capture_environment(): python version, platform, tracked package versions"]
+    B --&gt; C["assemble log dict: identity + timestamp + environment +&lt;br/&gt;boundary_source + target_crs + tag_config + warnings"]
+    C --&gt; C2["'layers' = layer_status or {} (new — verbatim, no transformation)"]
+    C2 --&gt; D["split exported dict into exported_layers / skipped_layers / split_layers"]
     D --&gt; E["makedirs(output_dir)"]
     E --&gt; F["write run_log.json (indent=2)"]
     F --&gt; G["return log_path"]</code></pre>

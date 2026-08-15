@@ -550,6 +550,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -778,6 +782,62 @@
     
   
     pipeline.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lga-osm-extractor/modules/events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    events.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lga-osm-extractor/modules/manifest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    manifest.py
   
 
     
@@ -1055,6 +1115,16 @@
   
     
     
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
       
         
       
@@ -1425,6 +1495,146 @@
     
   
     insights.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    config.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_contract/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    data_contract.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../facility_classification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    facility_classification.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sensitivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sensitivity.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    status.py
   
 
     
@@ -1841,7 +2051,8 @@
 <h1 id="grid_checkpy">grid_check.py<a class="headerlink" href="#grid_checkpy" title="Permanent link">&para;</a></h1>
 <div class="admonition info">
 <p class="admonition-title">Source</p>
-<p><code>akure_access/completeness/grid_check.py</code> (151 lines)</p>
+<p><code>akure_access/completeness/grid_check.py</code> (155 lines — grew slightly
+with the migration to config-derived constants, see below)</p>
 </div>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
 <p>Implements the project's independent OSM-completeness pathway: flagging
@@ -1885,20 +2096,38 @@ presence signal instead of a heavier remote-sensing approach.</p>
 <tbody>
 <tr>
 <td><code>DEFAULT_BUILDING_PRESENCE_THRESHOLD</code></td>
-<td><code>3</code></td>
+<td><code>3</code> (now <strong>config-derived</strong>, see below)</td>
 <td>Minimum building count for a cell to be considered "settled" for completeness-checking purposes.</td>
 </tr>
 <tr>
 <td><code>DEFAULT_FACILITY_SEARCH_RADIUS_M</code></td>
-<td><code>1000</code></td>
+<td><code>1000</code> (now <strong>config-derived</strong>)</td>
 <td>Radius (meters) to search for a nearby facility before flagging a settled cell as potentially under-mapped.</td>
 </tr>
 </tbody>
 </table>
-<p>Worth noting: <code>DEFAULT_BUILDING_PRESENCE_THRESHOLD</code> (3 buildings) is a
-<em>different</em> settlement threshold than <code>accessibility.scoring.add_access_times()</code>
-uses (<code>building_count &gt; 0</code>, i.e. threshold of 1) — the two modules define
-"settled" independently for their own purposes. See Gotchas below.</p>
+<p><strong>Both are now derived from <a href="../../config/"><code>config.get_config()</code></a></strong>
+(<code>_config["completeness"]["building_presence_threshold"]</code> and
+<code>_config["completeness"]["facility_search_radius_m"]</code>), read once at
+import time into plain module-level constants — the same migration
+pattern applied identically across <code>scoring.py</code>, <code>network_graph.py</code>, and
+this module (see <a href="../../config/"><code>config.md</code></a> for the full story and its
+import-time-snapshot caveat). The numeric values themselves are
+unchanged.</p>
+<p><strong>The settlement-threshold discrepancy this page previously flagged as an
+unexplained inconsistency is now explicitly justified in the source
+itself.</strong> <code>DEFAULT_BUILDING_PRESENCE_THRESHOLD</code> (3 buildings) remains a
+<em>different</em>, <strong>stricter</strong> settlement threshold than
+<code>accessibility.scoring.add_access_times()</code> uses (<code>building_count &gt; 0</code>,
+i.e. effectively a threshold of 1) — the two modules still define
+"settled" independently for their own purposes. What's new: <code>config/
+default.yaml</code>'s own inline comment now states directly <em>why</em> this
+difference is intentional, not accidental — a completeness <em>flag</em> is a
+stronger claim ("this looks like a possible OSM data gap") than a mere
+scoring-inclusion decision, and warrants more confidence that a cell is
+genuinely settled before making that claim. See
+<a href="../../config/"><code>config.md</code></a> for the full quote and context. See Gotchas
+below for what this means in practice.</p>
 <h3 id="flag_completenessgrid_gdf-health_gdf-schools_gdf-building_thresholddefault_building_presence_threshold-search_radius_mdefault_facility_search_radius_m"><code>flag_completeness(grid_gdf, health_gdf, schools_gdf, building_threshold=DEFAULT_BUILDING_PRESENCE_THRESHOLD, search_radius_m=DEFAULT_FACILITY_SEARCH_RADIUS_M)</code><a class="headerlink" href="#flag_completenessgrid_gdf-health_gdf-schools_gdf-building_thresholddefault_building_presence_threshold-search_radius_mdefault_facility_search_radius_m" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -2067,17 +2296,22 @@ uses (<code>building_count &gt; 0</code>, i.e. threshold of 1) — the two modul
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong><code>grid_check.py</code>'s settlement threshold (3 buildings) is different from
-  <code>scoring.add_access_times()</code>'s (any building at all, <code>&gt; 0</code>) — and
-  nothing ties the two together.</strong> A cell with exactly 1 or 2 buildings is
-  "settled" for accessibility-scoring purposes (it gets routed and scored)
-  but <strong>not</strong> "settled" for completeness-flagging purposes (it's excluded
-  from the completeness check entirely, treated the same as truly empty
-  land). This is very likely intentional — a completeness flag is a
-  stronger claim ("this looks like a real gap in OSM mapping") that
-  probably warrants more confidence in the settlement signal than a routing
-  decision does — but it's worth being explicit about, since reading only
-  one module's threshold in isolation would give a misleading picture of
-  which cells get analyzed by which pathway.</li>
+  <code>scoring.add_access_times()</code>'s (any building at all, <code>&gt; 0</code>) — this is
+  now explicitly confirmed as intentional, not just inferred.</strong> A cell
+  with exactly 1 or 2 buildings is "settled" for accessibility-scoring
+  purposes (it gets routed and scored) but <strong>not</strong> "settled" for
+  completeness-flagging purposes (it's excluded from the completeness
+  check entirely, treated the same as truly empty land). Previously, this
+  page could only note this was "very likely intentional" based on
+  reasoning about what would make sense; <code>config/default.yaml</code>'s own
+  inline comment (see <a href="../../config/"><code>config.md</code></a>) now states the
+  justification directly in the source itself — a completeness flag is a
+  stronger claim than a routing-inclusion decision, and warrants more
+  confidence in the settlement signal. Still worth being explicit about
+  here, since reading only one module's threshold in isolation would give
+  a misleading picture of which cells get analyzed by which pathway — but
+  this is no longer an unexplained discrepancy, just a documented design
+  choice.</li>
 <li><strong><code>summarize_completeness()</code>'s zero-settled-cells return shape omits the
   percentage keys entirely</strong>, rather than including them as <code>0.0</code> or <code>NaN</code>.
   Any caller (e.g. <code>insights.py</code> or <code>dashboard/app.py</code>) reading this dict's

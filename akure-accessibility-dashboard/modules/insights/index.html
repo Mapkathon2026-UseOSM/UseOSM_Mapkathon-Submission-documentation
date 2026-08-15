@@ -18,7 +18,7 @@
         <link rel="prev" href="../visualization/static_maps/">
       
       
-        <link rel="next" href="../../dashboard-app/">
+        <link rel="next" href="../config/">
       
       
         
@@ -550,6 +550,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -778,6 +782,62 @@
     
   
     pipeline.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lga-osm-extractor/modules/events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    events.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lga-osm-extractor/modules/manifest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    manifest.py
   
 
     
@@ -1055,6 +1115,16 @@
   
     
     
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
       
         
       
@@ -1468,6 +1538,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#describe_settlement_proxy_limitation-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        describe_settlement_proxy_limitation() (new)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1499,6 +1580,146 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    config.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_contract/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    data_contract.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../facility_classification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    facility_classification.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sensitivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sensitivity.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    status.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -1923,6 +2144,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#describe_settlement_proxy_limitation-new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        describe_settlement_proxy_limitation() (new)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1973,7 +2205,9 @@
 <h1 id="insightspy">insights.py<a class="headerlink" href="#insightspy" title="Permanent link">&para;</a></h1>
 <div class="admonition info">
 <p class="admonition-title">Source</p>
-<p><code>akure_access/insights.py</code> (321 lines)</p>
+<p><code>akure_access/insights.py</code> (351 lines — grew from 321 with the
+resolution of the <code>DEFAULT_THRESHOLDS_MIN</code> drift risk and one new
+function, see below)</p>
 </div>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
 <p>Generates short, data-driven narrative captions — what a map's colors mean,
@@ -2023,26 +2257,49 @@ to genuinely serve two very differently-shaped consumers.</p>
 </tr>
 <tr>
 <td><code>DEFAULT_THRESHOLDS_MIN</code></td>
-<td><code>{"walk": 30, "okada": 20, "drive": 15}</code> — default per-mode thresholds used <strong>only for caption phrasing</strong> (e.g. "within 30 minutes by walking"), not for actual scoring.</td>
+<td><code>{"walk": 30, "okada": 20, "drive": 15}</code> — default per-mode thresholds used <strong>only for caption phrasing</strong> (e.g. "within 30 minutes by walking"), not for actual scoring. <strong>Now config-derived — see below, this is a resolved drift risk.</strong></td>
 </tr>
 </tbody>
 </table>
-<p><strong>On why <code>DEFAULT_THRESHOLDS_MIN</code> exists separately from
-<code>scoring.DEFAULT_ACCESS_THRESHOLD_MIN</code></strong> — this is directly addressed in
-the module's own comment and is an important distinction: the actual
-underserved/well-served classification a caption describes always comes
-straight from the grid's own <code>*_access_deficit_score</code> columns, which were
-already computed by <code>accessibility.scoring</code> using whatever threshold was
-actually passed in at scoring time — this module never re-derives that
-classification itself. <code>DEFAULT_THRESHOLDS_MIN</code> here is used only to
-produce threshold-<em>aware phrasing</em> in the caption text (mentioning "the
-30-minute walking threshold"), and every caption-generating function
-accepts an explicit <code>thresholds</code> parameter specifically so a caller can
-override this default with the authoritative values actually used in a
-given analysis run. The module's comment notes this default is kept in
-sync with <code>ACCESS_THRESHOLDS_MIN</code> in the project's analysis notebook's
-configuration cell — a manually-maintained consistency, not one enforced
-by shared code, worth flagging as a drift risk (see Gotchas).</p>
+<p><strong>This documentation site previously flagged a specific, real drift risk
+here, and this revision resolves it directly — worth documenting in
+detail as a genuine before/after fix, not just a refactor.</strong></p>
+<p><strong>Before:</strong> <code>DEFAULT_THRESHOLDS_MIN = {"walk": 30, "okada": 20, "drive": 15}</code>
+— an independently hardcoded dict, manually kept in sync with the
+project's analysis notebook's own separate <code>ACCESS_THRESHOLDS_MIN</code>
+configuration cell <em>by convention</em>, not by any code that would catch the
+two drifting apart. This was documented on this site's <a href="../../../reference/known-issues/">Known
+Issues</a> page as a live risk: nothing
+would catch this constant silently diverging from whatever threshold was
+actually used at scoring time.</p>
+<p><strong>Now:</strong> <code>DEFAULT_THRESHOLDS_MIN = get_config()["accessibility"]["threshold_min"]</code>
+— derived from the exact same <a href="../config/"><code>config.get_config()</code></a> call
+that <code>scoring.DEFAULT_ACCESS_THRESHOLD_MIN</code> itself reads from. The
+module's own updated comment states the resolution plainly: <em>"previously
+this was an independently hardcoded dict, manually kept in sync with
+Notebook 03's own separate configuration cell by convention rather than by
+code, which was a genuine, live drift risk (see
+docs/reference/known-issues.md). Both now trace back to the same
+<code>config/default.yaml</code>, so there is nothing left to keep in sync."</em> This
+comment directly references this documentation site's own known-issues
+page by path — whether written in direct response to it or arrived at
+independently, the effect is identical: there is no longer a second copy
+of this number that could silently diverge from the first.</p>
+<p><strong>On why <code>DEFAULT_THRESHOLDS_MIN</code> exists as a separate value from
+<code>scoring.DEFAULT_ACCESS_THRESHOLD_MIN</code> at all, rather than being unified
+into one single constant — this distinction is unchanged by the fix, and
+still matters:</strong> the actual underserved/well-served classification a
+caption describes always comes straight from the grid's own
+<code>*_access_deficit_score</code> columns, computed by <code>accessibility.scoring</code>
+using whatever threshold was actually passed in <em>at scoring time</em> — this
+module never re-derives that classification itself.
+<code>DEFAULT_THRESHOLDS_MIN</code> here is used only to produce threshold-<em>aware
+phrasing</em> in the caption text (mentioning "the 30-minute walking
+threshold"), and every caption-generating function still accepts an
+explicit <code>thresholds</code> parameter so a caller can override this default with
+the authoritative values actually used in a specific analysis run — that
+override mechanism is unchanged; what changed is only where the <em>default</em>
+value itself comes from.</p>
 <h3 id="_articleword"><code>_article(word)</code><a class="headerlink" href="#_articleword" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -2391,6 +2648,41 @@ the two different settlement thresholds in use across the codebase).</p>
 </tr>
 </tbody>
 </table>
+<h3 id="describe_settlement_proxy_limitation-new"><code>describe_settlement_proxy_limitation()</code> (new)<a class="headerlink" href="#describe_settlement_proxy_limitation-new" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>What it does</strong></td>
+<td>Returns a fixed, plain-language caveat string about what <code>building_count</code> and the settled/unsettled distinction actually mean — suitable for display alongside any map or chart driven by it (e.g. a persistent dashboard footnote, or appended to a static map's own caption).</td>
+</tr>
+<tr>
+<td><strong>Why written this way — the one function in this module that is <em>not</em> data-driven, deliberately.</strong></td>
+<td>Every other <code>describe_*()</code> function in this module computes its output from the actual <code>GeoDataFrame</code> it's describing — that's the module's entire design philosophy (see Purpose above). This function is the sole, explicit exception: it returns a fixed string with no parameters and no data dependency at all, because its subject is a <em>methodology caveat</em> ("here's what this proxy measure does and doesn't tell you"), not a data-driven finding. The module's own comment is explicit about this distinction — the string is "kept as a fixed string, not derived from data, since this is a methodology caveat... unlike every other describe_*() function in this module."</td>
+</tr>
+<tr>
+<td><strong>Relationship to <code>scoring.SETTLEMENT_PROXY_DISCLAIMER</code>:</strong></td>
+<td>This function's returned text and <code>scoring.py</code>'s new <code>SETTLEMENT_PROXY_DISCLAIMER</code> constant (see <a href="../accessibility/scoring/"><code>scoring.md</code></a>) cover the same underlying caveat — that <code>building_count</code> is a settlement proxy, not population data — but are two independently-worded strings, not one shared constant referenced from both places. <code>SETTLEMENT_PROXY_DISCLAIMER</code> is written as a long, precise, technical explanation (including the forward-looking note about future population-data substitutability); this function's string is shorter and more suited to appearing directly in a UI as a footnote. Worth knowing they're not the same string if a future edit updates one's wording and not the other's — there's no shared source of truth tying them together, unlike <code>DEFAULT_THRESHOLDS_MIN</code>'s fix above.</td>
+</tr>
+<tr>
+<td><strong>Inputs</strong></td>
+<td>None.</td>
+</tr>
+<tr>
+<td><strong>Outputs</strong></td>
+<td><code>str</code> — a fixed, several-sentence caveat.</td>
+</tr>
+<tr>
+<td><strong>Covered by test(s)</strong></td>
+<td>See <a href="../../tests/">tests.md</a> — new: <code>test_describe_settlement_proxy_limitation_returns_nonempty_string</code>.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="internal-workflow">Internal Workflow<a class="headerlink" href="#internal-workflow" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>flowchart TD
     A["describe_interactive_view(grid_gdf, lga_name, mode, view_choice)"] --&gt; B{view_choice}
@@ -2409,16 +2701,25 @@ the two different settlement thresholds in use across the codebase).</p>
     K --&gt; L["return caption string"]</code></pre>
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong><code>DEFAULT_THRESHOLDS_MIN</code> and Notebook 03's <code>ACCESS_THRESHOLDS_MIN</code>
-  are two independently-maintained copies of the same values</strong>, kept in
-  sync manually rather than by shared code — the module's own comment
-  acknowledges this. If the notebook's thresholds were ever updated without
-  a matching update here, generated captions would describe threshold
-  values that no longer match what was actually used at scoring time
-  (though captions would still describe the <em>actual</em> underserved/served
-  classification correctly, since that always comes from the grid's own
-  columns — only the threshold-value <em>phrasing</em> would drift, not the
-  substance of what's reported).</li>
+<li><strong><code>DEFAULT_THRESHOLDS_MIN</code>'s drift risk is now resolved — this Gotcha is
+  kept here as a record of the fix, not as a live warning.</strong> Previously,
+  this constant and the project's analysis notebook's own
+  <code>ACCESS_THRESHOLDS_MIN</code> were two independently-maintained copies of the
+  same values, kept in sync manually. This revision fixes that: both now
+  derive from the same <a href="../config/"><code>config.get_config()</code></a> call, so there
+  is no longer a second copy that could silently diverge. If you're
+  reading older notes (including earlier versions of this documentation
+  site, or the codebase's own git history) referencing this as an active
+  risk, it has been addressed as of this revision — see the dedicated
+  discussion in the constants section above for the full before/after.</li>
+<li><strong><code>describe_settlement_proxy_limitation()</code> and <code>scoring.SETTLEMENT_PROXY_DISCLAIMER</code>
+  cover the same caveat with independently-worded text — no shared
+  constant ties them together.</strong> A future edit to one's wording won't
+  automatically propagate to the other. This is a smaller-scale version of
+  exactly the kind of duplication <code>DEFAULT_THRESHOLDS_MIN</code>'s fix just
+  eliminated elsewhere in this same file — worth watching, though the
+  stakes are lower here since both strings convey the same substance, just
+  phrased differently for different display contexts.</li>
 <li><strong><code>warnings.catch_warnings()</code>'s non-thread-safety in <code>_compass_skew()</code></strong>
   is a genuine, if currently dormant, constraint — see that function's own
   concurrency note above.</li>
@@ -2480,13 +2781,13 @@ the two different settlement thresholds in use across the codebase).</p>
         
         
           
-          <a href="../../dashboard-app/" class="md-footer__link md-footer__link--next" aria-label="Next: Dashboard App (dashboard/app.py)">
+          <a href="../config/" class="md-footer__link md-footer__link--next" aria-label="Next: config.py">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Dashboard App (dashboard/app.py)
+                config.py
               </div>
             </div>
             <div class="md-footer__button md-icon">

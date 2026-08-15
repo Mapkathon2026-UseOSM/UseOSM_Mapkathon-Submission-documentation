@@ -557,6 +557,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -769,10 +773,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_extract_single_layerlayer_name-tags-polygon-start_delay" class="md-nav__link">
+  <a href="#_extract_single_layerlayer_name-tags-polygon-start_delay-on_eventnone" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _extract_single_layer(layer_name, tags, polygon, start_delay)
+        _extract_single_layer(layer_name, tags, polygon, start_delay, on_event=None)
       
     </span>
   </a>
@@ -780,10 +784,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#extract_layersboundary_gdf-tag_confignone-strictfalse" class="md-nav__link">
+  <a href="#extract_layersboundary_gdf-tag_confignone-strictfalse-on_eventnone" class="md-nav__link">
     <span class="md-ellipsis">
       
-        extract_layers(boundary_gdf, tag_config=None, strict=False)
+        extract_layers(boundary_gdf, tag_config=None, strict=False, on_event=None)
       
     </span>
   </a>
@@ -953,6 +957,62 @@
     
   
     pipeline.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    events.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manifest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    manifest.py
   
 
     
@@ -1236,6 +1296,16 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -1436,6 +1506,146 @@
     
   
     insights.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/modules/config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    config.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/modules/data_contract/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    data_contract.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/modules/facility_classification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    facility_classification.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/modules/sensitivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sensitivity.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/modules/status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    status.py
   
 
     
@@ -1792,10 +2002,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#_extract_single_layerlayer_name-tags-polygon-start_delay" class="md-nav__link">
+  <a href="#_extract_single_layerlayer_name-tags-polygon-start_delay-on_eventnone" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _extract_single_layer(layer_name, tags, polygon, start_delay)
+        _extract_single_layer(layer_name, tags, polygon, start_delay, on_event=None)
       
     </span>
   </a>
@@ -1803,10 +2013,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#extract_layersboundary_gdf-tag_confignone-strictfalse" class="md-nav__link">
+  <a href="#extract_layersboundary_gdf-tag_confignone-strictfalse-on_eventnone" class="md-nav__link">
     <span class="md-ellipsis">
       
-        extract_layers(boundary_gdf, tag_config=None, strict=False)
+        extract_layers(boundary_gdf, tag_config=None, strict=False, on_event=None)
       
     </span>
   </a>
@@ -1863,7 +2073,8 @@
 <h1 id="layerspy">layers.py<a class="headerlink" href="#layerspy" title="Permanent link">&para;</a></h1>
 <div class="admonition info">
 <p class="admonition-title">Source</p>
-<p><code>lga_extractor/layers.py</code> (211 lines)</p>
+<p><code>lga_extractor/layers.py</code> (296 lines — grew from 211 with the addition
+of structured per-layer status and progress events, see below)</p>
 </div>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
 <p>Given a validated boundary polygon (from <a href="../boundary/"><code>boundary.py</code></a>),
@@ -1880,7 +2091,7 @@ no features" and "this layer's query failed."</p>
 <ul>
 <li><strong>Imports:</strong> <code>time</code>, <code>concurrent.futures.ThreadPoolExecutor</code> /
   <code>as_completed</code>, <code>geopandas</code>, <code>osmnx</code>, <code>requests</code> (for its exception
-  types, used to classify retryable failures).</li>
+  types), and (new) <code>_emit</code> from <a href="../events/"><code>events.py</code></a>.</li>
 <li><strong>Imported by:</strong> <code>pipeline.py</code> (second stage of <code>extract_lga()</code>, after
   <code>boundary.resolve_boundary()</code>). Has no dependency on <code>boundary.py</code> or
   <code>clean.py</code> itself — it only needs a bare Shapely polygon, not a full
@@ -1941,7 +2152,7 @@ signal — see <code>akure_access.completeness.grid_check</code>), not an error.
 </tr>
 </tbody>
 </table>
-<h3 id="_extract_single_layerlayer_name-tags-polygon-start_delay"><code>_extract_single_layer(layer_name, tags, polygon, start_delay)</code><a class="headerlink" href="#_extract_single_layerlayer_name-tags-polygon-start_delay" title="Permanent link">&para;</a></h3>
+<h3 id="_extract_single_layerlayer_name-tags-polygon-start_delay-on_eventnone"><code>_extract_single_layer(layer_name, tags, polygon, start_delay, on_event=None)</code><a class="headerlink" href="#_extract_single_layerlayer_name-tags-polygon-start_delay-on_eventnone" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1952,39 +2163,43 @@ signal — see <code>akure_access.completeness.grid_check</code>), not an error.
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td>Runs one layer's Overpass query (via <code>ox.features_from_polygon()</code>), after first sleeping <code>start_delay</code> seconds, retrying transient connection failures with exponential backoff, up to <code>MAX_RETRIES</code> (6) attempts. Always returns a 4-tuple <code>(layer_name, gdf, warning_or_None, error_or_None)</code> — it never raises.</td>
+<td>Runs one layer's Overpass query (via <code>ox.features_from_polygon()</code>), after first sleeping <code>start_delay</code> seconds, retrying transient connection failures with linear backoff, up to <code>MAX_RETRIES</code> (6) attempts. <strong>Changed in this revision:</strong> returns <code>(layer_name, gdf, status, exc)</code> — a structured <code>status</code> dict replaces the old ambiguous <code>warning_or_message</code> string — and emits progress events via <code>on_event</code> at each stage transition. Still never raises.</td>
 </tr>
 <tr>
-<td><strong>Why written this way</strong></td>
-<td>This function is designed to run inside a worker thread (submitted to a <code>ThreadPoolExecutor</code> by <code>extract_layers()</code>). An exception raised inside a worker thread would need to be caught and re-raised by the caller anyway to be handled sensibly across threads — so instead of raising, this function catches everything itself and returns the outcome as data. That keeps <code>extract_layers()</code>'s job simple: collect tuples, decide what to do with them, no <code>try/except</code> needed around <code>future.result()</code> for the <em>expected</em> failure cases.</td>
+<td><strong>Why the return shape changed</strong></td>
+<td>The previous 4-tuple's third field (<code>warning_or_message</code>) was semantically overloaded — it meant an informational "found nothing" message on success, or a failure description on error, distinguished only by whether the fourth field (<code>error</code>) was <code>None</code>. This worked but was fragile to misread. <strong>This revision replaces that overload with an explicit <code>status</code> dict</strong>: <code>{"status": "success" \| "success_empty" \| "failed", "feature_count": int, "attempts": int, "message": str or None}</code> — the <code>"status"</code> field is now the single, explicit thing any caller should branch on, never inferred from an empty <code>GeoDataFrame</code> or from field presence/absence. The exception object is kept as a <strong>separate</strong> return value (<code>exc</code>, not folded into <code>status</code>) specifically so <code>extract_layers()</code> can still do a proper <code>raise ... from exc</code> with a real traceback in strict mode, while <code>status</code> itself stays plain, JSON-serializable data — exactly what ends up written into <code>run_log.json</code> and the new <a href="../manifest/">extraction manifest</a> unchanged.</td>
+</tr>
+<tr>
+<td><strong>New: progress events.</strong></td>
+<td>Emits <code>{"type": "stage_started", "stage": f"layer:{layer_name}"}</code> once (after <code>start_delay</code> elapses, when the query actually begins), zero or more <code>{"type": "retry", "stage": ..., "attempt": N, "max_attempts": MAX_RETRIES, "message": ...}</code> events (one per retry), and exactly one terminal event — <code>{"type": "stage_completed", ...}</code> (success or success_empty) or <code>{"type": "stage_failed", ...}</code> (failure). See <a href="../events/"><code>events.py</code></a> for the full event schema. <strong>Thread safety matters here specifically:</strong> since this function runs inside a <code>ThreadPoolExecutor</code> worker (see <code>extract_layers()</code> below), <code>on_event</code> will be called from that worker thread, not the caller's thread — a callback passed here must be safe to call from multiple threads concurrently (see <code>events.ThreadSafeEventQueue</code>, the pattern <a href="../../app/"><code>app.py</code></a> actually uses).</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><code>layer_name: str</code>; <code>tags: dict</code> (OSM tag filter for this one layer); <code>polygon</code> (Shapely polygon, the LGA boundary); <code>start_delay: float</code> (seconds to sleep before the first attempt — see <code>extract_layers()</code>'s staggering logic).</td>
+<td><code>layer_name: str</code>; <code>tags: dict</code>; <code>polygon</code> (Shapely polygon); <code>start_delay: float</code>; <code>on_event: callable, optional</code> (new — defaults to <code>None</code>, a guaranteed no-op).</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><code>(layer_name: str, gdf: GeoDataFrame, warning: str or None, error: Exception or None)</code>. <code>gdf</code> is always a valid (possibly empty) <code>GeoDataFrame</code> with CRS EPSG:4326 — never <code>None</code>.</td>
+<td><code>(layer_name: str, gdf: GeoDataFrame, status: dict, exc: Exception or None)</code> — <strong>changed</strong> from the old <code>(layer_name, gdf, warning_or_None, error_or_None)</code>. <code>gdf</code> is always a valid (possibly empty) <code>GeoDataFrame</code> with CRS EPSG:4326 — never <code>None</code>.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td>1. Sleep <code>start_delay</code> seconds if nonzero.<br>2. Loop <code>attempt</code> from 1 to <code>MAX_RETRIES</code>:<br>&nbsp;&nbsp;a. Call <code>ox.features_from_polygon(polygon, tags)</code>.<br>&nbsp;&nbsp;b. If it returns <code>None</code>/empty: this is <strong>success with no data</strong> — return immediately with a "returned no features" warning, <code>error=None</code>. This never triggers a retry, since it isn't a failure.<br>&nbsp;&nbsp;c. If it returns data: return immediately, no warning, no error.<br>&nbsp;&nbsp;d. If it raises: record the exception. If this isn't the last allowed attempt <em>and</em> <code>_is_transient_connection_error()</code> says it's retryable, sleep <code>RETRY_BACKOFF_BASE_SECONDS * attempt</code> seconds (linearly increasing backoff: 5s, 10s, 15s...) and loop again. Otherwise, break out of the loop.<br>3. If the loop exhausted without returning, return an empty <code>GeoDataFrame</code> with a failure message and the last exception attached.</td>
+<td>1. Sleep <code>start_delay</code> seconds if nonzero.<br>2. Emit <code>stage_started</code>.<br>3. Loop <code>attempt</code> from 1 to <code>MAX_RETRIES</code>:<br>&nbsp;&nbsp;a. Call <code>ox.features_from_polygon(polygon, tags)</code>.<br>&nbsp;&nbsp;b. If it returns <code>None</code>/empty: build <code>status={"status": "success_empty", "feature_count": 0, "attempts": attempt, "message": "..."}</code>, emit <code>stage_completed</code> (with <code>status: "success_empty"</code>), return immediately. Never triggers a retry.<br>&nbsp;&nbsp;c. If it returns data: build <code>status={"status": "success", "feature_count": len(gdf), "attempts": attempt, "message": None}</code>, emit <code>stage_completed</code> (with <code>status: "success"</code> and a feature-count detail string), return.<br>&nbsp;&nbsp;d. If it raises: record the exception. If retryable and attempts remain, emit <code>retry</code>, sleep <code>RETRY_BACKOFF_BASE_SECONDS * attempt</code> seconds, loop again. Otherwise break.<br>4. If the loop exhausted: build <code>status={"status": "failed", "feature_count": 0, "attempts": attempt, "message": "..."}</code>, emit <code>stage_failed</code>, return an empty <code>GeoDataFrame</code> with <code>status</code> and the last exception attached.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td>Assumes <code>ox.features_from_polygon()</code> raising is the only failure signal to watch for (no separate handling for, e.g., a response that "succeeds" with malformed data). Assumes linear backoff (rather than exponential) is sufficient — despite the module docstring's inline comment referring to this as "exponential backoff," the actual formula (<code>RETRY_BACKOFF_BASE_SECONDS * attempt</code>) is linear, not exponential; worth confirming which was intended if retry behavior under sustained failure needs tuning.</td>
+<td>Assumes <code>ox.features_from_polygon()</code> raising is the only failure signal to watch for. Assumes linear backoff (rather than exponential) is sufficient — the module's own comments still refer to this informally as "backoff" without the "exponential" mischaracterization from the prior revision's docstring, though the formula itself (<code>RETRY_BACKOFF_BASE_SECONDS * attempt</code>) is unchanged and still linear. <strong>New:</strong> assumes a caller's <code>on_event</code> callback is either thread-safe or <code>None</code> — this function does nothing itself to protect against an unsafe callback; that responsibility is entirely the caller's (see <a href="../events/"><code>events.py</code></a>'s own documentation of this exact risk).</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td>O(1) in terms of this function's own logic; wall-clock time scales with number of retries needed (up to <code>MAX_RETRIES</code>) and the underlying Overpass query's own complexity (which scales with feature density/boundary size, outside this function's control).</td>
+<td>O(1) in terms of this function's own logic; wall-clock time scales with number of retries needed and the underlying Overpass query's own complexity. The event-emission calls themselves are O(1) each, negligible against network latency.</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td>This function itself has no shared mutable state — each call operates on its own local variables only, and multiple instances run safely in parallel as separate <code>ThreadPoolExecutor</code> workers. See <code>extract_layers()</code> below for how concurrency is bounded across <em>multiple</em> calls to this function.</td>
+<td>This function itself has no shared mutable state — each call operates on its own local variables only, and multiple instances run safely in parallel as separate <code>ThreadPoolExecutor</code> workers. <strong>New consideration:</strong> <code>on_event</code> is now genuinely called concurrently from multiple worker threads for different layers' events — this was already implicitly true of the function's execution context before this revision, but is now directly relevant since a caller actually supplies a callback (previously there was nothing to call from these threads at all). See <code>extract_layers()</code> below for how concurrency is bounded across <em>multiple</em> calls to this function.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="extract_layersboundary_gdf-tag_confignone-strictfalse"><code>extract_layers(boundary_gdf, tag_config=None, strict=False)</code><a class="headerlink" href="#extract_layersboundary_gdf-tag_confignone-strictfalse" title="Permanent link">&para;</a></h3>
+<h3 id="extract_layersboundary_gdf-tag_confignone-strictfalse-on_eventnone"><code>extract_layers(boundary_gdf, tag_config=None, strict=False, on_event=None)</code><a class="headerlink" href="#extract_layersboundary_gdf-tag_confignone-strictfalse-on_eventnone" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -1995,98 +2210,113 @@ signal — see <code>akure_access.completeness.grid_check</code>), not an error.
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td>Extracts every layer defined in <code>tag_config</code> (or <code>DEFAULT_TAG_CONFIG</code>) within <code>boundary_gdf</code>'s polygon, using bounded, staggered concurrency, and returns a dict of <code>layer_name -&gt; GeoDataFrame</code> plus a <code>"_warnings"</code> list.</td>
+<td>Extracts every layer defined in <code>tag_config</code> (or <code>DEFAULT_TAG_CONFIG</code>) within <code>boundary_gdf</code>'s polygon, using bounded, staggered concurrency, and returns a dict of <code>layer_name -&gt; GeoDataFrame</code> plus <code>"_warnings"</code> and (<strong>new</strong>) <code>"_status"</code> keys.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td>The concurrency model here is the single most consequential design decision in this module, and it's empirically derived, not a default choice. Fully parallel querying (all 6 layers at once, <code>max_workers=6</code>, no stagger) was tried first and made things <em>worse</em>: the public Overpass mirror refused every connection outright (<code>Errno 111</code>, connection refused) when hit by a burst of simultaneous requests from one client — it appears to treat simultaneous connection bursts as abusive traffic regardless of whether the requests are otherwise legitimate. The current approach caps concurrency at <code>MAX_CONCURRENT_LAYER_QUERIES = 2</code> and staggers each new request's start by <code>REQUEST_STAGGER_SECONDS = 3</code>, so the server never sees more than 2 near-simultaneous connection attempts, even at the very start of a run — while still overlapping queries in pairs rather than running fully sequentially.</td>
+<td>The concurrency model here is the single most consequential design decision in this module, and it's empirically derived, not a default choice. Fully parallel querying (all 6 layers at once, <code>max_workers=6</code>, no stagger) was tried first and made things <em>worse</em>: the public Overpass mirror refused every connection outright (<code>Errno 111</code>, connection refused) when hit by a burst of simultaneous requests from one client. The current approach caps concurrency at <code>MAX_CONCURRENT_LAYER_QUERIES = 2</code> and staggers each new request's start by <code>REQUEST_STAGGER_SECONDS = 3</code>, so the server never sees more than 2 near-simultaneous connection attempts, even at the very start of a run.</td>
 </tr>
 <tr>
 <td><strong>The stagger math, worked out concretely.</strong></td>
-<td>With the default 6 layers and <code>MAX_CONCURRENT_LAYER_QUERIES = 2</code>, <code>start_delay = (i // 2) * 3</code> produces delays of <code>[0, 0, 3, 3, 6, 6]</code> seconds across <code>i = 0..5</code> — layers 0 and 1 start immediately, layers 2 and 3 start 3 seconds later, layers 4 and 5 start 6 seconds later. The <em>pairing</em> here is purely positional (dictionary insertion order in <code>DEFAULT_TAG_CONFIG</code>), not by any property of the layers themselves — <code>roads</code> and <code>buildings</code> (the first two keys) always start together, <code>health_facilities</code> and <code>schools</code> (the last two) always start last, regardless of which layers are actually slower or more likely to fail.</td>
+<td>With the default 6 layers and <code>MAX_CONCURRENT_LAYER_QUERIES = 2</code>, <code>start_delay = (i // 2) * 3</code> produces delays of <code>[0, 0, 3, 3, 6, 6]</code> seconds across <code>i = 0..5</code>. The <em>pairing</em> here is purely positional (dictionary insertion order in <code>DEFAULT_TAG_CONFIG</code>), not by any property of the layers themselves.</td>
 </tr>
 <tr>
 <td><strong><code>as_completed()</code> introduces a small but real nondeterminism.</strong></td>
-<td>Futures are iterated in <strong>completion order</strong>, not submission order — so if two layers happen to fail at nearly the same wall-clock time, which one ends up recorded as <code>first_error</code> (and therefore which message a <code>strict=True</code> caller sees in the raised <code>LayerExtractionError</code>) can vary between otherwise-identical runs. This doesn't affect <em>correctness</em> (every layer's outcome still ends up in <code>_warnings</code> in permissive mode), but it does mean a strict-mode failure message shouldn't be treated as necessarily reproducible run-to-run when multiple layers are failing simultaneously.</td>
+<td>Futures are iterated in <strong>completion order</strong>, not submission order — so if two layers happen to fail at nearly the same wall-clock time, which one ends up recorded as <code>first_error</code> can vary between otherwise-identical runs. This doesn't affect <em>correctness</em> (every layer's outcome still ends up in both <code>_warnings</code> and, new, <code>_status</code>), but a strict-mode failure message isn't necessarily reproducible run-to-run when multiple layers fail simultaneously.</td>
 </tr>
 <tr>
-<td><strong>The returned tuple's third field means two different things depending on the fourth.</strong></td>
-<td><code>_extract_single_layer()</code> always returns <code>(layer_name, gdf, warning_or_message, error)</code> — but that third field is semantically overloaded: when <code>error is None</code>, it's either <code>None</code> (clean success) or an informational "returned no features" string; when <code>error is not None</code>, that same field holds the failure description instead. <code>extract_layers()</code> reads this correctly (appending it to <code>warnings</code> either way, and separately checking <code>error is not None</code> to decide whether to track it as <code>first_error</code>), but a future refactor renaming or restructuring this tuple should be careful not to lose that this one field is doing double duty.</td>
+<td><strong>The "third field means two things" ambiguity from the previous revision is now resolved — worth noting explicitly as a real, positive fix.</strong></td>
+<td>The prior revision of this page flagged, as a genuine subtlety worth watching, that <code>_extract_single_layer()</code>'s returned tuple had a semantically-overloaded third field (an informational message on success, a failure description on error, distinguished only by the fourth field's presence). <strong>This revision removes that ambiguity entirely</strong> by replacing it with the explicit <code>status</code> dict described in <code>_extract_single_layer()</code> above — <code>extract_layers()</code> now reads <code>status["status"]</code> directly (<code>"success"</code> / <code>"success_empty"</code> / <code>"failed"</code>) rather than inferring meaning from field combinations. This is a genuine, clean fix to a documented design wart, not just a refactor for its own sake.</td>
+</tr>
+<tr>
+<td><strong>New: progress events pass straight through.</strong></td>
+<td><code>on_event</code> is threaded directly into every <code>_extract_single_layer()</code> call (<code>executor.submit(_extract_single_layer, layer_name, tags, polygon, start_delay, on_event)</code>) — <code>extract_layers()</code> itself doesn't emit any events of its own at this level; all per-layer event emission happens inside the worker function. The thread-safety consideration described there applies identically here: <code>on_event</code> will be invoked from multiple worker threads.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><code>boundary_gdf</code> (single-row <code>GeoDataFrame</code> from <code>boundary.resolve_boundary()</code>); <code>tag_config</code> (optional override dict, defaults to <code>DEFAULT_TAG_CONFIG</code>); <code>strict: bool</code> (default <code>False</code> — controls failure handling, see below).</td>
+<td><code>boundary_gdf</code>; <code>tag_config</code> (optional); <code>strict: bool</code> (default <code>False</code>); <code>on_event: callable, optional</code> (new — default <code>None</code>).</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><code>dict</code> mapping each <code>layer_name</code> to a <code>GeoDataFrame</code> (possibly empty), plus a <code>"_warnings"</code> key holding a list of warning strings collected across all layers.</td>
+<td><code>dict</code> mapping each <code>layer_name</code> to a <code>GeoDataFrame</code>, plus <code>"_warnings"</code> (flat list of human-readable strings, unchanged shape, kept for backward compatibility) and (<strong>new</strong>) <code>"_status"</code> — <code>{layer_name: {"status", "feature_count", "attempts", "message"}}</code>, the same per-layer outcome as structured, machine-readable data. <code>"_status"</code>'s <code>"status"</code> field is what a downstream consumer should actually branch on; <strong>never infer failure from an empty <code>GeoDataFrame</code> alone</strong> — an empty <code>GeoDataFrame</code> is also exactly what <code>status="success_empty"</code> looks like, and conflating the two is precisely the failure mode this structured field exists to prevent.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td>1. Default <code>tag_config</code> if not supplied; extract the boundary polygon from <code>boundary_gdf</code>.<br>2. Open a <code>ThreadPoolExecutor(max_workers=MAX_CONCURRENT_LAYER_QUERIES)</code>.<br>3. For each <code>(layer_name, tags)</code> pair (enumerated), compute <code>start_delay = (i // MAX_CONCURRENT_LAYER_QUERIES) * REQUEST_STAGGER_SECONDS</code> — this staggers layers in batches of <code>MAX_CONCURRENT_LAYER_QUERIES</code>, so layers 0–1 start immediately, layers 2–3 start after one stagger interval, etc. — and submit <code>_extract_single_layer()</code> as a future.<br>4. As each future completes (<code>as_completed</code>, i.e. in completion order, not submission order), unpack its result tuple; store the <code>GeoDataFrame</code> in <code>layers[layer_name]</code>; append any warning; record the <em>first</em> genuine error encountered (if any) for later.<br>5. After all futures complete: if <code>strict=True</code> and at least one genuine error occurred, raise <code>LayerExtractionError</code> for the first one encountered, chaining the original exception.<br>6. Otherwise (permissive mode, or strict mode with no errors), attach <code>layers["_warnings"] = warnings</code> and return the dict.</td>
+<td>1. Default <code>tag_config</code>; extract the boundary polygon.<br>2. Open a <code>ThreadPoolExecutor(max_workers=MAX_CONCURRENT_LAYER_QUERIES)</code>.<br>3. For each <code>(layer_name, tags)</code> pair, compute <code>start_delay</code>, submit <code>_extract_single_layer(..., on_event)</code> as a future.<br>4. As each future completes: unpack <code>(layer_name, gdf, status, exc)</code>; store <code>gdf</code> in <code>layers[layer_name]</code>; store <code>status</code> in <code>layer_status[layer_name]</code> (<strong>new</strong>); append <code>status["message"]</code> to <code>warnings</code> if truthy; record the <em>first</em> <code>status["status"] == "failed"</code> case as <code>first_error</code> (<strong>changed</strong> — now checks the explicit status field, not tuple-position inference).<br>5. After all futures complete: if <code>strict=True</code> and <code>first_error</code> is set, raise <code>LayerExtractionError</code>, chaining the original exception.<br>6. Otherwise, attach <code>layers["_warnings"] = warnings</code> <strong>and</strong> <code>layers["_status"] = layer_status</code> (<strong>new</strong>), return.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td>Assumes <code>MAX_CONCURRENT_LAYER_QUERIES=2</code> / <code>REQUEST_STAGGER_SECONDS=3</code> remain valid for whichever Overpass mirror OSMnx is configured to use — these constants were tuned against observed rate-limiting behavior on one server and are not derived from any documented API limit, so they might need re-tuning if the underlying Overpass endpoint changes. Assumes six is a small enough layer count that <code>max_workers=2</code> doesn't create an unreasonably long total runtime (worst case, all 6 layers hit <code>MAX_RETRIES</code> — the run could take several minutes).</td>
+<td>Assumes <code>MAX_CONCURRENT_LAYER_QUERIES=2</code> / <code>REQUEST_STAGGER_SECONDS=3</code> remain valid for whichever Overpass mirror OSMnx is configured to use. Assumes six is a small enough layer count that <code>max_workers=2</code> doesn't create an unreasonably long total runtime.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td>O(L) where L = number of layers, in terms of number of Overpass queries issued (one per layer, plus retries). Wall-clock time is bounded below by <code>(L / MAX_CONCURRENT_LAYER_QUERIES) * REQUEST_STAGGER_SECONDS</code> for staggering alone, before any query or retry latency.</td>
+<td>O(L) where L = number of layers, in terms of number of Overpass queries issued. Wall-clock time is bounded below by <code>(L / MAX_CONCURRENT_LAYER_QUERIES) * REQUEST_STAGGER_SECONDS</code> for staggering alone.</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td>This is the one place in the whole repository where genuine concurrency is used. Each worker thread's result is only touched by the main thread inside <code>as_completed()</code>'s loop (via <code>future.result()</code>), so there's no shared mutable state written from multiple threads simultaneously — <code>layers</code>, <code>warnings</code>, and <code>first_error</code> are all only ever mutated from the single main thread as futures complete. The design explicitly avoids relying on <code>ox.features_from_polygon()</code> (or the underlying Overpass client) being thread-safe for truly simultaneous calls, by bounding concurrency to a small number the server tolerates — this is a mitigation for <em>server-side</em> rate-limiting behavior, not a client-side race condition in this codebase.</td>
+<td>This is the one place in the whole repository where genuine concurrency is used. Each worker thread's result is only touched by the main thread inside <code>as_completed()</code>'s loop, so <code>layers</code>, <code>warnings</code>, <code>layer_status</code>, and <code>first_error</code> are all only ever <em>mutated</em> from the single main thread as futures complete — no data race on those structures. The genuinely concurrent part, <code>on_event</code> being called from worker threads (new in this revision), is the caller's responsibility to handle safely, not something this function protects against internally.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../tests/">tests.md</a> — <code>test_extraction.py</code>.</td>
+<td>See <a href="../../tests/">tests.md</a> — <code>test_extraction.py</code>, plus new: <code>test_extract_layers_status_distinguishes_failed_from_empty</code>, <code>test_extract_layers_emits_started_and_completed_events</code>, <code>test_extract_layers_emits_retry_events_on_transient_failure</code>, <code>test_thread_safe_event_queue_drains_events_from_multiple_threads</code>.</td>
 </tr>
 </tbody>
 </table>
 <h2 id="internal-workflow">Internal Workflow<a class="headerlink" href="#internal-workflow" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>flowchart TD
-    A["extract_layers(boundary_gdf, tag_config, strict)"] --&gt; B["tag_config = tag_config or DEFAULT_TAG_CONFIG"]
+    A["extract_layers(boundary_gdf, tag_config, strict, on_event)"] --&gt; B["tag_config = tag_config or DEFAULT_TAG_CONFIG"]
     B --&gt; C["polygon = boundary_gdf.geometry[0]"]
-    C --&gt; D["submit one _extract_single_layer task per layer&lt;br/&gt;to ThreadPoolExecutor(max_workers=2)&lt;br/&gt;start_delay = (i // 2) * 3s"]
+    C --&gt; D["submit one _extract_single_layer task per layer&lt;br/&gt;to ThreadPoolExecutor(max_workers=2)&lt;br/&gt;start_delay = (i // 2) * 3s, on_event passed through"]
     D --&gt; E["_extract_single_layer worker"]
 
     subgraph W ["_extract_single_layer (runs per layer, per worker thread)"]
-        E --&gt; F["sleep(start_delay)"]
+        E --&gt; E0["emit stage_started"]
+        E0 --&gt; F["sleep(start_delay)"]
         F --&gt; G["ox.features_from_polygon(polygon, tags)"]
-        G -- "success, features found" --&gt; H["return (name, gdf, None, None)"]
-        G -- "success, zero features" --&gt; I["return (name, empty_gdf, warning, None)"]
+        G -- "success, features found" --&gt; H["emit stage_completed (status: success)&lt;br/&gt;return (name, gdf, status_dict, None)"]
+        G -- "success, zero features" --&gt; I["emit stage_completed (status: success_empty)&lt;br/&gt;return (name, empty_gdf, status_dict, None)"]
         G -- "exception" --&gt; J{"transient error?&lt;br/&gt;ConnectionError / Timeout"}
-        J -- "yes, attempts left" --&gt; K["sleep(backoff = 5 * attempt)"]
+        J -- "yes, attempts left" --&gt; K["emit retry event&lt;br/&gt;sleep(backoff = 5 * attempt)"]
         K --&gt; G
-        J -- "no, or retries exhausted" --&gt; L["return (name, empty_gdf, message, last_exc)"]
+        J -- "no, or retries exhausted" --&gt; L["emit stage_failed&lt;br/&gt;return (name, empty_gdf, status_dict, last_exc)"]
     end
 
-    H --&gt; M["as_completed(): collect into layers dict + warnings list"]
+    H --&gt; M["as_completed(): collect into layers dict,&lt;br/&gt;warnings list, AND layer_status dict (new)"]
     I --&gt; M
     L --&gt; M
-    M --&gt; N{"strict=True and any error present?"}
-    N -- yes --&gt; O["raise LayerExtractionError(message) from error&lt;br/&gt;(first failure only, others stay in _warnings)"]
-    N -- no --&gt; P["layers['_warnings'] = warnings&lt;br/&gt;return layers dict"]</code></pre>
+    M --&gt; N{"strict=True and any status=='failed'?"}
+    N -- yes --&gt; O["raise LayerExtractionError(message) from exc&lt;br/&gt;(first failure only, others stay in _warnings/_status)"]
+    N -- no --&gt; P["layers['_warnings'] = warnings&lt;br/&gt;layers['_status'] = layer_status (new)&lt;br/&gt;return layers dict"]</code></pre>
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong><code>strict</code> only affects genuine failures, never emptiness.</strong> It's easy to
   misread <code>strict=True</code> as "fail if any layer has no data" — it does not do
-  that. A layer with zero features (a successful query, nothing found) is
-  always recorded as a warning, in both modes, and never raises.</li>
+  that. A layer with <code>status="success_empty"</code> is always recorded, in both
+  modes, and never raises.</li>
 <li><strong>In strict mode, only the <em>first</em> error is surfaced, even if multiple
-  layers fail.</strong> All other layers still get queried to completion (the
-  <code>ThreadPoolExecutor</code> runs to completion regardless), but only one error
-  message ends up in the raised exception. The full picture is in
-  <code>layers["_warnings"]</code> if execution reaches permissive-mode's return path,
-  but in strict mode the dict is never returned at all — check <code>_warnings</code>
-  content by using <code>strict=False</code> first if you need the complete failure
-  list before deciding what to do.</li>
-<li><strong>The "exponential backoff" comment vs. actual linear formula.</strong> As noted
-  in <code>_extract_single_layer()</code> above, the backoff is <code>BASE * attempt</code>
-  (linear), not <code>BASE ** attempt</code> (exponential), despite the surrounding
-  comments' phrasing. Not a bug per se — linear backoff across 6 retries
-  with base 5s tops out at a reasonable 30s wait — but worth knowing if
-  tuning retry behavior later.</li>
+  layers fail.</strong> All other layers still get queried to completion, but only
+  one error message ends up in the raised exception. The full picture is in
+  <code>layers["_status"]</code> if execution reaches permissive-mode's return path,
+  but in strict mode the dict is never returned at all.</li>
+<li><strong>The status-field ambiguity documented in the previous revision of this
+  page is now fixed, not just re-described.</strong> Worth stating plainly: this
+  isn't a lingering gotcha carried forward for historical interest — the
+  explicit <code>status</code> dict genuinely eliminates the "which field means what"
+  confusion the old 4-tuple had. Any code still written against the old
+  <code>(layer_name, gdf, warning_or_None, error_or_None)</code> return shape will
+  break against this revision and needs updating to unpack <code>(layer_name,
+  gdf, status, exc)</code> instead.</li>
+<li><strong><code>on_event</code> callbacks execute on worker threads, not the caller's
+  thread.</strong> This is unchanged in spirit from how <code>layers.py</code>'s concurrency
+  always worked, but is newly <em>relevant</em> now that a caller actually supplies
+  a callback here — see <a href="../events/"><code>events.py</code></a>'s dedicated thread-safety
+  documentation, and don't pass a Streamlit-touching function directly as
+  <code>on_event</code>.</li>
+<li><strong>Backoff is linear, not exponential</strong>, despite occasional informal
+  references to "backoff" in comments potentially reading that way at a
+  glance — <code>RETRY_BACKOFF_BASE_SECONDS * attempt</code>, not <code>** attempt</code>. Across
+  6 retries with base 5s this tops out at a reasonable 30s wait, but worth
+  knowing precisely if tuning retry behavior later.</li>
 </ul>
 
 

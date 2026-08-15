@@ -550,6 +550,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -778,6 +782,62 @@
     
   
     pipeline.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lga-osm-extractor/modules/events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    events.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../lga-osm-extractor/modules/manifest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    manifest.py
   
 
     
@@ -1068,6 +1128,16 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -1196,10 +1266,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#dependencies" class="md-nav__link">
+  <a href="#the-reversal-roads_gdf-is-now-the-default-live-osm-is-now-explicit-opt-in" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Dependencies
+        The reversal: roads_gdf is now the default, live OSM is now explicit opt-in
       
     </span>
   </a>
@@ -1207,85 +1277,57 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#functions-classes" class="md-nav__link">
+  <a href="#new-the-source-parameter" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Functions &amp; Classes
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Functions &amp; Classes">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#walking_speed_kph-module-level-constant-50" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        WALKING_SPEED_KPH (module-level constant, 5.0)
+        New: the source parameter
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#mode_config-module-level-dict" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#constants-now-config-driven" class="md-nav__link">
     <span class="md-ellipsis">
       
-        MODE_CONFIG (module-level dict)
+        Constants (now config-driven)
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#graph_from_roadsroads_gdf-boundary_polygonnone-modewalk-speed_kphnone" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#graph_from_roadsroads_gdf-boundary_polygonnone-modewalk-speed_kphnone-sourceauto" class="md-nav__link">
     <span class="md-ellipsis">
       
-        graph_from_roads(roads_gdf, boundary_polygon=None, mode="walk", speed_kph=None)
+        graph_from_roads(roads_gdf, boundary_polygon=None, mode="walk", speed_kph=None, source="auto")
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#_has_lengthsg" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#_has_lengthsg-and-_assign_travel_timesg-speed_kph" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _has_lengths(G)
+        _has_lengths(G) and _assign_travel_times(G, speed_kph)
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#_assign_travel_timesg-speed_kph" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#new-in-this-revision-endpoint-snapping-in-_graph_from_geometriesroads_gdf-snap_tolerance_m05" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _assign_travel_times(G, speed_kph)
+        New in this revision: endpoint snapping in _graph_from_geometries(roads_gdf, snap_tolerance_m=0.5)
       
     </span>
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_graph_from_geometriesroads_gdf" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        _graph_from_geometries(roads_gdf)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1305,6 +1347,17 @@
     <span class="md-ellipsis">
       
         Gotchas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
       
     </span>
   </a>
@@ -1447,6 +1500,146 @@
     
   
     insights.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    config.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_contract/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    data_contract.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../facility_classification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    facility_classification.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sensitivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sensitivity.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    status.py
   
 
     
@@ -1747,10 +1940,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#dependencies" class="md-nav__link">
+  <a href="#the-reversal-roads_gdf-is-now-the-default-live-osm-is-now-explicit-opt-in" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Dependencies
+        The reversal: roads_gdf is now the default, live OSM is now explicit opt-in
       
     </span>
   </a>
@@ -1758,85 +1951,57 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#functions-classes" class="md-nav__link">
+  <a href="#new-the-source-parameter" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Functions &amp; Classes
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Functions &amp; Classes">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#walking_speed_kph-module-level-constant-50" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        WALKING_SPEED_KPH (module-level constant, 5.0)
+        New: the source parameter
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#mode_config-module-level-dict" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#constants-now-config-driven" class="md-nav__link">
     <span class="md-ellipsis">
       
-        MODE_CONFIG (module-level dict)
+        Constants (now config-driven)
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#graph_from_roadsroads_gdf-boundary_polygonnone-modewalk-speed_kphnone" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#graph_from_roadsroads_gdf-boundary_polygonnone-modewalk-speed_kphnone-sourceauto" class="md-nav__link">
     <span class="md-ellipsis">
       
-        graph_from_roads(roads_gdf, boundary_polygon=None, mode="walk", speed_kph=None)
+        graph_from_roads(roads_gdf, boundary_polygon=None, mode="walk", speed_kph=None, source="auto")
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#_has_lengthsg" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#_has_lengthsg-and-_assign_travel_timesg-speed_kph" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _has_lengths(G)
+        _has_lengths(G) and _assign_travel_times(G, speed_kph)
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#_assign_travel_timesg-speed_kph" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#new-in-this-revision-endpoint-snapping-in-_graph_from_geometriesroads_gdf-snap_tolerance_m05" class="md-nav__link">
     <span class="md-ellipsis">
       
-        _assign_travel_times(G, speed_kph)
+        New in this revision: endpoint snapping in _graph_from_geometries(roads_gdf, snap_tolerance_m=0.5)
       
     </span>
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_graph_from_geometriesroads_gdf" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        _graph_from_geometries(roads_gdf)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1856,6 +2021,17 @@
     <span class="md-ellipsis">
       
         Gotchas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
       
     </span>
   </a>
@@ -1885,7 +2061,9 @@
 <h1 id="network_graphpy">network_graph.py<a class="headerlink" href="#network_graphpy" title="Permanent link">&para;</a></h1>
 <div class="admonition info">
 <p class="admonition-title">Source</p>
-<p><code>akure_access/accessibility/network_graph.py</code> (156 lines)</p>
+<p><code>akure_access/accessibility/network_graph.py</code> (185 lines — grew from
+156 with the addition of the <code>source</code> parameter, endpoint snapping,
+and config-driven constants, see below)</p>
 </div>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
 <p>Builds a routable <code>NetworkX</code> graph for a given travel mode (walk, okada,
@@ -1893,42 +2071,78 @@ drive) — the foundation everything else in the <code>accessibility</code> pack
 on top of. Every isochrone computation and nearest-facility distance/time
 lookup in <a href="../isochrones/"><code>isochrones.py</code></a> operates on a graph produced
 here.</p>
-<p>This is the first module in <code>akure-accessibility-dashboard</code> to consume
-output from the upstream <code>lga-osm-extractor</code> repo — its <code>roads_gdf</code>
-parameter expects exactly the cleaned roads layer <code>lga_extractor.clean</code>
-produces (see <a href="../../../../cross-repo/integration/">Cross-Repo Integration</a>).</p>
-<h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Imports:</strong> <code>geopandas</code>, <code>networkx</code>, <code>osmnx</code>.</li>
-<li><strong>Imported by:</strong> <a href="../isochrones/"><code>isochrones.py</code></a> (which builds on graphs
-  from this module), <code>dashboard/app.py</code>.</li>
-</ul>
-<h2 id="functions-classes">Functions &amp; Classes<a class="headerlink" href="#functions-classes" title="Permanent link">&para;</a></h2>
-<h3 id="walking_speed_kph-module-level-constant-50"><code>WALKING_SPEED_KPH</code> (module-level constant, <code>5.0</code>)<a class="headerlink" href="#walking_speed_kph-module-level-constant-50" title="Permanent link">&para;</a></h3>
-<p>Kept explicitly for backward compatibility — the module comment notes this
-exists only so any code still importing <code>WALKING_SPEED_KPH</code> directly (rather
-than reading <code>MODE_CONFIG["walk"]["speed_kph"]</code>) continues to work. The
-<em>actual</em> speed used by <code>graph_from_roads()</code> is read from <code>MODE_CONFIG</code>, not
-this constant.</p>
-<h3 id="mode_config-module-level-dict"><code>MODE_CONFIG</code> (module-level dict)<a class="headerlink" href="#mode_config-module-level-dict" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="s2">&quot;walk&quot;</span><span class="p">:</span>  <span class="p">{</span><span class="s2">&quot;network_type&quot;</span><span class="p">:</span> <span class="s2">&quot;walk&quot;</span><span class="p">,</span>  <span class="s2">&quot;speed_kph&quot;</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">},</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="s2">&quot;okada&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;network_type&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span> <span class="s2">&quot;speed_kph&quot;</span><span class="p">:</span> <span class="mf">25.0</span><span class="p">},</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="s2">&quot;drive&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;network_type&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span> <span class="s2">&quot;speed_kph&quot;</span><span class="p">:</span> <span class="mf">35.0</span><span class="p">},</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">}</span>
+<p>This is the module most consequentially reworked in this revision, and the
+change is a genuine <strong>reversal of which construction path is the default</strong>
+— worth understanding in detail, since it changes which path a caller gets
+without any argument change on their part.</p>
+<h2 id="the-reversal-roads_gdf-is-now-the-default-live-osm-is-now-explicit-opt-in">The reversal: <code>roads_gdf</code> is now the default, live OSM is now explicit opt-in<a class="headerlink" href="#the-reversal-roads_gdf-is-now-the-default-live-osm-is-now-explicit-opt-in" title="Permanent link">&para;</a></h2>
+<p><strong>Before this revision:</strong> supplying <code>boundary_polygon</code> selected the
+"recommended default" path (a live <code>osmnx.graph_from_polygon()</code> query);
+<code>roads_gdf</code>-only construction was the fallback, used only when no boundary
+was available, and was documented as <em>less robust</em> than the OSMnx path.</p>
+<p><strong>In this revision, that recommendation is inverted.</strong> The module's own
+docstring states the new default plainly: <em>"roads_gdf... is the DEFAULT
+path whenever <code>roads_gdf</code> is non-empty, because it guarantees the graph
+matches exactly the same roads that were extracted, validated and
+versioned upstream — reproducibility of the whole pipeline depends on the
+dashboard not silently re-querying OSM with different results at analysis
+time."</em> Live OSM querying is now named <code>"live_osm"</code> and treated as <em>"an
+explicit opt-in 'refresh' mode, not the default, so that a dashboard run
+is reproducible from the extractor's exported files without requiring live
+internet access to OSM."</em></p>
+<p><strong>Why this matters beyond just "which default changed":</strong> it's a
+philosophical shift in what this module optimizes for. The previous
+revision prioritized routing <em>fidelity</em> (OSMnx's proper topology handling,
+correct walk/drive network differentiation) as the default, accepting a
+live-network dependency as the cost. This revision prioritizes
+<em>reproducibility</em> — the same <code>roads_gdf</code> input, read from the extractor's
+versioned, cached export, now always produces the same graph, with no
+dependency on OSM's live state at analysis time, or on network access being
+available at all. The previous revision's fidelity advantage for the
+<code>roads_gdf</code> path (no walk/drive differentiation) hasn't gone away — see
+Gotchas — but it's now the accepted cost of the <em>default</em> path, not the
+fallback path.</p>
+<h2 id="new-the-source-parameter">New: the <code>source</code> parameter<a class="headerlink" href="#new-the-source-parameter" title="Permanent link">&para;</a></h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">VALID_SOURCES</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="s2">&quot;roads_gdf&quot;</span><span class="p">,</span> <span class="s2">&quot;live_osm&quot;</span><span class="p">)</span>
 </span></code></pre></div>
-<p>The one entry worth explaining is <code>"okada"</code> (commercial motorcycle taxis, a
-common transport mode in Nigeria): it's modeled on OSM's <code>"drive"</code> network
-type, <strong>not</strong> a distinct motorcycle network — OSM has no separate motorcycle
-network classification, and in practice okadas use the same road network
-cars do. What differentiates it is a lower assumed average speed (25 km/h
-vs. 35 km/h for cars), reflecting local traffic conditions and okada riding
-behavior (weaving through traffic, using narrower roads a car might avoid).
-The module is explicit that these speed figures are approximations, not
-measured data — see <a href="../../../../reference/known-issues/">Known Issues</a> for
-the broader methodology-limitations context, and any caller can override
-the assumption via <code>graph_from_roads()</code>'s <code>speed_kph</code> parameter.</p>
-<h3 id="graph_from_roadsroads_gdf-boundary_polygonnone-modewalk-speed_kphnone"><code>graph_from_roads(roads_gdf, boundary_polygon=None, mode="walk", speed_kph=None)</code><a class="headerlink" href="#graph_from_roadsroads_gdf-boundary_polygonnone-modewalk-speed_kphnone" title="Permanent link">&para;</a></h3>
+<p><code>graph_from_roads(..., source="auto")</code> — three explicit modes, replacing
+the previous implicit "boundary given → path 1, else → path 2" branching:</p>
+<ul>
+<li><strong><code>"auto"</code> (default):</strong> use <code>roads_gdf</code> if it's non-empty; otherwise fall
+  back to <code>boundary_polygon</code> (a live OSM query) if one was supplied;
+  otherwise raise <code>ValueError</code> — there's nothing to build a graph from.</li>
+<li><strong><code>"roads_gdf"</code>:</strong> force the versioned-dataset path explicitly. Raises
+  <code>ValueError</code> if <code>roads_gdf</code> is empty or <code>None</code> — a caller asking for this
+  path specifically wants an error if it can't be honored, not a silent
+  fallback to something else.</li>
+<li><strong><code>"live_osm"</code>:</strong> force a live OSM query explicitly. Raises <code>ValueError</code>
+  if <code>boundary_polygon</code> wasn't supplied. This is the path a caller
+  deliberately reaches for when they specifically want a fresh, current
+  view of OSM data rather than the extractor's cached snapshot — e.g.
+  checking whether OSM coverage has improved for an LGA since the last
+  extraction run.</li>
+</ul>
+<p><strong>Both explicit modes fail loudly rather than silently falling back</strong> —
+only <code>"auto"</code> has fallback behavior at all. This is a deliberate design
+choice: a caller who explicitly asked for <code>source="roads_gdf"</code> and gets
+silently routed to a live OSM query instead (because <code>roads_gdf</code> happened
+to be empty) would have no way to know their reproducibility guarantee
+was quietly violated; raising instead makes that impossible.</p>
+<h2 id="constants-now-config-driven">Constants (now config-driven)<a class="headerlink" href="#constants-now-config-driven" title="Permanent link">&para;</a></h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">WALKING_SPEED_KPH</span> <span class="o">=</span> <span class="n">_config</span><span class="p">[</span><span class="s2">&quot;accessibility&quot;</span><span class="p">][</span><span class="s2">&quot;modes&quot;</span><span class="p">][</span><span class="s2">&quot;walk&quot;</span><span class="p">][</span><span class="s2">&quot;speed_kph&quot;</span><span class="p">]</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">MODE_CONFIG</span> <span class="o">=</span> <span class="n">_config</span><span class="p">[</span><span class="s2">&quot;accessibility&quot;</span><span class="p">][</span><span class="s2">&quot;modes&quot;</span><span class="p">]</span>
+</span></code></pre></div>
+<p><strong>Both are now derived from <a href="../../config/"><code>config.get_config()</code></a></strong> rather
+than independent hardcoded literals — read once, at import time, into
+plain module-level constants (not functions), specifically so every
+existing caller/import (<code>from network_graph import MODE_CONFIG</code>) continues
+to work completely unchanged. See <a href="../../config/"><code>config.md</code></a> for the full
+migration story and its import-time-snapshot caveat, which applies
+identically here. The actual numeric values are unchanged from before —
+<code>"okada"</code> still models on OSM's <code>"drive"</code> network type at a lower assumed
+speed (25 km/h vs. 35 km/h for cars), for the same reasons as before (see
+<a href="../../../../reference/known-issues/">Known Issues</a>).</p>
+<h2 id="graph_from_roadsroads_gdf-boundary_polygonnone-modewalk-speed_kphnone-sourceauto"><code>graph_from_roads(roads_gdf, boundary_polygon=None, mode="walk", speed_kph=None, source="auto")</code><a class="headerlink" href="#graph_from_roadsroads_gdf-boundary_polygonnone-modewalk-speed_kphnone-sourceauto" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -1939,217 +2153,190 @@ the assumption via <code>graph_from_roads()</code>'s <code>speed_kph</code> para
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td>Builds a routable <code>networkx.MultiDiGraph</code> for the requested mode, with <code>length</code> (meters) and <code>travel_time_min</code> (minutes) attributes on every edge, via one of two construction paths depending on whether a boundary polygon is supplied.</td>
+<td>Builds a routable <code>networkx.MultiDiGraph</code> (or, on the <code>roads_gdf</code> path, a <code>MultiGraph</code> — see Gotchas, unchanged nuance) for the requested mode, resolving which construction path to use per the <code>source</code> parameter described above.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td>The two-path design directly trades off robustness against consistency-with-extracted-data. <strong>Path 1</strong> (boundary polygon given, the recommended default): delegates entirely to <code>osmnx.graph_from_polygon()</code>, which OSMnx handles correctly — proper topology cleanup, connected-component handling, standard OSM network typing. <strong>Path 2</strong> (<code>roads_gdf</code> only, no boundary): builds a graph directly from the exact roads geometries <code>lga_extractor</code> already extracted and versioned on disk, useful specifically when guaranteeing the routing graph matches precisely what was extracted matters more than routing correctness — e.g. reproducibility, or auditing what a specific archived extraction actually contains. The documented cost of path 2: it can't distinguish walk-only paths from vehicle roads (that distinction lives in OSM's tag-based network typing, which the extractor's plain roads layer doesn't preserve), so <code>mode="walk"</code> and <code>mode="drive"</code> produce the <em>same underlying graph</em> when built this way, differing only in the assumed speed used to compute <code>travel_time_min</code> — not in which edges exist.</td>
+<td>Validation happens in two stages: <code>mode</code> and <code>source</code> are checked against their respective valid-value tuples up front (<code>ValueError</code> listing valid options on either mismatch); then <code>effective_source</code> is resolved from <code>source</code> + data availability, with the three-branch logic (<code>auto</code> / <code>roads_gdf</code> / <code>live_osm</code>) described above. Resolving <code>effective_source</code> as an explicit local variable, rather than branching on <code>source</code> directly further down, means the graph-construction step (path selection) and the later <code>G.graph["source"] = effective_source</code> assignment both reference one single, already-validated value.</td>
+</tr>
+<tr>
+<td><strong>New: <code>G.graph["source"]</code> records which path actually ran.</strong></td>
+<td>Every returned graph now carries a <code>"source"</code> graph-level attribute — <code>"roads_gdf"</code> or <code>"live_osm"</code> — recording which path was <strong>actually used</strong>, not just what the caller requested (relevant specifically for <code>source="auto"</code>, where the effective path depends on data availability, not just the argument value). A caller inspecting an already-built graph can determine its provenance without needing to have tracked the original call arguments themselves.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><code>roads_gdf: GeoDataFrame</code> (cleaned roads layer in EPSG:32631, as produced by <code>lga_extractor.clean.clean_layers()</code> — required for path 2, optional/unused-for-topology in path 1); <code>boundary_polygon</code> (Shapely polygon in EPSG:4326, optional — presence of this argument is what selects path 1 vs. path 2); <code>mode: str</code>, default <code>"walk"</code> (one of <code>"walk"</code>/<code>"okada"</code>/<code>"drive"</code>); <code>speed_kph: float</code>, optional (overrides <code>MODE_CONFIG</code>'s default speed for the chosen mode).</td>
+<td><code>roads_gdf: GeoDataFrame</code>, now effectively optional (can be <code>None</code> or empty when <code>source="live_osm"</code> or <code>source="auto"</code> with a boundary available) — a real signature/behavior change from the previous revision, where it was a required positional-style argument in practice. <code>boundary_polygon</code>, optional. <code>mode: str</code>, default <code>"walk"</code>. <code>speed_kph: float</code>, optional. <code>source: str</code>, <strong>new</strong>, default <code>"auto"</code>.</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><code>networkx.MultiDiGraph</code> with <code>length</code>/<code>travel_time_min</code> edge attributes, plus graph-level attributes <code>mode</code> and <code>speed_kph</code> recording how it was built.</td>
+<td>The graph, plus graph-level <code>mode</code>, <code>speed_kph</code>, and (<strong>new</strong>) <code>source</code> attributes.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td>1. Validate <code>mode</code> is a known key in <code>MODE_CONFIG</code>, raise <code>ValueError</code> listing valid options if not.<br>2. Resolve <code>effective_speed</code>: the explicit <code>speed_kph</code> argument if given, otherwise <code>MODE_CONFIG[mode]["speed_kph"]</code>.<br>3. <strong>Path 1</strong> (<code>boundary_polygon is not None</code>): call <code>ox.graph_from_polygon(boundary_polygon, network_type=config["network_type"])</code>; then call <code>_has_lengths(G)</code> to check whether edge lengths are already present — if not, call <code>ox.distance.add_edge_lengths(G)</code> to add them. (See Gotchas below on why this check exists at all.)<br>4. <strong>Path 2</strong> (no boundary): call <code>_graph_from_geometries(roads_gdf)</code>.<br>5. Regardless of path: call <code>_assign_travel_times(G, effective_speed)</code> to populate <code>travel_time_min</code> on every edge.<br>6. Set <code>G.graph["mode"]</code> and <code>G.graph["speed_kph"]</code>.<br>7. Return <code>G</code>.</td>
+<td>1. Validate <code>mode</code> against <code>MODE_CONFIG</code>.<br>2. Validate <code>source</code> against <code>VALID_SOURCES</code> (<strong>new</strong>).<br>3. Resolve <code>effective_speed</code>.<br>4. Compute <code>roads_available = roads_gdf is not None and len(roads_gdf) &gt; 0</code>.<br>5. Resolve <code>effective_source</code>: for <code>"auto"</code>, prefer <code>roads_gdf</code> if available, else <code>boundary_polygon</code> if given, else raise; for <code>"roads_gdf"</code>, raise if not available; for <code>"live_osm"</code>, raise if no boundary.<br>6. If <code>effective_source == "live_osm"</code>: call <code>ox.graph_from_polygon()</code>, add lengths via <code>_has_lengths()</code>/<code>ox.distance.add_edge_lengths()</code> as before (unchanged logic, just renamed from "path 1").<br>7. Otherwise (<code>effective_source == "roads_gdf"</code>): call <code>_graph_from_geometries(roads_gdf)</code> — <strong>now with endpoint snapping, see below</strong>.<br>8. <code>_assign_travel_times()</code> (unchanged).<br>9. Set <code>G.graph["mode"]</code>, <code>G.graph["speed_kph"]</code>, and (<strong>new</strong>) <code>G.graph["source"]</code>.<br>10. Return.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td>Assumes a single fixed average speed per mode is an acceptable simplification — no accounting for road-type-specific speed variation (e.g. an unpaved residential street vs. a paved arterial road, which likely have genuinely different real-world okada speeds), congestion, time-of-day, or road surface quality. This is a deliberate, documented simplification, not an oversight — see the module's own comment pointing to the methodology limitations.</td>
+<td>Unchanged: a single fixed average speed per mode is an acceptable simplification. <strong>New:</strong> assumes a caller who omits <code>source</code> (relying on <code>"auto"</code>'s default) actually wants the reproducibility-favoring <code>roads_gdf</code> path whenever it's viable — this is now baked into the default behavior itself, not just documented as a recommendation.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td>Path 1: dominated by <code>ox.graph_from_polygon()</code>'s own complexity (an Overpass query plus OSMnx's internal graph construction — not controlled by this function). Path 2: O(N·V̄) where N = number of road features, V̄ = average vertices per line — one pass building edges from consecutive coordinate pairs per geometry. <code>_assign_travel_times()</code> (called in both paths) is O(E) in edge count.</td>
+<td>Unchanged for the <code>live_osm</code> path. The <code>roads_gdf</code> path's complexity is now O(N·V̄) plus a small constant-factor overhead per coordinate for the new snapping calculation (see below) — still linear, not a complexity-class change.</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td>None — no threading or shared mutable state; this function is not called concurrently anywhere in the codebase.</td>
+<td>None — unchanged.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../../tests/">tests.md</a> — <code>test_network_graph.py</code>.</td>
+<td>See <a href="../../../tests/">tests.md</a> — <code>test_network_graph.py</code>, plus new: <code>test_graph_from_roads_source_auto_prefers_roads_gdf_when_available</code>, <code>test_graph_from_roads_source_auto_falls_back_to_live_osm</code>, <code>test_graph_from_roads_source_roads_gdf_raises_on_empty_input</code>, <code>test_graph_from_roads_source_live_osm_raises_without_boundary</code>, <code>test_graph_from_roads_records_effective_source_on_graph</code>, <code>test_graph_from_roads_invalid_source_raises</code>.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="_has_lengthsg"><code>_has_lengths(G)</code><a class="headerlink" href="#_has_lengthsg" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>What it does</strong></td>
-<td>Returns <code>True</code> if every edge in <code>G</code> already has a <code>"length"</code> attribute.</td>
-</tr>
-<tr>
-<td><strong>Why written this way</strong></td>
-<td>This exists as a defensive fallback, not a normally-triggered code path. The inline comment is explicit about this: <code>osmnx.graph_from_polygon()</code> already computes edge lengths internally in both OSMnx 1.x and 2.x, so <code>_has_lengths(G)</code> normally short-circuits the fallback (<code>ox.distance.add_edge_lengths(G)</code> is skipped). It's kept in case that internal OSMnx behavior ever changes in a future version — cheap insurance rather than a load-bearing code path today.</td>
-</tr>
-<tr>
-<td><strong>Inputs</strong></td>
-<td><code>G: MultiDiGraph</code>.</td>
-</tr>
-<tr>
-<td><strong>Outputs</strong></td>
-<td><code>bool</code>.</td>
-</tr>
-<tr>
-<td><strong>Complexity</strong></td>
-<td>O(E) — one pass over all edges.</td>
-</tr>
-<tr>
-<td><strong>Concurrency / race conditions</strong></td>
-<td>None.</td>
-</tr>
-<tr>
-<td><strong>Covered by test(s)</strong></td>
-<td>No dedicated test — this is a defensive fallback check not normally triggered in practice (OSMnx already computes edge lengths internally), so there's no realistic test scenario that exercises the <code>False</code> branch without deliberately constructing a malformed graph.</td>
-</tr>
-</tbody>
-</table>
-<h3 id="_assign_travel_timesg-speed_kph"><code>_assign_travel_times(G, speed_kph)</code><a class="headerlink" href="#_assign_travel_timesg-speed_kph" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>What it does</strong></td>
-<td>Mutates <code>G</code> in place, adding a <code>travel_time_min</code> attribute to every edge, computed from that edge's <code>length</code> and the given speed.</td>
-</tr>
-<tr>
-<td><strong>Why written this way</strong></td>
-<td>A simple unit conversion (meters and km/h into minutes) applied uniformly across every edge — the function itself carries no per-road-type logic, keeping the mode/speed assumption entirely in <code>MODE_CONFIG</code> (or the caller's override) as the single place that assumption lives.</td>
-</tr>
-<tr>
-<td><strong>Inputs</strong></td>
-<td><code>G: MultiDiGraph</code> (mutated in place, not returned — the <code>-&gt; None</code> return type in the signature reflects this); <code>speed_kph: float</code>.</td>
-</tr>
-<tr>
-<td><strong>Outputs</strong></td>
-<td><code>None</code> — side effect only.</td>
-</tr>
-<tr>
-<td><strong>Internal workflow</strong></td>
-<td>1. Convert <code>speed_kph</code> to meters-per-minute: <code>(speed_kph * 1000) / 60</code>.<br>2. For every edge, read <code>length</code> (defaulting to <code>0</code> if somehow missing — a defensive default, since by the time this is called in <code>graph_from_roads()</code>, lengths are guaranteed present via <code>_has_lengths()</code>/<code>_graph_from_geometries()</code>); compute <code>travel_time_min = length_m / speed_m_per_min</code>.<br>3. Guard against division by zero: if <code>speed_m_per_min</code> is falsy (i.e. <code>speed_kph == 0</code>), assign <code>float("inf")</code> instead of raising <code>ZeroDivisionError</code> — a zero-speed mode is nonsensical but shouldn't crash the pipeline; an infinite travel time correctly signals "unreachable at this speed" to any downstream consumer.</td>
-</tr>
-<tr>
-<td><strong>Assumptions</strong></td>
-<td>Assumes <code>length</code> is already in meters (true for both construction paths — OSMnx's <code>add_edge_lengths()</code> and <code>_graph_from_geometries()</code>'s own Euclidean distance calculation both produce meters, since the graph is built/queried in a projected CRS).</td>
-</tr>
-<tr>
-<td><strong>Complexity</strong></td>
-<td>O(E) — one pass over all edges, each a constant-time computation.</td>
-</tr>
-<tr>
-<td><strong>Concurrency / race conditions</strong></td>
-<td>Mutates the graph object in place. If this were ever called concurrently on the <em>same</em> graph object from multiple threads, edge attribute writes could race — not a concern under current usage (always called synchronously, once, immediately after graph construction), but worth flagging for anyone considering parallelizing graph-building across LGAs sharing state.</td>
-</tr>
-<tr>
-<td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../../tests/">tests.md</a> — exercised indirectly by <code>test_graph_from_roads_geometry_fallback_assigns_travel_times</code> and <code>test_graph_from_roads_speed_override</code>, both of which check this function's output (<code>travel_time_min</code> edge attributes) rather than calling it directly.</td>
-</tr>
-</tbody>
-</table>
-<h3 id="_graph_from_geometriesroads_gdf"><code>_graph_from_geometries(roads_gdf)</code><a class="headerlink" href="#_graph_from_geometriesroads_gdf" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>What it does</strong></td>
-<td>Builds a simple <code>networkx.MultiGraph</code> directly from a cleaned roads <code>GeoDataFrame</code>'s line geometries, using raw coordinate tuples as node identifiers — the fallback construction path used when no boundary polygon is available.</td>
-</tr>
-<tr>
-<td><strong>Why written this way — and why the <code>x</code>/<code>y</code> node attributes matter more than they look.</strong></td>
-<td>This is explicitly documented as <em>less robust</em> than OSMnx's own graph construction (no topology cleanup — e.g. two roads that visually cross but don't share an OSM-tagged intersection node won't be connected in this graph, whereas OSMnx's Overpass-based construction handles this correctly), intended only as a consistency fallback, not a routing-quality-first choice. The critical detail: <strong>every node is given explicit <code>x</code>/<code>y</code> attributes matching its coordinate tuple</strong>, not just relying on the node key itself (which is <em>also</em> the coordinate tuple). This duplication exists for <a href="../isochrones/"><code>isochrones.nearest_graph_node()</code></a>'s benefit — that function reads <code>node['x']</code>/<code>node['y']</code> attributes specifically, not the node key. <strong>A precise note on which nearest-node lookup is actually involved here</strong>: <code>isochrones.nearest_graph_node()</code> does <em>not</em> call <code>osmnx.distance.nearest_nodes()</code> — it deliberately replaces it with a custom <code>scipy.spatial.cKDTree</code> built directly over these <code>x</code>/<code>y</code> attributes, specifically <em>because</em> OSMnx's own nearest-node function assumes OSMnx's internal graph conventions (integer node IDs) and doesn't work reliably against this fallback graph's coordinate-tuple node IDs. This module's own docstring mentions <code>osmnx.distance.nearest_nodes()</code> in explaining <em>why</em> the <code>x</code>/<code>y</code> attributes matter, which can read as if that function is what's actually called — it isn't; see <a href="../isochrones/#nearest_graph_nodeg-point"><code>isochrones.md</code></a> for the real mechanism. Without explicitly setting these <code>x</code>/<code>y</code> attributes, the KD-tree-based lookup against a fallback-path graph would silently fail — not raise an error, just silently return nothing useful — and every downstream distance/time computation would come back as <code>inf</code>, with no obvious signal pointing at why. This is the kind of failure mode that's easy to reintroduce accidentally in a future edit and hard to notice without dedicated test coverage.</td>
-</tr>
-<tr>
-<td><strong>Inputs</strong></td>
-<td><code>roads_gdf: GeoDataFrame</code> (cleaned roads layer).</td>
-</tr>
-<tr>
-<td><strong>Outputs</strong></td>
-<td><code>networkx.MultiGraph</code> (undirected — note this differs from path 1's <code>MultiDiGraph</code>, see Gotchas), with a graph-level <code>crs</code> attribute (taken from <code>roads_gdf.crs</code> if set, else defaulting to <code>"EPSG:32631"</code>), and <code>x</code>/<code>y</code> node attributes as described above.</td>
-</tr>
-<tr>
-<td><strong>Internal workflow</strong></td>
-<td>1. Create an empty <code>MultiGraph</code>, tag its <code>crs</code> attribute.<br>2. For each row in <code>roads_gdf</code>: skip if geometry is <code>None</code> or empty; extract the geometry's coordinate list; for each consecutive coordinate pair <code>(u, v)</code> along the line, compute Euclidean distance as <code>length</code>, add both endpoints as nodes (with <code>x</code>/<code>y</code> attributes), add an edge between them carrying <code>length</code> and the row's <code>osmid</code> (via <code>.get()</code>, tolerant of a missing column).</td>
-</tr>
-<tr>
-<td><strong>Assumptions</strong></td>
-<td>Assumes coordinate tuples are a sufficient and stable node identity — two road segments sharing an exact coordinate (a shared vertex) are correctly treated as connected at that point; two segments that are geometrically close but don't share an <em>exact</em> coordinate (a common real-world digitizing imprecision in crowd-sourced OSM data) are <strong>not</strong> connected, silently producing a more fragmented, less-routable graph than the true road network. This is the direct, unstated cost of skipping OSMnx's own topology handling.</td>
-</tr>
-<tr>
-<td><strong>Complexity</strong></td>
-<td>O(N·V̄) where N = number of road features, V̄ = average vertices per line geometry — one pass building consecutive-pair edges per line.</td>
-</tr>
-<tr>
-<td><strong>Concurrency / race conditions</strong></td>
-<td>None — sequential row iteration, no shared mutable state beyond the graph being built.</td>
-</tr>
-<tr>
-<td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../../tests/">tests.md</a> — this is one of the more important functions here to have direct test coverage on, given the documented <code>x</code>/<code>y</code> attribute fragility described above.</td>
-</tr>
-</tbody>
-</table>
+<h2 id="_has_lengthsg-and-_assign_travel_timesg-speed_kph"><code>_has_lengths(G)</code> and <code>_assign_travel_times(G, speed_kph)</code><a class="headerlink" href="#_has_lengthsg-and-_assign_travel_timesg-speed_kph" title="Permanent link">&para;</a></h2>
+<p>Both <strong>unchanged</strong> from the previous revision — see their existing
+documentation: <code>_has_lengths()</code> remains a defensive fallback check rarely
+triggered in practice (OSMnx computes lengths internally already);
+<code>_assign_travel_times()</code> remains a straightforward in-place unit
+conversion from <code>length</code>/<code>speed_kph</code> into <code>travel_time_min</code>, with the same
+<code>inf</code>-on-zero-speed guard as before.</p>
+<h2 id="new-in-this-revision-endpoint-snapping-in-_graph_from_geometriesroads_gdf-snap_tolerance_m05">New in this revision: endpoint snapping in <code>_graph_from_geometries(roads_gdf, snap_tolerance_m=0.5)</code><a class="headerlink" href="#new-in-this-revision-endpoint-snapping-in-_graph_from_geometriesroads_gdf-snap_tolerance_m05" title="Permanent link">&para;</a></h2>
+<p>This is the second major addition in this module, solving a real,
+previously-undocumented correctness gap in the <code>roads_gdf</code> construction
+path.</p>
+<p><strong>The problem, stated directly from the function's own docstring:</strong> two
+road segments that meet at "the same" real-world junction rarely share
+bit-identical coordinates once they've each been through separate OSM
+ways, clipping, and reprojection — a few millimeters of floating-point
+drift is enough to make coordinate-tuple-keyed node identity treat them as
+two <em>different</em> nodes, silently splitting the network into disconnected
+components at every such junction. Since the previous revision's
+<code>_graph_from_geometries()</code> used raw, unmodified coordinate tuples as node
+keys, this fragmentation was a real, latent risk in every graph built via
+this path — potentially degrading routing quality significantly, in a way
+that wouldn't necessarily be obvious just from inspecting the graph's node
+or edge counts.</p>
+<p><strong>The fix:</strong> every endpoint coordinate is snapped to a <code>snap_tolerance_m</code>
+grid (default <code>0.5</code> meters — the graph is built in EPSG:32631, so this is
+metres, not degrees) <em>before</em> being used as a node key:
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">_snap</span><span class="p">(</span><span class="n">coord</span><span class="p">):</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="k">return</span> <span class="p">(</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>        <span class="nb">round</span><span class="p">(</span><span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">snap_tolerance_m</span><span class="p">)</span> <span class="o">*</span> <span class="n">snap_tolerance_m</span><span class="p">,</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>        <span class="nb">round</span><span class="p">(</span><span class="n">coord</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">snap_tolerance_m</span><span class="p">)</span> <span class="o">*</span> <span class="n">snap_tolerance_m</span><span class="p">,</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="p">)</span>
+</span></code></pre></div>
+Nearly-coincident endpoints — the same real-world junction, differing only
+by floating-point noise — now collapse onto the identical snapped
+coordinate, and therefore the identical node, recovering the shared-node
+topology a raw coordinate-tuple graph would otherwise lose.</p>
+<p><strong>Why <code>0.5</code> metres specifically, and why this makes the <code>roads_gdf</code> path a
+genuine substitute for <code>live_osm</code>, not just a degraded fallback:</strong> the
+docstring is explicit that 0.5m is chosen to be comfortably below realistic
+OSM/extraction precision loss, while remaining well below the width of an
+actual road — so it recovers genuine shared junctions without ever
+accidentally merging two <em>distinct</em> junctions that happen to be close
+together. This tolerance choice is precisely what upgrades this path's
+status from "a fallback with known topology limitations" (the previous
+framing) to "the default, reproducibility-favoring path" (this revision's
+framing) — without it, defaulting to this path would mean defaulting to a
+graph with unknown, silent connectivity gaps.</p>
+<p><strong>Self-loop avoidance:</strong> <code>if u == v: continue</code> — after snapping, two
+originally-distinct-but-very-close coordinates within the same line
+segment could, in principle, snap to the identical point; this guard skips
+adding a zero-length self-loop edge for that case, rather than polluting
+the graph with degenerate edges.</p>
+<p><strong><code>G.graph["snap_tolerance_m"]</code> is recorded on the graph itself</strong> — the
+same self-describing-graph pattern already used for <code>mode</code>/<code>speed_kph</code>/
+<code>source</code>, so a consumer inspecting an already-built graph can tell exactly
+what tolerance was used to construct it, without needing that information
+passed alongside the graph object separately.</p>
 <h2 id="internal-workflow">Internal Workflow<a class="headerlink" href="#internal-workflow" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>flowchart TD
-    A["graph_from_roads(roads_gdf, boundary_polygon, mode, speed_kph)"] --&gt; B{mode in MODE_CONFIG?}
+    A["graph_from_roads(roads_gdf, boundary_polygon, mode, speed_kph, source)"] --&gt; B{mode in MODE_CONFIG?}
     B -- no --&gt; C["raise ValueError"]
-    B -- yes --&gt; D["effective_speed = speed_kph or MODE_CONFIG[mode].speed_kph"]
-    D --&gt; E{boundary_polygon given?}
-    E -- yes --&gt; F["ox.graph_from_polygon(boundary_polygon, network_type)"]
-    F --&gt; G{_has_lengths(G)?}
-    G -- no --&gt; H["ox.distance.add_edge_lengths(G)"]
-    G -- yes --&gt; I
-    H --&gt; I
-    E -- no --&gt; J["_graph_from_geometries(roads_gdf):&lt;br/&gt;coordinate-tuple nodes with x/y attrs,&lt;br/&gt;pairwise edges with Euclidean length"]
-    J --&gt; I["_assign_travel_times(G, effective_speed): mutate every edge in place"]
-    I --&gt; K["G.graph['mode'] = mode, G.graph['speed_kph'] = effective_speed"]
-    K --&gt; L["return G"]</code></pre>
+    B -- yes --&gt; D{source in VALID_SOURCES?}
+    D -- no --&gt; C2["raise ValueError"]
+    D -- yes --&gt; E["effective_speed = speed_kph or MODE_CONFIG[mode].speed_kph"]
+    E --&gt; F["roads_available = roads_gdf not None and len &gt; 0"]
+    F --&gt; G{source value?}
+    G -- "auto" --&gt; H{roads_available?}
+    H -- yes --&gt; I["effective_source = 'roads_gdf'"]
+    H -- no --&gt; J{boundary_polygon given?}
+    J -- yes --&gt; K["effective_source = 'live_osm'"]
+    J -- no --&gt; L["raise ValueError: need roads_gdf or boundary_polygon"]
+    G -- "roads_gdf" --&gt; M{roads_available?}
+    M -- no --&gt; N["raise ValueError"]
+    M -- yes --&gt; I
+    G -- "live_osm" --&gt; O{boundary_polygon given?}
+    O -- no --&gt; P["raise ValueError"]
+    O -- yes --&gt; K
+
+    I --&gt; Q["_graph_from_geometries(roads_gdf, snap_tolerance_m=0.5)&lt;br/&gt;NEW: endpoints snapped to 0.5m grid before use as node keys"]
+    K --&gt; R["ox.graph_from_polygon(boundary_polygon, network_type)"]
+    R --&gt; S{_has_lengths(G)?}
+    S -- no --&gt; T["ox.distance.add_edge_lengths(G)"]
+    S -- yes --&gt; U
+    T --&gt; U
+    Q --&gt; U["_assign_travel_times(G, effective_speed): mutate every edge in place"]
+    U --&gt; V["G.graph['mode'], ['speed_kph'], ['source'] = ... (source is NEW)"]
+    V --&gt; W["return G"]</code></pre>
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Path 1 and Path 2 return different graph types.</strong> <code>ox.graph_from_polygon()</code>
-  returns a directed <code>MultiDiGraph</code> (edges have direction, reflecting
-  one-way streets and OSM's directional tagging); <code>_graph_from_geometries()</code>
-  returns an undirected <code>MultiGraph</code>. Both are documented as the function's
-  return type (<code>nx.MultiDiGraph</code> in the signature), but path 2's actual
-  runtime type doesn't match that annotation — worth being careful about if
-  writing code that relies on directed-graph-specific behavior (e.g.
-  one-way street handling) downstream, since that behavior silently
-  disappears when the fallback path is used.</li>
-<li><strong><code>mode="walk"</code> and <code>mode="drive"</code> are identical graphs in Path 2.</strong> As
-  documented in the function's own docstring, this fallback path has no
-  awareness of OSM's walk-vs-drive network-type distinction — it's the same
-  set of edges regardless of <code>mode</code>, differing only in the speed used to
-  compute <code>travel_time_min</code>. This is very different behavior from Path 1,
-  where <code>mode</code> actually changes which roads are included in the graph at
-  all (e.g. a highway with no pedestrian access is excluded from a <code>"walk"</code>
-  network-type query but included in a <code>"drive"</code> one). Any analysis relying
-  on Path 2 should be aware mode-based road <em>inclusion</em> differences are not
-  modeled, only speed differences are.</li>
-<li><strong>The <code>x</code>/<code>y</code> node-attribute duplication in <code>_graph_from_geometries()</code> is
-  load-bearing, not defensive.</strong> Removing it wouldn't just be a minor
-  inefficiency — it would silently break every nearest-node lookup and
-  isochrone computation that runs against a fallback-path graph, with the
-  failure surfacing only as unexplained <code>inf</code> distances downstream, not as
-  an error at the point of the actual mistake.</li>
+<li><strong>The <code>roads_gdf</code> path still cannot distinguish walk-only paths from
+  vehicle roads — unchanged from before, but now the cost of the
+  <em>default</em> path, not the fallback.</strong> This is the previous revision's
+  documented limitation, carried forward unchanged: <code>mode="walk"</code> and
+  <code>mode="drive"</code> produce the <em>same underlying graph</em> when built via
+  <code>roads_gdf</code>, differing only in the speed used for <code>travel_time_min</code>, not
+  in which edges exist. Because <code>roads_gdf</code> is now the default whenever
+  it's available, <strong>this limitation now applies by default</strong>, not only in
+  a fallback scenario — a caller who wants genuine walk/drive network-type
+  differentiation must explicitly pass <code>source="live_osm"</code>.</li>
+<li><strong>Path 1/Path 2 return different graph types — still true, worth
+  re-stating given the renaming.</strong> <code>"live_osm"</code> returns a directed
+  <code>MultiDiGraph</code>; <code>"roads_gdf"</code> (via <code>_graph_from_geometries()</code>) returns an
+  undirected <code>MultiGraph</code>. Both are still documented as <code>nx.MultiDiGraph</code>
+  in the type-hinted return signature, so this mismatch remains present
+  and unresolved by this revision — code relying on directed-graph-specific
+  behavior (one-way street handling) downstream should be aware this
+  silently disappears whenever the now-default <code>roads_gdf</code> path is used.</li>
+<li><strong>The endpoint-snapping fix genuinely changes what a <code>roads_gdf</code>-built
+  graph looked like before this revision — for the better, but worth
+  knowing if comparing against archived pre-revision output.</strong> A graph
+  built via this path before this fix could have more disconnected
+  components (fragmented at floating-point-mismatched junctions) than the
+  same input produces now. Any pre-revision cached routing results or
+  isochrones built from this path should not be assumed directly
+  comparable to post-revision results — the underlying graph topology
+  itself changed, not just the code around it.</li>
+<li><strong><code>snap_tolerance_m</code> is a function parameter with a sensible default
+  (<code>0.5</code>), not currently threaded through <code>graph_from_roads()</code>'s own
+  signature or <code>config.py</code>.</strong> A caller needing a different snap tolerance
+  for unusual data (e.g. a much coarser or much more precise source
+  dataset than typical OSM extraction) would need to call
+  <code>_graph_from_geometries()</code> directly rather than through the public
+  <code>graph_from_roads()</code> entry point, since the public function doesn't
+  currently expose this parameter.</li>
+<li><strong>The <code>x</code>/<code>y</code> node-attribute duplication in <code>_graph_from_geometries()</code>
+  remains load-bearing, unchanged</strong> — every node still carries explicit
+  <code>x</code>/<code>y</code> attributes matching its (now snapped) coordinate, required for
+  <a href="../isochrones/"><code>isochrones.nearest_graph_node()</code></a>'s KD-tree lookup, for
+  the same reasons documented previously.</li>
+</ul>
+<h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../../config/"><code>config.py</code></a> — the source of <code>MODE_CONFIG</code> and
+  <code>WALKING_SPEED_KPH</code>'s values in this revision.</li>
+<li><a href="../isochrones/"><code>isochrones.py</code></a> — the primary consumer of graphs this
+  module builds, including the <code>x</code>/<code>y</code> node attributes this module is
+  careful to set.</li>
+<li><a href="../scoring/"><code>scoring.py</code></a> — calls <code>graph_from_roads()</code> once per mode
+  inside <code>add_access_times()</code>, and is the primary place <code>source</code>'s default
+  behavior actually matters in practice.</li>
+<li><a href="../../../../cross-repo/integration/">Cross-Repo Integration</a> — the
+  <code>roads_gdf</code> path's entire reproducibility argument depends on
+  <code>lga_extractor</code>'s versioned, cached export being the trustworthy source
+  of truth this module defaults to preferring.</li>
 </ul>
 
 

@@ -12,31 +12,31 @@
         <meta name="author" content="Marvellous Adeleke">
       
       
-        <link rel="canonical" href="https://mapkathon2026-useosm.github.io/UseOSM_Mapkathon-Submission-documentation/akure-accessibility-dashboard/overview/">
+        <link rel="canonical" href="https://mapkathon2026-useosm.github.io/UseOSM_Mapkathon-Submission-documentation/akure-accessibility-dashboard/modules/status/">
       
       
-        <link rel="prev" href="../../lga-osm-extractor/tests/">
+        <link rel="prev" href="../sensitivity/">
       
       
-        <link rel="next" href="../data-flow/">
+        <link rel="next" href="../../dashboard-app/">
       
       
         
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
-        <title>Overview - UseOSM Mapkathon Submission Documentation</title>
+        <title>status.py - UseOSM Mapkathon Submission Documentation</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -55,9 +55,9 @@
       
     
     
-      <link rel="stylesheet" href="../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#overview-akure-accessibility-dashboard" class="md-skip">
+        <a href="#akure_accessstatuspy" class="md-skip">
           Skip to content
         </a>
       
@@ -98,7 +98,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="UseOSM Mapkathon Submission Documentation" class="md-header__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
+    <a href="../../.." title="UseOSM Mapkathon Submission Documentation" class="md-header__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -118,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Overview
+              status.py
             
           </span>
         </div>
@@ -225,7 +225,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../.." class="md-tabs__link">
+      <a href="../../.." class="md-tabs__link">
         
   
   
@@ -246,7 +246,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../lga-osm-extractor/overview/" class="md-tabs__link">
+        <a href="../../../lga-osm-extractor/overview/" class="md-tabs__link">
           
   
   
@@ -270,7 +270,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+        <a href="../../overview/" class="md-tabs__link">
           
   
   
@@ -290,7 +290,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../cross-repo/integration/" class="md-tabs__link">
+      <a href="../../../cross-repo/integration/" class="md-tabs__link">
         
   
   
@@ -311,7 +311,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../reference/glossary/" class="md-tabs__link">
+        <a href="../../../reference/glossary/" class="md-tabs__link">
           
   
   
@@ -353,7 +353,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="UseOSM Mapkathon Submission Documentation" class="md-nav__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
+    <a href="../../.." title="UseOSM Mapkathon Submission Documentation" class="md-nav__button md-logo" aria-label="UseOSM Mapkathon Submission Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -383,7 +383,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -478,7 +478,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../lga-osm-extractor/overview/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/overview/" class="md-nav__link">
         
   
   
@@ -506,7 +506,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../lga-osm-extractor/data-flow/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/data-flow/" class="md-nav__link">
         
   
   
@@ -606,7 +606,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../lga-osm-extractor/modules/boundary/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/modules/boundary/" class="md-nav__link">
         
   
   
@@ -634,7 +634,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../lga-osm-extractor/modules/layers/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/modules/layers/" class="md-nav__link">
         
   
   
@@ -662,7 +662,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../lga-osm-extractor/modules/clean/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/modules/clean/" class="md-nav__link">
         
   
   
@@ -690,7 +690,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../lga-osm-extractor/modules/export/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/modules/export/" class="md-nav__link">
         
   
   
@@ -718,7 +718,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../lga-osm-extractor/modules/visualize/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/modules/visualize/" class="md-nav__link">
         
   
   
@@ -746,7 +746,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../lga-osm-extractor/modules/logging_utils/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/modules/logging_utils/" class="md-nav__link">
         
   
   
@@ -774,7 +774,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../lga-osm-extractor/modules/pipeline/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/modules/pipeline/" class="md-nav__link">
         
   
   
@@ -802,7 +802,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../lga-osm-extractor/modules/events/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/modules/events/" class="md-nav__link">
         
   
   
@@ -830,7 +830,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../lga-osm-extractor/modules/manifest/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/modules/manifest/" class="md-nav__link">
         
   
   
@@ -866,7 +866,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../lga-osm-extractor/app/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/app/" class="md-nav__link">
         
   
   
@@ -894,7 +894,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../lga-osm-extractor/cli/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/cli/" class="md-nav__link">
         
   
   
@@ -922,7 +922,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../lga-osm-extractor/end-to-end/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/end-to-end/" class="md-nav__link">
         
   
   
@@ -950,7 +950,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../lga-osm-extractor/tests/" class="md-nav__link">
+      <a href="../../../lga-osm-extractor/tests/" class="md-nav__link">
         
   
   
@@ -1053,6 +1053,423 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modules
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modules
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../accessibility/network_graph/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    accessibility/network_graph.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../accessibility/isochrones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    accessibility/isochrones.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../accessibility/scoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    accessibility/scoring.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../completeness/grid_check/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    completeness/grid_check.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../visualization/static_maps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    visualization/static_maps.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../insights/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    insights.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    config.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_contract/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    data_contract.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../facility_classification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    facility_classification.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sensitivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sensitivity.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1072,7 +1489,7 @@
   <span class="md-ellipsis">
     
   
-    Overview
+    status.py
   
 
     
@@ -1090,7 +1507,7 @@
   <span class="md-ellipsis">
     
   
-    Overview
+    status.py
   
 
     
@@ -1129,10 +1546,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#problem-statement" class="md-nav__link">
+  <a href="#why-this-exists-formalizing-something-the-dashboard-already-did-ad-hoc-in-one-place" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Problem Statement
+        Why this exists — formalizing something the dashboard already did, ad hoc, in one place
       
     </span>
   </a>
@@ -1140,10 +1557,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#system-architecture" class="md-nav__link">
+  <a href="#the-four-status-categories" class="md-nav__link">
     <span class="md-ellipsis">
       
-        System Architecture
+        The four status categories
       
     </span>
   </a>
@@ -1151,10 +1568,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#design-philosophy" class="md-nav__link">
+  <a href="#status_display-a-shared-reference-for-consistent-legends" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Design Philosophy
+        STATUS_DISPLAY — a shared reference for consistent legends
       
     </span>
   </a>
@@ -1162,10 +1579,60 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#module-map" class="md-nav__link">
+  <a href="#functions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Module Map
+        Functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#classify_cell_statusbuilding_count-underserved_flag-completeness_flag-str" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        classify_cell_status(building_count, underserved_flag, completeness_flag) -&gt; str
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add_access_statusgrid_gdf-service-modewalk-geodataframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        add_access_status(grid_gdf, service, mode="walk") -&gt; GeoDataFrame
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summarize_statusgrid_gdf-service-modewalk-dict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        summarize_status(grid_gdf, service, mode="walk") -&gt; dict
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
       
     </span>
   </a>
@@ -1173,10 +1640,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#dependencies-between-components" class="md-nav__link">
+  <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Dependencies Between Components
+        Gotchas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
       
     </span>
   </a>
@@ -1187,421 +1665,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../data-flow/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Data Flow
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-          
-          
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
-        
-          
-          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Modules
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_3">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Modules
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../modules/accessibility/network_graph/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    accessibility/network_graph.py
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../modules/accessibility/isochrones/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    accessibility/isochrones.py
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../modules/accessibility/scoring/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    accessibility/scoring.py
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../modules/completeness/grid_check/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    completeness/grid_check.py
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../modules/visualization/static_maps/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    visualization/static_maps.py
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../modules/insights/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    insights.py
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../modules/config/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    config.py
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../modules/data_contract/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    data_contract.py
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../modules/facility_classification/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    facility_classification.py
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../modules/sensitivity/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    sensitivity.py
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../modules/status/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    status.py
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -1622,7 +1685,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dashboard-app/" class="md-nav__link">
+      <a href="../../dashboard-app/" class="md-nav__link">
         
   
   
@@ -1650,7 +1713,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../end-to-end/" class="md-nav__link">
+      <a href="../../end-to-end/" class="md-nav__link">
         
   
   
@@ -1678,7 +1741,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tests/" class="md-nav__link">
+      <a href="../../tests/" class="md-nav__link">
         
   
   
@@ -1713,7 +1776,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cross-repo/integration/" class="md-nav__link">
+      <a href="../../../cross-repo/integration/" class="md-nav__link">
         
   
   
@@ -1798,7 +1861,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/glossary/" class="md-nav__link">
+      <a href="../../../reference/glossary/" class="md-nav__link">
         
   
   
@@ -1826,7 +1889,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/known-issues/" class="md-nav__link">
+      <a href="../../../reference/known-issues/" class="md-nav__link">
         
   
   
@@ -1894,10 +1957,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#problem-statement" class="md-nav__link">
+  <a href="#why-this-exists-formalizing-something-the-dashboard-already-did-ad-hoc-in-one-place" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Problem Statement
+        Why this exists — formalizing something the dashboard already did, ad hoc, in one place
       
     </span>
   </a>
@@ -1905,10 +1968,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#system-architecture" class="md-nav__link">
+  <a href="#the-four-status-categories" class="md-nav__link">
     <span class="md-ellipsis">
       
-        System Architecture
+        The four status categories
       
     </span>
   </a>
@@ -1916,10 +1979,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#design-philosophy" class="md-nav__link">
+  <a href="#status_display-a-shared-reference-for-consistent-legends" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Design Philosophy
+        STATUS_DISPLAY — a shared reference for consistent legends
       
     </span>
   </a>
@@ -1927,10 +1990,60 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#module-map" class="md-nav__link">
+  <a href="#functions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Module Map
+        Functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#classify_cell_statusbuilding_count-underserved_flag-completeness_flag-str" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        classify_cell_status(building_count, underserved_flag, completeness_flag) -&gt; str
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add_access_statusgrid_gdf-service-modewalk-geodataframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        add_access_status(grid_gdf, service, mode="walk") -&gt; GeoDataFrame
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summarize_statusgrid_gdf-service-modewalk-dict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        summarize_status(grid_gdf, service, mode="walk") -&gt; dict
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#internal-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Workflow
       
     </span>
   </a>
@@ -1938,10 +2051,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#dependencies-between-components" class="md-nav__link">
+  <a href="#gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Dependencies Between Components
+        Gotchas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
       
     </span>
   </a>
@@ -1968,188 +2092,249 @@
   
 
 
-<h1 id="overview-akure-accessibility-dashboard">Overview — akure-accessibility-dashboard<a class="headerlink" href="#overview-akure-accessibility-dashboard" title="Permanent link">&para;</a></h1>
+<h1 id="akure_accessstatuspy"><code>akure_access/status.py</code><a class="headerlink" href="#akure_accessstatuspy" title="Permanent link">&para;</a></h1>
+<div class="admonition info">
+<p class="admonition-title">Source</p>
+<p><code>akure_access/status.py</code> (198 lines, entirely new module)</p>
+</div>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
-<p><code>akure-accessibility-dashboard</code> turns OSM road and facility data — extracted
-by the companion <a href="../../lga-osm-extractor/overview/"><code>lga-osm-extractor</code></a>
-repo — into a concrete answer to a planning-relevant question: <strong>which
-communities in Akure North and Akure South LGAs (Ondo State, Nigeria)
-actually lack practical access to healthcare and education</strong>, across
-walking, okada (motorcycle taxi), and driving — and, just as importantly,
-which apparent gaps are genuine service gaps versus places where OSM's own
-mapping simply hasn't caught up yet.</p>
-<p>It does this by building a routable road network, computing travel time
-from every settled grid cell to its nearest health facility and nearest
-school for each of the three travel modes, scoring each cell's access
-deficit, and presenting the results through an interactive Streamlit
-dashboard, publication-quality static maps with auto-generated captions,
-and standalone Kepler.gl exports.</p>
-<h2 id="problem-statement">Problem Statement<a class="headerlink" href="#problem-statement" title="Permanent link">&para;</a></h2>
-<p>Two distinct problems motivate this repository's design, and the codebase
-treats them as genuinely separate concerns rather than conflating them:</p>
-<ol>
-<li><strong>Measuring accessibility correctly requires network distance, not
-   straight-line distance.</strong> A facility 800 meters away as the crow flies
-   might be a 20-minute walk if the only road connecting the two points
-   loops around a river or an unpaved section. Straight-line distance
-   would understate real-world inaccessibility, sometimes severely. This is
-   why <a href="../modules/accessibility/isochrones/"><code>isochrones.py</code></a> exists as its
-   own substantial module, built on the road network from
-   <a href="../modules/accessibility/network_graph/"><code>network_graph.py</code></a>, rather
-   than the analysis just buffering points on a map.</li>
-<li><strong>OSM data gaps look identical to real service gaps unless explicitly
-   distinguished.</strong> A grid cell that appears "unreachable" from any health
-   facility could mean one of two very different things: (a) there is
-   genuinely no nearby clinic, a real service gap worth planning attention,
-   or (b) there is a real clinic there, but nobody has mapped it in OSM yet
-   — a data gap, not a service gap. Treating (b) as (a) risks misdirecting
-   real planning resources toward an area that already has the service it
-   appears to lack, while under-resourcing genuinely underserved areas
-   elsewhere. This is precisely why
-   <a href="../modules/completeness/grid_check/"><code>completeness/grid_check.py</code></a> exists
-   as an independent analysis pathway, run alongside — not merged into —
-   the accessibility scoring in
-   <a href="../modules/accessibility/scoring/"><code>scoring.py</code></a>, and why the dashboard
-   surfaces both findings honestly rather than presenting an accessibility
-   score alone as if it were unambiguous ground truth.</li>
-</ol>
-<h2 id="system-architecture">System Architecture<a class="headerlink" href="#system-architecture" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>flowchart TD
-    A["lga-osm-extractor output:&lt;br/&gt;roads, buildings, health_facilities,&lt;br/&gt;schools (shapefiles/GeoJSON)"] --&gt; B["network_graph.py&lt;br/&gt;graph_from_roads()"]
-    A --&gt; C["scoring.py&lt;br/&gt;build_grid()"]
-    B --&gt; D["isochrones.py&lt;br/&gt;compute_isochrone_polygon()&lt;br/&gt;nearest_facility_travel_time()"]
-    C --&gt; D
-    D --&gt; E["scoring.py&lt;br/&gt;add_access_times()&lt;br/&gt;add_access_deficit_score()"]
-    A --&gt; F["completeness/grid_check.py&lt;br/&gt;flag_completeness()"]
-    C --&gt; F
-    E --&gt; G["insights.py&lt;br/&gt;describe_*() narrative captions"]
-    F --&gt; G
-    E --&gt; H["visualization/static_maps.py&lt;br/&gt;plot_*() + generate_all_static_outputs()"]
-    F --&gt; H
-    G --&gt; H
-    E --&gt; I["dashboard/app.py&lt;br/&gt;Streamlit interactive dashboard"]
-    F --&gt; I
-    G --&gt; I</code></pre>
-<p>Three structural decisions are worth calling out:</p>
-<ul>
-<li><strong><code>completeness</code> is a sibling package to <code>accessibility</code>, not a
-  submodule of it.</strong> This mirrors the problem-statement split above at the
-  code level — OSM-completeness flagging and accessibility scoring are
-  computed independently, over the same grid, and both feed into the
-  dashboard and static outputs as parallel, separately-labeled findings
-  rather than being merged into one number.</li>
-<li><strong><code>insights.py</code> sits between the analysis layers and the presentation
-  layers.</strong> It generates narrative captions describing what a given map or
-  chart shows, consumed by <em>both</em> the live dashboard and the static export
-  pipeline — meaning a caption's wording only has to be gotten right once
-  to be correct everywhere it's used, rather than the dashboard and static
-  exports each hand-writing separate descriptions that could drift out of
-  sync with the underlying numbers.</li>
-<li><strong><code>dashboard/app.py</code> and <code>visualization/static_maps.py</code> are two
-  independent consumers of the same underlying scored grid</strong>, not a
-  pipeline where one produces the other — the interactive dashboard and the
-  publication-quality static exports are both "views" over
-  <code>scoring.py</code>'s/<code>grid_check.py</code>'s output, generated separately, so a
-  static map can be produced without ever running the Streamlit app.</li>
-</ul>
-<h2 id="design-philosophy">Design Philosophy<a class="headerlink" href="#design-philosophy" title="Permanent link">&para;</a></h2>
-<p><strong>Distance and time are computed on a network, never as-the-crow-flies</strong>,
-for the reasons in the Problem Statement above — this shows up concretely
-as every accessibility function in <code>isochrones.py</code> operating on a
-<code>networkx</code> graph rather than raw point-to-point geometry.</p>
-<p><strong>A grid, not individual buildings, is the unit of analysis.</strong> Rather than
-scoring accessibility per-building (which would be noisy, and implies a
-precision the underlying road/speed assumptions don't actually support),
-<code>scoring.build_grid()</code> creates a fishnet grid over the settled area, and
-every subsequent function — access time, deficit score, completeness
-flagging — operates at the grid-cell level. This is a deliberate choice
-about what level of precision the analysis can honestly claim.</p>
-<p><strong>Multiple travel modes are first-class, not an afterthought.</strong> Walking,
-okada, and driving are computed as three genuinely separate analyses (three
-separate graphs, three separate sets of travel times and deficit scores),
-not one analysis with a mode-adjustment factor applied after the fact — this
-matters because the <em>relative</em> accessibility picture can differ meaningfully
-by mode (a cell might be reasonably walkable but poorly served by drivable
-roads, or vice versa), and the project's own headline findings (walking
-being dramatically more restrictive than okada/driving in both LGAs) depend
-on that distinction being preserved rather than averaged away.</p>
-<p><strong>Narrative output is generated from data, not hand-written.</strong> Every
-caption produced by <code>insights.py</code> is derived programmatically from the
-actual numbers behind a given map or chart — this guarantees a caption
-never says something the underlying data doesn't actually support, and
-means the dashboard/static exports stay accurate automatically as
-underlying data changes (e.g. a re-extraction with updated OSM data),
-without anyone needing to remember to manually update prose elsewhere.</p>
-<h2 id="module-map">Module Map<a class="headerlink" href="#module-map" title="Permanent link">&para;</a></h2>
+<p>Fuses two signals that are computed <strong>entirely independently</strong> of each
+other elsewhere in this package — accessibility scoring
+(<code>accessibility.scoring.add_access_deficit_score()</code>) and OSM-completeness
+flagging (<code>completeness.grid_check.flag_completeness()</code>) — into <strong>one</strong>
+per-cell, per-service status label that makes the distinction between
+"confirmed underserved" and "underserved, but the underlying OSM facility
+data may itself be incomplete" structurally impossible to miss.</p>
+<h2 id="why-this-exists-formalizing-something-the-dashboard-already-did-ad-hoc-in-one-place">Why this exists — formalizing something the dashboard already did, ad hoc, in one place<a class="headerlink" href="#why-this-exists-formalizing-something-the-dashboard-already-did-ad-hoc-in-one-place" title="Permanent link">&para;</a></h2>
+<p>This is arguably the most conceptually significant of the five new modules
+in this revision, because it directly addresses a distinction this
+documentation site has been careful to describe correctly every time it
+came up: <a href="../completeness/grid_check/"><code>grid_check.md</code></a>'s own documentation,
+<a href="../../data-flow/"><code>data-flow.md</code></a>, and <code>dashboard/app.py</code>'s Findings
+Summary cross-check callout (see <a href="../../dashboard-app/"><code>dashboard-app.md</code></a>)
+all independently express the same caution — a cell with no reachable
+facility within its threshold might mean a genuine service gap, or it might
+mean OSM simply hasn't mapped a facility that exists in reality. Until this
+module existed, that distinction lived only as <strong>two separate map layers</strong>
+(a deficit-score map and a completeness map) that a viewer had to mentally
+cross-reference themselves, or as an <strong>inline percentage callout</strong> computed
+ad hoc inside <code>dashboard/app.py</code>'s own Findings Summary section — nowhere
+was the <em>per-cell</em> fused classification itself a first-class, reusable
+output.</p>
+<p>The module's own docstring states the stakes plainly: presenting the two
+signals as separate maps "risks the system implying, even unintentionally,
+that 'no mapped facility within reach' and 'no facility exists in reality'
+are the same finding. They are not, and this project's own core value
+proposition — distinguishing OSM coverage gaps from genuine service gaps —
+depends on that distinction being visible in the <strong>output</strong>, not just
+present somewhere in the underlying data for a sufficiently careful reader
+to notice."</p>
+<p><strong>This module computes nothing new.</strong> It is purely a classification layer
+over two already-computed signals — no routing, no spatial joins, nothing
+that wasn't already available from <code>scoring.py</code> and <code>grid_check.py</code>
+separately. Its entire contribution is making the <em>combination</em> of those
+two signals a single, explicit, reusable value per cell.</p>
+<h2 id="the-four-status-categories">The four status categories<a class="headerlink" href="#the-four-status-categories" title="Permanent link">&para;</a></h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">SERVED</span> <span class="o">=</span> <span class="s2">&quot;served&quot;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">UNDERSERVED</span> <span class="o">=</span> <span class="s2">&quot;underserved&quot;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">POTENTIAL_DATA_GAP</span> <span class="o">=</span> <span class="s2">&quot;potential_data_gap&quot;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">UNKNOWN</span> <span class="o">=</span> <span class="s2">&quot;unknown&quot;</span>
+</span></code></pre></div>
 <table>
 <thead>
 <tr>
-<th>File</th>
-<th>Responsibility</th>
+<th>Category</th>
+<th>Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>akure_access/accessibility/network_graph.py</code></td>
-<td>Build a routable graph per travel mode from cleaned roads data</td>
+<td><code>SERVED</code></td>
+<td>Reachable within the mode's threshold.</td>
 </tr>
 <tr>
-<td><code>akure_access/accessibility/isochrones.py</code></td>
-<td>Compute travel-time isochrones and nearest-facility distance/time per grid cell</td>
+<td><code>UNDERSERVED</code></td>
+<td><strong>Confirmed</strong> underserved: beyond the threshold, <strong>and</strong> the completeness check found no reason to doubt the underlying OSM facility coverage nearby (not flagged as a possible gap).</td>
 </tr>
 <tr>
-<td><code>akure_access/accessibility/scoring.py</code></td>
-<td>Build the analysis grid; compute access times and the composite deficit score</td>
+<td><code>POTENTIAL_DATA_GAP</code></td>
+<td>Underserved <strong>and</strong> flagged by the completeness check as having no mapped facility of this type within its search radius. Deliberately ambiguous by design — this module does not try to resolve whether it's a real service gap or an OSM mapping gap; it surfaces the ambiguity rather than guessing.</td>
 </tr>
 <tr>
-<td><code>akure_access/completeness/grid_check.py</code></td>
-<td>Flag grid cells where OSM likely has incomplete facility coverage, independent of accessibility scoring</td>
-</tr>
-<tr>
-<td><code>akure_access/visualization/static_maps.py</code></td>
-<td>Generate publication-quality static maps and charts</td>
-</tr>
-<tr>
-<td><code>akure_access/insights.py</code></td>
-<td>Generate data-driven narrative captions, shared by the dashboard and static exports</td>
-</tr>
-<tr>
-<td><code>dashboard/app.py</code></td>
-<td>The interactive Streamlit dashboard (741 lines, the largest file in either repo)</td>
-</tr>
-<tr>
-<td><code>tests/</code></td>
-<td>Test coverage across the above, plus a dedicated cross-repo integration test</td>
+<td><code>UNKNOWN</code></td>
+<td>Cell has no <code>building_count &gt; 0</code> (unsettled) — not analyzed at all, not a finding about access one way or the other.</td>
 </tr>
 </tbody>
 </table>
-<h2 id="dependencies-between-components">Dependencies Between Components<a class="headerlink" href="#dependencies-between-components" title="Permanent link">&para;</a></h2>
+<h2 id="status_display-a-shared-reference-for-consistent-legends"><code>STATUS_DISPLAY</code> — a shared reference for consistent legends<a class="headerlink" href="#status_display-a-shared-reference-for-consistent-legends" title="Permanent link">&para;</a></h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">STATUS_DISPLAY</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">SERVED</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;#4C9A8C&quot;</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Served&quot;</span><span class="p">,</span> <span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;🟢&quot;</span><span class="p">},</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">UNDERSERVED</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;#C4622D&quot;</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Underserved&quot;</span><span class="p">,</span> <span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;🔴&quot;</span><span class="p">},</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">POTENTIAL_DATA_GAP</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;#E8B84B&quot;</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Potential OSM data gap&quot;</span><span class="p">,</span> <span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;🟡&quot;</span><span class="p">},</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">UNKNOWN</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;#9AA0A8&quot;</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Unknown (unsettled)&quot;</span><span class="p">,</span> <span class="s2">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;⚪&quot;</span><span class="p">},</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Not enforced anywhere by this module's own logic — provided purely as a
+single shared reference so a future dashboard legend or static-map legend
+never independently invents a different color/label pairing that drifts
+out of sync with this module's own categories. The colors reuse this
+project's existing accent palette (<code>#4C9A8C</code> teal, <code>#C4622D</code> laterite
+red-orange — see <a href="../visualization/static_maps/"><code>static_maps.md</code></a>'s
+<code>ACCENT_PRIMARY</code>/<code>ACCENT_SECONDARY</code> constants) plus two new colors for the
+gap/unknown states, <strong>deliberately chosen to be distinguishable under
+common color-vision deficiencies</strong> — the module's own comment notes gold
+and gray are both visually distinct from the served/underserved red-green
+pairing independent of hue, avoiding a pure red/green-only distinguishing
+cue that would be a real accessibility problem for a red-green
+colorblind viewer trying to read this exact legend.</p>
+<h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
+<h3 id="classify_cell_statusbuilding_count-underserved_flag-completeness_flag-str"><code>classify_cell_status(building_count, underserved_flag, completeness_flag) -&gt; str</code><a class="headerlink" href="#classify_cell_statusbuilding_count-underserved_flag-completeness_flag-str" title="Permanent link">&para;</a></h3>
+<p><strong>What it does:</strong> the pure classification logic for one cell/service
+combination, given its three already-computed inputs.</p>
+<p><strong>Decision order, and exactly what each input's missing-value state
+means:</strong>
+1. <code>building_count</code> is <code>NaN</code> or <code>&lt;= 0</code> → <code>UNKNOWN</code>, immediately. A missing
+   or non-positive building count is treated as unsettled, consistent with
+   how <code>scoring.py</code> treats the same condition elsewhere.
+2. <code>underserved_flag</code> is <code>NaN</code> → <code>UNKNOWN</code>. In this project's existing
+   scoring output, an unsettled cell's underserved flag is itself <code>NaN</code>
+   (see <a href="../accessibility/scoring/"><code>scoring.md</code></a>), so in practice this
+   check and the previous one are usually redundant with each other — but
+   both are checked explicitly rather than relying on that redundancy
+   holding in every possible caller-supplied input.
+3. <code>underserved_flag</code> is falsy → <code>SERVED</code>.
+4. <code>underserved_flag</code> is truthy, and <code>completeness_flag</code> is <strong>positively</strong>
+   <code>True</code> (not <code>NaN</code>, not <code>False</code>) → <code>POTENTIAL_DATA_GAP</code>.
+5. <code>underserved_flag</code> is truthy, and <code>completeness_flag</code> is anything else
+   (<code>False</code>, or <code>NaN</code>/missing) → <code>UNDERSERVED</code>.</p>
+<p><strong>The single most important behavioral detail in this function</strong>, worth
+stating explicitly since it's easy to get backwards: a <strong>missing</strong>
+completeness signal (<code>NaN</code>) resolves to <code>UNDERSERVED</code>, <strong>not</strong>
+<code>POTENTIAL_DATA_GAP</code>. This module only escalates to <code>POTENTIAL_DATA_GAP</code>
+when the completeness check <strong>positively flagged</strong> the cell — never as a
+default assumption applied just because completeness information happens
+to be unavailable. This is a deliberate conservatism: treating "we don't
+know" as "there's probably a data gap" would systematically overstate how
+much of the underserved finding is uncertain, when the correct
+interpretation of missing completeness data is simply "this dimension
+wasn't checked," not "this dimension is suspect."</p>
+<h3 id="add_access_statusgrid_gdf-service-modewalk-geodataframe"><code>add_access_status(grid_gdf, service, mode="walk") -&gt; GeoDataFrame</code><a class="headerlink" href="#add_access_statusgrid_gdf-service-modewalk-geodataframe" title="Permanent link">&para;</a></h3>
+<p><strong>What it does:</strong> appends a <code>{service}_status_{mode}</code> column by applying
+<code>classify_cell_status()</code> row-wise, resolving both required input columns
+with fallback logic.</p>
+<p><strong>Underserved-column resolution — mirrors <code>scoring.py</code>'s own fallback
+pattern deliberately:</strong> looks for <code>{mode}_{service}_underserved</code> first,
+falling back to the unsuffixed <code>{service}_underserved</code> — the same
+dual-naming convention <code>add_access_deficit_score()</code> itself uses for
+<code>mode == "walk"</code> backward compatibility (see
+<a href="../accessibility/scoring/"><code>scoring.md</code></a>). If <strong>neither</strong> column exists,
+raises <code>KeyError</code> with a direct pointer to the fix: "run
+<code>accessibility.scoring.add_access_deficit_score(mode='...')</code> first."</p>
+<p><strong>Completeness-column absence is a warning, not a hard failure:</strong> if
+<code>{service}_completeness_flag</code> is missing entirely (completeness checking
+was never run for this grid), <code>add_access_status()</code> doesn't raise — it
+issues one <code>warnings.warn()</code> explaining exactly what will happen as a
+result ("every underserved cell for '{service}' will be classified as
+UNDERSERVED rather than POTENTIAL_DATA_GAP"), then proceeds using an
+all-<code>NaN</code> completeness series, which — per <code>classify_cell_status()</code>'s own
+documented behavior for missing completeness data — correctly falls
+through to <code>UNDERSERVED</code> for every genuinely underserved cell rather than
+crashing. This lets a caller who only cares about the accessibility
+dimension use this module without first being forced to also run
+completeness checking, while still being clearly told what they're giving
+up by skipping it.</p>
+<h3 id="summarize_statusgrid_gdf-service-modewalk-dict"><code>summarize_status(grid_gdf, service, mode="walk") -&gt; dict</code><a class="headerlink" href="#summarize_statusgrid_gdf-service-modewalk-dict" title="Permanent link">&para;</a></h3>
+<p><strong>What it does:</strong> a percentage breakdown across the three settled-cell
+categories (<code>served_pct</code>, <code>underserved_pct</code>, <code>potential_data_gap_pct</code>),
+with <code>UNKNOWN</code> cells reported as a separate count rather than folded into
+the percentage denominator.</p>
+<p><strong>Why <code>UNKNOWN</code> is excluded from the percentage denominator, deliberately
+mirroring <code>grid_check.summarize_completeness()</code>'s own convention:</strong> an
+unsettled cell was never a candidate for either accessibility or
+completeness analysis in the first place — including it in the
+denominator would dilute the reported percentages with cells that were
+never "at risk" of being underserved to begin with, the same reasoning
+<code>grid_check.py</code>'s own summary function already applies (see
+<a href="../completeness/grid_check/"><code>grid_check.md</code></a>).</p>
+<p><strong>Zero-settled-cells shape, also mirroring <code>grid_check.py</code>'s convention:</strong>
+returns <code>{"n_unknown": ..., "n_settled": 0}</code> — a deliberately smaller dict,
+omitting the percentage keys entirely rather than risking a <code>0/0</code>
+division — for the edge case where every cell in the grid is unsettled.</p>
+<h2 id="internal-workflow">Internal Workflow<a class="headerlink" href="#internal-workflow" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    A["add_access_status(grid_gdf, service, mode)"] --&gt; B["resolve underserved_col:&lt;br/&gt;{mode}_{service}_underserved, else {service}_underserved"]
+    B --&gt; C{neither column exists?}
+    C -- yes --&gt; D["raise KeyError — run add_access_deficit_score() first"]
+    C -- no --&gt; E{"{service}_completeness_flag column exists?"}
+    E -- no --&gt; F["warn once: gaps will be classified as UNDERSERVED, not POTENTIAL_DATA_GAP&lt;br/&gt;completeness_series = all NaN"]
+    E -- yes --&gt; G["completeness_series = grid[completeness_col]"]
+    F --&gt; H
+    G --&gt; H["per row: classify_cell_status(building_count, underserved_flag, completeness_flag)"]
+
+    subgraph Classify ["classify_cell_status()"]
+        H --&gt; I{building_count NaN or &lt;= 0?}
+        I -- yes --&gt; J["UNKNOWN"]
+        I -- no --&gt; K{underserved_flag NaN?}
+        K -- yes --&gt; J
+        K -- no --&gt; L{underserved_flag truthy?}
+        L -- no --&gt; M["SERVED"]
+        L -- yes --&gt; N{completeness_flag positively True?}
+        N -- yes --&gt; O["POTENTIAL_DATA_GAP"]
+        N -- no, False or NaN --&gt; P["UNDERSERVED"]
+    end
+
+    J --&gt; Q["grid[{service}_status_{mode}] = results"]
+    M --&gt; Q
+    O --&gt; Q
+    P --&gt; Q
+    Q --&gt; R["return grid copy"]
+
+    R --&gt; S["summarize_status(grid, service, mode)"]
+    S --&gt; T{status column exists?}
+    T -- no --&gt; U["raise KeyError"]
+    T -- yes --&gt; V["n_unknown = count of UNKNOWN&lt;br/&gt;settled = everything else"]
+    V --&gt; W{n_settled == 0?}
+    W -- yes --&gt; X["return {n_unknown, n_settled: 0}"]
+    W -- no --&gt; Y["return {n_unknown, n_settled,&lt;br/&gt;served_pct, underserved_pct, potential_data_gap_pct}"]</code></pre>
+<h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>isochrones.py</code> depends on <code>network_graph.py</code> for its graph input — it
-  has no graph-building logic of its own.</li>
-<li><code>scoring.py</code> depends on <strong>both</strong> <code>network_graph.py</code> and <code>isochrones.py</code>
-  directly — <code>add_access_times()</code> imports and calls <code>graph_from_roads()</code>
-  itself (once per travel mode) to build the graph it then hands to
-  <code>isochrones.batch_nearest_facility_distances()</code>. The graph-building step
-  is not encapsulated behind <code>isochrones.py</code>; <code>scoring.py</code> owns the
-  decision of <em>when</em> to build a fresh graph (once per mode, inside its own
-  mode loop) and passes the result into <code>isochrones.py</code>'s routing
-  functions.</li>
-<li><code>completeness/grid_check.py</code> depends on <code>scoring.build_grid()</code>'s grid
-  output but is otherwise independent of <code>accessibility</code> — it does not use
-  the road network or travel-time computations at all, consistent with it
-  being a data-quality check rather than an accessibility measure.</li>
-<li><code>insights.py</code> depends on the <em>outputs</em> of both <code>scoring.py</code> and
-  <code>grid_check.py</code> (whatever numbers/columns they produce), but has no
-  dependency on <code>network_graph.py</code> or <code>isochrones.py</code> directly — it works
-  from already-computed results, not raw graphs.</li>
-<li><code>visualization/static_maps.py</code> depends on <code>insights.py</code> (for captions)
-  and on the scored/flagged grid outputs, but not on <code>network_graph.py</code> or
-  <code>isochrones.py</code> directly, for the same reason.</li>
-<li><code>dashboard/app.py</code> is the one place that ties every other module
-  together at runtime — it's the closest equivalent this repo has to
-  <code>lga-osm-extractor</code>'s <code>pipeline.py</code>, though structured as an interactive
-  Streamlit script rather than a single callable orchestration function.</li>
+<li><strong>A missing completeness signal resolves to <code>UNDERSERVED</code>, not
+  <code>POTENTIAL_DATA_GAP</code> — the opposite of what some readers might
+  intuitively expect.</strong> "We don't know if there's a data gap" is treated
+  as "assume no data gap," not "assume there might be one." This is
+  covered in detail above, but worth repeating here as the single easiest
+  point to get backwards when reasoning about this module's behavior.</li>
+<li><strong>The warning issued by <code>add_access_status()</code> when the completeness
+  column is missing fires every single call</strong>, not just once per session —
+  there's no deduplication of repeated warnings across multiple calls with
+  the same missing column. A notebook cell calling this function in a loop
+  across several LGAs without completeness data would print the same
+  warning once per LGA.</li>
+<li><strong>This module has no dashboard or static-map integration yet.</strong>
+  <code>dashboard/app.py</code>'s existing Findings Summary cross-check callout
+  computes a broadly similar cross-check <strong>inline</strong>, independently, and is
+  unchanged by this module's addition — the two currently coexist as
+  separate implementations of a conceptually related idea, not as one
+  calling the other. A future refactor could have <code>dashboard/app.py</code> call
+  <code>status.py</code> directly instead of recomputing its own inline percentage,
+  but that consolidation hasn't happened as of this revision.</li>
+<li><strong><code>STATUS_DISPLAY</code>'s color/label mapping is a convention, not an
+  enforced contract</strong> — nothing in this module (or elsewhere) currently
+  reads from <code>STATUS_DISPLAY</code> to render anything, since no consumer has
+  been wired up yet. It exists ready for a future dashboard/static-map
+  integration to use.</li>
+</ul>
+<h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../accessibility/scoring/"><code>accessibility/scoring.py</code></a> — supplies
+  <code>building_count</code> and the underserved flag columns this module fuses.</li>
+<li><a href="../completeness/grid_check/"><code>completeness/grid_check.py</code></a> — supplies
+  the completeness flag columns, and the settled-only percentage
+  convention this module's <code>summarize_status()</code> deliberately mirrors.</li>
+<li><code>dashboard/app.py</code>'s Findings Summary section (see
+  <a href="../../dashboard-app/"><code>dashboard-app.md</code></a>) — computes a conceptually
+  similar cross-check inline, independently of this module, as of this
+  revision.</li>
 </ul>
 
 
@@ -2186,7 +2371,7 @@ without anyone needing to remember to manually update prose elsewhere.</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../../lga-osm-extractor/tests/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Tests">
+          <a href="../sensitivity/" class="md-footer__link md-footer__link--prev" aria-label="Previous: sensitivity.py">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2196,20 +2381,20 @@ without anyone needing to remember to manually update prose elsewhere.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                Tests
+                sensitivity.py
               </div>
             </div>
           </a>
         
         
           
-          <a href="../data-flow/" class="md-footer__link md-footer__link--next" aria-label="Next: Data Flow">
+          <a href="../../dashboard-app/" class="md-footer__link md-footer__link--next" aria-label="Next: Dashboard App (dashboard/app.py)">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Data Flow
+                Dashboard App (dashboard/app.py)
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -2262,10 +2447,10 @@ without anyone needing to remember to manually update prose elsewhere.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

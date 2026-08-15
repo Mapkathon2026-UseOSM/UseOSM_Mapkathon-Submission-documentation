@@ -557,6 +557,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -813,6 +817,23 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#new-in-this-revision-_shapefile_safe_columnsgdf-private" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        New in this revision: _shapefile_safe_columns(gdf) (private)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="New in this revision: _shapefile_safe_columns(gdf) (private)">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
   <a href="#export_layerslayers_dict-output_dir" class="md-nav__link">
     <span class="md-ellipsis">
@@ -931,6 +952,62 @@
     
   
     pipeline.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    events.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manifest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    manifest.py
   
 
     
@@ -1214,6 +1291,16 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -1414,6 +1501,146 @@
     
   
     insights.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/modules/config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    config.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/modules/data_contract/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    data_contract.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/modules/facility_classification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    facility_classification.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/modules/sensitivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sensitivity.py
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../akure-accessibility-dashboard/modules/status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    status.py
   
 
     
@@ -1758,6 +1985,23 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#new-in-this-revision-_shapefile_safe_columnsgdf-private" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        New in this revision: _shapefile_safe_columns(gdf) (private)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="New in this revision: _shapefile_safe_columns(gdf) (private)">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
   <a href="#export_layerslayers_dict-output_dir" class="md-nav__link">
     <span class="md-ellipsis">
@@ -1819,7 +2063,8 @@
 <h1 id="exportpy">export.py<a class="headerlink" href="#exportpy" title="Permanent link">&para;</a></h1>
 <div class="admonition info">
 <p class="admonition-title">Source</p>
-<p><code>lga_extractor/export.py</code> (130 lines)</p>
+<p><code>lga_extractor/export.py</code> (176 lines — grew from 130 with the addition
+of Shapefile-safe column filtering, see below)</p>
 </div>
 <h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
 <p>Writes cleaned layers (from <a href="../clean/"><code>clean.py</code></a>) to disk as GeoJSON and
@@ -1828,13 +2073,19 @@ that turns in-memory <code>GeoDataFrame</code>s into the actual deliverable file
 consumed by ArcGIS Pro, QGIS, and — most importantly — by
 <code>akure-accessibility-dashboard</code> downstream (see
 <a href="../../../cross-repo/integration/">Cross-Repo Integration</a>).</p>
-<p>The module's one real technical problem is a format mismatch: GeoJSON
-tolerates mixed geometry types within a single file; Shapefile does not.
-Most of this file's logic exists to handle that mismatch correctly rather
-than simply failing on it.</p>
+<p>The module now has <strong>two</strong> real technical problems to solve, not one.
+The original problem is a geometry-type mismatch: GeoJSON tolerates mixed
+geometry types within a single file; Shapefile does not — most of the
+splitting logic below exists to handle that. The new problem, introduced
+by <a href="../clean/"><code>clean.py</code></a>'s richer per-layer attribute schema (semantic OSM
+tags plus a full JSON <code>raw_tags</code> column), is an <em>attribute</em> mismatch:
+Shapefile's DBF format truncates field names to 10 characters and has no
+sensible representation for a JSON blob at all. See
+<code>_shapefile_safe_columns()</code> below for how this module now handles that.</p>
 <h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Imports:</strong> <code>os</code>, <code>geopandas</code>.</li>
+<li><strong>Imports:</strong> <code>os</code>, <code>geopandas</code>, and (new) <code>CORE_COLUMNS</code>, <code>RAW_TAGS_COLUMN</code>
+  from <a href="../clean/"><code>clean.py</code></a>.</li>
 <li><strong>Imported by:</strong> <code>pipeline.py</code> (fourth stage, after <code>clean.clean_layers()</code>).</li>
 </ul>
 <h2 id="functions-classes">Functions &amp; Classes<a class="headerlink" href="#functions-classes" title="Permanent link">&para;</a></h2>
@@ -1891,6 +2142,10 @@ layer needs to be split across multiple Shapefiles.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="new-in-this-revision-_shapefile_safe_columnsgdf-private">New in this revision: <code>_shapefile_safe_columns(gdf)</code> (private)<a class="headerlink" href="#new-in-this-revision-_shapefile_safe_columnsgdf-private" title="Permanent link">&para;</a></h2>
+<p><strong>What it does:</strong> reduces a cleaned layer to <code>CORE_COLUMNS</code> only (<code>osmid</code>, <code>name</code>, <code>geometry</code>) — discarding whatever <code>SEMANTIC_COLUMNS</code> and <code>RAW_TAGS_COLUMN</code> <a href="../clean/"><code>clean.py</code></a> added — for Shapefile export specifically.</p>
+<p><strong>Why this is necessary, not just a stylistic choice:</strong> since <code>clean.clean_layers()</code> started preserving richer per-layer semantic OSM attributes (e.g. <code>building:levels</code>, <code>building:use</code>) plus a full <code>raw_tags</code> JSON blob, writing that full schema straight to Shapefile would be <strong>actively harmful, not just imprecise</strong>. Shapefile field names are silently truncated to 10 characters — <code>"building:levels"</code> and <code>"building:use"</code> could both collide/mangle down to something like <code>"building:l"</code> — and a JSON blob has no meaningful place in a fixed-width DBF field at all (it would either be truncated mid-string, corrupting the JSON, or rejected by the writer depending on the driver). GeoJSON has no such limit and is where the full schema belongs; Shapefile output stays deliberately at the original minimal schema and remains <strong>fully backward compatible</strong> with every pre-existing Shapefile consumer of this extractor's output — a consumer that only ever read <code>osmid</code>/<code>name</code>/<code>geometry</code> from Shapefile sees no change in behavior at all.</p>
+<p><strong>Implementation:</strong> <code>keep = [c for c in CORE_COLUMNS if c in gdf.columns]; return gdf[keep]</code> — a straightforward column-list filter, applied at both Shapefile write sites (the single-file path and the per-category split path) via <code>_shapefile_safe_columns(gdf).to_file(...)</code> / <code>_shapefile_safe_columns(subset).to_file(...)</code>, rather than passed as a parameter — GeoJSON's <code>gdf.to_file(geojson_path, driver="GeoJSON")</code> call is unaffected, still writing the complete schema.</p>
 <h3 id="export_layerslayers_dict-output_dir"><code>export_layers(layers_dict, output_dir)</code><a class="headerlink" href="#export_layerslayers_dict-output_dir" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -1902,39 +2157,39 @@ layer needs to be split across multiple Shapefiles.</p>
 <tbody>
 <tr>
 <td><strong>What it does</strong></td>
-<td>Writes every non-empty layer in <code>layers_dict</code> to both a <code>.geojson</code> file (always one file per layer, mixed types are fine) and one or more <code>.shp</code> files (split by geometry category only when the layer actually mixes categories). Returns a summary dict of what was written, skipped, and split.</td>
+<td>Writes every non-empty layer in <code>layers_dict</code> to both a <code>.geojson</code> file (full schema, always one file per layer, mixed types are fine) and one or more <code>.shp</code> files (<strong>core schema only, new</strong> — split by geometry category only when the layer actually mixes categories). Returns a summary dict of what was written, skipped, and split.</td>
 </tr>
 <tr>
 <td><strong>Why written this way</strong></td>
-<td>The design deliberately keeps GeoJSON export simple and uniform (one file per layer, no splitting logic needed, since GeoJSON has no restriction here) while only paying the complexity cost of splitting where Shapefile's format constraint actually forces it — layers with a single geometry category (the common case: <code>buildings</code>, <code>health_facilities</code>, <code>landuse</code>) still export as one plain <code>{layer_name}.shp</code>, completely unchanged from a version of this function that never had to think about mixed types at all. This backward-compatible shape (single path string for the simple case, dict of <code>{category: path}</code> only when needed) means existing callers that only handle single-category layers don't break.</td>
+<td>The design deliberately keeps GeoJSON export simple and uniform (one file per layer, no splitting logic needed) while only paying the complexity cost of splitting where Shapefile's format constraint actually forces it. This backward-compatible shape (single path string for the simple case, dict of <code>{category: path}</code> only when needed) means existing callers that only handle single-category layers don't break.</td>
 </tr>
 <tr>
 <td><strong>Inputs</strong></td>
-<td><code>layers_dict: dict</code> (layer_name → cleaned <code>GeoDataFrame</code>, as returned by <code>clean.clean_layers()</code>; a <code>"_warnings"</code> key, if present, is explicitly skipped during export — it isn't a layer); <code>output_dir: str</code> (created if it doesn't exist; a <code>shapefiles/</code> subfolder is created within it to keep Shapefile's multi-file sidecar outputs — <code>.shp</code>/<code>.shx</code>/<code>.dbf</code>/<code>.prj</code> — organized separately from the flat GeoJSON files).</td>
+<td><code>layers_dict: dict</code> (layer_name → cleaned <code>GeoDataFrame</code>, as returned by <code>clean.clean_layers()</code>; <code>"_warnings"</code> <strong>and, new, <code>"_status"</code></strong> keys, if present, are explicitly skipped during export — neither is a layer); <code>output_dir: str</code> (created if it doesn't exist; a <code>shapefiles/</code> subfolder is created within it).</td>
 </tr>
 <tr>
 <td><strong>Outputs</strong></td>
-<td><code>dict</code> mapping each exported <code>layer_name</code> to <code>{"geojson": path, "shapefile": shapefile_value}</code>, where <code>shapefile_value</code> is a single path string for single-category layers, or a <code>{category: path}</code> dict for split layers. Also includes <code>"_skipped"</code> (list of layer names skipped because they were empty) and, only if any layer needed splitting, <code>"_split_layers"</code> (dict of <code>{layer_name: categories_list}</code>, useful for logging/visibility into which layers triggered the split path).</td>
+<td><code>dict</code> mapping each exported <code>layer_name</code> to <code>{"geojson": path, "shapefile": shapefile_value, "feature_count": int}</code> — <strong><code>feature_count</code> is new</strong>: the number of features actually written (post-cleaning), distinct from the pre-cleaning <code>feature_count</code> recorded in <code>layers.extract_layers()</code>'s <code>"_status"</code> (see <a href="../layers/"><code>layers.md</code></a>) — <code>pipeline.extract_lga()</code> reconciles both into the single <a href="../manifest/">extraction manifest</a>. <code>shapefile_value</code> is a single path string for single-category layers, or a <code>{category: path}</code> dict for split layers. Also includes <code>"_skipped"</code> and, only if any layer needed splitting, <code>"_split_layers"</code>.</td>
 </tr>
 <tr>
 <td><strong>Internal workflow</strong></td>
-<td>1. Create <code>output_dir</code> and <code>output_dir/shapefiles/</code> (both <code>exist_ok=True</code>, safe to call repeatedly).<br>2. For each <code>(layer_name, gdf)</code> in <code>layers_dict</code>:<br>&nbsp;&nbsp;a. Skip <code>"_warnings"</code> entirely (not a real layer).<br>&nbsp;&nbsp;b. If <code>gdf</code> is <code>None</code> or empty, record it in <code>skipped</code> and continue — no files written for empty layers.<br>&nbsp;&nbsp;c. Write the GeoJSON unconditionally: <code>gdf.to_file(path, driver="GeoJSON")</code>.<br>&nbsp;&nbsp;d. Compute <code>categories = _geom_categories_present(gdf)</code>.<br>&nbsp;&nbsp;e. If <code>len(categories) &lt;= 1</code>: write one Shapefile as before, record a single path.<br>&nbsp;&nbsp;f. Otherwise: for each category present, filter <code>gdf</code> down to just the geometry types belonging to that category (via <code>.isin()</code> against the subset of <code>_GEOM_CATEGORY</code> keys mapping to that category), skip if the filtered subset happens to be empty, write <code>{layer_name}_{category}.shp</code>, and record the path under that category key. Also record this layer in <code>split_layers</code> for the summary.<br>3. Attach <code>"_skipped"</code> and (if non-empty) <code>"_split_layers"</code> to the result dict, return it.</td>
+<td>1. Create <code>output_dir</code> and <code>output_dir/shapefiles/</code>.<br>2. For each <code>(layer_name, gdf)</code> in <code>layers_dict</code>:<br>&nbsp;&nbsp;a. Skip <code>"_warnings"</code> and <code>"_status"</code> (new — previously only <code>"_warnings"</code>).<br>&nbsp;&nbsp;b. If <code>gdf</code> is <code>None</code> or empty, record it in <code>skipped</code> and continue.<br>&nbsp;&nbsp;c. Write the full-schema GeoJSON unconditionally.<br>&nbsp;&nbsp;d. Compute <code>categories = _geom_categories_present(gdf)</code>.<br>&nbsp;&nbsp;e. If <code>len(categories) &lt;= 1</code>: write one Shapefile via <code>_shapefile_safe_columns(gdf).to_file(...)</code> (<strong>new</strong> — core-columns-only), record a single path plus <code>feature_count: len(gdf)</code> (<strong>new</strong>).<br>&nbsp;&nbsp;f. Otherwise: for each category present, filter <code>gdf</code>, write <code>_shapefile_safe_columns(subset).to_file(...)</code> (<strong>new</strong>) per category, record paths plus <code>feature_count: len(gdf)</code> (<strong>new</strong> — the <em>layer's</em> total count, not per-category).<br>3. Attach <code>"_skipped"</code> and (if non-empty) <code>"_split_layers"</code>, return.</td>
 </tr>
 <tr>
 <td><strong>Assumptions</strong></td>
-<td>Assumes <code>gdf.to_file(..., driver="GeoJSON")</code> and <code>driver="ESRI Shapefile"</code> (both via GeoPandas → Fiona/pyogrio) handle CRS metadata correctly on their own — this function does no explicit CRS handling itself, relying entirely on whatever CRS <code>clean_layers()</code> already set. Assumes Shapefile's 10-character field name truncation and other format limitations (a well-known Shapefile constraint, unrelated to the geometry-type issue this module solves) aren't a practical problem given <code>clean.py</code>'s minimal <code>KEEP_COLUMNS</code> schema (<code>osmid</code>, <code>name</code>, <code>geometry</code> — none close to the 10-character limit).</td>
+<td>Assumes <code>gdf.to_file(..., driver="GeoJSON")</code> and <code>driver="ESRI Shapefile"</code> handle CRS metadata correctly on their own. <strong>Updated:</strong> previously assumed Shapefile's 10-character field truncation "wasn't a practical problem" given the old minimal <code>KEEP_COLUMNS</code> schema — this assumption is now handled explicitly via <code>_shapefile_safe_columns()</code> rather than relying on the schema staying small by construction, since it no longer does.</td>
 </tr>
 <tr>
 <td><strong>Complexity</strong></td>
-<td>O(L × N) where L = number of layers, N = features per layer, for the write operations themselves; the geometry-category filtering step is an additional O(N) pass per category for split layers.</td>
+<td>O(L × N) where L = number of layers, N = features per layer, for the write operations; the geometry-category filtering step is an additional O(N) pass per category for split layers. The new <code>_shapefile_safe_columns()</code> filter is O(1) in column count, negligible.</td>
 </tr>
 <tr>
 <td><strong>Concurrency / race conditions</strong></td>
-<td>None — sequential loop, no threading. Writing to <code>output_dir</code> is not guarded against concurrent calls to <code>export_layers()</code> targeting the <em>same</em> <code>output_dir</code> from multiple processes — this isn't a concern in the current pipeline (each LGA extraction run uses its own output directory sequentially), but would be worth locking if this function were ever called concurrently for the same target directory.</td>
+<td>None — sequential loop, no threading.</td>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../tests/">tests.md</a> — <code>test_export_layers_writes_geojson_and_shapefile</code>, <code>test_export_layers_splits_mixed_geometry_types</code>.</td>
+<td>See <a href="../../tests/">tests.md</a> — <code>test_export_layers_writes_geojson_and_shapefile</code>, <code>test_export_layers_splits_mixed_geometry_types</code>, plus new: <code>test_export_layers_shapefile_stays_core_columns_only</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -1942,17 +2197,17 @@ layer needs to be split across multiple Shapefiles.</p>
 <pre class="mermaid"><code>flowchart TD
     A["export_layers(layers_dict, output_dir)"] --&gt; B["makedirs(output_dir), makedirs(output_dir/shapefiles)"]
     B --&gt; C["for layer_name, gdf in layers_dict:"]
-    C --&gt; D{layer_name == '_warnings'?}
+    C --&gt; D{"layer_name in ('_warnings', '_status')?"}
     D -- yes --&gt; C
     D -- no --&gt; E{gdf empty or None?}
     E -- yes --&gt; F["append to skipped list"] --&gt; C
-    E -- no --&gt; G["write {layer_name}.geojson (always, single file)"]
+    E -- no --&gt; G["write {layer_name}.geojson — FULL schema&lt;br/&gt;(core + semantic + raw_tags)"]
     G --&gt; H["categories = _geom_categories_present(gdf)"]
     H --&gt; I{len(categories) &lt;= 1?}
-    I -- yes --&gt; J["write single {layer_name}.shp"]
-    J --&gt; K["exported[layer_name] = {geojson, shapefile: path_string}"]
-    I -- no --&gt; L["for each category: subset by geom_type, write {layer_name}_{category}.shp"]
-    L --&gt; M["exported[layer_name] = {geojson, shapefile: {category: path, ...}}"]
+    I -- yes --&gt; J["_shapefile_safe_columns(gdf) — CORE ONLY&lt;br/&gt;write single {layer_name}.shp"]
+    J --&gt; K["exported[layer_name] = {geojson, shapefile: path_string, feature_count}"]
+    I -- no --&gt; L["for each category: subset by geom_type,&lt;br/&gt;_shapefile_safe_columns(subset) — CORE ONLY&lt;br/&gt;write {layer_name}_{category}.shp"]
+    L --&gt; M["exported[layer_name] = {geojson, shapefile: {category: path, ...}, feature_count}"]
     M --&gt; N["record in split_layers dict"]
     K --&gt; C
     N --&gt; C
@@ -1963,23 +2218,27 @@ layer needs to be split across multiple Shapefiles.</p>
     Q --&gt; R</code></pre>
 <h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
 <ul>
+<li><strong>GeoJSON and Shapefile now carry genuinely different attribute schemas
+  for the same layer, not just different file formats.</strong> A consumer that
+  reads a layer's GeoJSON and expects the same columns to be present in the
+  corresponding Shapefile (or vice versa) will be surprised — GeoJSON has
+  <code>CORE_COLUMNS</code> + <code>SEMANTIC_COLUMNS</code> + <code>RAW_TAGS_COLUMN</code>; Shapefile has
+  <code>CORE_COLUMNS</code> only. This is new, deliberate, and documented, but a real
+  behavior change for any tooling built assuming schema parity between the
+  two formats.</li>
 <li><strong>A layer's Shapefile output shape depends on its data, not on any
   configuration.</strong> Whether <code>export_layers()</code>'s returned <code>shapefile_value</code>
   for a given layer is a plain string or a <code>{category: path}</code> dict is
   determined entirely by what geometry types happen to be present in that
-  particular LGA's extracted data — the same layer name (e.g. <code>"roads"</code>)
-  could return a single path for one LGA (no point-type road features
-  present) and a split dict for another. Any code consuming this return
-  value needs to check the type, not assume a fixed shape per layer name.</li>
+  particular LGA's extracted data. Any code consuming this return value
+  needs to check the type, not assume a fixed shape per layer name.</li>
 <li><strong><code>_geom_categories_present()</code>'s <code>"other"</code> fallback is silent.</strong> A
   geometry type outside the six mapped ones would be grouped as <code>"other"</code>
-  with no warning — worth being aware of if OSM ever returns an unexpected
-  geometry type (e.g. a <code>GeometryCollection</code>) for some tag combination.</li>
+  with no warning.</li>
 <li><strong>Empty-subset skip inside the split loop is a real (if rare) edge case.</strong>
-  Step 2f's <code>if subset.empty: continue</code> guards against a category appearing
-  in <code>categories</code> (from the unique-values pass) but then producing zero rows
-  when filtered — this shouldn't normally happen given how <code>categories</code> is
-  derived, but the check is there defensively.</li>
+  The <code>if subset.empty: continue</code> guard inside the per-category split path
+  handles a category appearing in <code>categories</code> but then producing zero rows
+  when filtered — shouldn't normally happen, but defensive.</li>
 </ul>
 
 
