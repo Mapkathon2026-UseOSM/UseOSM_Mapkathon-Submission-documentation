@@ -1,16 +1,32 @@
 # clean.py
 
 !!! info "Source"
-    `lga_extractor/clean.py` (264 lines)
+    `lga_extractor/clean.py` (375 lines — grew from 264 with the addition
+    of a richer per-layer attribute schema, see below)
 
 ## Purpose
 
 Takes the raw layers produced by [`layers.py`](layers.md) and turns them
 into a consistent, analysis-ready form: correct metric projection, valid
-non-duplicate geometries, a predictable minimal attribute schema across
-every layer and every LGA run — and, critically, a single uniform geometry
-*type* per layer, even when OSM itself mixed types for the same kind of
-real-world feature.
+non-duplicate geometries, a predictable attribute schema across every layer
+and every LGA run — and, critically, a single uniform geometry *type* per
+layer, even when OSM itself mixed types for the same kind of real-world
+feature.
+
+**This revision substantially changes what "predictable attribute schema"
+means.** Previously, cleaning reduced every layer to exactly three columns
+(`osmid`, `name`, `geometry`), discarding every other OSM tag unconditionally
+— simple and predictable, but it meant this extractor's output was only
+ever useful for this project's own accessibility-scoring purposes, since
+any other downstream consumer needing, say, a road's surface type or a
+hospital's bed count had nothing to work with. This revision preserves a
+curated, per-layer set of semantic OSM tags on top of the original minimal
+schema, plus a full JSON-encoded escape hatch for everything else — see
+`SEMANTIC_COLUMNS` and `RAW_TAGS_COLUMN` below. See the module's design
+review framing, quoted directly in the source: previously "every OSM
+attribute except osmid/name/geometry" was discarded; this fix means the
+extractor's output is now "genuinely reusable beyond this project's specific
+accessibility-scoring use case."
 
 This module is the architectural center of the repository. `boundary.py`
 imports from it (for area-check projection); `export.py` and `visualize.py`
@@ -21,10 +37,16 @@ issue found in the wider Map<>kathon 2026 project (see
 
 ## Dependencies
 
-- **Imports:** `geopandas` only.
+- **Imports:** `geopandas`, `json` (new — for `RAW_TAGS_COLUMN` encoding, see
+  `_row_tags_to_json()` below).
 - **Imported by:** `pipeline.py` (third stage, after `layers.extract_layers()`);
   `boundary.py` (imports `resolve_target_crs()` only, locally, for its area
-  sanity check — see [`boundary.md`](boundary.md)).
+  sanity check — see [`boundary.md`](boundary.md)); `export.py` (imports
+  `CORE_COLUMNS` and `RAW_TAGS_COLUMN` — new — to know which columns are
+  safe to write to Shapefile, see [`export.md`](export.md)); `akure_access.
+  facility_classification` (new, dashboard repo — reads the semantic
+  `amenity`/`healthcare`/`isced:level`/`school` columns this module now
+  preserves, see [`facility_classification.md`](../../akure-accessibility-dashboard/modules/facility_classification.md)).
 
 ## Functions & Classes
 
@@ -33,8 +55,45 @@ issue found in the wider Map<>kathon 2026 project (see
 | Constant | Value | Purpose |
 |---|---|---|
 | `FALLBACK_CRS` | `"EPSG:32631"` | UTM Zone 31N — correct for Southwest Nigeria (Ondo State) specifically. Used only when no boundary geometry is available to auto-select a zone from. **Not** universally correct across Nigeria. |
-| `KEEP_COLUMNS` | `["osmid", "name", "geometry"]` | The minimal attribute schema every cleaned layer is reduced to, regardless of what extra columns OSM's raw response included. |
+| `CORE_COLUMNS` (renamed from the old `KEEP_COLUMNS`) | `["osmid", "name", "geometry"]` | The minimal attribute schema every cleaned layer *always* has, regardless of layer type or what OSM tags were present. |
+| `KEEP_COLUMNS` (new: backward-compatible alias) | `= CORE_COLUMNS` | Kept pointing at the same list as `CORE_COLUMNS` specifically so any existing caller or test that still imports `KEEP_COLUMNS` directly continues to work unchanged — a rename with a compatibility shim, not a breaking change. |
+| `SEMANTIC_COLUMNS` (new) | `dict`, layer name → list of OSM tag names | The curated, per-layer set of additional OSM attributes preserved on top of `CORE_COLUMNS`, when present in that layer's query results. See dedicated section below. |
+| `RAW_TAGS_COLUMN` (new) | `"raw_tags"` | The name of a new column added to every non-empty layer, holding that feature's *complete* original OSM tag set as a JSON string — the escape hatch for anything not in `SEMANTIC_COLUMNS`. See dedicated section below. |
+| `_NON_TAG_COLUMNS` (new, private) | `{"geometry", "osmid", "name", "element_type", "id", RAW_TAGS_COLUMN}` | Columns excluded when building `RAW_TAGS_COLUMN`'s captured tag set, so it doesn't just re-encode `CORE_COLUMNS`/its own prior value back at itself. |
 | `POINT_LAYERS` | `{"health_facilities", "schools"}` | Layers that downstream consumers (network routing, isochrone snapping, completeness nearest-neighbor checks) require as Point geometries, and therefore get polygon-to-centroid collapse applied. |
+
+## New in this revision: `SEMANTIC_COLUMNS` — a curated, per-layer attribute set
+
+```python
+SEMANTIC_COLUMNS = {
+    "roads": ["highway", "surface", "maxspeed", "lanes", "oneway", "access", "bridge", "tunnel", "ref"],
+    "buildings": ["building", "building:levels", "building:use"],
+    "health_facilities": ["amenity", "healthcare", "beds", "emergency", "operator", "opening_hours"],
+    "schools": ["amenity", "isced:level", "school", "operator"],
+    "waterways": ["waterway", "natural", "water", "intermittent"],
+    "landuse": ["landuse"],
+}
+```
+
+**Why a curated per-layer list, rather than either "keep everything OSM sends" or the old "keep nothing beyond the core three":** OSM tagging is wildly inconsistent feature-to-feature — most features will only ever carry a handful of these tags, and a "keep everything" approach would produce a different, unpredictable column set for every single LGA export (whatever tags happened to appear in that particular query's results), defeating the "predictable schema" goal this module exists for in the first place. `SEMANTIC_COLUMNS` is a deliberate, curated middle ground: a fixed, known set of the *most generally useful* tags per layer type — a road's surface/maxspeed/oneway status, a hospital's emergency/beds/operator — chosen because they're exactly the kind of attribute a real downstream consumer (a routing algorithm caring about `oneway`, a planner caring about hospital `beds`) would actually need, not because they're exhaustive. **Only whichever of a layer's semantic columns are actually present in a given query's results get kept** — the list is a ceiling, not a guarantee every column will exist for every LGA.
+
+## New in this revision: `RAW_TAGS_COLUMN` — the escape hatch
+
+**The problem `SEMANTIC_COLUMNS` alone doesn't solve:** no fixed, curated subset can anticipate every future downstream consumer's needs. A consumer that needs a tag not in the curated list (say, a school's `addr:street`, not currently in `SEMANTIC_COLUMNS["schools"]`) would otherwise have no way to recover it short of re-querying OSM from scratch.
+
+**The fix:** every non-empty layer gets a `raw_tags` column holding that feature's *complete* original OSM tag set (everything except the columns in `_NON_TAG_COLUMNS`), JSON-encoded into a single string, captured via the new `_row_tags_to_json()` helper (see below) — captured *before* any column trimming happens, so nothing is lost between the raw query result and this column, even columns that don't survive into `SEMANTIC_COLUMNS` or `CORE_COLUMNS`.
+
+### `_row_tags_to_json(row)` (private, new)
+
+**What it does:** JSON-encodes one feature's non-null OSM tag values (everything in the row except `_NON_TAG_COLUMNS`) into a single string, for `RAW_TAGS_COLUMN`.
+
+**Why it needs its own function rather than a bare `json.dumps(dict(row))`:** not every value pandas/GeoPandas hands back is natively JSON-serializable — `NaN` (a float that fails `json.dumps` in some contexts and needs explicit filtering, since `value != value` is the standard NaN self-inequality check used here rather than `pd.isna()`, avoiding an extra import for one check), numpy scalar types, or nested lists OSMnx sometimes returns for multi-valued tags. Rather than letting any of these raise partway through encoding a whole layer, each value is tried through `json.dumps(value)` individually; anything that fails is coerced to `str(value)` instead. **The design intent, stated in the source:** this column's job is to *preserve information for a human or downstream parser to read*, not to round-trip perfectly-typed Python objects — a `str()`-coerced fallback that a reader can still make sense of is strictly better than the whole layer's cleaning step raising because one feature had one awkward tag value.
+
+**`NaN`/`None` values are skipped entirely, not encoded as null** — a tag the feature doesn't have shouldn't appear in its `raw_tags` JSON at all, keeping the JSON blob's size proportional to how much real information a feature actually carries, not padded with every possible tag name set to `null`.
+
+## Why the richer schema needed a coordinated change in `export.py`
+
+Worth flagging here even though it's `export.py`'s own concern (see [`export.md`](export.md#new-in-this-revision-_shapefile_safe_columnsgdf-private) for the full detail): Shapefile's DBF format truncates field names to 10 characters and has no sensible representation for a JSON blob, so `export.export_layers()` was updated in lockstep to write the full `CORE_COLUMNS` + `SEMANTIC_COLUMNS` + `RAW_TAGS_COLUMN` schema to **GeoJSON only**, while Shapefile output deliberately stays at the original minimal `CORE_COLUMNS`-only schema — a Shapefile consumer written against this extractor's *old* output continues to work identically; only GeoJSON consumers see the richer schema.
 
 ### `utm_epsg_for_longitude(longitude, latitude=0.0)`
 
@@ -70,30 +129,31 @@ issue found in the wider Map<>kathon 2026 project (see
 |---|---|
 | **What it does** | Cleans every layer in `layers_dict` (as returned by `layers.extract_layers()`) using a shared target CRS resolved once for the whole batch. |
 | **Why written this way** | Resolving the target CRS *once*, outside the per-layer loop, rather than inside `_clean_single_layer()` per call, guarantees every layer from the same extraction run ends up in the *same* projection — essential, since downstream consumers (`akure_access`) need roads, buildings, and facilities to all align in one coordinate space for routing and spatial joins to work correctly. |
-| **Inputs** | `layers_dict: dict` (layer_name → raw `GeoDataFrame`, may include a `"_warnings"` key); `boundary_gdf`, optional (passed straight through to `resolve_target_crs()`). |
-| **Outputs** | `dict`, layer_name → cleaned `GeoDataFrame`, all in the same resolved target CRS. The `"_warnings"` entry, if present, is passed through completely unchanged — cleaning doesn't inspect or alter extraction warnings. |
-| **Internal workflow** | 1. Resolve `target_crs` once via `resolve_target_crs(boundary_gdf)`.<br>2. Iterate `layers_dict.items()`: pass `"_warnings"` through unchanged; for every real layer, call `_clean_single_layer(gdf, target_crs, collapse_to_point=(layer_name in POINT_LAYERS))`.<br>3. Return the new dict. |
-| **Assumptions** | Assumes `layers_dict`'s keys match the same layer names `POINT_LAYERS` expects (`"health_facilities"`, `"schools"`) — a custom `tag_config` passed to `extract_layers()` with different layer names for facilities would silently *not* get point-collapse treatment, since the membership check is purely string-based. |
+| **Inputs** | `layers_dict: dict` (layer_name → raw `GeoDataFrame`, may include `"_warnings"` and, **new**, `"_status"` keys — see [`layers.md`](layers.md#extract_layersboundary_gdf-tag_confignone-strictfalse-on_eventnone)); `boundary_gdf`, optional (passed straight through to `resolve_target_crs()`). |
+| **Outputs** | `dict`, layer_name → cleaned `GeoDataFrame`, all in the same resolved target CRS. **Both** `"_warnings"` and `"_status"` entries, if present, are passed through completely unchanged — cleaning doesn't inspect or alter extraction warnings or the structured status dict. |
+| **Internal workflow** | 1. Resolve `target_crs` once via `resolve_target_crs(boundary_gdf)`.<br>2. Iterate `layers_dict.items()`: pass `"_warnings"` and `"_status"` through unchanged (`if layer_name in ("_warnings", "_status")`, new — previously only checked `"_warnings"`); for every real layer, call `_clean_single_layer(gdf, target_crs, collapse_to_point=(layer_name in POINT_LAYERS), layer_name=layer_name)` — the new `layer_name` argument is what lets `_clean_single_layer()` look up the right entry in `SEMANTIC_COLUMNS`.<br>3. Return the new dict. |
+| **Assumptions** | Assumes `layers_dict`'s keys match the same layer names `POINT_LAYERS` and `SEMANTIC_COLUMNS` expect (`"health_facilities"`, `"schools"`, etc.) — a custom `tag_config` passed to `extract_layers()` with different layer names would silently *not* get point-collapse treatment or any semantic-column preservation, since both membership checks are purely string-based against these two independently-maintained dicts. |
 | **Complexity** | O(L × N) where L = number of layers, N = average features per layer — dominated by `_clean_single_layer()`'s per-row operations (see below). |
 | **Concurrency / race conditions** | None — sequential loop, no threading (unlike `layers.py`). |
-| **Covered by test(s)** | See [tests.md](../tests.md) — `test_clean_layers_reprojects_and_dedupes`, `test_clean_layers_standard_schema`, `test_clean_layers_uses_boundary_to_select_crs`. |
+| **Covered by test(s)** | See [tests.md](../tests.md) — `test_clean_layers_reprojects_and_dedupes`, `test_clean_layers_standard_schema`, `test_clean_layers_uses_boundary_to_select_crs`, plus new: `test_clean_layers_preserves_semantic_columns_when_present`, `test_clean_layers_semantic_columns_are_layer_specific`, `test_clean_layers_raw_tags_preserves_everything_as_json`. |
 
-### `_clean_single_layer(gdf, target_crs=FALLBACK_CRS, collapse_to_point=False)`
+### `_clean_single_layer(gdf, target_crs=FALLBACK_CRS, collapse_to_point=False, layer_name=None)`
 
 The actual per-layer cleaning logic — no docstring in source, but the steps
-are individually commented.
+are individually commented. **New parameter:** `layer_name`, used to look up
+this layer's entry in `SEMANTIC_COLUMNS`.
 
 | | |
 |---|---|
-| **What it does** | Runs one `GeoDataFrame` through the full cleaning sequence: drop null/empty geometry, repair invalid geometry, normalize the index, standardize `osmid`/`name` columns, drop duplicate geometries, reproject, optionally collapse polygons to points, reduce to the minimal schema. |
-| **Why written this way** | Each step exists because raw OSMnx output is inconsistent in a specific, observed way (see internal workflow below for what each step is defending against). The **order** of steps is deliberate and load-bearing, in particular: geometry repair happens before duplicate-dropping (so an invalid geometry that would otherwise compare unequal to its valid counterpart doesn't create a spurious "duplicate"); reprojection happens before the point-collapse step (centroids computed in a geographic/lat-lon CRS are measurably distorted compared to a projected metric CRS — the same reasoning applied elsewhere to grid-cell centroids in `akure_access.accessibility.scoring.add_access_times()`). |
-| **Inputs** | `gdf: GeoDataFrame` (one raw layer); `target_crs: str`, default `FALLBACK_CRS`; `collapse_to_point: bool`, default `False`. |
-| **Outputs** | Cleaned `GeoDataFrame`, columns reduced to whichever of `KEEP_COLUMNS` are present, reprojected to `target_crs`, index reset to a clean `RangeIndex`. Returns the input unchanged (short-circuit) if it was already empty. |
-| **Internal workflow** | 1. Short-circuit: if `gdf.empty`, return it as-is — no point running the rest of the pipeline on nothing.<br>2. Copy the input (avoid mutating the caller's `GeoDataFrame`).<br>3. Drop rows with null geometry, then drop rows with empty geometry (two separate filters, since a "null" geometry and an "empty but present" geometry, e.g. an empty `Polygon`, are different states in Shapely/GeoPandas). Short-circuit again if this emptied the frame.<br>4. Repair invalid geometries via the common `geom.buffer(0)` trick, applied only to geometries that fail `.is_valid` (leaves already-valid geometries untouched, avoiding unnecessary computation).<br>5. Reset the index if it's a `MultiIndex` — OSMnx commonly returns results indexed by `(element_type, osmid)`, which is inconvenient for downstream row-wise operations; this flattens it back into regular columns.<br>6. Standardize an `osmid` column: if one doesn't already exist, look for any column whose name contains `"id"` (case-insensitive) and use that; if none exists at all, fall back to a plain `range(len(gdf))` sequential ID.<br>7. Standardize a `name` column similarly, defaulting to `None` if absent — guarantees every cleaned layer has a `name` column to select, even for layers (like `waterways`) where most features are unnamed.<br>8. Drop duplicate rows based on geometry only (`subset="geometry"`) — two features with identical geometry but different attributes are still considered duplicates here.<br>9. Reproject: tag as EPSG:4326 first if no CRS is set (OSM data is implicitly WGS84), then reproject to `target_crs`.<br>10. If `collapse_to_point=True` (only for `POINT_LAYERS`), call `_collapse_areas_to_points(gdf)` — see below.<br>11. Reduce to `KEEP_COLUMNS`, keeping only whichever of `osmid`/`name`/`geometry` are actually present.<br>12. Return with a reset, clean `RangeIndex`. |
-| **Assumptions** | The `osmid` fallback (step 6) assumes that if no column literally contains the substring `"id"`, a synthetic sequential ID is an acceptable substitute — this loses any real traceability back to the original OSM element for that layer, silently. The `.buffer(0)` repair trick (step 4) is a widely-used but imperfect fix for invalid geometries; it can occasionally alter a geometry's shape slightly rather than perfectly "fixing" it, this is a known trade-off, not something this function detects or reports. |
-| **Complexity** | O(N) in the number of features in the layer for the filtering/column steps; the `.buffer(0)` repair and centroid computation are each O(V) in vertex count per affected geometry, so worst case O(N·V̄) where V̄ is average vertex count, for layers with many invalid or area geometries. |
+| **What it does** | Runs one `GeoDataFrame` through the full cleaning sequence: drop null/empty geometry, repair invalid geometry, normalize the index, standardize `osmid`/`name` columns, **capture the full original tag set as JSON (new)**, drop duplicate geometries, reproject, optionally collapse polygons to points, reduce to `CORE_COLUMNS` + this layer's present `SEMANTIC_COLUMNS` + `RAW_TAGS_COLUMN` (changed — previously just `KEEP_COLUMNS`). |
+| **Why written this way** | Each step exists because raw OSMnx output is inconsistent in a specific, observed way (see internal workflow below for what each step is defending against). The **order** of steps is deliberate and load-bearing, in particular: geometry repair happens before duplicate-dropping; reprojection happens before the point-collapse step; and **the raw-tags capture happens before any column trimming** (new) — capturing the complete tag set right after `osmid`/`name` standardization but before `SEMANTIC_COLUMNS` filtering or the final column-reduction step means `RAW_TAGS_COLUMN` genuinely holds everything the query returned for that feature, not a subset already narrowed by an earlier trimming step. |
+| **Inputs** | `gdf: GeoDataFrame` (one raw layer); `target_crs: str`, default `FALLBACK_CRS`; `collapse_to_point: bool`, default `False`; `layer_name: str`, default `None` (new — used only to look up `SEMANTIC_COLUMNS.get(layer_name, [])`; a `None` or unrecognized layer name simply means no semantic columns are added on top of `CORE_COLUMNS` + `RAW_TAGS_COLUMN`, not an error). |
+| **Outputs** | Cleaned `GeoDataFrame`. Columns: always `CORE_COLUMNS` (`osmid`/`name`/`geometry`), plus whichever of this layer's `SEMANTIC_COLUMNS` entries are actually present in the data, plus `RAW_TAGS_COLUMN` — de-duplicated while preserving order (`list(dict.fromkeys(keep))`, guarding against the unlikely case of a semantic column name colliding with a core column name), reprojected to `target_crs`, index reset to a clean `RangeIndex`. Returns the input unchanged (short-circuit) if it was already empty. |
+| **Internal workflow** | 1. Short-circuit: if `gdf.empty`, return it as-is.<br>2. Copy the input.<br>3. Drop rows with null geometry, then empty geometry. Short-circuit again if this emptied the frame.<br>4. Repair invalid geometries via `.buffer(0)`, applied only where `.is_valid` fails.<br>5. Reset the index if it's a `MultiIndex`.<br>6. Standardize `osmid` (existing column, any column containing `"id"`, or a synthetic `range()`).<br>7. Standardize `name`, defaulting to `None`.<br>8. **New:** capture `RAW_TAGS_COLUMN` — `tag_columns = [c for c in gdf.columns if c not in _NON_TAG_COLUMNS]`, then `gdf[RAW_TAGS_COLUMN] = gdf[tag_columns].apply(_row_tags_to_json, axis=1)` — every remaining original column, JSON-encoded per row, captured *before* any trimming below.<br>9. Drop duplicate rows based on geometry only.<br>10. Reproject: WGS84 tag if unset, then reproject to `target_crs`.<br>11. If `collapse_to_point=True`, call `_collapse_areas_to_points(gdf)`.<br>12. **Changed:** build the keep-list as `CORE_COLUMNS + [semantic columns present] + [RAW_TAGS_COLUMN]`, de-duplicated, and reduce to it — previously just `KEEP_COLUMNS`.<br>13. Return with a reset `RangeIndex`. |
+| **Assumptions** | The `osmid` fallback assumes a column containing `"id"` is an acceptable substitute for a real OSM ID — unchanged from before. The `.buffer(0)` repair trick is a widely-used but imperfect fix, unchanged from before. **New:** assumes `SEMANTIC_COLUMNS.get(layer_name, [])`'s curated list stays reasonably in sync with what OSM tagging conventions actually use for each layer type — a tag not in the curated list is still recoverable via `RAW_TAGS_COLUMN`, so this assumption is lower-stakes than it would be without that escape hatch. |
+| **Complexity** | O(N) in the number of features for the filtering/column steps, unchanged. The new `RAW_TAGS_COLUMN` capture step is an additional O(N × C) pass (C = number of remaining tag columns per row) via `.apply(..., axis=1)` — a row-wise apply, which is slower per-row than a fully vectorized operation, but bounded by a typically small column count per layer, so not a significant cost relative to the geometry operations. |
 | **Concurrency / race conditions** | None — called sequentially from `clean_layers()`'s loop. |
-| **Covered by test(s)** | See [tests.md](../tests.md) — exercised indirectly through `test_clean_layers_reprojects_and_dedupes` and `test_clean_layers_standard_schema`, both of which call `clean_layers()` (this function's only caller) and check its output. |
+| **Covered by test(s)** | See [tests.md](../tests.md) — exercised indirectly through `test_clean_layers_reprojects_and_dedupes` and `test_clean_layers_standard_schema`, plus new: `test_clean_layers_preserves_semantic_columns_when_present`, `test_clean_layers_semantic_columns_are_layer_specific`, `test_clean_layers_raw_tags_preserves_everything_as_json`. |
 
 ### `_collapse_areas_to_points(gdf)`
 
@@ -123,19 +183,20 @@ flowchart TD
     C -- no / error --> E["print warning → FALLBACK_CRS (EPSG:32631)"]
     D --> F
     E --> F["for each layer_name, gdf in layers_dict:"]
-    F --> G{layer_name == '_warnings'?}
+    F --> G{"layer_name in ('_warnings', '_status')?"}
     G -- yes --> H["pass through unchanged"]
-    G -- no --> I["_clean_single_layer(gdf, target_crs, collapse_to_point = layer in POINT_LAYERS)"]
+    G -- no --> I["_clean_single_layer(gdf, target_crs,<br/>collapse_to_point = layer in POINT_LAYERS,<br/>layer_name = layer_name)"]
     I --> J["drop null/empty geometries"]
     J --> K["repair invalid geometries: buffer(0)"]
     K --> L["flatten MultiIndex if present"]
     L --> M["standardize osmid / name columns"]
-    M --> N["drop duplicate geometries"]
+    M --> M2["capture RAW_TAGS_COLUMN: full original tags → JSON per row"]
+    M2 --> N["drop duplicate geometries"]
     N --> O["reproject to target_crs"]
     O --> P{collapse_to_point?}
     P -- yes --> Q["_collapse_areas_to_points:<br/>Polygon/MultiPolygon → centroid"]
     P -- no --> R
-    Q --> R["trim to KEEP_COLUMNS, reset index"]
+    Q --> R["keep = CORE_COLUMNS + present SEMANTIC_COLUMNS[layer_name] + RAW_TAGS_COLUMN<br/>trim to keep, reset index"]
     R --> S["cleaned[layer_name] = result"]
     H --> S
     S --> T["return cleaned dict"]
@@ -143,13 +204,24 @@ flowchart TD
 
 ## Gotchas
 
-- **`POINT_LAYERS` membership is a hardcoded string set, not driven by
-  configuration.** If a caller extends `DEFAULT_TAG_CONFIG` (in `layers.py`)
-  with a new facility-type layer that should also be point-normalized (e.g.
-  a custom `"markets"` layer), it must also be manually added to
-  `POINT_LAYERS` in `clean.py` — there's no single place that couples "this
-  is a facility type" to "this needs point-collapse," so the two dictionaries
-  can silently drift out of sync.
+- **`SEMANTIC_COLUMNS` and `POINT_LAYERS` are two independently-hardcoded
+  dicts, and a custom `tag_config` can silently miss both.** If a caller
+  extends `DEFAULT_TAG_CONFIG` (in `layers.py`) with a new layer — say,
+  `"markets"` — that layer will get **no** semantic-column treatment (falls
+  back to `CORE_COLUMNS` + `RAW_TAGS_COLUMN` only) and **no** point-collapse
+  treatment, unless `SEMANTIC_COLUMNS` and `POINT_LAYERS` are *both*
+  separately, manually updated to know about it. There's no single place
+  that couples "this is a new layer type" to "here's how to treat it," so
+  these can drift out of sync with `DEFAULT_TAG_CONFIG` — this was already
+  true of `POINT_LAYERS` before this revision; `SEMANTIC_COLUMNS` inherits
+  the identical risk.
+- **`RAW_TAGS_COLUMN` makes GeoJSON exports meaningfully larger.** Every
+  non-empty feature now carries a JSON-encoded copy of its full original tag
+  set, in addition to the curated semantic columns — for a dense layer (e.g.
+  `roads` in an urban LGA), this can noticeably increase the exported
+  GeoJSON's file size compared to the pre-revision minimal schema. Shapefile
+  exports are unaffected (see `export.py`'s coordinated change, linked
+  above) — only GeoJSON consumers see this size increase.
 - **`resolve_target_crs()`'s fallback warnings only print to stdout.** In an
   automated/CI context, or when running many LGAs in a batch, these warnings
   are easy to miss if stdout isn't being actively monitored — there's no
@@ -159,4 +231,6 @@ flowchart TD
   geometry (e.g. a data-entry artifact) but genuinely different `name`/`osmid`
   attributes are still merged into one row by `drop_duplicates(subset="geometry")`
   — whichever row pandas keeps first wins, the other's attributes are lost
-  silently.
+  silently. **New consideration:** the two rows' `raw_tags` may also differ
+  meaningfully (e.g. one copy has richer tagging than the other), and that
+  richer information is lost the same way, silently, along with the rest.

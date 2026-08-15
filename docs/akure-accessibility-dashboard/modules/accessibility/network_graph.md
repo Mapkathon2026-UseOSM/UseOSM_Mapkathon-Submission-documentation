@@ -1,7 +1,9 @@
 # network_graph.py
 
 !!! info "Source"
-    `akure_access/accessibility/network_graph.py` (156 lines)
+    `akure_access/accessibility/network_graph.py` (185 lines — grew from
+    156 with the addition of the `source` parameter, endpoint snapping,
+    and config-driven constants, see below)
 
 ## Purpose
 
@@ -11,146 +13,260 @@ on top of. Every isochrone computation and nearest-facility distance/time
 lookup in [`isochrones.py`](isochrones.md) operates on a graph produced
 here.
 
-This is the first module in `akure-accessibility-dashboard` to consume
-output from the upstream `lga-osm-extractor` repo — its `roads_gdf`
-parameter expects exactly the cleaned roads layer `lga_extractor.clean`
-produces (see [Cross-Repo Integration](../../../cross-repo/integration.md)).
+This is the module most consequentially reworked in this revision, and the
+change is a genuine **reversal of which construction path is the default**
+— worth understanding in detail, since it changes which path a caller gets
+without any argument change on their part.
 
-## Dependencies
+## The reversal: `roads_gdf` is now the default, live OSM is now explicit opt-in
 
-- **Imports:** `geopandas`, `networkx`, `osmnx`.
-- **Imported by:** [`isochrones.py`](isochrones.md) (which builds on graphs
-  from this module), `dashboard/app.py`.
+**Before this revision:** supplying `boundary_polygon` selected the
+"recommended default" path (a live `osmnx.graph_from_polygon()` query);
+`roads_gdf`-only construction was the fallback, used only when no boundary
+was available, and was documented as *less robust* than the OSMnx path.
 
-## Functions & Classes
+**In this revision, that recommendation is inverted.** The module's own
+docstring states the new default plainly: *"roads_gdf... is the DEFAULT
+path whenever `roads_gdf` is non-empty, because it guarantees the graph
+matches exactly the same roads that were extracted, validated and
+versioned upstream — reproducibility of the whole pipeline depends on the
+dashboard not silently re-querying OSM with different results at analysis
+time."* Live OSM querying is now named `"live_osm"` and treated as *"an
+explicit opt-in 'refresh' mode, not the default, so that a dashboard run
+is reproducible from the extractor's exported files without requiring live
+internet access to OSM."*
 
-### `WALKING_SPEED_KPH` (module-level constant, `5.0`)
+**Why this matters beyond just "which default changed":** it's a
+philosophical shift in what this module optimizes for. The previous
+revision prioritized routing *fidelity* (OSMnx's proper topology handling,
+correct walk/drive network differentiation) as the default, accepting a
+live-network dependency as the cost. This revision prioritizes
+*reproducibility* — the same `roads_gdf` input, read from the extractor's
+versioned, cached export, now always produces the same graph, with no
+dependency on OSM's live state at analysis time, or on network access being
+available at all. The previous revision's fidelity advantage for the
+`roads_gdf` path (no walk/drive differentiation) hasn't gone away — see
+Gotchas — but it's now the accepted cost of the *default* path, not the
+fallback path.
 
-Kept explicitly for backward compatibility — the module comment notes this
-exists only so any code still importing `WALKING_SPEED_KPH` directly (rather
-than reading `MODE_CONFIG["walk"]["speed_kph"]`) continues to work. The
-*actual* speed used by `graph_from_roads()` is read from `MODE_CONFIG`, not
-this constant.
-
-### `MODE_CONFIG` (module-level dict)
+## New: the `source` parameter
 
 ```python
-{
-    "walk":  {"network_type": "walk",  "speed_kph": 5.0},
-    "okada": {"network_type": "drive", "speed_kph": 25.0},
-    "drive": {"network_type": "drive", "speed_kph": 35.0},
-}
+VALID_SOURCES = ("auto", "roads_gdf", "live_osm")
 ```
 
-The one entry worth explaining is `"okada"` (commercial motorcycle taxis, a
-common transport mode in Nigeria): it's modeled on OSM's `"drive"` network
-type, **not** a distinct motorcycle network — OSM has no separate motorcycle
-network classification, and in practice okadas use the same road network
-cars do. What differentiates it is a lower assumed average speed (25 km/h
-vs. 35 km/h for cars), reflecting local traffic conditions and okada riding
-behavior (weaving through traffic, using narrower roads a car might avoid).
-The module is explicit that these speed figures are approximations, not
-measured data — see [Known Issues](../../../reference/known-issues.md) for
-the broader methodology-limitations context, and any caller can override
-the assumption via `graph_from_roads()`'s `speed_kph` parameter.
+`graph_from_roads(..., source="auto")` — three explicit modes, replacing
+the previous implicit "boundary given → path 1, else → path 2" branching:
 
-### `graph_from_roads(roads_gdf, boundary_polygon=None, mode="walk", speed_kph=None)`
+- **`"auto"` (default):** use `roads_gdf` if it's non-empty; otherwise fall
+  back to `boundary_polygon` (a live OSM query) if one was supplied;
+  otherwise raise `ValueError` — there's nothing to build a graph from.
+- **`"roads_gdf"`:** force the versioned-dataset path explicitly. Raises
+  `ValueError` if `roads_gdf` is empty or `None` — a caller asking for this
+  path specifically wants an error if it can't be honored, not a silent
+  fallback to something else.
+- **`"live_osm"`:** force a live OSM query explicitly. Raises `ValueError`
+  if `boundary_polygon` wasn't supplied. This is the path a caller
+  deliberately reaches for when they specifically want a fresh, current
+  view of OSM data rather than the extractor's cached snapshot — e.g.
+  checking whether OSM coverage has improved for an LGA since the last
+  extraction run.
 
-| | |
-|---|---|
-| **What it does** | Builds a routable `networkx.MultiDiGraph` for the requested mode, with `length` (meters) and `travel_time_min` (minutes) attributes on every edge, via one of two construction paths depending on whether a boundary polygon is supplied. |
-| **Why written this way** | The two-path design directly trades off robustness against consistency-with-extracted-data. **Path 1** (boundary polygon given, the recommended default): delegates entirely to `osmnx.graph_from_polygon()`, which OSMnx handles correctly — proper topology cleanup, connected-component handling, standard OSM network typing. **Path 2** (`roads_gdf` only, no boundary): builds a graph directly from the exact roads geometries `lga_extractor` already extracted and versioned on disk, useful specifically when guaranteeing the routing graph matches precisely what was extracted matters more than routing correctness — e.g. reproducibility, or auditing what a specific archived extraction actually contains. The documented cost of path 2: it can't distinguish walk-only paths from vehicle roads (that distinction lives in OSM's tag-based network typing, which the extractor's plain roads layer doesn't preserve), so `mode="walk"` and `mode="drive"` produce the *same underlying graph* when built this way, differing only in the assumed speed used to compute `travel_time_min` — not in which edges exist. |
-| **Inputs** | `roads_gdf: GeoDataFrame` (cleaned roads layer in EPSG:32631, as produced by `lga_extractor.clean.clean_layers()` — required for path 2, optional/unused-for-topology in path 1); `boundary_polygon` (Shapely polygon in EPSG:4326, optional — presence of this argument is what selects path 1 vs. path 2); `mode: str`, default `"walk"` (one of `"walk"`/`"okada"`/`"drive"`); `speed_kph: float`, optional (overrides `MODE_CONFIG`'s default speed for the chosen mode). |
-| **Outputs** | `networkx.MultiDiGraph` with `length`/`travel_time_min` edge attributes, plus graph-level attributes `mode` and `speed_kph` recording how it was built. |
-| **Internal workflow** | 1. Validate `mode` is a known key in `MODE_CONFIG`, raise `ValueError` listing valid options if not.<br>2. Resolve `effective_speed`: the explicit `speed_kph` argument if given, otherwise `MODE_CONFIG[mode]["speed_kph"]`.<br>3. **Path 1** (`boundary_polygon is not None`): call `ox.graph_from_polygon(boundary_polygon, network_type=config["network_type"])`; then call `_has_lengths(G)` to check whether edge lengths are already present — if not, call `ox.distance.add_edge_lengths(G)` to add them. (See Gotchas below on why this check exists at all.)<br>4. **Path 2** (no boundary): call `_graph_from_geometries(roads_gdf)`.<br>5. Regardless of path: call `_assign_travel_times(G, effective_speed)` to populate `travel_time_min` on every edge.<br>6. Set `G.graph["mode"]` and `G.graph["speed_kph"]`.<br>7. Return `G`. |
-| **Assumptions** | Assumes a single fixed average speed per mode is an acceptable simplification — no accounting for road-type-specific speed variation (e.g. an unpaved residential street vs. a paved arterial road, which likely have genuinely different real-world okada speeds), congestion, time-of-day, or road surface quality. This is a deliberate, documented simplification, not an oversight — see the module's own comment pointing to the methodology limitations. |
-| **Complexity** | Path 1: dominated by `ox.graph_from_polygon()`'s own complexity (an Overpass query plus OSMnx's internal graph construction — not controlled by this function). Path 2: O(N·V̄) where N = number of road features, V̄ = average vertices per line — one pass building edges from consecutive coordinate pairs per geometry. `_assign_travel_times()` (called in both paths) is O(E) in edge count. |
-| **Concurrency / race conditions** | None — no threading or shared mutable state; this function is not called concurrently anywhere in the codebase. |
-| **Covered by test(s)** | See [tests.md](../../tests.md) — `test_network_graph.py`. |
+**Both explicit modes fail loudly rather than silently falling back** —
+only `"auto"` has fallback behavior at all. This is a deliberate design
+choice: a caller who explicitly asked for `source="roads_gdf"` and gets
+silently routed to a live OSM query instead (because `roads_gdf` happened
+to be empty) would have no way to know their reproducibility guarantee
+was quietly violated; raising instead makes that impossible.
 
-### `_has_lengths(G)`
+## Constants (now config-driven)
 
-| | |
-|---|---|
-| **What it does** | Returns `True` if every edge in `G` already has a `"length"` attribute. |
-| **Why written this way** | This exists as a defensive fallback, not a normally-triggered code path. The inline comment is explicit about this: `osmnx.graph_from_polygon()` already computes edge lengths internally in both OSMnx 1.x and 2.x, so `_has_lengths(G)` normally short-circuits the fallback (`ox.distance.add_edge_lengths(G)` is skipped). It's kept in case that internal OSMnx behavior ever changes in a future version — cheap insurance rather than a load-bearing code path today. |
-| **Inputs** | `G: MultiDiGraph`. |
-| **Outputs** | `bool`. |
-| **Complexity** | O(E) — one pass over all edges. |
-| **Concurrency / race conditions** | None. |
-| **Covered by test(s)** | No dedicated test — this is a defensive fallback check not normally triggered in practice (OSMnx already computes edge lengths internally), so there's no realistic test scenario that exercises the `False` branch without deliberately constructing a malformed graph. |
+```python
+WALKING_SPEED_KPH = _config["accessibility"]["modes"]["walk"]["speed_kph"]
+MODE_CONFIG = _config["accessibility"]["modes"]
+```
 
-### `_assign_travel_times(G, speed_kph)`
+**Both are now derived from [`config.get_config()`](../config.md)** rather
+than independent hardcoded literals — read once, at import time, into
+plain module-level constants (not functions), specifically so every
+existing caller/import (`from network_graph import MODE_CONFIG`) continues
+to work completely unchanged. See [`config.md`](../config.md) for the full
+migration story and its import-time-snapshot caveat, which applies
+identically here. The actual numeric values are unchanged from before —
+`"okada"` still models on OSM's `"drive"` network type at a lower assumed
+speed (25 km/h vs. 35 km/h for cars), for the same reasons as before (see
+[Known Issues](../../../reference/known-issues.md)).
 
-| | |
-|---|---|
-| **What it does** | Mutates `G` in place, adding a `travel_time_min` attribute to every edge, computed from that edge's `length` and the given speed. |
-| **Why written this way** | A simple unit conversion (meters and km/h into minutes) applied uniformly across every edge — the function itself carries no per-road-type logic, keeping the mode/speed assumption entirely in `MODE_CONFIG` (or the caller's override) as the single place that assumption lives. |
-| **Inputs** | `G: MultiDiGraph` (mutated in place, not returned — the `-> None` return type in the signature reflects this); `speed_kph: float`. |
-| **Outputs** | `None` — side effect only. |
-| **Internal workflow** | 1. Convert `speed_kph` to meters-per-minute: `(speed_kph * 1000) / 60`.<br>2. For every edge, read `length` (defaulting to `0` if somehow missing — a defensive default, since by the time this is called in `graph_from_roads()`, lengths are guaranteed present via `_has_lengths()`/`_graph_from_geometries()`); compute `travel_time_min = length_m / speed_m_per_min`.<br>3. Guard against division by zero: if `speed_m_per_min` is falsy (i.e. `speed_kph == 0`), assign `float("inf")` instead of raising `ZeroDivisionError` — a zero-speed mode is nonsensical but shouldn't crash the pipeline; an infinite travel time correctly signals "unreachable at this speed" to any downstream consumer. |
-| **Assumptions** | Assumes `length` is already in meters (true for both construction paths — OSMnx's `add_edge_lengths()` and `_graph_from_geometries()`'s own Euclidean distance calculation both produce meters, since the graph is built/queried in a projected CRS). |
-| **Complexity** | O(E) — one pass over all edges, each a constant-time computation. |
-| **Concurrency / race conditions** | Mutates the graph object in place. If this were ever called concurrently on the *same* graph object from multiple threads, edge attribute writes could race — not a concern under current usage (always called synchronously, once, immediately after graph construction), but worth flagging for anyone considering parallelizing graph-building across LGAs sharing state. |
-| **Covered by test(s)** | See [tests.md](../../tests.md) — exercised indirectly by `test_graph_from_roads_geometry_fallback_assigns_travel_times` and `test_graph_from_roads_speed_override`, both of which check this function's output (`travel_time_min` edge attributes) rather than calling it directly. |
-
-### `_graph_from_geometries(roads_gdf)`
+## `graph_from_roads(roads_gdf, boundary_polygon=None, mode="walk", speed_kph=None, source="auto")`
 
 | | |
 |---|---|
-| **What it does** | Builds a simple `networkx.MultiGraph` directly from a cleaned roads `GeoDataFrame`'s line geometries, using raw coordinate tuples as node identifiers — the fallback construction path used when no boundary polygon is available. |
-| **Why written this way — and why the `x`/`y` node attributes matter more than they look.** | This is explicitly documented as *less robust* than OSMnx's own graph construction (no topology cleanup — e.g. two roads that visually cross but don't share an OSM-tagged intersection node won't be connected in this graph, whereas OSMnx's Overpass-based construction handles this correctly), intended only as a consistency fallback, not a routing-quality-first choice. The critical detail: **every node is given explicit `x`/`y` attributes matching its coordinate tuple**, not just relying on the node key itself (which is *also* the coordinate tuple). This duplication exists for [`isochrones.nearest_graph_node()`](isochrones.md)'s benefit — that function reads `node['x']`/`node['y']` attributes specifically, not the node key. **A precise note on which nearest-node lookup is actually involved here**: `isochrones.nearest_graph_node()` does *not* call `osmnx.distance.nearest_nodes()` — it deliberately replaces it with a custom `scipy.spatial.cKDTree` built directly over these `x`/`y` attributes, specifically *because* OSMnx's own nearest-node function assumes OSMnx's internal graph conventions (integer node IDs) and doesn't work reliably against this fallback graph's coordinate-tuple node IDs. This module's own docstring mentions `osmnx.distance.nearest_nodes()` in explaining *why* the `x`/`y` attributes matter, which can read as if that function is what's actually called — it isn't; see [`isochrones.md`](isochrones.md#nearest_graph_nodeg-point) for the real mechanism. Without explicitly setting these `x`/`y` attributes, the KD-tree-based lookup against a fallback-path graph would silently fail — not raise an error, just silently return nothing useful — and every downstream distance/time computation would come back as `inf`, with no obvious signal pointing at why. This is the kind of failure mode that's easy to reintroduce accidentally in a future edit and hard to notice without dedicated test coverage. |
-| **Inputs** | `roads_gdf: GeoDataFrame` (cleaned roads layer). |
-| **Outputs** | `networkx.MultiGraph` (undirected — note this differs from path 1's `MultiDiGraph`, see Gotchas), with a graph-level `crs` attribute (taken from `roads_gdf.crs` if set, else defaulting to `"EPSG:32631"`), and `x`/`y` node attributes as described above. |
-| **Internal workflow** | 1. Create an empty `MultiGraph`, tag its `crs` attribute.<br>2. For each row in `roads_gdf`: skip if geometry is `None` or empty; extract the geometry's coordinate list; for each consecutive coordinate pair `(u, v)` along the line, compute Euclidean distance as `length`, add both endpoints as nodes (with `x`/`y` attributes), add an edge between them carrying `length` and the row's `osmid` (via `.get()`, tolerant of a missing column). |
-| **Assumptions** | Assumes coordinate tuples are a sufficient and stable node identity — two road segments sharing an exact coordinate (a shared vertex) are correctly treated as connected at that point; two segments that are geometrically close but don't share an *exact* coordinate (a common real-world digitizing imprecision in crowd-sourced OSM data) are **not** connected, silently producing a more fragmented, less-routable graph than the true road network. This is the direct, unstated cost of skipping OSMnx's own topology handling. |
-| **Complexity** | O(N·V̄) where N = number of road features, V̄ = average vertices per line geometry — one pass building consecutive-pair edges per line. |
-| **Concurrency / race conditions** | None — sequential row iteration, no shared mutable state beyond the graph being built. |
-| **Covered by test(s)** | See [tests.md](../../tests.md) — this is one of the more important functions here to have direct test coverage on, given the documented `x`/`y` attribute fragility described above. |
+| **What it does** | Builds a routable `networkx.MultiDiGraph` (or, on the `roads_gdf` path, a `MultiGraph` — see Gotchas, unchanged nuance) for the requested mode, resolving which construction path to use per the `source` parameter described above. |
+| **Why written this way** | Validation happens in two stages: `mode` and `source` are checked against their respective valid-value tuples up front (`ValueError` listing valid options on either mismatch); then `effective_source` is resolved from `source` + data availability, with the three-branch logic (`auto` / `roads_gdf` / `live_osm`) described above. Resolving `effective_source` as an explicit local variable, rather than branching on `source` directly further down, means the graph-construction step (path selection) and the later `G.graph["source"] = effective_source` assignment both reference one single, already-validated value. |
+| **New: `G.graph["source"]` records which path actually ran.** | Every returned graph now carries a `"source"` graph-level attribute — `"roads_gdf"` or `"live_osm"` — recording which path was **actually used**, not just what the caller requested (relevant specifically for `source="auto"`, where the effective path depends on data availability, not just the argument value). A caller inspecting an already-built graph can determine its provenance without needing to have tracked the original call arguments themselves. |
+| **Inputs** | `roads_gdf: GeoDataFrame`, now effectively optional (can be `None` or empty when `source="live_osm"` or `source="auto"` with a boundary available) — a real signature/behavior change from the previous revision, where it was a required positional-style argument in practice. `boundary_polygon`, optional. `mode: str`, default `"walk"`. `speed_kph: float`, optional. `source: str`, **new**, default `"auto"`. |
+| **Outputs** | The graph, plus graph-level `mode`, `speed_kph`, and (**new**) `source` attributes. |
+| **Internal workflow** | 1. Validate `mode` against `MODE_CONFIG`.<br>2. Validate `source` against `VALID_SOURCES` (**new**).<br>3. Resolve `effective_speed`.<br>4. Compute `roads_available = roads_gdf is not None and len(roads_gdf) > 0`.<br>5. Resolve `effective_source`: for `"auto"`, prefer `roads_gdf` if available, else `boundary_polygon` if given, else raise; for `"roads_gdf"`, raise if not available; for `"live_osm"`, raise if no boundary.<br>6. If `effective_source == "live_osm"`: call `ox.graph_from_polygon()`, add lengths via `_has_lengths()`/`ox.distance.add_edge_lengths()` as before (unchanged logic, just renamed from "path 1").<br>7. Otherwise (`effective_source == "roads_gdf"`): call `_graph_from_geometries(roads_gdf)` — **now with endpoint snapping, see below**.<br>8. `_assign_travel_times()` (unchanged).<br>9. Set `G.graph["mode"]`, `G.graph["speed_kph"]`, and (**new**) `G.graph["source"]`.<br>10. Return. |
+| **Assumptions** | Unchanged: a single fixed average speed per mode is an acceptable simplification. **New:** assumes a caller who omits `source` (relying on `"auto"`'s default) actually wants the reproducibility-favoring `roads_gdf` path whenever it's viable — this is now baked into the default behavior itself, not just documented as a recommendation. |
+| **Complexity** | Unchanged for the `live_osm` path. The `roads_gdf` path's complexity is now O(N·V̄) plus a small constant-factor overhead per coordinate for the new snapping calculation (see below) — still linear, not a complexity-class change. |
+| **Concurrency / race conditions** | None — unchanged. |
+| **Covered by test(s)** | See [tests.md](../../tests.md) — `test_network_graph.py`, plus new: `test_graph_from_roads_source_auto_prefers_roads_gdf_when_available`, `test_graph_from_roads_source_auto_falls_back_to_live_osm`, `test_graph_from_roads_source_roads_gdf_raises_on_empty_input`, `test_graph_from_roads_source_live_osm_raises_without_boundary`, `test_graph_from_roads_records_effective_source_on_graph`, `test_graph_from_roads_invalid_source_raises`. |
+
+## `_has_lengths(G)` and `_assign_travel_times(G, speed_kph)`
+
+Both **unchanged** from the previous revision — see their existing
+documentation: `_has_lengths()` remains a defensive fallback check rarely
+triggered in practice (OSMnx computes lengths internally already);
+`_assign_travel_times()` remains a straightforward in-place unit
+conversion from `length`/`speed_kph` into `travel_time_min`, with the same
+`inf`-on-zero-speed guard as before.
+
+## New in this revision: endpoint snapping in `_graph_from_geometries(roads_gdf, snap_tolerance_m=0.5)`
+
+This is the second major addition in this module, solving a real,
+previously-undocumented correctness gap in the `roads_gdf` construction
+path.
+
+**The problem, stated directly from the function's own docstring:** two
+road segments that meet at "the same" real-world junction rarely share
+bit-identical coordinates once they've each been through separate OSM
+ways, clipping, and reprojection — a few millimeters of floating-point
+drift is enough to make coordinate-tuple-keyed node identity treat them as
+two *different* nodes, silently splitting the network into disconnected
+components at every such junction. Since the previous revision's
+`_graph_from_geometries()` used raw, unmodified coordinate tuples as node
+keys, this fragmentation was a real, latent risk in every graph built via
+this path — potentially degrading routing quality significantly, in a way
+that wouldn't necessarily be obvious just from inspecting the graph's node
+or edge counts.
+
+**The fix:** every endpoint coordinate is snapped to a `snap_tolerance_m`
+grid (default `0.5` meters — the graph is built in EPSG:32631, so this is
+metres, not degrees) *before* being used as a node key:
+```python
+def _snap(coord):
+    return (
+        round(coord[0] / snap_tolerance_m) * snap_tolerance_m,
+        round(coord[1] / snap_tolerance_m) * snap_tolerance_m,
+    )
+```
+Nearly-coincident endpoints — the same real-world junction, differing only
+by floating-point noise — now collapse onto the identical snapped
+coordinate, and therefore the identical node, recovering the shared-node
+topology a raw coordinate-tuple graph would otherwise lose.
+
+**Why `0.5` metres specifically, and why this makes the `roads_gdf` path a
+genuine substitute for `live_osm`, not just a degraded fallback:** the
+docstring is explicit that 0.5m is chosen to be comfortably below realistic
+OSM/extraction precision loss, while remaining well below the width of an
+actual road — so it recovers genuine shared junctions without ever
+accidentally merging two *distinct* junctions that happen to be close
+together. This tolerance choice is precisely what upgrades this path's
+status from "a fallback with known topology limitations" (the previous
+framing) to "the default, reproducibility-favoring path" (this revision's
+framing) — without it, defaulting to this path would mean defaulting to a
+graph with unknown, silent connectivity gaps.
+
+**Self-loop avoidance:** `if u == v: continue` — after snapping, two
+originally-distinct-but-very-close coordinates within the same line
+segment could, in principle, snap to the identical point; this guard skips
+adding a zero-length self-loop edge for that case, rather than polluting
+the graph with degenerate edges.
+
+**`G.graph["snap_tolerance_m"]` is recorded on the graph itself** — the
+same self-describing-graph pattern already used for `mode`/`speed_kph`/
+`source`, so a consumer inspecting an already-built graph can tell exactly
+what tolerance was used to construct it, without needing that information
+passed alongside the graph object separately.
 
 ## Internal Workflow
 
 ```mermaid
 flowchart TD
-    A["graph_from_roads(roads_gdf, boundary_polygon, mode, speed_kph)"] --> B{mode in MODE_CONFIG?}
+    A["graph_from_roads(roads_gdf, boundary_polygon, mode, speed_kph, source)"] --> B{mode in MODE_CONFIG?}
     B -- no --> C["raise ValueError"]
-    B -- yes --> D["effective_speed = speed_kph or MODE_CONFIG[mode].speed_kph"]
-    D --> E{boundary_polygon given?}
-    E -- yes --> F["ox.graph_from_polygon(boundary_polygon, network_type)"]
-    F --> G{_has_lengths(G)?}
-    G -- no --> H["ox.distance.add_edge_lengths(G)"]
-    G -- yes --> I
-    H --> I
-    E -- no --> J["_graph_from_geometries(roads_gdf):<br/>coordinate-tuple nodes with x/y attrs,<br/>pairwise edges with Euclidean length"]
-    J --> I["_assign_travel_times(G, effective_speed): mutate every edge in place"]
-    I --> K["G.graph['mode'] = mode, G.graph['speed_kph'] = effective_speed"]
-    K --> L["return G"]
+    B -- yes --> D{source in VALID_SOURCES?}
+    D -- no --> C2["raise ValueError"]
+    D -- yes --> E["effective_speed = speed_kph or MODE_CONFIG[mode].speed_kph"]
+    E --> F["roads_available = roads_gdf not None and len > 0"]
+    F --> G{source value?}
+    G -- "auto" --> H{roads_available?}
+    H -- yes --> I["effective_source = 'roads_gdf'"]
+    H -- no --> J{boundary_polygon given?}
+    J -- yes --> K["effective_source = 'live_osm'"]
+    J -- no --> L["raise ValueError: need roads_gdf or boundary_polygon"]
+    G -- "roads_gdf" --> M{roads_available?}
+    M -- no --> N["raise ValueError"]
+    M -- yes --> I
+    G -- "live_osm" --> O{boundary_polygon given?}
+    O -- no --> P["raise ValueError"]
+    O -- yes --> K
+
+    I --> Q["_graph_from_geometries(roads_gdf, snap_tolerance_m=0.5)<br/>NEW: endpoints snapped to 0.5m grid before use as node keys"]
+    K --> R["ox.graph_from_polygon(boundary_polygon, network_type)"]
+    R --> S{_has_lengths(G)?}
+    S -- no --> T["ox.distance.add_edge_lengths(G)"]
+    S -- yes --> U
+    T --> U
+    Q --> U["_assign_travel_times(G, effective_speed): mutate every edge in place"]
+    U --> V["G.graph['mode'], ['speed_kph'], ['source'] = ... (source is NEW)"]
+    V --> W["return G"]
 ```
 
 ## Gotchas
 
-- **Path 1 and Path 2 return different graph types.** `ox.graph_from_polygon()`
-  returns a directed `MultiDiGraph` (edges have direction, reflecting
-  one-way streets and OSM's directional tagging); `_graph_from_geometries()`
-  returns an undirected `MultiGraph`. Both are documented as the function's
-  return type (`nx.MultiDiGraph` in the signature), but path 2's actual
-  runtime type doesn't match that annotation — worth being careful about if
-  writing code that relies on directed-graph-specific behavior (e.g.
-  one-way street handling) downstream, since that behavior silently
-  disappears when the fallback path is used.
-- **`mode="walk"` and `mode="drive"` are identical graphs in Path 2.** As
-  documented in the function's own docstring, this fallback path has no
-  awareness of OSM's walk-vs-drive network-type distinction — it's the same
-  set of edges regardless of `mode`, differing only in the speed used to
-  compute `travel_time_min`. This is very different behavior from Path 1,
-  where `mode` actually changes which roads are included in the graph at
-  all (e.g. a highway with no pedestrian access is excluded from a `"walk"`
-  network-type query but included in a `"drive"` one). Any analysis relying
-  on Path 2 should be aware mode-based road *inclusion* differences are not
-  modeled, only speed differences are.
-- **The `x`/`y` node-attribute duplication in `_graph_from_geometries()` is
-  load-bearing, not defensive.** Removing it wouldn't just be a minor
-  inefficiency — it would silently break every nearest-node lookup and
-  isochrone computation that runs against a fallback-path graph, with the
-  failure surfacing only as unexplained `inf` distances downstream, not as
-  an error at the point of the actual mistake.
+- **The `roads_gdf` path still cannot distinguish walk-only paths from
+  vehicle roads — unchanged from before, but now the cost of the
+  *default* path, not the fallback.** This is the previous revision's
+  documented limitation, carried forward unchanged: `mode="walk"` and
+  `mode="drive"` produce the *same underlying graph* when built via
+  `roads_gdf`, differing only in the speed used for `travel_time_min`, not
+  in which edges exist. Because `roads_gdf` is now the default whenever
+  it's available, **this limitation now applies by default**, not only in
+  a fallback scenario — a caller who wants genuine walk/drive network-type
+  differentiation must explicitly pass `source="live_osm"`.
+- **Path 1/Path 2 return different graph types — still true, worth
+  re-stating given the renaming.** `"live_osm"` returns a directed
+  `MultiDiGraph`; `"roads_gdf"` (via `_graph_from_geometries()`) returns an
+  undirected `MultiGraph`. Both are still documented as `nx.MultiDiGraph`
+  in the type-hinted return signature, so this mismatch remains present
+  and unresolved by this revision — code relying on directed-graph-specific
+  behavior (one-way street handling) downstream should be aware this
+  silently disappears whenever the now-default `roads_gdf` path is used.
+- **The endpoint-snapping fix genuinely changes what a `roads_gdf`-built
+  graph looked like before this revision — for the better, but worth
+  knowing if comparing against archived pre-revision output.** A graph
+  built via this path before this fix could have more disconnected
+  components (fragmented at floating-point-mismatched junctions) than the
+  same input produces now. Any pre-revision cached routing results or
+  isochrones built from this path should not be assumed directly
+  comparable to post-revision results — the underlying graph topology
+  itself changed, not just the code around it.
+- **`snap_tolerance_m` is a function parameter with a sensible default
+  (`0.5`), not currently threaded through `graph_from_roads()`'s own
+  signature or `config.py`.** A caller needing a different snap tolerance
+  for unusual data (e.g. a much coarser or much more precise source
+  dataset than typical OSM extraction) would need to call
+  `_graph_from_geometries()` directly rather than through the public
+  `graph_from_roads()` entry point, since the public function doesn't
+  currently expose this parameter.
+- **The `x`/`y` node-attribute duplication in `_graph_from_geometries()`
+  remains load-bearing, unchanged** — every node still carries explicit
+  `x`/`y` attributes matching its (now snapped) coordinate, required for
+  [`isochrones.nearest_graph_node()`](isochrones.md)'s KD-tree lookup, for
+  the same reasons documented previously.
+
+## Related
+
+- [`config.py`](../config.md) — the source of `MODE_CONFIG` and
+  `WALKING_SPEED_KPH`'s values in this revision.
+- [`isochrones.py`](isochrones.md) — the primary consumer of graphs this
+  module builds, including the `x`/`y` node attributes this module is
+  careful to set.
+- [`scoring.py`](scoring.md) — calls `graph_from_roads()` once per mode
+  inside `add_access_times()`, and is the primary place `source`'s default
+  behavior actually matters in practice.
+- [Cross-Repo Integration](../../../cross-repo/integration.md) — the
+  `roads_gdf` path's entire reproducibility argument depends on
+  `lga_extractor`'s versioned, cached export being the trustworthy source
+  of truth this module defaults to preferring.

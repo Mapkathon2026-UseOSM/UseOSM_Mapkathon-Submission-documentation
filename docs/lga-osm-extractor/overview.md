@@ -50,8 +50,12 @@ flowchart TD
     C --> D["clean.py<br/>clean_layers()"]
     D --> E["export.py<br/>export_layers()"]
     D --> F["visualize.py<br/>build_preview_map()"]
+    E --> E2["boundary.geojson written (new)"]
     E --> G["GeoJSON + Shapefiles on disk"]
     F --> H["Kepler.gl HTML preview"]
+    E2 --> M1["manifest.py<br/>build_manifest() + write_manifest() (new)"]
+    G --> M1
+    M1 --> M2["manifest.json on disk (new)"]
     B & C & D & E & F -.->|per-run metadata| I["logging_utils.py<br/>log_run()"]
 
     J["pipeline.py<br/>extract_lga()"] -.orchestrates.-> B
@@ -59,9 +63,11 @@ flowchart TD
     J -.orchestrates.-> D
     J -.orchestrates.-> E
     J -.orchestrates.-> F
+    J -.emits progress events via.-> EV["events.py<br/>ThreadSafeEventQueue (new)"]
 
     K[cli.py] --> J
-    L["app.py (Streamlit)"] --> J
+    L["app.py (Streamlit)<br/>drains events for live progress UI (new)"] --> J
+    EV -.consumed by.-> L
 ```
 
 Two things are worth calling out about this architecture:
@@ -78,6 +84,15 @@ Two things are worth calling out about this architecture:
   auto-selection (`resolve_target_crs()`) and its point-collapse logic. It's
   reused rather than duplicated, which is why `boundary.py` imports from
   `clean.py` internally.
+- **New: `events.py` and `manifest.py` sit outside the main data-processing
+  chain, as cross-cutting concerns.** Neither module transforms geospatial
+  data itself — `events.py` is a pure observability layer (see
+  [`events.md`](modules/events.md)), and `manifest.py` is a pure
+  bookkeeping/reconciliation layer over data other modules already produced
+  (see [`manifest.md`](modules/manifest.md)). Both are additive: removing
+  either would not break the core extraction logic, only remove,
+  respectively, live progress visibility and the formal downstream contract
+  file.
 
 ## Design Philosophy
 
@@ -88,17 +103,22 @@ the wrong place raises `BoundaryResolutionError` immediately — there's no
 value in extracting layers "within" a wrong boundary. But a layer that
 queries successfully and genuinely finds zero features (e.g. an LGA with no
 mapped waterways) is *not* an error, it's valid data, and is only ever
-recorded as a warning. The codebase is careful, throughout, to distinguish
-"this failed" from "this is empty" — see `LayerExtractionError`'s docstring
-in [`layers.md`](modules/layers.md) for the clearest statement of this
-principle.
+recorded as a warning (and, new, a structured `"success_empty"` status — see
+[`layers.md`](modules/layers.md)). The codebase is careful, throughout, to
+distinguish "this failed" from "this is empty" — see
+`LayerExtractionError`'s docstring in [`layers.md`](modules/layers.md) for
+the clearest statement of this principle.
 
-**Two-tier validation (hard vs. soft checks).** `_validate_and_standardize()`
-in `boundary.py` separates checks that block execution (geometry invalid,
-centroid outside Nigeria, implausible area) from checks that only warn
-(display name doesn't obviously mention the requested LGA/state). This
-reflects a judgment about *confidence*: some signals are reliable enough to
-block on, others are just worth a human glance.
+**Two-tier validation (hard vs. soft checks) — and this revision extends
+it, not just applies it.** `_validate_and_standardize()` in `boundary.py`
+separates checks that block execution (geometry invalid, centroid outside
+Nigeria, implausible area, and — **new** — OSM class/type mismatch) from
+checks that only warn (display name doesn't obviously mention the requested
+LGA/state, and — **new** — non-relation OSM element type, implausible
+`admin_level`). This reflects a judgment about *confidence*: some signals
+are reliable enough to block on, others are just worth a human glance. See
+[`boundary.md`](modules/boundary.md) for the two new checks added in this
+revision.
 
 **Don't trust a single geocode blindly — but allow overriding it.** Every
 resolution path (`resolve_boundary()`) accepts a `manual_boundary_path` as an
@@ -106,7 +126,7 @@ explicit escape hatch, for LGAs where OSM's boundary data is missing,
 mistagged, or fails validation.
 
 **Respect the server you're querying.** `layers.py`'s concurrency model
-(2 requests in flight at once, staggered starts, exponential backoff on
+(2 requests in flight at once, staggered starts, linear backoff on
 retry) exists because fully-parallel querying was tried first and made
 things *worse* — the public Overpass mirror refused every connection
 outright under burst load. The current approach is empirically tuned, not a
@@ -132,17 +152,43 @@ be nearly impossible to diagnose — was the underlying map data different,
 or did a dependency change behavior? The run log doesn't answer that
 question by itself, but it narrows the search considerably.
 
+**New: a run's outcome should be a stable, machine-readable contract, not
+just a human-readable log.** `run_log.json` (the point above) was always
+meant primarily for a human debugging a specific run. This revision adds a
+second, distinct artifact — `manifest.json` — deliberately structured and
+versioned (`MANIFEST_SCHEMA_VERSION`) as a *contract* a downstream program
+should parse and depend on, rather than something a person reads. The
+distinction matters: `run_log.json`'s shape can evolve relatively freely
+since only humans read it directly; `manifest.json`'s shape is meant to be
+stable across extractor versions, because `akure-accessibility-dashboard`'s
+[`data_contract.py`](../akure-accessibility-dashboard/modules/data_contract.md)
+now programmatically depends on it. See
+[`manifest.md`](modules/manifest.md) and
+[Cross-Repo Integration](../cross-repo/integration.md).
+
+**New: progress should be observable without coupling the pipeline to any
+specific UI framework.** `events.py`'s entire design (see
+[`events.md`](modules/events.md)) exists to let `app.py`'s Streamlit
+interface show live, per-stage progress without `boundary.py`, `layers.py`,
+or `pipeline.py` importing Streamlit, or knowing anything about it. The
+event schema is plain dicts; the thread-safety primitive
+(`ThreadSafeEventQueue`) is pure-Python `queue.Queue`. A different future
+consumer (a CLI progress bar, a web API) could reuse the identical event
+stream without this module changing at all.
+
 ## Module Map
 
 | File | Responsibility |
 |---|---|
 | `lga_extractor/boundary.py` | Resolve and validate an LGA's administrative boundary polygon |
 | `lga_extractor/layers.py` | Query OSM for each feature layer (roads, buildings, health, schools, etc.) within the boundary |
-| `lga_extractor/clean.py` | Reproject, repair, deduplicate, standardize schema; collapse polygon facilities to points |
-| `lga_extractor/export.py` | Write cleaned layers to GeoJSON and Shapefile, splitting Shapefile output by geometry category when a layer mixes point/line/polygon types |
+| `lga_extractor/clean.py` | Reproject, repair, deduplicate, standardize schema (core + curated semantic tags + raw JSON tags); collapse polygon facilities to points |
+| `lga_extractor/export.py` | Write cleaned layers to GeoJSON (full schema) and Shapefile (core columns only), splitting Shapefile output by geometry category when a layer mixes point/line/polygon types |
 | `lga_extractor/visualize.py` | Build a Kepler.gl HTML preview map of exported layers |
-| `lga_extractor/logging_utils.py` | Capture run metadata (environment, parameters, warnings) per extraction |
-| `lga_extractor/pipeline.py` | Orchestrate the full boundary → layers → clean → export → visualize sequence |
+| `lga_extractor/logging_utils.py` | Capture run metadata (environment, parameters, warnings, per-layer status) per extraction |
+| `lga_extractor/pipeline.py` | Orchestrate the full boundary → layers → clean → export → visualize sequence, plus boundary export and manifest building |
+| `lga_extractor/events.py` **(new)** | Plain-dict progress event schema and a thread-safe queue, decoupling pipeline progress from any specific UI |
+| `lga_extractor/manifest.py` **(new)** | Build and write `manifest.json`, the formal, versioned extraction contract read by downstream consumers |
 | `app.py` | Streamlit UI wrapping the pipeline |
 | `cli.py` | Command-line entry point wrapping the pipeline |
 | `tests/test_extraction.py` | Test coverage across the above |

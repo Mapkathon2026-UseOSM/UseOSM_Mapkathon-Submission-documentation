@@ -1,7 +1,9 @@
 # scoring.py
 
 !!! info "Source"
-    `akure_access/accessibility/scoring.py` (318 lines)
+    `akure_access/accessibility/scoring.py` (400 lines — grew from 318
+    with the addition of a configurable `target_crs`, the `source`
+    parameter, and an explicit settlement-proxy disclaimer, see below)
 
 ## Purpose
 
@@ -21,12 +23,15 @@ function where that difference is actually felt.
 ## Dependencies
 
 - **Imports:** `geopandas`, `numpy`, `shapely.geometry.box`; locally,
-  `graph_from_roads` from `.network_graph`, and
-  `batch_nearest_facility_distances`, `lookup_nearest_distance_time` from
-  `.isochrones`.
+  `graph_from_roads` from `.network_graph`,
+  `batch_nearest_facility_distances`/`lookup_nearest_distance_time` from
+  `.isochrones`, and (new) `get_config` from
+  [`..config`](../config.md).
 - **Imported by:** `dashboard/app.py`; `insights.py` and
   `visualization/static_maps.py` consume this module's *output* (a scored
-  grid), not the module directly.
+  grid), not the module directly; (new) [`sensitivity.py`](../sensitivity.md)
+  calls both `add_access_deficit_score()` and `add_access_times()` directly
+  as part of its parameter sweeps.
 
 ## Functions & Classes
 
@@ -34,40 +39,184 @@ function where that difference is actually felt.
 
 | Constant | Value | Purpose |
 |---|---|---|
-| `DEFAULT_ACCESS_THRESHOLD_MIN` | `30` | Default travel-time threshold (minutes) beyond which a cell is considered underserved for a service. |
-| `DEFAULT_GRID_CELL_SIZE_M` | `500` | Default fishnet grid cell size, in meters. |
+| `DEFAULT_ACCESS_THRESHOLD_MIN` | `30` (now **config-derived**, see below) | Default travel-time threshold (minutes) beyond which a cell is considered underserved for a service. |
+| `DEFAULT_GRID_CELL_SIZE_M` | `500` (now **config-derived**) | Default fishnet grid cell size, in meters. |
+| `FALLBACK_CRS` (new) | `"EPSG:32631"` | Last-resort default for `build_grid()`'s new `target_crs` parameter, used only when no explicit CRS is supplied. See the dedicated section below — this is a genuine, if partial, resolution of the previous revision's hardcoded-CRS gotcha. |
 
-### `build_grid(boundary_gdf, cell_size_m=DEFAULT_GRID_CELL_SIZE_M)`
+**`DEFAULT_ACCESS_THRESHOLD_MIN`/`DEFAULT_GRID_CELL_SIZE_M` are now derived
+from [`config.get_config()`](../config.md)**, read once at import time —
+`_config["accessibility"]["threshold_min"]["walk"]` and
+`_config["grid"]["cell_size_m"]` respectively — rather than independent
+hardcoded literals. Both remain plain module-level constants (not
+functions), specifically so every existing caller reading
+`scoring.DEFAULT_ACCESS_THRESHOLD_MIN` directly, or relying on it as a
+function's default-argument value (which Python binds at
+function-*definition* time, not call time), continues to work unchanged.
+The module's own comment is explicit that a caller specifically needing
+the *live* config value (e.g. after a `reload=True`) should call
+`get_config()` directly rather than reading these constants, which are
+snapshotted once.
+
+## New in this revision: `build_grid()` gains a `target_crs` parameter — a genuine, partial fix for the previous revision's hardcoded-CRS gotcha
+
+This directly addresses the Gotcha this documentation page previously
+flagged: *"`EPSG:32631` is hardcoded throughout this module, unlike
+`lga_extractor.clean.py`'s auto-selected UTM zone... this module would
+silently produce a wrong (or at best, non-optimal) projection if ever
+reused for an LGA outside that zone."* This revision's fix is deliberate
+and worth understanding precisely, since it's a **partial** fix, not a
+full auto-selection mechanism like `clean.resolve_target_crs()`.
+
+**What changed:** `build_grid(boundary_gdf, cell_size_m=..., target_crs=None)`
+— a new, optional parameter. If supplied, the grid is built in exactly
+that CRS. If omitted, `build_grid()` falls back to the new `FALLBACK_CRS`
+constant (`"EPSG:32631"`) — functionally identical to the previous
+revision's hardcoded behavior in the no-argument case, preserving backward
+compatibility for any existing caller that doesn't pass this new
+parameter.
+
+**Why this is a *partial* fix, not the same auto-selection approach as
+`clean.py`:** `scoring.py` does **not** independently re-derive the
+correct UTM zone from the boundary's longitude the way
+`clean.resolve_target_crs()` does. Instead, the module's own docstring
+directs callers toward reading the *already-determined* CRS from the
+extraction manifest:
+```python
+from akure_access.data_contract import resolve_crs_from_manifest
+target_crs = resolve_crs_from_manifest(data_dir)
+grid = build_grid(boundary, target_crs=target_crs)
+```
+This is a deliberate architectural choice, not a missed opportunity to
+duplicate `resolve_target_crs()`'s logic here too: the CRS a grid should
+use **must** match whatever CRS this LGA's roads/buildings/facility layers
+were actually cleaned into upstream (see
+[`clean.py`](../../../lga-osm-extractor/modules/clean.md)) — re-deriving
+it independently on this side, even correctly, risks the two sides
+disagreeing due to a subtly different boundary geometry or edge-case
+handling between the two zone-selection implementations. Reading the
+extractor's own recorded determination via
+[`data_contract.py`](../data_contract.md) guarantees agreement by
+construction, rather than by two independent calculations happening to
+produce the same answer.
+
+**The remaining Gotcha, now narrower:** a caller who doesn't know about
+`resolve_crs_from_manifest()` and doesn't pass `target_crs` explicitly
+still silently gets `FALLBACK_CRS` (Akure-correct, wrong elsewhere) — the
+underlying risk hasn't been eliminated, only given an escape hatch. See
+the updated Gotchas section below.
+
+### `build_grid(boundary_gdf, cell_size_m=DEFAULT_GRID_CELL_SIZE_M, target_crs=None)`
 
 | | |
 |---|---|
-| **What it does** | Builds a regular square fishnet grid covering the LGA boundary, clipped to the boundary's actual shape (not a bounding-box rectangle). |
-| **Why written this way** | A straightforward regular grid, rather than an adaptive or hexagonal one — consistent with the project's broader design choice (see [overview](../../overview.md)) to analyze accessibility at a uniform grid-cell resolution rather than per-building, since the underlying travel-time/speed assumptions don't support finer claimed precision anyway. Clipping to the boundary's actual geometry (via `.intersects()`), rather than just using the bounding box, avoids scoring cells that fall entirely outside the LGA but inside its rectangular extent — important for LGAs with irregular (non-rectangular) shapes, where a bounding-box grid would otherwise include a meaningful number of cells outside the actual area of interest. |
-| **Inputs** | `boundary_gdf: GeoDataFrame` (LGA boundary, any CRS — reprojected internally); `cell_size_m: float`, default `500`. |
-| **Outputs** | `GeoDataFrame`, EPSG:32631, one row per grid cell (square `Polygon`), with a `cell_id` column (a simple `0..n-1` integer sequence from the post-filter index). |
-| **Internal workflow** | 1. Reproject `boundary_gdf` to `EPSG:32631` (the project's fixed metric CRS — see Gotchas below on why this is fixed rather than auto-selected).<br>2. Get `total_bounds` (the bounding rectangle) of the reprojected boundary.<br>3. Build `xs`/`ys` arrays via `np.arange(min, max, cell_size_m)` — one array per axis, evenly spaced by `cell_size_m`.<br>4. Build a `box()` (square polygon) for every `(x, y)` combination in the Cartesian product of `xs` and `ys` — a full grid over the bounding rectangle, not yet clipped.<br>5. Compute `boundary_m.union_all()` — dissolve the (possibly multi-row) boundary into one geometry.<br>6. Filter the grid to only cells that `.intersects()` that unioned boundary — this is the clipping step; cells entirely outside the LGA's actual shape but inside its bounding box are dropped here.<br>7. Reset the index, assign `cell_id` from the (now-clean) index. |
-| **Assumptions** | Assumes a fixed `500m` default cell size is an appropriate resolution for the LGAs this project targets (Akure North/South) — not derived from any principled sizing calculation, a reasonable-looking round number. Assumes `.intersects()` (any overlap at all) rather than a stricter containment or majority-overlap test is the right clipping criterion — a cell that only barely clips the boundary's edge is still included in full, not partially. |
-| **Complexity** | O((maxx-minx)/cell_size_m × (maxy-miny)/cell_size_m) for the initial full-rectangle grid construction — i.e. proportional to boundary area divided by cell area; the `.intersects()` filter is an additional O(N) spatial predicate evaluation over that initial cell count (GeoPandas' vectorized spatial operations, not a naive per-cell loop in Python). |
-| **Concurrency / race conditions** | None — sequential, no shared mutable state. |
-| **Covered by test(s)** | See [tests.md](../../tests.md) — `test_scoring.py`. |
+| **What it does** | Builds a regular square fishnet grid covering the LGA boundary, clipped to the boundary's actual shape, in `target_crs` (or `FALLBACK_CRS` if not supplied). |
+| **Why written this way** | Unchanged reasoning for the grid construction itself (regular square cells, `.intersects()`-based clipping) — see the CRS discussion above for what's new. |
+| **Inputs** | `boundary_gdf: GeoDataFrame`; `cell_size_m: float`, default from config; `target_crs: str`, **new**, optional — see above. |
+| **Outputs** | `GeoDataFrame`, in `target_crs` (or `FALLBACK_CRS`), one row per grid cell, with a `cell_id` column. |
+| **Internal workflow** | 1. **New:** `if target_crs is None: target_crs = FALLBACK_CRS`.<br>2. Reproject `boundary_gdf` to `target_crs` (was hardcoded `"EPSG:32631"`, now the resolved value).<br>3–7. Unchanged: bounding-box grid construction, boundary-intersection clipping, `cell_id` assignment. |
+| **Assumptions** | Unchanged cell-size and clipping-predicate assumptions. **New:** assumes a caller either knows to pass `target_crs` explicitly (ideally via `resolve_crs_from_manifest()`) or accepts `FALLBACK_CRS`'s Akure-only correctness as a known limitation. |
+| **Complexity** | Unchanged. |
+| **Concurrency / race conditions** | None. |
+| **Covered by test(s)** | See [tests.md](../../tests.md) — `test_scoring.py`, plus new: `test_build_grid_uses_explicit_target_crs_when_given`, `test_build_grid_falls_back_to_fallback_crs_when_target_crs_omitted`. |
+
+## New in this revision: `SETTLEMENT_PROXY_DISCLAIMER`
+
+```python
+SETTLEMENT_PROXY_DISCLAIMER = (
+    "building_count is a BUILDING-BASED SETTLEMENT PROXY, not a population "
+    "figure. It counts OSM building footprints intersecting each grid cell; "
+    "it does not know how many people live or work in any of them..."
+)
+```
+
+A long, explicit, module-level string constant — not used programmatically
+anywhere else in this module (it's a documentation string, not a runtime
+check), but exported specifically so any consumer (a notebook cell, a
+future dashboard tooltip, this documentation site) can display or quote
+the exact, carefully-worded caveat about what `building_count` is and
+isn't, rather than each consumer writing its own paraphrase that could
+drift in precision or completeness over time.
+
+**The forward-looking design note embedded in the disclaimer is worth
+surfacing explicitly:** the text states that this module is *"deliberately
+structured so a real population dataset (e.g. gridded census/WorldPop
+data) could be substituted for `building_count` as the settlement signal
+in the future without changing any other function's interface — every
+downstream function here only ever checks `building_count > 0` /
+`>= threshold`, not its specific value."* This is a real architectural
+property worth confirming holds: every consumer of `building_count`
+throughout `scoring.py`, `grid_check.py`, and `status.py` does indeed only
+ever branch on threshold comparisons against it, never on its specific
+numeric value in a way that would assume "count of buildings" specifically
+— meaning a hypothetical future swap to a population-based settlement
+column really would be a drop-in replacement, not a scattered
+multi-file refactor.
 
 ### `add_building_density(grid_gdf, buildings_gdf)`
 
+Logic is **unchanged** from the previous revision — only the docstring
+changed, now pointing readers at `SETTLEMENT_PROXY_DISCLAIMER` explicitly
+rather than restating the population-proxy caveat inline.
+
 | | |
 |---|---|
-| **What it does** | Adds a `building_count` column to each grid cell — the count of building footprints intersecting that cell — used throughout the rest of the pipeline as a proxy for population/settlement, in the absence of fine-grained population data. |
-| **Why written this way** | A spatial join (`gpd.sjoin`) followed by a `groupby().size()` count, rather than a per-cell loop calling `.intersects()` against every building — the vectorized spatial-join approach is dramatically faster for this kind of many-to-many spatial relationship at scale (thousands of buildings against hundreds of grid cells) than an explicit nested loop would be. `building_count` is explicitly documented as a **proxy**, not actual population data — the module's docstring is upfront that this is a stand-in used specifically because fine-grained population figures aren't available, not a claim that building count is itself the metric of interest. |
-| **Inputs** | `grid_gdf: GeoDataFrame` (output of `build_grid()`, EPSG:32631); `buildings_gdf: GeoDataFrame` (cleaned buildings layer, EPSG:32631). |
+| **What it does** | Adds a `building_count` column to each grid cell — the count of building footprints intersecting that cell — used throughout the rest of the pipeline as a settlement-presence proxy (see `SETTLEMENT_PROXY_DISCLAIMER` above), in the absence of fine-grained population data. |
+| **Why written this way** | A spatial join (`gpd.sjoin`) followed by a `groupby().size()` count, rather than a per-cell loop calling `.intersects()` against every building — the vectorized spatial-join approach is dramatically faster for this kind of many-to-many spatial relationship at scale (thousands of buildings against hundreds of grid cells) than an explicit nested loop would be. |
+| **Inputs** | `grid_gdf: GeoDataFrame` (output of `build_grid()`); `buildings_gdf: GeoDataFrame` (cleaned buildings layer, matching CRS). |
 | **Outputs** | `grid_gdf` with an added integer `building_count` column (never `NaN` — cells with zero intersecting buildings get an explicit `0`, not a missing value). |
-| **Internal workflow** | 1. Copy the input grid.<br>2. If `buildings_gdf` is empty: set `building_count = 0` for every cell, return immediately — an explicit short-circuit rather than letting an empty spatial join produce the same result less directly.<br>3. Otherwise: `gpd.sjoin(buildings_gdf, grid[["cell_id", "geometry"]], how="inner", predicate="intersects")` — a spatial inner join, attaching each building to every cell it intersects (a building could technically straddle a cell boundary and match more than one cell, though at 500m cell size and typical building footprint size this is a rare edge case).<br>4. `.groupby("cell_id").size()` — count buildings per matched `cell_id`.<br>5. Left-merge those counts back onto the full grid (`how="left"`, so cells with zero matching buildings aren't dropped, they just don't appear in the join result at all).<br>6. `.fillna(0).astype(int)` — cells absent from the join result (zero buildings) get `0`, and the column is cast to integer (the merge would otherwise leave it as float, due to the `NaN`s introduced by the left join before filling). |
-| **Assumptions** | Assumes `"intersects"` (not `"within"`) is the correct predicate — a building that straddles two cells counts toward both, rather than being assigned to a single "primary" cell. This is a reasonable, if unstated, choice for a density proxy (a building genuinely does occupy space in both cells), but does mean the sum of `building_count` across all cells can slightly exceed the true total building count in the layer, for buildings that straddle a cell boundary. |
-| **Complexity** | The spatial join itself is the dominant cost — GeoPandas'/`shapely`'s spatial-index-backed join is typically near O((B + C) log(B + C)) in practice (B = buildings, C = cells) rather than the naive O(B × C), though the exact complexity depends on the underlying spatial index implementation. The groupby/merge/fillna steps are O(B) / O(C) respectively. |
+| **Internal workflow** | 1. Copy the input grid.<br>2. If `buildings_gdf` is empty: set `building_count = 0` for every cell, return immediately.<br>3. Otherwise: `gpd.sjoin(buildings_gdf, grid[["cell_id", "geometry"]], how="inner", predicate="intersects")` — a spatial inner join, attaching each building to every cell it intersects (a building could technically straddle a cell boundary and match more than one cell).<br>4. `.groupby("cell_id").size()` — count buildings per matched `cell_id`.<br>5. Left-merge those counts back onto the full grid, so cells with zero matching buildings aren't dropped.<br>6. `.fillna(0).astype(int)` — cells absent from the join result get `0`, cast to integer. |
+| **Assumptions** | Assumes `"intersects"` (not `"within"`) is the correct predicate — a building that straddles two cells counts toward both, rather than being assigned to a single "primary" cell. This means the sum of `building_count` across all cells can slightly exceed the true total building count in the layer, for buildings that straddle a cell boundary. |
+| **Complexity** | The spatial join is the dominant cost — near O((B + C) log(B + C)) in practice (B = buildings, C = cells) via GeoPandas' spatial-index-backed join, rather than naive O(B × C). |
 | **Concurrency / race conditions** | None. |
 | **Covered by test(s)** | See [tests.md](../../tests.md) — `test_add_building_density_counts_correctly`, `test_add_building_density_handles_empty_buildings`. |
 
-### `add_access_times(grid_gdf, roads_gdf, health_gdf, schools_gdf, boundary_polygon_wgs84=None, modes=("walk",))`
+### `add_access_times(grid_gdf, roads_gdf, health_gdf, schools_gdf, boundary_polygon_wgs84=None, modes=("walk",), source="auto")`
 
 **This is where the multi-source Dijkstra optimization documented in
+[`isochrones.py`](isochrones.md) pays off directly, unchanged from
+before.** **New in this revision:** a `source` parameter, passed straight
+through to [`network_graph.graph_from_roads()`](network_graph.md), plus a
+correctness fix to the facility/centroid CRS-handling logic that this
+parameter's introduction made necessary.
+
+**New: the `source` parameter.** Identical semantics to
+`graph_from_roads()`'s own `source` parameter (`"auto"` / `"roads_gdf"` /
+`"live_osm"`) — `add_access_times()` doesn't add any new logic of its own
+here, it simply threads the argument through: `graph_from_roads(roads_gdf,
+boundary_polygon=boundary_polygon_wgs84, mode=mode, source=source)`.
+
+**The real fix this revision makes: how the facility/centroid CRS branch
+is decided.** Previously:
+```python
+if boundary_polygon_wgs84 is not None:
+    # ...reproject facilities and grid centroids to EPSG:4326...
+```
+This condition made sense under the *previous* default behavior, where
+supplying a boundary polygon meant the OSMnx (`live_osm`-equivalent) graph
+path was being used, which returns a graph in EPSG:4326 — so facilities
+and grid centroids needed reprojecting to match. **But under this
+revision's new default** (`roads_gdf` preferred whenever available, even
+when a boundary polygon is *also* supplied — see
+[`network_graph.md`](network_graph.md)), checking `boundary_polygon_wgs84
+is not None` alone would incorrectly trigger the WGS84-reprojection branch
+even when the graph was actually built from `roads_gdf` and stayed in its
+native projected CRS (typically EPSG:32631) — a real, silent
+coordinate-system mismatch bug that this revision's diff directly fixes.
+
+**The fix:** check the graph's own recorded provenance instead of the
+input argument:
+```python
+if G.graph.get("source") == "live_osm":
+    # ...reproject facilities and grid centroids to EPSG:4326...
+else:
+    # ...use facilities and grid centroids as-is, in their native projected CRS...
+```
+This reads `G.graph["source"]` — the attribute `graph_from_roads()` now
+always sets, recording which path was **actually used**, not what the
+caller merely requested (see [`network_graph.md`](network_graph.md)'s
+documentation of this exact field) — so the CRS-handling branch is now
+always correct regardless of *why* `roads_gdf` or `live_osm` was chosen
+(explicit `source` argument, or `"auto"`'s data-driven fallback).
 [`isochrones.py`](isochrones.md) is actually put to work at LGA scale.**
 
 | | |
@@ -80,7 +229,7 @@ function where that difference is actually felt.
 | **Assumptions** | Assumes `roads_gdf`/`health_gdf`/`schools_gdf` are all already in EPSG:32631 (the project's fixed CRS — see Gotchas) — no CRS validation is performed on these inputs beyond the explicit, deliberate reprojections described above. |
 | **Complexity** | O(M × (graph_build_cost + 2 × Dijkstra_cost + settled_cells × O(log n))) where M = number of requested modes — dominated by graph construction and the two Dijkstra passes per mode, **not** by grid size beyond the settled-cell lookup loop, which is the entire point of the batch approach. |
 | **Concurrency / race conditions** | None — sequential loop over modes, no threading. |
-| **Covered by test(s)** | No dedicated fast unit test in `test_scoring.py` (its neighboring tests construct grid data with routing results already present, rather than calling this function directly, to keep unit tests independent of graph-building cost). Its actual integration with `network_graph.py` and `isochrones.py` is exercised end to end by `test_extractor_output_schema_matches_dashboard_expectations` in the [cross-repo integration test](../../../cross-repo/integration.md). |
+| **Covered by test(s)** | No dedicated fast unit test in `test_scoring.py` (its neighboring tests construct grid data with routing results already present, rather than calling this function directly, to keep unit tests independent of graph-building cost). Its actual integration with `network_graph.py` and `isochrones.py` is exercised end to end by `test_extractor_output_schema_matches_dashboard_expectations` in the [cross-repo integration test](../../../cross-repo/integration.md). **New:** `test_add_access_times_source_passthrough_uses_roads_gdf_when_available`, `test_add_access_times_crs_branch_follows_graph_source_not_boundary_argument` — the second of these directly regression-tests the `G.graph.get("source")` fix described above. |
 
 **On why `inf` is deliberately kept, not converted to `NaN`, at this
 stage** — this is directly stated in the source as an inline comment, and
@@ -183,6 +332,16 @@ flowchart TD
 
 ## Gotchas
 
+- **The centroid-then-reproject ordering in `add_access_times()` mirrors a
+  principle also documented in
+  `lga_extractor.clean._collapse_areas_to_points()`**: compute centroids in
+  a projected/metric CRS, only reproject afterward if a geographic CRS is
+  needed downstream — never the reverse. The inline comment notes an
+  additional, practical benefit beyond correctness: doing it this way also
+  silences GeoPandas' own "Geometry is in a geographic CRS" runtime
+  warning, which exists specifically to flag exactly this class of mistake
+  (computing centroids/areas/distances directly in lat/lon degrees).
+
 - **The `inf`-preservation-until-export ordering constraint is the single
   most important cross-function dependency in this module, and nothing in
   the code enforces it mechanically.** The correct call order is:
@@ -195,24 +354,50 @@ flowchart TD
   data — both would fail *silently*, producing plausible-looking but
   incorrect output (unreachable cells misclassified as served), not an
   error or warning at the point of the actual mistake.
-- **`EPSG:32631` is hardcoded throughout this module**, unlike
-  `lga_extractor.clean.py`'s auto-selected UTM zone. `build_grid()`
-  reprojects to `"EPSG:32631"` explicitly, not via anything analogous to
-  `clean.resolve_target_crs()`'s longitude-based auto-selection. This is
-  consistent with this repository's actual scope (Akure North/South only,
-  both within zone 31N), but means this module would silently produce a
-  wrong (or at best, non-optimal) projection if ever reused for an LGA
-  outside that zone — unlike `lga_extractor`, which was explicitly
-  generalized beyond its original Akure-only scope. This is a real
-  difference in geographic-generality design between the two repositories
-  worth being aware of if `akure-accessibility-dashboard`'s scope is ever
-  expanded beyond Ondo State.
-- **The centroid-then-reproject ordering in `add_access_times()` (step 3)
-  mirrors a principle also documented in
-  `lga_extractor.clean._collapse_areas_to_points()`**: compute centroids in
-  a projected/metric CRS, only reproject afterward if a geographic CRS is
-  needed downstream — never the reverse. The inline comment here notes an
-  additional, practical benefit beyond correctness: doing it this way also
-  silences GeoPandas' own "Geometry is in a geographic CRS" runtime
-  warning, which exists specifically to flag exactly this class of mistake
-  (computing centroids/areas/distances directly in lat/lon degrees).
+- **`EPSG:32631` is no longer unconditionally hardcoded, but the risk it
+  created is only narrowed, not eliminated.** `build_grid()` now accepts
+  `target_crs` explicitly, and the module's own docstring directs callers
+  toward [`data_contract.resolve_crs_from_manifest()`](../data_contract.md)
+  to obtain the extractor's own correct, LGA-specific determination rather
+  than assuming Akure's zone. **But this requires the caller to know to do
+  it** — a caller who calls `build_grid(boundary)` without `target_crs`
+  still silently gets `FALLBACK_CRS` (`"EPSG:32631"`), correct for Akure,
+  silently wrong for any LGA in a different UTM zone. Unlike
+  `lga_extractor.clean.resolve_target_crs()`, this module still does not
+  *automatically* derive the correct zone from the boundary's own
+  longitude — it relies on the caller supplying it, sourced from the
+  extractor's manifest. This is a real, if smaller, remaining gap between
+  the two repositories' geographic-generality: `lga_extractor` gets the
+  right answer with no caller effort required; `scoring.py` gets the right
+  answer only if the caller specifically opts in via `target_crs`.
+- **New: the facility/centroid CRS-handling branch was silently
+  miswired by the `source`-parameter reversal until this revision's fix —
+  worth understanding even though it's now fixed.** Before this revision,
+  `add_access_times()` decided whether to reproject facilities/centroids
+  to WGS84 based on `if boundary_polygon_wgs84 is not None:` — a
+  reasonable proxy under the *old* default (boundary given → OSMnx path →
+  WGS84 graph). Under the *new* default (`roads_gdf` preferred whenever
+  available, even alongside a supplied boundary), that same condition
+  would have incorrectly triggered WGS84 reprojection for a graph that was
+  actually built in a projected CRS — a latent coordinate-mismatch bug
+  that never shipped, since this revision's diff fixes the condition
+  (`G.graph.get("source") == "live_osm"`) in the same change that
+  introduced the `source` parameter. Included here as a reminder that
+  **any future revision reworking how a graph's CRS/provenance is
+  determined must re-check every place downstream code branches on the
+  *old* signal (here, `boundary_polygon_wgs84 is not None`) rather than
+  the graph's own recorded state** — this is exactly the kind of bug that
+  a partial refactor can reintroduce silently.
+
+## Related
+
+- [`network_graph.py`](network_graph.md) — supplies `graph_from_roads()`
+  and the `G.graph["source"]` attribute this module's CRS-branching logic
+  now depends on.
+- [`config.py`](../config.md) — the source of this module's default
+  threshold and grid-size values.
+- [`data_contract.py`](../data_contract.md) — the intended source of a
+  correct `target_crs` value for `build_grid()`, in place of the Akure-only
+  `FALLBACK_CRS`.
+- [`sensitivity.py`](../sensitivity.md) — calls `add_access_deficit_score()`
+  and `add_access_times()` directly for its parameter sweeps.

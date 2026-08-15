@@ -1,7 +1,9 @@
 # insights.py
 
 !!! info "Source"
-    `akure_access/insights.py` (321 lines)
+    `akure_access/insights.py` (351 lines — grew from 321 with the
+    resolution of the `DEFAULT_THRESHOLDS_MIN` drift risk and one new
+    function, see below)
 
 ## Purpose
 
@@ -42,24 +44,50 @@ to genuinely serve two very differently-shaped consumers.
 |---|---|
 | `MODE_LABELS` | `{"walk": "walking", "okada": "okada", "drive": "driving"}` — maps internal mode keys to the human-readable words used in generated prose. |
 | `SERVICE_LABELS` | `{"health": "health", "education": "education"}` — same idea for service names (currently identity-mapped, but kept as an explicit lookup rather than using the raw key directly, presumably for future flexibility if a label ever needed to differ from its key). |
-| `DEFAULT_THRESHOLDS_MIN` | `{"walk": 30, "okada": 20, "drive": 15}` — default per-mode thresholds used **only for caption phrasing** (e.g. "within 30 minutes by walking"), not for actual scoring. |
+| `DEFAULT_THRESHOLDS_MIN` | `{"walk": 30, "okada": 20, "drive": 15}` — default per-mode thresholds used **only for caption phrasing** (e.g. "within 30 minutes by walking"), not for actual scoring. **Now config-derived — see below, this is a resolved drift risk.** |
 
-**On why `DEFAULT_THRESHOLDS_MIN` exists separately from
-`scoring.DEFAULT_ACCESS_THRESHOLD_MIN`** — this is directly addressed in
-the module's own comment and is an important distinction: the actual
-underserved/well-served classification a caption describes always comes
-straight from the grid's own `*_access_deficit_score` columns, which were
-already computed by `accessibility.scoring` using whatever threshold was
-actually passed in at scoring time — this module never re-derives that
-classification itself. `DEFAULT_THRESHOLDS_MIN` here is used only to
-produce threshold-*aware phrasing* in the caption text (mentioning "the
-30-minute walking threshold"), and every caption-generating function
-accepts an explicit `thresholds` parameter specifically so a caller can
-override this default with the authoritative values actually used in a
-given analysis run. The module's comment notes this default is kept in
-sync with `ACCESS_THRESHOLDS_MIN` in the project's analysis notebook's
-configuration cell — a manually-maintained consistency, not one enforced
-by shared code, worth flagging as a drift risk (see Gotchas).
+**This documentation site previously flagged a specific, real drift risk
+here, and this revision resolves it directly — worth documenting in
+detail as a genuine before/after fix, not just a refactor.**
+
+**Before:** `DEFAULT_THRESHOLDS_MIN = {"walk": 30, "okada": 20, "drive": 15}`
+— an independently hardcoded dict, manually kept in sync with the
+project's analysis notebook's own separate `ACCESS_THRESHOLDS_MIN`
+configuration cell *by convention*, not by any code that would catch the
+two drifting apart. This was documented on this site's [Known
+Issues](../../reference/known-issues.md) page as a live risk: nothing
+would catch this constant silently diverging from whatever threshold was
+actually used at scoring time.
+
+**Now:** `DEFAULT_THRESHOLDS_MIN = get_config()["accessibility"]["threshold_min"]`
+— derived from the exact same [`config.get_config()`](config.md) call
+that `scoring.DEFAULT_ACCESS_THRESHOLD_MIN` itself reads from. The
+module's own updated comment states the resolution plainly: *"previously
+this was an independently hardcoded dict, manually kept in sync with
+Notebook 03's own separate configuration cell by convention rather than by
+code, which was a genuine, live drift risk (see
+docs/reference/known-issues.md). Both now trace back to the same
+`config/default.yaml`, so there is nothing left to keep in sync."* This
+comment directly references this documentation site's own known-issues
+page by path — whether written in direct response to it or arrived at
+independently, the effect is identical: there is no longer a second copy
+of this number that could silently diverge from the first.
+
+**On why `DEFAULT_THRESHOLDS_MIN` exists as a separate value from
+`scoring.DEFAULT_ACCESS_THRESHOLD_MIN` at all, rather than being unified
+into one single constant — this distinction is unchanged by the fix, and
+still matters:** the actual underserved/well-served classification a
+caption describes always comes straight from the grid's own
+`*_access_deficit_score` columns, computed by `accessibility.scoring`
+using whatever threshold was actually passed in *at scoring time* — this
+module never re-derives that classification itself.
+`DEFAULT_THRESHOLDS_MIN` here is used only to produce threshold-*aware
+phrasing* in the caption text (mentioning "the 30-minute walking
+threshold"), and every caption-generating function still accepts an
+explicit `thresholds` parameter so a caller can override this default with
+the authoritative values actually used in a specific analysis run — that
+override mechanism is unchanged; what changed is only where the *default*
+value itself comes from.
 
 ### `_article(word)`
 
@@ -174,6 +202,17 @@ the two different settlement thresholds in use across the codebase).
 | **Assumptions** | Assumes `view_choice` will only ever be one of the three values the dashboard's own selector widget presents — an unrecognized string silently falls through to the combined-map branch rather than raising, which is graceful but could mask a genuine bug (e.g. a typo in the dashboard's widget option string) by producing a plausible-looking caption for the wrong view rather than an error. |
 | **Covered by test(s)** | See [tests.md](../tests.md) — `test_describe_interactive_view_dispatches_correctly`. |
 
+### `describe_settlement_proxy_limitation()` (new)
+
+| | |
+|---|---|
+| **What it does** | Returns a fixed, plain-language caveat string about what `building_count` and the settled/unsettled distinction actually mean — suitable for display alongside any map or chart driven by it (e.g. a persistent dashboard footnote, or appended to a static map's own caption). |
+| **Why written this way — the one function in this module that is *not* data-driven, deliberately.** | Every other `describe_*()` function in this module computes its output from the actual `GeoDataFrame` it's describing — that's the module's entire design philosophy (see Purpose above). This function is the sole, explicit exception: it returns a fixed string with no parameters and no data dependency at all, because its subject is a *methodology caveat* ("here's what this proxy measure does and doesn't tell you"), not a data-driven finding. The module's own comment is explicit about this distinction — the string is "kept as a fixed string, not derived from data, since this is a methodology caveat... unlike every other describe_*() function in this module." |
+| **Relationship to `scoring.SETTLEMENT_PROXY_DISCLAIMER`:** | This function's returned text and `scoring.py`'s new `SETTLEMENT_PROXY_DISCLAIMER` constant (see [`scoring.md`](accessibility/scoring.md)) cover the same underlying caveat — that `building_count` is a settlement proxy, not population data — but are two independently-worded strings, not one shared constant referenced from both places. `SETTLEMENT_PROXY_DISCLAIMER` is written as a long, precise, technical explanation (including the forward-looking note about future population-data substitutability); this function's string is shorter and more suited to appearing directly in a UI as a footnote. Worth knowing they're not the same string if a future edit updates one's wording and not the other's — there's no shared source of truth tying them together, unlike `DEFAULT_THRESHOLDS_MIN`'s fix above. |
+| **Inputs** | None. |
+| **Outputs** | `str` — a fixed, several-sentence caveat. |
+| **Covered by test(s)** | See [tests.md](../tests.md) — new: `test_describe_settlement_proxy_limitation_returns_nonempty_string`. |
+
 ## Internal Workflow
 
 ```mermaid
@@ -196,16 +235,25 @@ flowchart TD
 
 ## Gotchas
 
-- **`DEFAULT_THRESHOLDS_MIN` and Notebook 03's `ACCESS_THRESHOLDS_MIN`
-  are two independently-maintained copies of the same values**, kept in
-  sync manually rather than by shared code — the module's own comment
-  acknowledges this. If the notebook's thresholds were ever updated without
-  a matching update here, generated captions would describe threshold
-  values that no longer match what was actually used at scoring time
-  (though captions would still describe the *actual* underserved/served
-  classification correctly, since that always comes from the grid's own
-  columns — only the threshold-value *phrasing* would drift, not the
-  substance of what's reported).
+- **`DEFAULT_THRESHOLDS_MIN`'s drift risk is now resolved — this Gotcha is
+  kept here as a record of the fix, not as a live warning.** Previously,
+  this constant and the project's analysis notebook's own
+  `ACCESS_THRESHOLDS_MIN` were two independently-maintained copies of the
+  same values, kept in sync manually. This revision fixes that: both now
+  derive from the same [`config.get_config()`](config.md) call, so there
+  is no longer a second copy that could silently diverge. If you're
+  reading older notes (including earlier versions of this documentation
+  site, or the codebase's own git history) referencing this as an active
+  risk, it has been addressed as of this revision — see the dedicated
+  discussion in the constants section above for the full before/after.
+- **`describe_settlement_proxy_limitation()` and `scoring.SETTLEMENT_PROXY_DISCLAIMER`
+  cover the same caveat with independently-worded text — no shared
+  constant ties them together.** A future edit to one's wording won't
+  automatically propagate to the other. This is a smaller-scale version of
+  exactly the kind of duplication `DEFAULT_THRESHOLDS_MIN`'s fix just
+  eliminated elsewhere in this same file — worth watching, though the
+  stakes are lower here since both strings convey the same substance, just
+  phrased differently for different display contexts.
 - **`warnings.catch_warnings()`'s non-thread-safety in `_compass_skew()`**
   is a genuine, if currently dormant, constraint — see that function's own
   concurrency note above.

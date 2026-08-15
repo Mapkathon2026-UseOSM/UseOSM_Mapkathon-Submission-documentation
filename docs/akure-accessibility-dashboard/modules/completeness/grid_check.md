@@ -1,7 +1,8 @@
 # grid_check.py
 
 !!! info "Source"
-    `akure_access/completeness/grid_check.py` (151 lines)
+    `akure_access/completeness/grid_check.py` (155 lines — grew slightly
+    with the migration to config-derived constants, see below)
 
 ## Purpose
 
@@ -41,13 +42,32 @@ presence signal instead of a heavier remote-sensing approach.
 
 | Constant | Value | Purpose |
 |---|---|---|
-| `DEFAULT_BUILDING_PRESENCE_THRESHOLD` | `3` | Minimum building count for a cell to be considered "settled" for completeness-checking purposes. |
-| `DEFAULT_FACILITY_SEARCH_RADIUS_M` | `1000` | Radius (meters) to search for a nearby facility before flagging a settled cell as potentially under-mapped. |
+| `DEFAULT_BUILDING_PRESENCE_THRESHOLD` | `3` (now **config-derived**, see below) | Minimum building count for a cell to be considered "settled" for completeness-checking purposes. |
+| `DEFAULT_FACILITY_SEARCH_RADIUS_M` | `1000` (now **config-derived**) | Radius (meters) to search for a nearby facility before flagging a settled cell as potentially under-mapped. |
 
-Worth noting: `DEFAULT_BUILDING_PRESENCE_THRESHOLD` (3 buildings) is a
-*different* settlement threshold than `accessibility.scoring.add_access_times()`
-uses (`building_count > 0`, i.e. threshold of 1) — the two modules define
-"settled" independently for their own purposes. See Gotchas below.
+**Both are now derived from [`config.get_config()`](../config.md)**
+(`_config["completeness"]["building_presence_threshold"]` and
+`_config["completeness"]["facility_search_radius_m"]`), read once at
+import time into plain module-level constants — the same migration
+pattern applied identically across `scoring.py`, `network_graph.py`, and
+this module (see [`config.md`](../config.md) for the full story and its
+import-time-snapshot caveat). The numeric values themselves are
+unchanged.
+
+**The settlement-threshold discrepancy this page previously flagged as an
+unexplained inconsistency is now explicitly justified in the source
+itself.** `DEFAULT_BUILDING_PRESENCE_THRESHOLD` (3 buildings) remains a
+*different*, **stricter** settlement threshold than
+`accessibility.scoring.add_access_times()` uses (`building_count > 0`,
+i.e. effectively a threshold of 1) — the two modules still define
+"settled" independently for their own purposes. What's new: `config/
+default.yaml`'s own inline comment now states directly *why* this
+difference is intentional, not accidental — a completeness *flag* is a
+stronger claim ("this looks like a possible OSM data gap") than a mere
+scoring-inclusion decision, and warrants more confidence that a cell is
+genuinely settled before making that claim. See
+[`config.md`](../config.md) for the full quote and context. See Gotchas
+below for what this means in practice.
 
 ### `flag_completeness(grid_gdf, health_gdf, schools_gdf, building_threshold=DEFAULT_BUILDING_PRESENCE_THRESHOLD, search_radius_m=DEFAULT_FACILITY_SEARCH_RADIUS_M)`
 
@@ -122,17 +142,22 @@ flowchart TD
 ## Gotchas
 
 - **`grid_check.py`'s settlement threshold (3 buildings) is different from
-  `scoring.add_access_times()`'s (any building at all, `> 0`) — and
-  nothing ties the two together.** A cell with exactly 1 or 2 buildings is
-  "settled" for accessibility-scoring purposes (it gets routed and scored)
-  but **not** "settled" for completeness-flagging purposes (it's excluded
-  from the completeness check entirely, treated the same as truly empty
-  land). This is very likely intentional — a completeness flag is a
-  stronger claim ("this looks like a real gap in OSM mapping") that
-  probably warrants more confidence in the settlement signal than a routing
-  decision does — but it's worth being explicit about, since reading only
-  one module's threshold in isolation would give a misleading picture of
-  which cells get analyzed by which pathway.
+  `scoring.add_access_times()`'s (any building at all, `> 0`) — this is
+  now explicitly confirmed as intentional, not just inferred.** A cell
+  with exactly 1 or 2 buildings is "settled" for accessibility-scoring
+  purposes (it gets routed and scored) but **not** "settled" for
+  completeness-flagging purposes (it's excluded from the completeness
+  check entirely, treated the same as truly empty land). Previously, this
+  page could only note this was "very likely intentional" based on
+  reasoning about what would make sense; `config/default.yaml`'s own
+  inline comment (see [`config.md`](../config.md)) now states the
+  justification directly in the source itself — a completeness flag is a
+  stronger claim than a routing-inclusion decision, and warrants more
+  confidence in the settlement signal. Still worth being explicit about
+  here, since reading only one module's threshold in isolation would give
+  a misleading picture of which cells get analyzed by which pathway — but
+  this is no longer an unexplained discrepancy, just a documented design
+  choice.
 - **`summarize_completeness()`'s zero-settled-cells return shape omits the
   percentage keys entirely**, rather than including them as `0.0` or `NaN`.
   Any caller (e.g. `insights.py` or `dashboard/app.py`) reading this dict's

@@ -1,7 +1,8 @@
 # Streamlit App — app.py
 
 !!! info "Source"
-    `app.py` (289 lines)
+    `app.py` (404 lines — grew from 289 with a complete rework of the
+    caching/progress model, see below)
 
 ## Purpose
 
@@ -9,96 +10,145 @@ A Streamlit web UI wrapping `pipeline.extract_lga()`: a user types an LGA
 name (and optionally a state), clicks "Extract OSM Data," previews every
 extracted layer on an interactive Leafmap map with toggleable layers, and
 downloads everything as a zip. This is the no-code, no-GIS-software path
-into the extractor — everything it does is a thin presentation layer over
-the same `extract_lga()` function `cli.py` calls.
+into the extractor.
+
+**This revision replaces the entire caching and feedback model.** The
+previous version wrapped `extract_lga()` in a single `@st.cache_data`
+decorator and showed one generic spinner for the whole multi-minute run —
+a user had no visibility into *which* of the five pipeline stages was
+running, whether it was stuck, or whether a retry was in progress. This
+revision runs extraction on a background thread and drains a live event
+stream (from [`events.py`](modules/events.md), new in the pipeline itself)
+onto a per-stage progress checklist — the direct UI payoff of the
+`on_event` plumbing added throughout `pipeline.py` and `layers.py` in this
+same update.
 
 Run with `streamlit run app.py`.
 
 ## Dependencies
 
-- **Imports:** `streamlit`, `leafmap.foliumap` (for the interactive
-  preview map), `os`, `zipfile`, `io` (for the download-as-zip feature);
-  `extract_lga` and `BoundaryResolutionError` from the `lga_extractor`
-  package's top-level `__init__.py`.
-- **Imports from:** `pipeline.py` (via the package's `__init__.py`
-  re-export), indirectly depends on everything `extract_lga()` itself
-  depends on.
+- **Imports:** `streamlit`, `leafmap.foliumap`, `os`, `zipfile`, `io`,
+  and (new) `threading`, `time`; `extract_lga`, `BoundaryResolutionError`,
+  `DEFAULT_TAG_CONFIG` from the `lga_extractor` package's top-level
+  `__init__.py`; (new) `ThreadSafeEventQueue`, `build_stage_order` from
+  [`lga_extractor.events`](modules/events.md).
+- **Imports from:** `pipeline.py`, indirectly depends on everything
+  `extract_lga()` itself depends on, plus (new) `events.py` directly.
 
 ## Page Structure
 
-1. **Page config + custom CSS** — sets page title/icon/wide layout, injects
-   a small CSS block (global font-size bump, hero title/subtitle styling, a
-   colored callout box style, and orange-accented form/download buttons).
-2. **Hero section + "About this tool" explanation** — static Markdown
-   explaining the three-step flow, why extraction can take a few minutes
-   (live Overpass queries, no cached OSM data), and what each of the six
-   layers contains.
-3. **Input form** (`st.form("extract_form")`) — two text inputs (`lga_name`,
-   `state_name`) side by side, one primary submit button.
-4. **`_cached_extract()` definition** — see below.
-5. **`LAYER_STYLES`** — a module-level dict of Folium styling
-   (color/weight/fillOpacity) per layer name, deliberately kept visually
-   consistent with `akure-accessibility-dashboard`'s own palette
-   conventions, so a given color means roughly the same thing to anyone
-   who's seen both tools.
-6. **On submit** — validates the LGA name isn't blank, runs the (cached)
-   extraction inside a spinner, and on success: shows warnings (if any) in
-   an expander, builds and displays the preview map, offers a zip download
-   of the output directory.
-7. **Footer** — a GitHub link back to the source repository.
+1. **Page config + custom CSS** — unchanged from before: hero title/subtitle
+   styling, callout box, orange-accented form/download buttons.
+2. **Hero section + "About this tool" explanation** — unchanged static
+   Markdown.
+3. **Input form** (`st.form("extract_form")`) — unchanged: two text inputs,
+   one primary submit button.
+4. **New: `_extraction_cache()` and `_run_extraction_with_live_progress()`**
+   — replace the old single `_cached_extract()` function. See below.
+5. **`LAYER_STYLES`** — unchanged.
+6. **On submit** — validates the LGA name, checks the new session cache
+   for an exact repeat request (instant, no progress UI needed), otherwise
+   runs `_run_extraction_with_live_progress()`. On success: shows the
+   **new "Extraction summary" expander** (per-layer feature-count table),
+   warnings expander, preview map, zip download — the map/download logic
+   itself is unchanged from before.
+7. **Footer** — unchanged GitHub link.
 
-## Functions
+## New in this revision: the caching model changed shape, not just implementation
 
-### `_cached_extract(lga_name, state_name)`
+### `_extraction_cache()`
 
-| | |
-|---|---|
-| **What it does** | A thin wrapper around `extract_lga()`, decorated with `@st.cache_data(show_spinner=False)`. |
-| **Why written this way** | Extraction is genuinely slow — it hits OpenStreetMap's live Overpass API for six separate layers, and larger/denser LGAs (especially `buildings`) can take one to five minutes. `st.cache_data` means re-running the *exact same* `(lga_name, state_name)` combination again in the same session — or from a **different user entirely**, since Streamlit's `@st.cache_data` cache is shared across all sessions of a running app by default, not scoped per-user — returns instantly instead of re-querying Overpass from scratch. This works correctly with `extract_lga()`'s own behavior: its `output_dir` defaults to a path deterministically derived from `lga_name`, so the files already written to disk on the first run remain valid and present for a cached return — the cache doesn't need to re-materialize any files, only skip re-computation of the returned summary dict. `show_spinner=False` is set because the app already shows its own custom spinner message around the call site (step 6 above), avoiding a redundant/generic second spinner from Streamlit's cache decorator itself. |
-| **Inputs** | `lga_name: str`, `state_name` (str or `None`). |
-| **Outputs** | Whatever `extract_lga()` returns (see [`pipeline.md`](modules/pipeline.md)) — cached by Streamlit keyed on the exact input arguments. |
-| **Internal workflow** | Single line: `return extract_lga(lga_name=lga_name, state_name=state_name)`. All the actual work is Streamlit's caching machinery plus `extract_lga()` itself. |
-| **Assumptions** | Assumes `extract_lga()`'s default `manual_boundary_path=None` and `strict=False` are the right choices for this UI — the app never exposes these as user-facing options, unlike `cli.py`, which does expose both. A user needing a manual boundary or strict-mode behavior currently has no path to that through the Streamlit UI. |
-| **Complexity** | O(1) in this function's own logic; wall-clock cost is entirely `extract_lga()`'s (dominated by Overpass query latency across six layers, see [`layers.md`](modules/layers.md)). |
-| **Concurrency / race conditions** | **This is the one place in the whole repository where Streamlit's shared-cache model introduces a genuine cross-user consideration.** Because `@st.cache_data`'s cache is shared across all sessions by default, two different users requesting the same LGA/state at nearly the same time could both trigger the underlying `extract_lga()` call if neither result is cached yet (Streamlit doesn't lock/dedupe concurrent misses for the same key across sessions) — both would independently query Overpass and independently write to the same deterministic `output_dir`, a benign but wasteful race (see `export.py`'s and `logging_utils.py`'s own gotchas about concurrent writes to the same output directory not being guarded against). Once either completes, subsequent requests for that same key are served from cache. This isn't a correctness bug (final state is fine, both would produce equivalent output), but it is a real, if narrow, concurrency consideration unique to the Streamlit deployment. |
-| **Covered by test(s)** | See [tests.md](tests.md) — note `_cached_extract()` itself, being a decorated Streamlit function, isn't directly unit-testable in the same way as the core pipeline functions; `test_extraction.py` tests `extract_lga()` and its dependencies directly instead. |
+```python
+@st.cache_resource(show_spinner=False)
+def _extraction_cache():
+    return {}
+```
 
-## Layer Rendering Logic (the `if submitted:` block)
+**Why `st.cache_resource`, not `st.cache_data` (the old decorator)** — this
+is a deliberate, meaningful choice, not an arbitrary swap. `st.cache_data`
+returns a **copy** of whatever's cached on every call; `st.cache_resource`
+returns the **same object** every time. The old design relied on
+`st.cache_data`'s own per-argument caching (keyed on `(lga_name,
+state_name)`) to skip re-computation. The new design needs something
+different: a single, persistent, **mutable** dict that the app can check
+*and* write to itself (`cache[cache_key] = result`), used as a manual
+cache the app controls directly — necessary because the actual extraction
+call now happens inside `_run_extraction_with_live_progress()`, on a
+background thread, not inside a function Streamlit's own decorator can
+transparently memoize around.
 
-The most detailed piece of logic in this file isn't `_cached_extract()` —
-it's how the preview map decides which layer to zoom the map to, since a
-naive approach has a real bug the code explicitly works around:
+### `_run_extraction_with_live_progress(lga_name, state_name)`
 
-- Layers are sorted so `"roads"` is attempted first (roads typically span
-  the full LGA boundary, making it a good layer to frame the initial map
-  view around), with every other layer following in whatever order they
-  appear in `result["exported"]`.
-- **The zoom-to-layer bug this avoids:** an earlier, simpler approach would
-  tie `zoom_to_layer=True` to a fixed list position (e.g. "the first item").
-  But if that first item in sorted order (`"roads"`) happens to have no
-  file on disk — a real, valid case: an LGA where roads legitimately
-  extracted as empty, or was skipped — indexing by fixed position would
-  mean **no layer ever gets zoomed to**, since the loop simply moves to the
-  next index without the map having zoomed to anything yet, leaving the map
-  at Leaflet's global default view even though other layers loaded
-  successfully underneath, just invisible at that zoom level. The actual
-  code instead tracks a running `zoomed_yet: bool` flag across the loop,
-  and passes `zoom_to_layer=(not zoomed_yet)` to `m.add_geojson()` for each
-  layer — guaranteeing whichever layer is genuinely added *first* (in
-  practice, regardless of which earlier layers in sorted order turned out
-  to be empty) gets the zoom.
-- **A second defensive layer:** each `m.add_geojson()` call is wrapped in a
-  `try/except (IndexError, KeyError, ValueError)`. The comment explains this
-  shouldn't normally trigger — `export_layers()` already filters out
-  genuinely empty layers before writing any file at all (they go into
-  `exported["_skipped"]` instead of being written) — but it exists as a
-  backstop against a file that *exists* on disk but is malformed or
-  unexpectedly empty, e.g. from a partial/interrupted write during a
-  long-running extraction (a real risk given extractions can take several
-  minutes). Without this, one bad file would crash the whole preview map
-  and silently drop every layer added after it in the loop, rather than
-  just that one layer being reported as un-previewable while the rest (and
-  the download) continue to work.
+**What it does:** runs `extract_lga()` on a background `threading.Thread`,
+passing a `ThreadSafeEventQueue` instance as `on_event`, while the main
+thread polls that queue in a loop and renders a live, per-stage progress
+checklist via `st.status(...)`.
+
+**Why this exact architecture — background thread + main-thread polling
+loop — rather than something simpler:** stated directly in the function's
+own docstring. `extract_lga()` is a single, several-minutes-long blocking
+call; the *only* way to update the UI *while* it runs (not just before and
+after) is to have something else pushing progress updates while it's in
+flight. But Streamlit's own APIs are not safe to call directly from a
+background thread — so the background thread only ever touches the
+thread-safe event queue, never Streamlit itself, and all actual UI updates
+(`st.status`, `st.progress`, `st.markdown` per row) happen exclusively on
+the main thread, inside the polling loop. This is precisely the pattern
+[`events.py`](modules/events.md)'s own documentation describes as the
+reason `ThreadSafeEventQueue` exists.
+
+**Stage checklist construction:** `build_stage_order(DEFAULT_TAG_CONFIG)`
+(from `events.py`) gives the fixed, ordered list of stage names — this app
+always builds its checklist against `DEFAULT_TAG_CONFIG` specifically
+(not whatever `tag_config` a call might theoretically use), since the UI
+itself never exposes a custom `tag_config` option to begin with — see
+Gotchas. Stage labels are derived automatically from stage names
+(`stage.split(":", 1)[-1].replace("_", " ").title()`, e.g.
+`"layer:health_facilities"` → `"Health Facilities"`), with three
+hand-written overrides for the non-layer stages (`"boundary"` →
+`"Resolving boundary"`, etc.) since those slugified poorly on their own.
+
+**The `outcome` dict pattern for cross-thread exception propagation:**
+```python
+outcome = {}
+def _worker():
+    try:
+        outcome["result"] = extract_lga(..., on_event=events)
+    except Exception as exc:
+        outcome["error"] = exc
+```
+A plain dict, closed over by the worker function, used to smuggle either
+the successful result or the caught exception back out of the background
+thread — `threading.Thread` has no built-in return-value or
+exception-propagation mechanism of its own, so this is the standard
+workaround: catch everything inside the thread, stash it, and after
+`thread.join()` on the main thread, explicitly `raise outcome["error"]`
+if one was captured, so the exception surfaces to `app.py`'s own
+`try/except BoundaryResolutionError` / `except Exception` block exactly as
+if `extract_lga()` had been called directly and synchronously — the
+threading layer is otherwise invisible to that error-handling code.
+
+**Per-stage row rendering and state machine:** each stage tracks one of
+five states (`"pending"` / `"running"` / `"retrying"` / `"done"` /
+`"failed"`), each rendered with a distinct symbol (`○` / `⟳` / `⟳` / `✓` /
+`✗`) plus an optional detail string (a retry counter, a feature count on
+completion, an error message on failure) — updated directly from each
+drained event's `"type"` field (`stage_started` → running,
+`retry` → retrying, `stage_completed` → done, `stage_failed` → failed).
+**Unknown stages are silently ignored** (`if stage not in stage_state:
+continue`) — a forward-compatibility choice: if `pipeline.py` or
+`layers.py` ever emits an event for a stage this UI's checklist doesn't
+know about, the polling loop simply skips it rather than crashing on an
+unexpected key, so the pipeline and UI can evolve somewhat independently.
+
+**The polling loop's exit condition:** `while thread.is_alive() or not
+events.empty():` — deliberately checks *both* conditions, not just thread
+liveness. This guards against a real, if narrow, race: the background
+thread could finish and exit right after emitting its final event but
+*before* the main thread has drained that event from the queue — checking
+only `thread.is_alive()` could exit the loop one iteration too early,
+leaving the final event(s) undrained and the UI's last row(s) stuck at
+their second-to-last state. Checking `events.empty()` too closes that gap.
 
 ## Internal Workflow
 
@@ -110,41 +160,93 @@ flowchart TD
     D -- no --> C
     D -- yes --> E{lga_name blank?}
     E -- yes --> F["st.error, stop"]
-    E -- no --> G["_cached_extract(lga_name, state_name) — st.cache_data"]
-    G -- cache hit --> H["instant return"]
-    G -- cache miss --> I["pipeline.extract_lga() — full 5-stage pipeline runs"]
-    I --> H
-    H -- BoundaryResolutionError --> J["st.error: boundary-specific message"]
-    H -- other Exception --> K["st.error: generic extraction-failed message"]
-    H -- success --> L["st.success + show warnings expander if any"]
-    L --> M["sort layers: roads first, rest after"]
-    M --> N["for each layer: add_geojson with zoom_to_layer = not zoomed_yet"]
-    N -- add succeeds --> O["zoomed_yet = True"]
-    N -- IndexError/KeyError/ValueError --> P["record in skipped_layers, continue loop"]
-    O --> N
-    P --> N
-    N --> Q{skipped_layers non-empty?}
-    Q -- yes --> R["st.warning listing unreadable layers"]
-    Q -- no --> S
-    R --> S["render map + layer control"]
-    S --> T["zip output_dir in-memory"]
-    T --> U["st.download_button"]
+    E -- no --> G["cache_key = (lga, state).lower() in _extraction_cache()?"]
+    G -- yes --> H["instant return from manual dict cache — no progress UI"]
+    G -- no --> I["_run_extraction_with_live_progress()"]
+
+    subgraph Thread ["background thread"]
+        I --> J["threading.Thread(target=_worker)"]
+        J --> K["extract_lga(..., on_event=ThreadSafeEventQueue)"]
+        K -- success --> L["outcome['result'] = ..."]
+        K -- exception --> M["outcome['error'] = exc (caught, not raised, in worker)"]
+    end
+
+    subgraph MainThread ["main thread — polling loop"]
+        I --> N["st.status(...) + st.progress(0.0) + one st.empty() per stage row"]
+        N --> O["while thread.is_alive() or not events.empty():"]
+        O --> P["drain events, update stage_state + stage_detail per event type"]
+        P --> Q["re-render each changed row, update progress bar"]
+        Q --> O
+        O -- loop exits --> R["thread.join()"]
+    end
+
+    R --> S{outcome has 'error'?}
+    S -- yes --> T["status_box.update(state='error')<br/>raise outcome['error']"]
+    S -- no --> U["status_box.update(state='complete')<br/>return outcome['result']"]
+    T --> V["caught by outer try/except:<br/>BoundaryResolutionError or generic Exception"]
+    H --> W
+    U --> W["cache[cache_key] = result"]
+    W --> X["st.success + Extraction summary expander (new)"]
+    X --> Y["Warnings expander if any"]
+    Y --> Z["Preview map: sort layers roads-first,<br/>zoom_to_layer = not zoomed_yet,<br/>try/except backstop per layer (unchanged from before)"]
+    Z --> AA["zip output_dir in-memory, download button"]
 ```
+
+## New in this revision: the "Extraction summary" expander
+
+```python
+with st.expander("Extraction summary", expanded=False):
+    summary_rows = [...]  # one row per layer: {"Layer": ..., "Features": entry.get("feature_count", "?")}
+    st.table(summary_rows)
+    st.caption(f"CRS: ... • Boundary: ... • Warnings: ...")
+```
+
+A new, simple addition sitting between the success message and the
+warnings expander: a per-layer feature-count table plus a one-line caption
+summarizing CRS, boundary source, and warning count. This is the app's
+first use of `export.export_layers()`'s `feature_count` field (new — see
+[`export.md`](modules/export.md)) — previously that number existed in the
+returned summary dict but had no dedicated place in the UI at all;
+extraction "succeeding" gave a user no quick sense of *how much* data was
+actually found per layer without opening the downloaded zip and inspecting
+files individually.
+
+## Layer Rendering Logic (unchanged from the previous revision)
+
+The zoom-to-layer bug fix (tracking a running `zoomed_yet` flag rather than
+a fixed list index) and the defensive `try/except (IndexError, KeyError,
+ValueError)` backstop around each `m.add_geojson()` call are both
+completely unchanged in this revision — see the previous documentation of
+this logic, still accurate: layers are sorted roads-first, each
+successfully-added layer's zoom flag is tracked independently of position,
+and a malformed-on-disk file (e.g. from an interrupted write, a real risk
+given multi-minute extraction times) is caught and reported without
+crashing the whole preview.
 
 ## Gotchas
 
-- **The Streamlit cache is shared across users, not per-session.** As noted
-  above, this is a deliberate and reasonable choice for this app's use case
-  (avoid re-querying Overpass for a popular LGA), but it does mean one
-  user's extraction can "warm the cache" for another user requesting the
-  same LGA/state, which is worth knowing if this is ever deployed somewhere
-  privacy/isolation between users matters more than it does for a public
-  demo tool.
-- **`manual_boundary_path` and `strict` are not exposed in the UI**, even
-  though `extract_lga()` supports both — only `cli.py` currently exposes
-  the full parameter surface.
-- **The download zip is built entirely in memory** (`io.BytesIO()`), by
-  walking `output_dir` on disk — this means the zip always reflects
-  whatever is currently on disk at download time, not a snapshot taken at
-  extraction time; for a cached result, this is the same files from the
-  original run.
+- **The manual dict cache (`_extraction_cache()`) is shared across users,
+  same as the old `st.cache_data` behavior, but now the app owns the
+  sharing semantics explicitly rather than delegating to Streamlit's own
+  decorator.** `st.cache_resource` — like `st.cache_data` before it —
+  returns the same object across all sessions of a running app instance by
+  default. This app's own code (not Streamlit's caching internals) is what
+  decides to check and write into that shared dict, but the practical
+  effect for a deployed app is unchanged: one user's extraction can "warm
+  the cache" for another user requesting the same LGA/state.
+- **A cache hit shows no progress UI at all** — by design (there's nothing
+  to show progress *for*), but worth knowing if you're specifically trying
+  to see the new live-progress interface in action: request an LGA/state
+  combination that hasn't been extracted yet in the current app session.
+- **`build_stage_order(DEFAULT_TAG_CONFIG)` is called with the *default*
+  tag config, always** — since this UI never exposes a custom `tag_config`
+  option (unchanged from before, see the pre-existing `manual_boundary_path`
+  / `strict` gotcha below), the progress checklist's layer rows are always
+  exactly the six default layers, regardless of what `extract_lga()` might
+  theoretically be called with elsewhere.
+- **`manual_boundary_path` and `strict` are still not exposed in the UI**,
+  unchanged from before — only `cli.py` exposes the full parameter surface,
+  including the new `on_event`, which the CLI does *not* currently wire up
+  to anything (see [`cli.md`](cli.md)).
+- **The download zip is still built entirely in memory**, walking
+  `output_dir` on disk at download time — unchanged.

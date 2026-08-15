@@ -89,6 +89,8 @@ nav:
           - visualize.py: lga-osm-extractor/modules/visualize.md
           - logging_utils.py: lga-osm-extractor/modules/logging_utils.md
           - pipeline.py: lga-osm-extractor/modules/pipeline.md
+          - events.py: lga-osm-extractor/modules/events.md
+          - manifest.py: lga-osm-extractor/modules/manifest.md
       - Streamlit App (app.py): lga-osm-extractor/app.md
       - CLI (cli.py): lga-osm-extractor/cli.md
       - End-to-End Walkthrough: lga-osm-extractor/end-to-end.md
@@ -103,6 +105,11 @@ nav:
           - completeness/grid_check.py: akure-accessibility-dashboard/modules/completeness/grid_check.md
           - visualization/static_maps.py: akure-accessibility-dashboard/modules/visualization/static_maps.md
           - insights.py: akure-accessibility-dashboard/modules/insights.md
+          - config.py: akure-accessibility-dashboard/modules/config.md
+          - data_contract.py: akure-accessibility-dashboard/modules/data_contract.md
+          - facility_classification.py: akure-accessibility-dashboard/modules/facility_classification.md
+          - sensitivity.py: akure-accessibility-dashboard/modules/sensitivity.md
+          - status.py: akure-accessibility-dashboard/modules/status.md
       - Dashboard App (dashboard/app.py): akure-accessibility-dashboard/dashboard-app.md
       - End-to-End Walkthrough: akure-accessibility-dashboard/end-to-end.md
       - Tests: akure-accessibility-dashboard/tests.md

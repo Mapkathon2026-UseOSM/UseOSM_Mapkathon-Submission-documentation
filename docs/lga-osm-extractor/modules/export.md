@@ -1,7 +1,8 @@
 # export.py
 
 !!! info "Source"
-    `lga_extractor/export.py` (130 lines)
+    `lga_extractor/export.py` (176 lines — grew from 130 with the addition
+    of Shapefile-safe column filtering, see below)
 
 ## Purpose
 
@@ -12,14 +13,20 @@ consumed by ArcGIS Pro, QGIS, and — most importantly — by
 `akure-accessibility-dashboard` downstream (see
 [Cross-Repo Integration](../../cross-repo/integration.md)).
 
-The module's one real technical problem is a format mismatch: GeoJSON
-tolerates mixed geometry types within a single file; Shapefile does not.
-Most of this file's logic exists to handle that mismatch correctly rather
-than simply failing on it.
+The module now has **two** real technical problems to solve, not one.
+The original problem is a geometry-type mismatch: GeoJSON tolerates mixed
+geometry types within a single file; Shapefile does not — most of the
+splitting logic below exists to handle that. The new problem, introduced
+by [`clean.py`](clean.md)'s richer per-layer attribute schema (semantic OSM
+tags plus a full JSON `raw_tags` column), is an *attribute* mismatch:
+Shapefile's DBF format truncates field names to 10 characters and has no
+sensible representation for a JSON blob at all. See
+`_shapefile_safe_columns()` below for how this module now handles that.
 
 ## Dependencies
 
-- **Imports:** `os`, `geopandas`.
+- **Imports:** `os`, `geopandas`, and (new) `CORE_COLUMNS`, `RAW_TAGS_COLUMN`
+  from [`clean.py`](clean.md).
 - **Imported by:** `pipeline.py` (fourth stage, after `clean.clean_layers()`).
 
 ## Functions & Classes
@@ -46,19 +53,27 @@ layer needs to be split across multiple Shapefiles.
 | **Concurrency / race conditions** | None — pure function. |
 | **Covered by test(s)** | See [tests.md](../tests.md) — exercised indirectly through `test_export_layers_splits_mixed_geometry_types`, which depends on this function correctly identifying the point/line mix that triggers the Shapefile-splitting behavior. |
 
+## New in this revision: `_shapefile_safe_columns(gdf)` (private)
+
+**What it does:** reduces a cleaned layer to `CORE_COLUMNS` only (`osmid`, `name`, `geometry`) — discarding whatever `SEMANTIC_COLUMNS` and `RAW_TAGS_COLUMN` [`clean.py`](clean.md) added — for Shapefile export specifically.
+
+**Why this is necessary, not just a stylistic choice:** since `clean.clean_layers()` started preserving richer per-layer semantic OSM attributes (e.g. `building:levels`, `building:use`) plus a full `raw_tags` JSON blob, writing that full schema straight to Shapefile would be **actively harmful, not just imprecise**. Shapefile field names are silently truncated to 10 characters — `"building:levels"` and `"building:use"` could both collide/mangle down to something like `"building:l"` — and a JSON blob has no meaningful place in a fixed-width DBF field at all (it would either be truncated mid-string, corrupting the JSON, or rejected by the writer depending on the driver). GeoJSON has no such limit and is where the full schema belongs; Shapefile output stays deliberately at the original minimal schema and remains **fully backward compatible** with every pre-existing Shapefile consumer of this extractor's output — a consumer that only ever read `osmid`/`name`/`geometry` from Shapefile sees no change in behavior at all.
+
+**Implementation:** `keep = [c for c in CORE_COLUMNS if c in gdf.columns]; return gdf[keep]` — a straightforward column-list filter, applied at both Shapefile write sites (the single-file path and the per-category split path) via `_shapefile_safe_columns(gdf).to_file(...)` / `_shapefile_safe_columns(subset).to_file(...)`, rather than passed as a parameter — GeoJSON's `gdf.to_file(geojson_path, driver="GeoJSON")` call is unaffected, still writing the complete schema.
+
 ### `export_layers(layers_dict, output_dir)`
 
 | | |
 |---|---|
-| **What it does** | Writes every non-empty layer in `layers_dict` to both a `.geojson` file (always one file per layer, mixed types are fine) and one or more `.shp` files (split by geometry category only when the layer actually mixes categories). Returns a summary dict of what was written, skipped, and split. |
-| **Why written this way** | The design deliberately keeps GeoJSON export simple and uniform (one file per layer, no splitting logic needed, since GeoJSON has no restriction here) while only paying the complexity cost of splitting where Shapefile's format constraint actually forces it — layers with a single geometry category (the common case: `buildings`, `health_facilities`, `landuse`) still export as one plain `{layer_name}.shp`, completely unchanged from a version of this function that never had to think about mixed types at all. This backward-compatible shape (single path string for the simple case, dict of `{category: path}` only when needed) means existing callers that only handle single-category layers don't break. |
-| **Inputs** | `layers_dict: dict` (layer_name → cleaned `GeoDataFrame`, as returned by `clean.clean_layers()`; a `"_warnings"` key, if present, is explicitly skipped during export — it isn't a layer); `output_dir: str` (created if it doesn't exist; a `shapefiles/` subfolder is created within it to keep Shapefile's multi-file sidecar outputs — `.shp`/`.shx`/`.dbf`/`.prj` — organized separately from the flat GeoJSON files). |
-| **Outputs** | `dict` mapping each exported `layer_name` to `{"geojson": path, "shapefile": shapefile_value}`, where `shapefile_value` is a single path string for single-category layers, or a `{category: path}` dict for split layers. Also includes `"_skipped"` (list of layer names skipped because they were empty) and, only if any layer needed splitting, `"_split_layers"` (dict of `{layer_name: categories_list}`, useful for logging/visibility into which layers triggered the split path). |
-| **Internal workflow** | 1. Create `output_dir` and `output_dir/shapefiles/` (both `exist_ok=True`, safe to call repeatedly).<br>2. For each `(layer_name, gdf)` in `layers_dict`:<br>&nbsp;&nbsp;a. Skip `"_warnings"` entirely (not a real layer).<br>&nbsp;&nbsp;b. If `gdf` is `None` or empty, record it in `skipped` and continue — no files written for empty layers.<br>&nbsp;&nbsp;c. Write the GeoJSON unconditionally: `gdf.to_file(path, driver="GeoJSON")`.<br>&nbsp;&nbsp;d. Compute `categories = _geom_categories_present(gdf)`.<br>&nbsp;&nbsp;e. If `len(categories) <= 1`: write one Shapefile as before, record a single path.<br>&nbsp;&nbsp;f. Otherwise: for each category present, filter `gdf` down to just the geometry types belonging to that category (via `.isin()` against the subset of `_GEOM_CATEGORY` keys mapping to that category), skip if the filtered subset happens to be empty, write `{layer_name}_{category}.shp`, and record the path under that category key. Also record this layer in `split_layers` for the summary.<br>3. Attach `"_skipped"` and (if non-empty) `"_split_layers"` to the result dict, return it. |
-| **Assumptions** | Assumes `gdf.to_file(..., driver="GeoJSON")` and `driver="ESRI Shapefile"` (both via GeoPandas → Fiona/pyogrio) handle CRS metadata correctly on their own — this function does no explicit CRS handling itself, relying entirely on whatever CRS `clean_layers()` already set. Assumes Shapefile's 10-character field name truncation and other format limitations (a well-known Shapefile constraint, unrelated to the geometry-type issue this module solves) aren't a practical problem given `clean.py`'s minimal `KEEP_COLUMNS` schema (`osmid`, `name`, `geometry` — none close to the 10-character limit). |
-| **Complexity** | O(L × N) where L = number of layers, N = features per layer, for the write operations themselves; the geometry-category filtering step is an additional O(N) pass per category for split layers. |
-| **Concurrency / race conditions** | None — sequential loop, no threading. Writing to `output_dir` is not guarded against concurrent calls to `export_layers()` targeting the *same* `output_dir` from multiple processes — this isn't a concern in the current pipeline (each LGA extraction run uses its own output directory sequentially), but would be worth locking if this function were ever called concurrently for the same target directory. |
-| **Covered by test(s)** | See [tests.md](../tests.md) — `test_export_layers_writes_geojson_and_shapefile`, `test_export_layers_splits_mixed_geometry_types`. |
+| **What it does** | Writes every non-empty layer in `layers_dict` to both a `.geojson` file (full schema, always one file per layer, mixed types are fine) and one or more `.shp` files (**core schema only, new** — split by geometry category only when the layer actually mixes categories). Returns a summary dict of what was written, skipped, and split. |
+| **Why written this way** | The design deliberately keeps GeoJSON export simple and uniform (one file per layer, no splitting logic needed) while only paying the complexity cost of splitting where Shapefile's format constraint actually forces it. This backward-compatible shape (single path string for the simple case, dict of `{category: path}` only when needed) means existing callers that only handle single-category layers don't break. |
+| **Inputs** | `layers_dict: dict` (layer_name → cleaned `GeoDataFrame`, as returned by `clean.clean_layers()`; `"_warnings"` **and, new, `"_status"`** keys, if present, are explicitly skipped during export — neither is a layer); `output_dir: str` (created if it doesn't exist; a `shapefiles/` subfolder is created within it). |
+| **Outputs** | `dict` mapping each exported `layer_name` to `{"geojson": path, "shapefile": shapefile_value, "feature_count": int}` — **`feature_count` is new**: the number of features actually written (post-cleaning), distinct from the pre-cleaning `feature_count` recorded in `layers.extract_layers()`'s `"_status"` (see [`layers.md`](layers.md)) — `pipeline.extract_lga()` reconciles both into the single [extraction manifest](manifest.md). `shapefile_value` is a single path string for single-category layers, or a `{category: path}` dict for split layers. Also includes `"_skipped"` and, only if any layer needed splitting, `"_split_layers"`. |
+| **Internal workflow** | 1. Create `output_dir` and `output_dir/shapefiles/`.<br>2. For each `(layer_name, gdf)` in `layers_dict`:<br>&nbsp;&nbsp;a. Skip `"_warnings"` and `"_status"` (new — previously only `"_warnings"`).<br>&nbsp;&nbsp;b. If `gdf` is `None` or empty, record it in `skipped` and continue.<br>&nbsp;&nbsp;c. Write the full-schema GeoJSON unconditionally.<br>&nbsp;&nbsp;d. Compute `categories = _geom_categories_present(gdf)`.<br>&nbsp;&nbsp;e. If `len(categories) <= 1`: write one Shapefile via `_shapefile_safe_columns(gdf).to_file(...)` (**new** — core-columns-only), record a single path plus `feature_count: len(gdf)` (**new**).<br>&nbsp;&nbsp;f. Otherwise: for each category present, filter `gdf`, write `_shapefile_safe_columns(subset).to_file(...)` (**new**) per category, record paths plus `feature_count: len(gdf)` (**new** — the *layer's* total count, not per-category).<br>3. Attach `"_skipped"` and (if non-empty) `"_split_layers"`, return. |
+| **Assumptions** | Assumes `gdf.to_file(..., driver="GeoJSON")` and `driver="ESRI Shapefile"` handle CRS metadata correctly on their own. **Updated:** previously assumed Shapefile's 10-character field truncation "wasn't a practical problem" given the old minimal `KEEP_COLUMNS` schema — this assumption is now handled explicitly via `_shapefile_safe_columns()` rather than relying on the schema staying small by construction, since it no longer does. |
+| **Complexity** | O(L × N) where L = number of layers, N = features per layer, for the write operations; the geometry-category filtering step is an additional O(N) pass per category for split layers. The new `_shapefile_safe_columns()` filter is O(1) in column count, negligible. |
+| **Concurrency / race conditions** | None — sequential loop, no threading. |
+| **Covered by test(s)** | See [tests.md](../tests.md) — `test_export_layers_writes_geojson_and_shapefile`, `test_export_layers_splits_mixed_geometry_types`, plus new: `test_export_layers_shapefile_stays_core_columns_only`. |
 
 ## Internal Workflow
 
@@ -66,17 +81,17 @@ layer needs to be split across multiple Shapefiles.
 flowchart TD
     A["export_layers(layers_dict, output_dir)"] --> B["makedirs(output_dir), makedirs(output_dir/shapefiles)"]
     B --> C["for layer_name, gdf in layers_dict:"]
-    C --> D{layer_name == '_warnings'?}
+    C --> D{"layer_name in ('_warnings', '_status')?"}
     D -- yes --> C
     D -- no --> E{gdf empty or None?}
     E -- yes --> F["append to skipped list"] --> C
-    E -- no --> G["write {layer_name}.geojson (always, single file)"]
+    E -- no --> G["write {layer_name}.geojson — FULL schema<br/>(core + semantic + raw_tags)"]
     G --> H["categories = _geom_categories_present(gdf)"]
     H --> I{len(categories) <= 1?}
-    I -- yes --> J["write single {layer_name}.shp"]
-    J --> K["exported[layer_name] = {geojson, shapefile: path_string}"]
-    I -- no --> L["for each category: subset by geom_type, write {layer_name}_{category}.shp"]
-    L --> M["exported[layer_name] = {geojson, shapefile: {category: path, ...}}"]
+    I -- yes --> J["_shapefile_safe_columns(gdf) — CORE ONLY<br/>write single {layer_name}.shp"]
+    J --> K["exported[layer_name] = {geojson, shapefile: path_string, feature_count}"]
+    I -- no --> L["for each category: subset by geom_type,<br/>_shapefile_safe_columns(subset) — CORE ONLY<br/>write {layer_name}_{category}.shp"]
+    L --> M["exported[layer_name] = {geojson, shapefile: {category: path, ...}, feature_count}"]
     M --> N["record in split_layers dict"]
     K --> C
     N --> C
@@ -89,20 +104,24 @@ flowchart TD
 
 ## Gotchas
 
+- **GeoJSON and Shapefile now carry genuinely different attribute schemas
+  for the same layer, not just different file formats.** A consumer that
+  reads a layer's GeoJSON and expects the same columns to be present in the
+  corresponding Shapefile (or vice versa) will be surprised — GeoJSON has
+  `CORE_COLUMNS` + `SEMANTIC_COLUMNS` + `RAW_TAGS_COLUMN`; Shapefile has
+  `CORE_COLUMNS` only. This is new, deliberate, and documented, but a real
+  behavior change for any tooling built assuming schema parity between the
+  two formats.
 - **A layer's Shapefile output shape depends on its data, not on any
   configuration.** Whether `export_layers()`'s returned `shapefile_value`
   for a given layer is a plain string or a `{category: path}` dict is
   determined entirely by what geometry types happen to be present in that
-  particular LGA's extracted data — the same layer name (e.g. `"roads"`)
-  could return a single path for one LGA (no point-type road features
-  present) and a split dict for another. Any code consuming this return
-  value needs to check the type, not assume a fixed shape per layer name.
+  particular LGA's extracted data. Any code consuming this return value
+  needs to check the type, not assume a fixed shape per layer name.
 - **`_geom_categories_present()`'s `"other"` fallback is silent.** A
   geometry type outside the six mapped ones would be grouped as `"other"`
-  with no warning — worth being aware of if OSM ever returns an unexpected
-  geometry type (e.g. a `GeometryCollection`) for some tag combination.
+  with no warning.
 - **Empty-subset skip inside the split loop is a real (if rare) edge case.**
-  Step 2f's `if subset.empty: continue` guards against a category appearing
-  in `categories` (from the unique-values pass) but then producing zero rows
-  when filtered — this shouldn't normally happen given how `categories` is
-  derived, but the check is there defensively.
+  The `if subset.empty: continue` guard inside the per-category split path
+  handles a category appearing in `categories` but then producing zero rows
+  when filtered — shouldn't normally happen, but defensive.
