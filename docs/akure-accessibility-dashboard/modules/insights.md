@@ -211,7 +211,7 @@ the two different settlement thresholds in use across the codebase).
 | **Relationship to `scoring.SETTLEMENT_PROXY_DISCLAIMER`:** | This function's returned text and `scoring.py`'s new `SETTLEMENT_PROXY_DISCLAIMER` constant (see [`scoring.md`](accessibility/scoring.md)) cover the same underlying caveat — that `building_count` is a settlement proxy, not population data — but are two independently-worded strings, not one shared constant referenced from both places. `SETTLEMENT_PROXY_DISCLAIMER` is written as a long, precise, technical explanation (including the forward-looking note about future population-data substitutability); this function's string is shorter and more suited to appearing directly in a UI as a footnote. Worth knowing they're not the same string if a future edit updates one's wording and not the other's — there's no shared source of truth tying them together, unlike `DEFAULT_THRESHOLDS_MIN`'s fix above. |
 | **Inputs** | None. |
 | **Outputs** | `str` — a fixed, several-sentence caveat. |
-| **Covered by test(s)** | See [tests.md](../tests.md) — new: `test_describe_settlement_proxy_limitation_returns_nonempty_string`. |
+| **Covered by test(s)** | No dedicated test found in `test_insights.py` for this specific function — a real, if minor, coverage gap for a newly-added function. |
 
 ## Internal Workflow
 

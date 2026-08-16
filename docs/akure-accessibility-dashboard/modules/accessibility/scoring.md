@@ -117,7 +117,7 @@ the updated Gotchas section below.
 | **Assumptions** | Unchanged cell-size and clipping-predicate assumptions. **New:** assumes a caller either knows to pass `target_crs` explicitly (ideally via `resolve_crs_from_manifest()`) or accepts `FALLBACK_CRS`'s Akure-only correctness as a known limitation. |
 | **Complexity** | Unchanged. |
 | **Concurrency / race conditions** | None. |
-| **Covered by test(s)** | See [tests.md](../../tests.md) — `test_scoring.py`, plus new: `test_build_grid_uses_explicit_target_crs_when_given`, `test_build_grid_falls_back_to_fallback_crs_when_target_crs_omitted`. |
+| **Covered by test(s)** | See [tests.md](../../tests.md) — `test_scoring.py`, plus new: `test_build_grid_uses_explicit_target_crs_not_hardcoded_default`, `test_build_grid_falls_back_to_epsg_32631_when_crs_not_supplied`. |
 
 ## New in this revision: `SETTLEMENT_PROXY_DISCLAIMER`
 
@@ -229,7 +229,7 @@ always correct regardless of *why* `roads_gdf` or `live_osm` was chosen
 | **Assumptions** | Assumes `roads_gdf`/`health_gdf`/`schools_gdf` are all already in EPSG:32631 (the project's fixed CRS — see Gotchas) — no CRS validation is performed on these inputs beyond the explicit, deliberate reprojections described above. |
 | **Complexity** | O(M × (graph_build_cost + 2 × Dijkstra_cost + settled_cells × O(log n))) where M = number of requested modes — dominated by graph construction and the two Dijkstra passes per mode, **not** by grid size beyond the settled-cell lookup loop, which is the entire point of the batch approach. |
 | **Concurrency / race conditions** | None — sequential loop over modes, no threading. |
-| **Covered by test(s)** | No dedicated fast unit test in `test_scoring.py` (its neighboring tests construct grid data with routing results already present, rather than calling this function directly, to keep unit tests independent of graph-building cost). Its actual integration with `network_graph.py` and `isochrones.py` is exercised end to end by `test_extractor_output_schema_matches_dashboard_expectations` in the [cross-repo integration test](../../../cross-repo/integration.md). **New:** `test_add_access_times_source_passthrough_uses_roads_gdf_when_available`, `test_add_access_times_crs_branch_follows_graph_source_not_boundary_argument` — the second of these directly regression-tests the `G.graph.get("source")` fix described above. |
+| **Covered by test(s)** | No dedicated fast unit test in `test_scoring.py` for `add_access_times()` itself (its neighboring tests construct grid data with routing results already present, rather than calling this function directly, to keep unit tests independent of graph-building cost) — this remains true after this revision; no new test was added specifically for the `source` parameter or the `G.graph.get("source")` CRS-branch fix at the `add_access_times()` level. Its actual integration with `network_graph.py` and `isochrones.py` — including, implicitly, the CRS-branch fix — is exercised end to end by `test_extractor_output_schema_matches_dashboard_expectations` in the [cross-repo integration test](../../../cross-repo/integration.md). The `source` parameter's own three-way branching logic (`"auto"`/`"roads_gdf"`/`"live_osm"`) is directly unit-tested one level down, in `network_graph.graph_from_roads()` itself — see [`network_graph.md`](network_graph.md)'s test list. |
 
 **On why `inf` is deliberately kept, not converted to `NaN`, at this
 stage** — this is directly stated in the source as an inline comment, and

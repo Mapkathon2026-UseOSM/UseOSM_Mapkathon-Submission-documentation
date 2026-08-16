@@ -52,115 +52,174 @@ treats them as genuinely separate concerns rather than conflating them:
 
 ```mermaid
 flowchart TD
-    A["lga-osm-extractor output:<br/>roads, buildings, health_facilities,<br/>schools (shapefiles/GeoJSON)"] --> B["network_graph.py<br/>graph_from_roads()"]
-    A --> C["scoring.py<br/>build_grid()"]
+    A["lga-osm-extractor output:<br/>roads, buildings, health_facilities,<br/>schools + manifest.json + boundary.geojson (new)"] --> DC["data_contract.py (new)<br/>resolve_crs_from_manifest()<br/>resolve_boundary_path_from_manifest()"]
+    DC --> CFG["config.py (new)<br/>get_config() — grid size, thresholds, speeds"]
+    A --> B["network_graph.py<br/>graph_from_roads()<br/>NEW: source param, roads_gdf now default"]
+    CFG --> B
+    A --> C["scoring.py<br/>build_grid()<br/>NEW: target_crs param"]
+    CFG --> C
+    DC --> C
     B --> D["isochrones.py<br/>compute_isochrone_polygon()<br/>nearest_facility_travel_time()"]
     C --> D
     D --> E["scoring.py<br/>add_access_times()<br/>add_access_deficit_score()"]
     A --> F["completeness/grid_check.py<br/>flag_completeness()"]
     C --> F
+    CFG --> F
+    A --> FC["facility_classification.py (new)<br/>add_facility_class()"]
+    E --> ST["status.py (new)<br/>add_access_status()<br/>fuses E + F"]
+    F --> ST
+    E --> SV["sensitivity.py (new)<br/>run_threshold_sensitivity()<br/>run_speed_sensitivity()"]
     E --> G["insights.py<br/>describe_*() narrative captions"]
     F --> G
     E --> H["visualization/static_maps.py<br/>plot_*() + generate_all_static_outputs()"]
     F --> H
     G --> H
-    E --> I["dashboard/app.py<br/>Streamlit interactive dashboard"]
+    E --> I["dashboard/app.py<br/>Streamlit interactive dashboard<br/>(UNCHANGED — new modules not yet wired in)"]
     F --> I
     G --> I
 ```
 
-Three structural decisions are worth calling out:
+Three structural decisions were already worth calling out; this revision
+adds a fourth:
 
 - **`completeness` is a sibling package to `accessibility`, not a
   submodule of it.** This mirrors the problem-statement split above at the
   code level — OSM-completeness flagging and accessibility scoring are
   computed independently, over the same grid, and both feed into the
   dashboard and static outputs as parallel, separately-labeled findings
-  rather than being merged into one number.
+  rather than being merged into one number. **New: `status.py` now
+  formalizes the fusion of these two independent signals into a single
+  reusable classification**, without changing the fact that `scoring.py`
+  and `grid_check.py` remain computed independently of each other — see
+  [`status.md`](modules/status.md).
 - **`insights.py` sits between the analysis layers and the presentation
   layers.** It generates narrative captions describing what a given map or
   chart shows, consumed by *both* the live dashboard and the static export
-  pipeline — meaning a caption's wording only has to be gotten right once
-  to be correct everywhere it's used, rather than the dashboard and static
-  exports each hand-writing separate descriptions that could drift out of
-  sync with the underlying numbers.
+  pipeline.
 - **`dashboard/app.py` and `visualization/static_maps.py` are two
   independent consumers of the same underlying scored grid**, not a
-  pipeline where one produces the other — the interactive dashboard and the
-  publication-quality static exports are both "views" over
-  `scoring.py`'s/`grid_check.py`'s output, generated separately, so a
-  static map can be produced without ever running the Streamlit app.
+  pipeline where one produces the other.
+- **New: five modules exist as standalone library capabilities not yet
+  wired into `dashboard/app.py`.** `config.py`, `data_contract.py`,
+  `facility_classification.py`, `sensitivity.py`, and `status.py` are all
+  genuinely new, tested capabilities — but `dashboard/app.py` itself is
+  **unchanged** in this revision (confirmed by direct diff — see each
+  module's own page for this same note). This is worth understanding
+  architecturally: the new modules currently sit "above" or "alongside"
+  the existing pipeline, consumable from notebooks or future dashboard
+  work, rather than already integrated into the deployed interactive
+  experience.
 
 ## Design Philosophy
 
 **Distance and time are computed on a network, never as-the-crow-flies**,
-for the reasons in the Problem Statement above — this shows up concretely
-as every accessibility function in `isochrones.py` operating on a
-`networkx` graph rather than raw point-to-point geometry.
+for the reasons in the Problem Statement above.
 
-**A grid, not individual buildings, is the unit of analysis.** Rather than
-scoring accessibility per-building (which would be noisy, and implies a
-precision the underlying road/speed assumptions don't actually support),
+**A grid, not individual buildings, is the unit of analysis.**
 `scoring.build_grid()` creates a fishnet grid over the settled area, and
 every subsequent function — access time, deficit score, completeness
-flagging — operates at the grid-cell level. This is a deliberate choice
-about what level of precision the analysis can honestly claim.
+flagging, and (**new**) status fusion — operates at the grid-cell level.
 
 **Multiple travel modes are first-class, not an afterthought.** Walking,
-okada, and driving are computed as three genuinely separate analyses (three
-separate graphs, three separate sets of travel times and deficit scores),
-not one analysis with a mode-adjustment factor applied after the fact — this
-matters because the *relative* accessibility picture can differ meaningfully
-by mode (a cell might be reasonably walkable but poorly served by drivable
-roads, or vice versa), and the project's own headline findings (walking
-being dramatically more restrictive than okada/driving in both LGAs) depend
-on that distinction being preserved rather than averaged away.
+okada, and driving are computed as three genuinely separate analyses.
 
 **Narrative output is generated from data, not hand-written.** Every
 caption produced by `insights.py` is derived programmatically from the
-actual numbers behind a given map or chart — this guarantees a caption
-never says something the underlying data doesn't actually support, and
-means the dashboard/static exports stay accurate automatically as
-underlying data changes (e.g. a re-extraction with updated OSM data),
-without anyone needing to remember to manually update prose elsewhere.
+actual numbers behind a given map or chart.
+
+**New: every tunable assumption lives in one place, not scattered across
+independently-hardcoded copies.** Before this revision, grid cell size,
+per-mode thresholds, per-mode speeds, and completeness parameters were
+each defined independently in whichever module used them first —
+including, in `insights.py`'s case, a manually-synced *duplicate* of
+`scoring.py`'s own threshold values, a real drift risk this documentation
+site had specifically flagged (see [Known Issues](../reference/known-issues.md)).
+[`config.py`](modules/config.md) centralizes all of this into one
+YAML-backed source of truth, resolvable via function parameter, an
+environment variable, or the config file itself, in that priority order —
+resolving the flagged drift risk directly, not just refactoring around it.
+
+**New: a finding's confidence should be as visible as the finding itself.**
+This project always distinguished "confirmed underserved" from "possibly
+just an OSM data gap" conceptually (see the Problem Statement above), but
+that distinction previously lived only as two separate map layers a viewer
+had to mentally cross-reference, or an ad hoc inline percentage computed
+directly inside `dashboard/app.py`. [`status.py`](modules/status.md) now
+makes this distinction a first-class, per-cell, reusable output — a
+`POTENTIAL_DATA_GAP` classification is now something any consumer can read
+directly, not something they have to reconstruct by comparing two
+different maps themselves.
+
+**New: reproducibility matters more than routing fidelity, when the two
+are in tension.** `network_graph.py`'s default construction path reversal
+— `roads_gdf` (the extractor's versioned, cached export) now preferred
+over a live OSM query, even when a boundary is available — is a direct
+expression of this priority. See [`network_graph.md`](modules/accessibility/network_graph.md)
+for the full reasoning and its trade-offs.
+
+**New: no finding should be presented as if it were the only reasonable
+answer.** [`sensitivity.py`](modules/sensitivity.md) exists specifically
+to test whether this project's conclusions hold up under reasonable
+alternative assumptions (different thresholds, different speeds) — treating
+both "the finding is robust" and "the finding is sensitive to this
+assumption" as valuable, honestly-reported outcomes, rather than
+presenting one specific parameter choice as ground truth.
 
 ## Module Map
 
 | File | Responsibility |
 |---|---|
-| `akure_access/accessibility/network_graph.py` | Build a routable graph per travel mode from cleaned roads data |
+| `akure_access/accessibility/network_graph.py` | Build a routable graph per travel mode — **now defaults to the extractor's versioned `roads_gdf` rather than a live OSM query** |
 | `akure_access/accessibility/isochrones.py` | Compute travel-time isochrones and nearest-facility distance/time per grid cell |
 | `akure_access/accessibility/scoring.py` | Build the analysis grid; compute access times and the composite deficit score |
 | `akure_access/completeness/grid_check.py` | Flag grid cells where OSM likely has incomplete facility coverage, independent of accessibility scoring |
 | `akure_access/visualization/static_maps.py` | Generate publication-quality static maps and charts |
 | `akure_access/insights.py` | Generate data-driven narrative captions, shared by the dashboard and static exports |
-| `dashboard/app.py` | The interactive Streamlit dashboard (741 lines, the largest file in either repo) |
-| `tests/` | Test coverage across the above, plus a dedicated cross-repo integration test |
+| `akure_access/config.py` **(new)** | Centralize every tunable numeric assumption (grid size, thresholds, speeds) in one YAML-backed source of truth |
+| `akure_access/data_contract.py` **(new)** | Read `manifest.json`/`boundary.geojson` from the extractor, resolving CRS and boundary path without re-deriving or re-querying independently |
+| `akure_access/facility_classification.py` **(new)** | Classify health/education facilities into human-meaningful subtypes using the extractor's new semantic OSM tags |
+| `akure_access/sensitivity.py` **(new)** | Test whether findings are robust to reasonable variation in thresholds/speeds |
+| `akure_access/status.py` **(new)** | Fuse accessibility scoring and completeness flagging into one per-cell classification (Served / Underserved / Potential Data Gap / Unknown) |
+| `dashboard/app.py` | The interactive Streamlit dashboard (741 lines, the largest file in either repo) — **unchanged in this revision**, does not yet consume any of the five new modules |
+| `tests/` | Test coverage across the above, plus a dedicated cross-repo integration test — **unchanged in this revision**, does not yet cover any of the new contract surface (`manifest.json`, `boundary.geojson`) |
 
 ## Dependencies Between Components
 
-- `isochrones.py` depends on `network_graph.py` for its graph input — it
-  has no graph-building logic of its own.
+- `isochrones.py` depends on `network_graph.py` for its graph input.
 - `scoring.py` depends on **both** `network_graph.py` and `isochrones.py`
-  directly — `add_access_times()` imports and calls `graph_from_roads()`
-  itself (once per travel mode) to build the graph it then hands to
-  `isochrones.batch_nearest_facility_distances()`. The graph-building step
-  is not encapsulated behind `isochrones.py`; `scoring.py` owns the
-  decision of *when* to build a fresh graph (once per mode, inside its own
-  mode loop) and passes the result into `isochrones.py`'s routing
-  functions.
+  directly, and (**new**) on `config.py` for its default threshold/cell-size
+  constants.
 - `completeness/grid_check.py` depends on `scoring.build_grid()`'s grid
-  output but is otherwise independent of `accessibility` — it does not use
-  the road network or travel-time computations at all, consistent with it
-  being a data-quality check rather than an accessibility measure.
+  output and (**new**) `config.py`, but is otherwise independent of
+  `accessibility`.
 - `insights.py` depends on the *outputs* of both `scoring.py` and
-  `grid_check.py` (whatever numbers/columns they produce), but has no
-  dependency on `network_graph.py` or `isochrones.py` directly — it works
-  from already-computed results, not raw graphs.
-- `visualization/static_maps.py` depends on `insights.py` (for captions)
-  and on the scored/flagged grid outputs, but not on `network_graph.py` or
-  `isochrones.py` directly, for the same reason.
-- `dashboard/app.py` is the one place that ties every other module
-  together at runtime — it's the closest equivalent this repo has to
-  `lga-osm-extractor`'s `pipeline.py`, though structured as an interactive
-  Streamlit script rather than a single callable orchestration function.
+  `grid_check.py`, and (**new**) on `config.py` for its default threshold
+  values — no longer an independently-hardcoded copy of them.
+- `visualization/static_maps.py` depends on `insights.py` and the
+  scored/flagged grid outputs, unchanged.
+- **New: `network_graph.py` depends on `config.py`** for `MODE_CONFIG`'s
+  speed values.
+- **New: `facility_classification.py` depends on `lga_extractor.clean.py`'s
+  `SEMANTIC_COLUMNS`** existing in its input — it has no meaningful output
+  without that upstream schema change, and depends on no other module in
+  this package.
+- **New: `status.py` depends on the *outputs* of both `scoring.py` (the
+  underserved flags) and `grid_check.py` (the completeness flags)**, the
+  same dependency shape as `insights.py` — a pure fusion layer with no
+  computation of its own beyond combining two already-computed signals.
+- **New: `sensitivity.py` depends on `scoring.py`, `network_graph.py`, and
+  `isochrones.py` directly** — its speed-sweep function re-invokes the full
+  routing stack, unlike every other consumer of scored output, which reads
+  already-computed results.
+- **New: `data_contract.py` depends only on the file system** (reading
+  `manifest.json`/`boundary.geojson` from a given directory) — it has no
+  dependency on any other module in this package, and is the one module
+  whose entire purpose is bridging to the *other* repository rather than
+  composing with the rest of this one.
+- **New: `config.py` is depended upon by five other modules**
+  (`scoring.py`, `network_graph.py`, `grid_check.py`, `insights.py`, and
+  indirectly `sensitivity.py` via its `AKURE_ACCESS_CONFIG`-driven sweep
+  mechanism) **but depends on nothing else in this package itself** — it
+  sits at the base of the dependency graph, alongside `data_contract.py`.
+- `dashboard/app.py` remains the one place that ties most (not all, as of
+  this revision — see above) other modules together at runtime.
