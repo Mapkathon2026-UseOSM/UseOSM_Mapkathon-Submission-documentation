@@ -2362,7 +2362,7 @@ the updated Gotchas section below.</p>
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../../tests/">tests.md</a> — <code>test_scoring.py</code>, plus new: <code>test_build_grid_uses_explicit_target_crs_when_given</code>, <code>test_build_grid_falls_back_to_fallback_crs_when_target_crs_omitted</code>.</td>
+<td>See <a href="../../../tests/">tests.md</a> — <code>test_scoring.py</code>, plus new: <code>test_build_grid_uses_explicit_target_crs_not_hardcoded_default</code>, <code>test_build_grid_falls_back_to_epsg_32631_when_crs_not_supplied</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -2528,7 +2528,7 @@ always correct regardless of <em>why</em> <code>roads_gdf</code> or <code>live_o
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>No dedicated fast unit test in <code>test_scoring.py</code> (its neighboring tests construct grid data with routing results already present, rather than calling this function directly, to keep unit tests independent of graph-building cost). Its actual integration with <code>network_graph.py</code> and <code>isochrones.py</code> is exercised end to end by <code>test_extractor_output_schema_matches_dashboard_expectations</code> in the <a href="../../../../cross-repo/integration/">cross-repo integration test</a>. <strong>New:</strong> <code>test_add_access_times_source_passthrough_uses_roads_gdf_when_available</code>, <code>test_add_access_times_crs_branch_follows_graph_source_not_boundary_argument</code> — the second of these directly regression-tests the <code>G.graph.get("source")</code> fix described above.</td>
+<td>No dedicated fast unit test in <code>test_scoring.py</code> for <code>add_access_times()</code> itself (its neighboring tests construct grid data with routing results already present, rather than calling this function directly, to keep unit tests independent of graph-building cost) — this remains true after this revision; no new test was added specifically for the <code>source</code> parameter or the <code>G.graph.get("source")</code> CRS-branch fix at the <code>add_access_times()</code> level. Its actual integration with <code>network_graph.py</code> and <code>isochrones.py</code> — including, implicitly, the CRS-branch fix — is exercised end to end by <code>test_extractor_output_schema_matches_dashboard_expectations</code> in the <a href="../../../../cross-repo/integration/">cross-repo integration test</a>. The <code>source</code> parameter's own three-way branching logic (<code>"auto"</code>/<code>"roads_gdf"</code>/<code>"live_osm"</code>) is directly unit-tested one level down, in <code>network_graph.graph_from_roads()</code> itself — see <a href="../network_graph/"><code>network_graph.md</code></a>'s test list.</td>
 </tr>
 </tbody>
 </table>

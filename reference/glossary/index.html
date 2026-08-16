@@ -1809,7 +1809,7 @@
 </tr>
 <tr>
 <td><strong>CRS / EPSG</strong></td>
-<td>Coordinate Reference System / its numeric identifier code. <code>lga-osm-extractor</code> auto-selects the correct UTM zone for wherever an LGA is located (e.g. <code>EPSG:32631</code> for Zone 31N, covering Akure/Lagos/Ondo). <code>akure-accessibility-dashboard</code> hardcodes <code>EPSG:32631</code> rather than auto-selecting — a deliberate scope difference between the two repos, since the dashboard currently only targets LGAs within that zone. See <a href="../known-issues/">Known Issues</a>.</td>
+<td>Coordinate Reference System / its numeric identifier code. <code>lga-osm-extractor</code> auto-selects the correct UTM zone for wherever an LGA is located (e.g. <code>EPSG:32631</code> for Zone 31N, covering Akure/Lagos/Ondo). <code>akure-accessibility-dashboard</code> previously hardcoded <code>EPSG:32631</code> unconditionally; it now accepts an explicit <code>target_crs</code> parameter (<code>scoring.build_grid()</code>), ideally sourced from the extractor's manifest, falling back to the same hardcoded default only when omitted — see <a href="../known-issues/">Known Issues</a>.</td>
 </tr>
 <tr>
 <td><strong>UTM zone</strong></td>
@@ -1853,7 +1853,7 @@
 </tr>
 <tr>
 <td><strong>MultiDiGraph</strong></td>
-<td>NetworkX's directed multigraph type — "multi" meaning more than one edge can exist between the same pair of nodes (useful for divided roads or multiple OSM ways connecting the same two intersections), "directed" meaning an edge from A to B is distinct from B to A (needed to correctly represent one-way streets). <code>network_graph.graph_from_roads()</code>'s OSMnx-based construction path produces a true <code>MultiDiGraph</code>; its fallback path (<code>_graph_from_geometries()</code>) produces a plain undirected <code>MultiGraph</code> instead — a real, documented fidelity gap between the two construction paths, since the fallback has no way to represent one-way restrictions.</td>
+<td>NetworkX's directed multigraph type — "multi" meaning more than one edge can exist between the same pair of nodes (useful for divided roads or multiple OSM ways connecting the same two intersections), "directed" meaning an edge from A to B is distinct from B to A (needed to correctly represent one-way streets). <code>network_graph.graph_from_roads()</code>'s live-OSM construction path (<code>source="live_osm"</code>) produces a true <code>MultiDiGraph</code>; its <code>roads_gdf</code>-based path (<code>_graph_from_geometries()</code>, now the <strong>default</strong> as of this revision — see <a href="../known-issues/">Known Issues</a>) produces a plain undirected <code>MultiGraph</code> instead — a real, documented fidelity gap between the two construction paths, since the <code>roads_gdf</code> path has no way to represent one-way restrictions.</td>
 </tr>
 <tr>
 <td><strong><code>sjoin_nearest()</code></strong></td>
@@ -1861,7 +1861,55 @@
 </tr>
 <tr>
 <td><strong>Settled cell</strong></td>
-<td>A grid cell judged to have meaningful building presence, used as a proxy for "populated." <strong>Not a single fixed threshold across this project</strong> — <code>scoring.add_access_times()</code> treats any cell with <code>building_count &gt; 0</code> as settled (routes it for scoring), while <code>grid_check.py</code> requires <code>building_count &gt;= 3</code> by default (<code>DEFAULT_BUILDING_PRESENCE_THRESHOLD</code>) before flagging it for completeness checking. See <a href="../known-issues/">Known Issues</a> for why this inconsistency exists and what it means in practice.</td>
+<td>A grid cell judged to have meaningful building presence, used as a proxy for "populated." <strong>Not a single fixed threshold across this project</strong> — <code>scoring.add_access_times()</code> treats any cell with <code>building_count &gt; 0</code> as settled (routes it for scoring), while <code>grid_check.py</code> requires <code>building_count &gt;= 3</code> by default (<code>DEFAULT_BUILDING_PRESENCE_THRESHOLD</code>) before flagging it for completeness checking. This difference is now explicitly justified in <code>config/default.yaml</code>'s own comments, not just an inferred convention — see <a href="../known-issues/">Known Issues</a>.</td>
+</tr>
+<tr>
+<td><strong>Manifest (<code>manifest.json</code>)</strong></td>
+<td>A new, versioned, machine-readable JSON file written by <code>lga_extractor.manifest.write_manifest()</code> alongside every extraction — recording per-layer query status, feature counts, the resolved CRS, and the boundary file path. Distinct from <code>run_log.json</code> (a human-oriented audit log): the manifest is meant to be a stable contract a downstream program parses and depends on. See <a href="../../lga-osm-extractor/modules/manifest/"><code>manifest.py</code></a>.</td>
+</tr>
+<tr>
+<td><strong><code>boundary.geojson</code></strong></td>
+<td>A new file, written by <code>pipeline.extract_lga()</code> alongside every extraction — the resolved LGA boundary polygon itself, cached to disk so a downstream consumer no longer needs to re-query OSM live to obtain it. Its path is recorded in <code>manifest.json</code>'s <code>boundary_path</code> field.</td>
+</tr>
+<tr>
+<td><strong>Semantic columns (<code>SEMANTIC_COLUMNS</code>)</strong></td>
+<td>A new, curated per-layer set of OSM tag names <code>lga_extractor.clean.py</code> now preserves on top of the original minimal <code>osmid</code>/<code>name</code>/<code>geometry</code> schema — e.g. a road's <code>surface</code>/<code>maxspeed</code>, a hospital's <code>beds</code>/<code>emergency</code>. Only whichever tags are actually present in a given query's results are kept; the list is a ceiling, not a guarantee. Written to GeoJSON output only, not Shapefile. See <a href="../../lga-osm-extractor/modules/clean/"><code>clean.py</code></a>.</td>
+</tr>
+<tr>
+<td><strong><code>raw_tags</code> (<code>RAW_TAGS_COLUMN</code>)</strong></td>
+<td>A new column added to every non-empty extracted layer — a JSON-encoded copy of a feature's <em>complete</em> original OSM tag set, the escape hatch for any tag not curated into <code>SEMANTIC_COLUMNS</code>. Written to GeoJSON output only.</td>
+</tr>
+<tr>
+<td><strong><code>source</code> parameter</strong></td>
+<td>A new parameter on <code>network_graph.graph_from_roads()</code> (<code>"auto"</code> / <code>"roads_gdf"</code> / <code>"live_osm"</code>) and <code>scoring.add_access_times()</code> (passed through), controlling whether the routing graph is built from the extractor's own cached roads data or a live OSM query. <code>"auto"</code> (the default) now prefers <code>roads_gdf</code> whenever available — a reversal from this project's earlier behavior, which preferred a live query whenever a boundary was supplied. See <a href="../../akure-accessibility-dashboard/modules/accessibility/network_graph/"><code>network_graph.py</code></a>.</td>
+</tr>
+<tr>
+<td><strong>Endpoint snapping</strong></td>
+<td>A new correctness fix in <code>network_graph._graph_from_geometries()</code>: road-segment endpoint coordinates are rounded to a small grid (<code>snap_tolerance_m</code>, default 0.5m) before being used as graph node identifiers, so two segments meeting at the same real-world junction — but differing by floating-point noise after separate cleaning/reprojection — correctly share one graph node instead of silently fragmenting the network.</td>
+</tr>
+<tr>
+<td><strong>Config-driven</strong></td>
+<td>Describes a constant whose value is derived from <a href="../../akure-accessibility-dashboard/modules/config/"><code>akure_access.config.get_config()</code></a> — a new, centralized, YAML-backed source of truth for grid size, per-mode thresholds/speeds, and completeness parameters — rather than being an independently hardcoded literal. Resolvable via function parameter, the <code>AKURE_ACCESS_CONFIG</code> environment variable, or the config file itself, in that priority order. Every value migrated to this system in this revision is numerically unchanged from its previous hardcoded value.</td>
+</tr>
+<tr>
+<td><strong>Jaccard similarity</strong></td>
+<td>A set-overlap metric, <code>|A ∩ B| / |A ∪ B|</code>, ranging from 0 (no overlap) to 1 (identical sets). Used by the new <a href="../../akure-accessibility-dashboard/modules/sensitivity/"><code>sensitivity.py</code></a> module to measure whether the <em>set</em> of underserved grid cells stays stable as a scoring assumption (threshold, speed) varies — chosen specifically because it can't be fooled by two runs with similar aggregate percentages that actually flag different cells.</td>
+</tr>
+<tr>
+<td><strong>Data contract (<code>data_contract.py</code>)</strong></td>
+<td>A new module reading <code>manifest.json</code>/<code>boundary.geojson</code> directly, so the dashboard consumes the extractor's own recorded CRS and boundary-path determinations rather than re-deriving or re-querying either independently. Deliberately does not fall back to a live query on its own — a caller must explicitly decide to do that. See <a href="../../akure-accessibility-dashboard/modules/data_contract/"><code>data_contract.py</code></a>.</td>
+</tr>
+<tr>
+<td><strong>Facility classification</strong></td>
+<td>A new, purely descriptive capability (<code>facility_classification.py</code>) categorizing health facilities (Hospital / Primary care / Pharmacy / Other) and schools (Primary / Secondary / Other) from the new semantic OSM tags. Explicitly does not affect accessibility scoring in any way — every facility of a given layer still counts equally for "nearest facility" purposes regardless of its classified subtype.</td>
+</tr>
+<tr>
+<td><strong>Status fusion (<code>status.py</code>)</strong></td>
+<td>A new module combining two independently-computed signals — the accessibility deficit score and the OSM completeness flag — into one four-category per-cell classification: <code>SERVED</code>, <code>UNDERSERVED</code> (confirmed), <code>POTENTIAL_DATA_GAP</code> (underserved <em>and</em> flagged as a possible OSM mapping gap), or <code>UNKNOWN</code> (unsettled). A missing completeness signal resolves to <code>UNDERSERVED</code>, never automatically to <code>POTENTIAL_DATA_GAP</code> — "we don't know" is not treated as "there's probably a gap." See <a href="../../akure-accessibility-dashboard/modules/status/"><code>status.py</code></a>.</td>
+</tr>
+<tr>
+<td><strong>Sensitivity analysis</strong></td>
+<td>A new diagnostic capability (<code>sensitivity.py</code>) re-running accessibility scoring under several candidate parameter values (thresholds, speeds) to test whether the project's findings are robust to reasonable variation in the underlying assumptions, reported via Jaccard similarity and a plain-language robustness summary.</td>
 </tr>
 </tbody>
 </table>

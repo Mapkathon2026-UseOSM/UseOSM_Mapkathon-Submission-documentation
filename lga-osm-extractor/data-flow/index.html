@@ -640,10 +640,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#6-optional-visualization-an-html-file" class="md-nav__link">
+  <a href="#6-new-manifest-building-a-formal-versioned-contract-file" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6. (Optional) Visualization → an HTML file
+        6. New: Manifest building → a formal, versioned contract file
       
     </span>
   </a>
@@ -651,10 +651,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#7-logging-a-json-audit-trail" class="md-nav__link">
+  <a href="#7-optional-visualization-an-html-file" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7. Logging → a JSON audit trail
+        7. (Optional) Visualization → an HTML file
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-logging-a-json-audit-trail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Logging → a JSON audit trail
       
     </span>
   </a>
@@ -2022,10 +2033,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#6-optional-visualization-an-html-file" class="md-nav__link">
+  <a href="#6-new-manifest-building-a-formal-versioned-contract-file" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6. (Optional) Visualization → an HTML file
+        6. New: Manifest building → a formal, versioned contract file
       
     </span>
   </a>
@@ -2033,10 +2044,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#7-logging-a-json-audit-trail" class="md-nav__link">
+  <a href="#7-optional-visualization-an-html-file" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7. Logging → a JSON audit trail
+        7. (Optional) Visualization → an HTML file
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-logging-a-json-audit-trail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Logging → a JSON audit trail
       
     </span>
   </a>
@@ -2154,33 +2176,68 @@ gets added to at every subsequent stage that has something worth flagging.</p>
 <p><a href="../modules/clean/"><code>clean.clean_layers()</code></a> is where the data actually
 becomes consistent. Every layer is: reprojected into one shared,
 boundary-appropriate UTM CRS; stripped of invalid/null/duplicate geometry;
-reduced to a uniform three-column schema (<code>osmid</code>, <code>name</code>, <code>geometry</code>); and,
-for <code>health_facilities</code>/<code>schools</code> specifically, has any <code>Polygon</code>/
+reduced to a <strong>three-tier schema</strong> — <code>CORE_COLUMNS</code> (<code>osmid</code>, <code>name</code>,
+<code>geometry</code>, always present) plus this layer's present <code>SEMANTIC_COLUMNS</code>
+(a curated set of useful OSM tags, e.g. a road's <code>surface</code>/<code>maxspeed</code>, a
+hospital's <code>beds</code>/<code>emergency</code> — <strong>new</strong>, see <a href="../modules/clean/"><code>clean.md</code></a>)
+plus <code>RAW_TAGS_COLUMN</code> (<strong>new</strong> — a JSON-encoded copy of every original OSM
+tag, the escape hatch for anything not in the curated set); and, for
+<code>health_facilities</code>/<code>schools</code> specifically, has any <code>Polygon</code>/
 <code>MultiPolygon</code> geometry collapsed to its centroid <code>Point</code> — this last step
 is what guarantees every facility in those two layers is representable as a
 single coordinate, which every downstream consumer (<code>akure_access</code>'s
 routing and isochrone logic) depends on being true.</p>
 <h3 id="5-export-files-on-disk">5. Export → files on disk<a class="headerlink" href="#5-export-files-on-disk" title="Permanent link">&para;</a></h3>
 <p><a href="../modules/export/"><code>export.export_layers()</code></a> writes each cleaned layer to
-both GeoJSON (always one file, mixed geometry types are fine in this
-format) and Shapefile (split into multiple category-specific files — e.g.
-<code>roads_line.shp</code> + <code>roads_point.shp</code> — only for layers that still contain
-more than one geometry category after cleaning, since Shapefile can't hold
-mixed types in one file). This is the first point in the pipeline where
-data leaves memory and becomes a persistent artifact — everything before
-this stage exists only for the duration of one Python process.</p>
-<h3 id="6-optional-visualization-an-html-file">6. (Optional) Visualization → an HTML file<a class="headerlink" href="#6-optional-visualization-an-html-file" title="Permanent link">&para;</a></h3>
+both GeoJSON (the <strong>full</strong> three-tier schema, always one file, mixed
+geometry types are fine in this format) and Shapefile (<strong>new: reduced to
+<code>CORE_COLUMNS</code> only</strong> — <code>_shapefile_safe_columns()</code>, since Shapefile's DBF
+format can't safely hold the semantic tags or the JSON blob; split into
+multiple category-specific files — e.g. <code>roads_line.shp</code> +
+<code>roads_point.shp</code> — only for layers that still contain more than one
+geometry category after cleaning). This is the first point in the pipeline
+where data leaves memory and becomes a persistent artifact.</p>
+<p><strong>New: the boundary polygon is also written to disk here</strong>, immediately
+after the layer files — <code>boundary.geojson</code>, the boundary <code>GeoDataFrame</code>
+from stage 2, unchanged, written as-is (already EPSG:4326). This closes a
+gap where the boundary was previously the one input a downstream consumer
+couldn't get from cached files alone.</p>
+<h3 id="6-new-manifest-building-a-formal-versioned-contract-file">6. New: Manifest building → a formal, versioned contract file<a class="headerlink" href="#6-new-manifest-building-a-formal-versioned-contract-file" title="Permanent link">&para;</a></h3>
+<p><a href="../modules/manifest/"><code>manifest.build_manifest()</code> + <code>write_manifest()</code></a>
+reconcile two independently-computed per-layer records — the query-time
+outcome from stage 3 (<code>layer_status</code>, was it a genuine failure or a
+success with zero features) and the post-cleaning export outcome from
+stage 5 (feature counts, file paths) — into one unified <code>manifest.json</code>,
+recording <code>target_crs</code>, <code>boundary_source</code>, <code>boundary_path</code>, and a
+per-layer breakdown. This is the file <code>akure-accessibility-dashboard</code>'s
+<a href="../../akure-accessibility-dashboard/modules/data_contract/"><code>data_contract.py</code></a>
+actually reads, rather than the less-stable <code>run_log.json</code>. See
+<a href="../../cross-repo/integration/">Cross-Repo Integration</a>.</p>
+<h3 id="7-optional-visualization-an-html-file">7. (Optional) Visualization → an HTML file<a class="headerlink" href="#7-optional-visualization-an-html-file" title="Permanent link">&para;</a></h3>
 <p><a href="../modules/visualize/"><code>visualize.build_preview_map()</code></a> reads the
 just-written GeoJSON files back off disk, reprojects them to WGS84 (Kepler's
 required web-map CRS — note this is a <em>second</em> reprojection, since step 4
 already projected into a metric UTM CRS for cleaning/export), and produces
 either an in-memory <code>KeplerGl</code> object (for notebook display) or a
-self-contained HTML file with any bundled Mapbox credential stripped.</p>
-<h3 id="7-logging-a-json-audit-trail">7. Logging → a JSON audit trail<a class="headerlink" href="#7-logging-a-json-audit-trail" title="Permanent link">&para;</a></h3>
+self-contained HTML file with any bundled Mapbox credential stripped. This
+module is unchanged in this revision.</p>
+<h3 id="8-logging-a-json-audit-trail">8. Logging → a JSON audit trail<a class="headerlink" href="#8-logging-a-json-audit-trail" title="Permanent link">&para;</a></h3>
 <p><a href="../modules/logging_utils/"><code>logging_utils.log_run()</code></a> writes a
 <code>run_log.json</code> alongside the exported layers, capturing the environment,
-configuration, and outcome of the run — not geospatial data itself, but a
-record of everything that produced it, for traceability.</p>
+configuration, and outcome of the run — <strong>new:</strong> now also including the
+same structured <code>layer_status</code> dict recorded in the manifest, so a human
+reading <code>run_log.json</code> alone can still tell "did this layer actually fail,
+or did it just find nothing" without cross-referencing <code>manifest.json</code>.
+Not geospatial data itself, but a record of everything that produced it,
+for traceability.</p>
+<p><strong>New: progress events flow alongside every stage above, not as a separate
+stage of their own.</strong> <a href="../modules/events/"><code>events.py</code></a>'s <code>on_event</code>
+callback, if supplied, receives a <code>stage_started</code>/<code>stage_completed</code>/
+<code>stage_failed</code>/<code>retry</code> event around stages 2, 3, 4, and 5 (see
+<a href="../modules/pipeline/"><code>pipeline.md</code></a>) — this is a pure side channel with no
+effect on the data shown in this trace; it exists purely so
+<a href="../app/"><code>app.py</code></a> can render a live progress checklist while the above
+stages run.</p>
 <h2 id="what-changes-at-each-boundary">What Changes at Each Boundary<a class="headerlink" href="#what-changes-at-each-boundary" title="Permanent link">&para;</a></h2>
 <p>The stage-by-stage prose above describes what happens; this table makes
 the schema transformation at each step explicit and comparable at a
@@ -2199,31 +2256,43 @@ glance.</p>
 <td>User input → boundary</td>
 <td>Two plain strings (+ optional file path)</td>
 <td>1-row <code>GeoDataFrame</code>, WGS84</td>
-<td>A name becomes a geometry, validated against Nigeria's bounding box and a plausible-area range</td>
+<td>A name becomes a geometry, validated against Nigeria's bounding box, a plausible-area range, and (<strong>new</strong>) OSM class/type metadata</td>
 </tr>
 <tr>
 <td>Boundary → raw layers</td>
 <td>1 polygon</td>
-<td>6 (default) raw <code>GeoDataFrame</code>s</td>
-<td>One geometry becomes six independent Overpass query results, each with whatever raw OSM tag columns that particular query happened to return — no two layers necessarily share the same column set at this stage</td>
+<td>6 (default) raw <code>GeoDataFrame</code>s + structured status dict (<strong>new</strong>)</td>
+<td>One geometry becomes six independent Overpass query results, each with a structured <code>{"status", "feature_count", "attempts", "message"}</code> record (<strong>new</strong> — replaces an ambiguous string field), plus whatever raw OSM tag columns that query happened to return</td>
 </tr>
 <tr>
 <td>Raw layers → cleaned layers</td>
 <td>WGS84, inconsistent columns, mixed geometry types possible</td>
-<td>Projected UTM CRS, exactly <code>osmid</code>/<code>name</code>/<code>geometry</code></td>
-<td>Reprojection for metric correctness; two specific layers (<code>health_facilities</code>, <code>schools</code>) have any <code>Polygon</code>/<code>MultiPolygon</code> rows collapsed to centroids — the fix for the Akure North facility-mapping bug documented on the <a href="../modules/clean/">clean.py page</a></td>
+<td>Projected UTM CRS, <code>CORE_COLUMNS</code> + curated <code>SEMANTIC_COLUMNS</code> + <code>RAW_TAGS_COLUMN</code> (<strong>new, richer schema</strong>)</td>
+<td>Reprojection for metric correctness; two specific layers (<code>health_facilities</code>, <code>schools</code>) have any <code>Polygon</code>/<code>MultiPolygon</code> rows collapsed to centroids; <strong>new:</strong> every feature also keeps a curated set of useful OSM tags plus a full JSON copy of everything else</td>
 </tr>
 <tr>
 <td>Cleaned layers → exported files</td>
-<td>In-memory <code>GeoDataFrame</code>s</td>
-<td>Files on disk (GeoJSON always, Shapefile split into per-geometry-category files if the layer still mixes point/line/polygon types after cleaning)</td>
-<td>Persistence; also where Shapefile's single-geometry-type-per-file constraint is worked around</td>
+<td>In-memory <code>GeoDataFrame</code>s, full schema</td>
+<td>Files on disk — GeoJSON (full schema) always; Shapefile (<strong>new: <code>CORE_COLUMNS</code> only</strong>) split into per-geometry-category files if needed</td>
+<td>Persistence; <strong>new:</strong> GeoJSON and Shapefile now carry genuinely different attribute schemas for the same layer, not just different file formats</td>
+</tr>
+<tr>
+<td>Cleaned boundary → boundary file</td>
+<td>In-memory <code>GeoDataFrame</code></td>
+<td><code>boundary.geojson</code> (<strong>new</strong>)</td>
+<td>The boundary itself becomes a cached, reusable file — closing the gap where it was the one input still requiring a live query</td>
+</tr>
+<tr>
+<td>Exported files + boundary → manifest</td>
+<td>Paths + per-layer status + CRS</td>
+<td><code>manifest.json</code> (<strong>new</strong>)</td>
+<td>A versioned, machine-readable contract — distinct from the human-oriented <code>run_log.json</code> — that downstream code should parse instead of inferring outcome from file presence</td>
 </tr>
 <tr>
 <td>Exported files → run log</td>
-<td>Paths + warnings + metadata</td>
+<td>Paths + warnings + metadata + layer status (<strong>new</strong>)</td>
 <td>One JSON file</td>
-<td>A permanent, reproducible audit trail of exactly what happened, including which package versions were in use</td>
+<td>A permanent, reproducible audit trail of exactly what happened, including which package versions were in use and (<strong>new</strong>) the same structured per-layer status carried in the manifest</td>
 </tr>
 </tbody>
 </table>
@@ -2237,20 +2306,28 @@ past extractions. State is entirely:</p>
    survives past the function call except what's explicitly written to
    disk or returned to the caller.</li>
 <li><strong>On disk</strong>: <code>{output_dir}/*.geojson</code>, <code>{output_dir}/shapefiles/*.shp</code>
-   (plus sidecar files — <code>.shx</code>, <code>.dbf</code>, <code>.prj</code>), and
+   (plus sidecar files — <code>.shx</code>, <code>.dbf</code>, <code>.prj</code>), <code>{output_dir}/boundary.geojson</code>
+   (<strong>new</strong>), <code>{output_dir}/manifest.json</code> (<strong>new</strong>), and
    <code>{output_dir}/run_log.json</code>. This is the <em>only</em> durable record of an
    extraction; if it's deleted, the only way to reconstruct it is to
    re-run the pipeline (which may produce slightly different OSM data if
    the underlying map has changed since).</li>
-<li><strong>Streamlit's cache</strong> (<code>app.py</code> only): a shared, cross-session,
+<li><strong>Streamlit's cache</strong> (<code>app.py</code> only): <strong>changed in this revision</strong> —
+   now a manually-managed <code>st.cache_resource</code> dict (<code>_extraction_cache()</code>)
+   rather than an <code>@st.cache_data</code>-decorated function, but the practical
+   sharing semantics are unchanged: still a shared, cross-session,
    in-memory (per deployment instance) cache keyed on
    <code>(lga_name, state_name)</code>, holding the same summary dict
-   <code>extract_lga()</code> returns. This cache is not itself durable across an
-   app restart, but the <em>files</em> it points to (in <code>output_dir</code>) are, as
-   long as the underlying disk persists — meaning a Streamlit restart
-   loses the cache but not the actual extracted data, so a subsequent
-   identical request re-reads from disk-backed reality rather than
-   silently serving stale in-memory data from before the restart.</li>
+   <code>extract_lga()</code> returns. See <a href="../app/"><code>app.md</code></a> for why the caching
+   mechanism itself changed (to support the new live-progress UI, which
+   needs to run extraction on a background thread). Not durable across an
+   app restart, but the <em>files</em> it points to are, as long as the
+   underlying disk persists.</li>
+<li><strong>New: an in-flight event queue</strong> (<code>events.ThreadSafeEventQueue</code>,
+   during a single extraction) — the most short-lived state in the whole
+   system, existing only for the duration of one <code>extract_lga()</code> call when
+   <code>on_event</code> is supplied, drained continuously by the consuming UI and
+   holding nothing once extraction completes.</li>
 </ol>
 <h2 id="why-the-flow-is-linear-not-branching">Why the Flow Is Linear, Not Branching<a class="headerlink" href="#why-the-flow-is-linear-not-branching" title="Permanent link">&para;</a></h2>
 <p>Every stage transformation above is a strict one-directional dependency —
@@ -2269,11 +2346,15 @@ accounted for.</p>
 <h2 id="diagram">Diagram<a class="headerlink" href="#diagram" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>flowchart TD
     A["LGA name (+ optional state / manual boundary path)"] --&gt; B["ONE polygon&lt;br/&gt;(GeoDataFrame, EPSG:4326)"]
-    B --&gt; C["SIX raw GeoDataFrames&lt;br/&gt;(inconsistent CRS handling,&lt;br/&gt;invalid/mixed geometry,&lt;br/&gt;inconsistent schema)"]
-    C --&gt; D["SIX cleaned GeoDataFrames&lt;br/&gt;(uniform UTM CRS,&lt;br/&gt;valid geometry,&lt;br/&gt;3-column schema,&lt;br/&gt;facilities collapsed to Points)"]
-    D --&gt; E["Files on disk:&lt;br/&gt;GeoJSON + Shapefile per layer"]
-    E --&gt; F["Optional: Kepler.gl HTML preview&lt;br/&gt;(reprojected back to EPSG:4326)"]
-    D -.-&gt; G["run_log.json&lt;br/&gt;(metadata, not geometry)"]</code></pre>
+    B --&gt; C["SIX raw GeoDataFrames + structured layer_status (new)&lt;br/&gt;(inconsistent CRS handling,&lt;br/&gt;invalid/mixed geometry,&lt;br/&gt;inconsistent schema)"]
+    C --&gt; D["SIX cleaned GeoDataFrames&lt;br/&gt;(uniform UTM CRS, valid geometry,&lt;br/&gt;CORE + SEMANTIC + RAW_TAGS schema (new),&lt;br/&gt;facilities collapsed to Points)"]
+    D --&gt; E["Files on disk:&lt;br/&gt;GeoJSON (full schema) + Shapefile (core only, new) per layer"]
+    D --&gt; E2["boundary.geojson (new)"]
+    E --&gt; F2["manifest.json (new)&lt;br/&gt;versioned, machine-readable contract"]
+    E2 --&gt; F2
+    E --&gt; G["Optional: Kepler.gl HTML preview&lt;br/&gt;(reprojected back to EPSG:4326)"]
+    E -.-&gt; H["run_log.json&lt;br/&gt;(metadata + layer_status, new)"]
+    F2 -.-&gt; H</code></pre>
 
 
 

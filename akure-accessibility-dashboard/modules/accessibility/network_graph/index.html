@@ -2189,7 +2189,7 @@ speed (25 km/h vs. 35 km/h for cars), for the same reasons as before (see
 </tr>
 <tr>
 <td><strong>Covered by test(s)</strong></td>
-<td>See <a href="../../../tests/">tests.md</a> — <code>test_network_graph.py</code>, plus new: <code>test_graph_from_roads_source_auto_prefers_roads_gdf_when_available</code>, <code>test_graph_from_roads_source_auto_falls_back_to_live_osm</code>, <code>test_graph_from_roads_source_roads_gdf_raises_on_empty_input</code>, <code>test_graph_from_roads_source_live_osm_raises_without_boundary</code>, <code>test_graph_from_roads_records_effective_source_on_graph</code>, <code>test_graph_from_roads_invalid_source_raises</code>.</td>
+<td>See <a href="../../../tests/">tests.md</a> — <code>test_network_graph.py</code>, plus new: <code>test_graph_from_roads_source_auto_prefers_roads_gdf</code>, <code>test_graph_from_roads_source_roads_gdf_requires_data</code>, <code>test_graph_from_roads_source_live_osm_requires_boundary</code>, <code>test_graph_from_roads_invalid_source_raises</code>, <code>test_graph_from_roads_snaps_nearly_coincident_endpoints</code>, <code>test_graph_from_roads_snap_does_not_merge_distinct_junctions</code> (the last two directly test the endpoint-snapping fix described below, not just the <code>source</code> parameter).</td>
 </tr>
 </tbody>
 </table>

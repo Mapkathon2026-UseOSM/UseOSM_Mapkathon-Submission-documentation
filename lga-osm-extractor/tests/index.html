@@ -1076,10 +1076,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#visualizepy" class="md-nav__link">
+  <a href="#pipelinepy-and-manifestpy-new-coverage" class="md-nav__link">
     <span class="md-ellipsis">
       
-        visualize.py
+        pipeline.py and manifest.py (new coverage)
       
     </span>
   </a>
@@ -1087,10 +1087,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#pipelinepy-integration" class="md-nav__link">
+  <a href="#eventspy-new-module-new-test-coverage" class="md-nav__link">
     <span class="md-ellipsis">
       
-        pipeline.py (integration)
+        events.py (new module, new test coverage)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visualizepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        visualize.py
       
     </span>
   </a>
@@ -1978,10 +1989,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#visualizepy" class="md-nav__link">
+  <a href="#pipelinepy-and-manifestpy-new-coverage" class="md-nav__link">
     <span class="md-ellipsis">
       
-        visualize.py
+        pipeline.py and manifest.py (new coverage)
       
     </span>
   </a>
@@ -1989,10 +2000,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#pipelinepy-integration" class="md-nav__link">
+  <a href="#eventspy-new-module-new-test-coverage" class="md-nav__link">
     <span class="md-ellipsis">
       
-        pipeline.py (integration)
+        events.py (new module, new test coverage)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visualizepy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        visualize.py
       
     </span>
   </a>
@@ -2049,7 +2071,9 @@
 <h1 id="tests-lga-osm-extractor">Tests — lga-osm-extractor<a class="headerlink" href="#tests-lga-osm-extractor" title="Permanent link">&para;</a></h1>
 <div class="admonition info">
 <p class="admonition-title">Source</p>
-<p><code>tests/test_extraction.py</code> (465 lines, 21 test functions)</p>
+<p><code>tests/test_extraction.py</code> (1,110 lines, 45 test functions — grew from
+465 lines / 21 functions with the addition of tests for every new
+module and every changed function in this revision, see below)</p>
 </div>
 <p>All tests in this file are pure <code>pytest</code> functions (no test classes). One
 test is marked <code>@pytest.mark.integration</code> and requires live network access
@@ -2072,7 +2096,7 @@ live OSM calls.</p>
 </tr>
 <tr>
 <td><code>test_clean_layers_standard_schema</code></td>
-<td>Every non-empty cleaned layer has exactly the <code>geometry</code>/<code>osmid</code>/<code>name</code> schema <code>KEEP_COLUMNS</code> promises.</td>
+<td>Every non-empty cleaned layer has at least the <code>geometry</code>/<code>osmid</code>/<code>name</code> core schema <code>CORE_COLUMNS</code> promises.</td>
 </tr>
 <tr>
 <td><code>test_utm_epsg_for_longitude_known_nigerian_locations</code></td>
@@ -2088,18 +2112,31 @@ live OSM calls.</p>
 </tr>
 <tr>
 <td><code>test_resolve_target_crs_auto_selects_zone_from_boundary</code></td>
-<td>Confirms a boundary near Abuja resolves to zone 32N (not the Ondo-based default), and a boundary near Akure still resolves to 31N — the core behavior this feature adds, tested both ways.</td>
+<td>Confirms a boundary near Abuja resolves to zone 32N (not the Ondo-based default), and a boundary near Akure still resolves to 31N.</td>
 </tr>
 <tr>
 <td><code>test_clean_layers_uses_boundary_to_select_crs</code></td>
-<td>End-to-end: deliberately passes Akure-area <em>data</em> alongside an Abuja-area <em>boundary</em>, confirming the CRS choice follows the boundary, not the data's own coordinates — an important distinction, since it proves the boundary (not a guess from the data itself) is the authoritative signal.</td>
+<td>Deliberately passes Akure-area <em>data</em> alongside an Abuja-area <em>boundary</em>, confirming the CRS choice follows the boundary, not the data's own coordinates.</td>
+</tr>
+<tr>
+<td><code>test_clean_layers_preserves_semantic_columns_when_present</code> <strong>(new)</strong></td>
+<td>A layer's <code>SEMANTIC_COLUMNS</code>-listed tags (e.g. a road's <code>surface</code>, <code>maxspeed</code>) that are actually present in the raw input survive cleaning and appear in the output schema.</td>
+</tr>
+<tr>
+<td><code>test_clean_layers_semantic_columns_are_layer_specific</code> <strong>(new)</strong></td>
+<td>A tag relevant to one layer (e.g. <code>beds</code>, a health-facility tag) does <strong>not</strong> leak into an unrelated layer's schema (e.g. <code>roads</code>) — confirms <code>SEMANTIC_COLUMNS.get(layer_name, [])</code>'s per-layer lookup is genuinely scoped correctly, not accidentally applying one layer's curated list globally.</td>
+</tr>
+<tr>
+<td><code>test_clean_layers_raw_tags_preserves_everything_as_json</code> <strong>(new)</strong></td>
+<td><code>RAW_TAGS_COLUMN</code> contains a JSON-parseable string, and parsing it back recovers the original tag values — including at least one tag <em>not</em> in <code>SEMANTIC_COLUMNS</code>, confirming the escape-hatch column genuinely captures more than the curated subset alone.</td>
 </tr>
 </tbody>
 </table>
-<p>Notably <strong>not</strong> directly tested here: <code>_collapse_areas_to_points()</code> — the
-polygon-to-centroid collapse function central to the Akure North bug fix —
-has no test in this file that isolates it directly with mixed Point/Polygon
-input. See <a href="#gaps-worth-closing">Gaps</a> below.</p>
+<p>Notably <strong>still not</strong> directly tested here: <code>_collapse_areas_to_points()</code> —
+the polygon-to-centroid collapse function central to the Akure North bug
+fix — has no test in this file that isolates it directly with mixed
+Point/Polygon input, unchanged from the previous revision. See
+<a href="#gaps-worth-closing">Gaps</a> below.</p>
 <h3 id="layerspy"><code>layers.py</code><a class="headerlink" href="#layerspy" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -2111,23 +2148,34 @@ input. See <a href="#gaps-worth-closing">Gaps</a> below.</p>
 <tbody>
 <tr>
 <td><code>test_extract_layers_permissive_returns_empty_on_failure</code></td>
-<td>Default (<code>strict=False</code>) behavior: a simulated Overpass failure on one layer (<code>health_facilities</code>) is caught, recorded as a warning, and that layer returns empty — while other layers (<code>roads</code>) still extract successfully. Explicitly asserts this is the original, must-not-regress behavior.</td>
+<td>Default (<code>strict=False</code>) behavior: a simulated Overpass failure on one layer is caught, recorded as a warning, and that layer returns empty — while other layers still extract successfully.</td>
 </tr>
 <tr>
 <td><code>test_extract_layers_strict_raises_on_genuine_failure</code></td>
-<td>The same simulated failure, but with <code>strict=True</code>, must now raise <code>LayerExtractionError</code> immediately rather than being silently swallowed.</td>
+<td>The same simulated failure, but with <code>strict=True</code>, must now raise <code>LayerExtractionError</code> immediately.</td>
 </tr>
 <tr>
 <td><code>test_extract_layers_strict_does_not_raise_on_genuine_empty_result</code></td>
-<td>The critical distinction the whole <code>strict</code> feature depends on: a layer that queries <em>successfully</em> but genuinely finds zero features must <strong>not</strong> raise, even in strict mode — only an actual exception from the underlying query should raise. Directly guards against <code>strict</code> mode being accidentally too aggressive.</td>
+<td>A layer that queries <em>successfully</em> but genuinely finds zero features must <strong>not</strong> raise, even in strict mode.</td>
+</tr>
+<tr>
+<td><code>test_extract_layers_status_distinguishes_failed_from_empty</code> <strong>(new)</strong></td>
+<td>The core distinction the new structured <code>"_status"</code> dict exists for: a layer that genuinely failed to query is marked <code>status="failed"</code>; a layer that queried successfully but found nothing is marked <code>status="success_empty"</code> — both look identical as an empty <code>GeoDataFrame</code> on their own, and a downstream consumer must be able to tell them apart from <code>"_status"</code> alone, without re-deriving it from warning text.</td>
+</tr>
+<tr>
+<td><code>test_extract_layers_emits_started_and_completed_events</code> <strong>(new)</strong></td>
+<td>A real <code>on_event</code> callback (a plain list-appending function, not a mock) receives <code>stage_started</code> and <code>stage_completed</code> events for each layer, in a form matching <a href="../modules/events/"><code>events.py</code></a>'s documented schema.</td>
+</tr>
+<tr>
+<td><code>test_extract_layers_emits_retry_events_on_transient_failure</code> <strong>(new)</strong></td>
+<td>Simulating a transient <code>ConnectionError</code> that succeeds on a later attempt produces at least one <code>retry</code> event with the correct <code>attempt</code>/<code>max_attempts</code> fields, before the eventual <code>stage_completed</code>.</td>
 </tr>
 </tbody>
 </table>
-<p>Both failure-simulating tests use <code>unittest.mock.patch</code> on
+<p>Both original failure-simulating tests use <code>unittest.mock.patch</code> on
 <code>lga_extractor.layers.ox.features_from_polygon</code> — patched at the point of
-use inside the <code>layers</code> module's namespace, not at <code>osmnx</code>'s own namespace,
-which is the correct pattern for how <code>layers.py</code> imports <code>osmnx</code> (<code>import
-osmnx as ox</code>, then calls <code>ox.features_from_polygon</code>).</p>
+use inside the <code>layers</code> module's namespace, not at <code>osmnx</code>'s own
+namespace, the correct pattern for how <code>layers.py</code> imports <code>osmnx</code>.</p>
 <h3 id="boundarypy"><code>boundary.py</code><a class="headerlink" href="#boundarypy" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -2139,32 +2187,71 @@ osmnx as ox</code>, then calls <code>ox.features_from_polygon</code>).</p>
 <tbody>
 <tr>
 <td><code>test_resolve_boundary_accepts_plausible_akure_sized_boundary</code></td>
-<td>The happy path: a realistically-sized boundary near Akure passes validation cleanly with no warnings — confirms nothing regressed for the actual study area.</td>
+<td>The happy path: a realistically-sized boundary near Akure passes validation cleanly with no warnings.</td>
 </tr>
 <tr>
 <td><code>test_resolve_boundary_rejects_centroid_outside_nigeria</code></td>
-<td>A boundary centered near Paris raises <code>BoundaryResolutionError</code> matching <code>"outside Nigeria"</code> — the geographic bounding-box hard check.</td>
+<td>A boundary centered near Paris raises <code>BoundaryResolutionError</code> matching <code>"outside Nigeria"</code>.</td>
 </tr>
 <tr>
 <td><code>test_resolve_boundary_rejects_implausibly_tiny_area</code></td>
-<td>A boundary only a few meters across (a buffered point) raises, matching <code>"implausibly small"</code> — the minimum-area hard check.</td>
+<td>A boundary only a few meters across raises, matching <code>"implausibly small"</code>.</td>
 </tr>
 <tr>
 <td><code>test_resolve_boundary_rejects_implausibly_huge_area</code></td>
-<td>A boundary roughly the size of the whole country raises, matching <code>"implausibly large"</code> — the maximum-area hard check, the opposite failure mode from the tiny-area test.</td>
+<td>A boundary roughly the size of the whole country raises, matching <code>"implausibly large"</code>.</td>
 </tr>
 <tr>
 <td><code>test_validate_and_standardize_display_name_mismatch_warns_not_raises</code></td>
-<td>The <code>display_name</code> soft check produces a warning (containing the requested LGA name) but never raises — tested directly against <code>_validate_and_standardize()</code> rather than <code>resolve_boundary()</code>, since manual-file boundaries never carry a <code>display_name</code> column at all, so this behavior can only be exercised by calling the internal function directly with a synthetic <code>display_name</code>.</td>
+<td>The <code>display_name</code> soft check produces a warning but never raises.</td>
+</tr>
+<tr>
+<td><code>test_validate_and_standardize_accepts_correct_class_and_type</code> <strong>(new)</strong></td>
+<td>The happy path for the new hard check: <code>class="boundary"</code>, <code>type="administrative"</code> passes cleanly.</td>
+</tr>
+<tr>
+<td><code>test_validate_and_standardize_rejects_non_boundary_class</code> <strong>(new)</strong></td>
+<td>A <code>class</code> value other than <code>"boundary"</code> (e.g. a road or POI mistakenly matched) raises — the new hard check catching a wrong-feature-type resolution the old geometry/area checks alone couldn't catch.</td>
+</tr>
+<tr>
+<td><code>test_validate_and_standardize_rejects_non_administrative_type</code> <strong>(new)</strong></td>
+<td>Same hard check, the <code>type</code> half — a <code>type</code> other than <code>"administrative"</code> raises.</td>
+</tr>
+<tr>
+<td><code>test_validate_and_standardize_missing_class_type_columns_is_a_noop</code> <strong>(new)</strong></td>
+<td>Critical for backward compatibility: when <code>class</code>/<code>type</code> columns are entirely absent (the manual-boundary-path case, which never carries Nominatim tags), the new hard check is a complete no-op — doesn't raise, doesn't warn, doesn't block the manual path in any way.</td>
+</tr>
+<tr>
+<td><code>test_validate_and_standardize_warns_on_non_relation_osm_type</code> <strong>(new)</strong></td>
+<td>The new soft check: <code>osm_type != "relation"</code> produces a warning, not a raise.</td>
+</tr>
+<tr>
+<td><code>test_validate_and_standardize_accepts_relation_osm_type_silently</code> <strong>(new)</strong></td>
+<td>The corresponding happy path — <code>osm_type="relation"</code> produces zero warnings for this check specifically.</td>
+</tr>
+<tr>
+<td><code>test_validate_and_standardize_warns_on_implausible_admin_level</code> <strong>(new)</strong></td>
+<td><code>admin_level</code> outside <code>PLAUSIBLE_ADMIN_LEVEL_RANGE</code> (3–10) produces a warning.</td>
+</tr>
+<tr>
+<td><code>test_validate_and_standardize_accepts_plausible_admin_level_silently</code> <strong>(new)</strong></td>
+<td><code>admin_level="6"</code> (Nigeria's conventional LGA level) produces zero warnings for this check.</td>
+</tr>
+<tr>
+<td><code>test_validate_and_standardize_missing_admin_level_produces_no_warning</code> <strong>(new)</strong></td>
+<td>Directly confirms the deliberate asymmetry documented in <a href="../modules/boundary/"><code>boundary.md</code></a>: an <em>absent</em> <code>admin_level</code> column produces silence, not a warning — since OSMnx's default geocode result doesn't reliably include this field, warning about its absence would be noise, not signal.</td>
+</tr>
+<tr>
+<td><code>test_validate_and_standardize_treats_nan_metadata_as_absent</code> <strong>(new)</strong></td>
+<td>Confirms <code>_first_value_or_none()</code>'s dual handling of "column missing" and "column present but <code>NaN</code>" — both must be treated identically as "we don't have this information" across all three new metadata checks.</td>
 </tr>
 </tbody>
 </table>
-<p>All four boundary tests use <code>_write_manual_boundary()</code> (a local helper) to
+<p>All boundary tests use <code>_write_manual_boundary()</code> (a local helper) to
 write a synthetic geometry to a temp GeoJSON file and exercise
-<code>resolve_boundary()</code>'s <code>manual_boundary_path</code> code path — this avoids
-needing a live Nominatim call to test validation logic that is, by design,
-identical regardless of which resolution path produced the candidate
-boundary.</p>
+<code>resolve_boundary()</code>'s <code>manual_boundary_path</code> code path, or call
+<code>_validate_and_standardize()</code> directly for the checks that need
+Nominatim-style metadata columns a manual file wouldn't carry.</p>
 <h3 id="exportpy"><code>export.py</code><a class="headerlink" href="#exportpy" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -2176,11 +2263,73 @@ boundary.</p>
 <tbody>
 <tr>
 <td><code>test_export_layers_writes_geojson_and_shapefile</code></td>
-<td>Basic export: GeoJSON and Shapefile paths both exist on disk for a non-empty layer; an empty layer (<code>schools</code>) is correctly recorded under <code>_skipped</code>, not exported.</td>
+<td>Basic export: GeoJSON and Shapefile paths both exist on disk for a non-empty layer; an empty layer is correctly recorded under <code>_skipped</code>.</td>
 </tr>
 <tr>
 <td><code>test_export_layers_splits_mixed_geometry_types</code></td>
-<td><strong>Regression test</strong>, explicitly documented as such in its own docstring: verifies the exact <code>highway=*</code> mixed Point/LineString scenario splits into separate <code>roads_line.shp</code> and <code>roads_point.shp</code> files, both existing on disk, both recorded under the category-keyed <code>shapefile</code> dict, and the layer name appears in <code>_split_layers</code>. This is the test that would fail if the Shapefile-splitting logic in <code>export.py</code> were ever removed or broken — protecting against the exact <code>pyogrio</code> <code>FeatureError</code> the module's own docstring describes as the original problem.</td>
+<td><strong>Regression test</strong> for the <code>highway=*</code> mixed Point/LineString scenario — verifies it splits into separate <code>roads_line.shp</code>/<code>roads_point.shp</code> files.</td>
+</tr>
+<tr>
+<td><code>test_export_layers_shapefile_stays_core_columns_only</code> <strong>(new)</strong></td>
+<td>Directly verifies <code>_shapefile_safe_columns()</code>'s whole purpose: reads a written <code>.shp</code> file back and confirms its columns are exactly <code>CORE_COLUMNS</code> — no semantic tag columns, no <code>raw_tags</code> — even when the corresponding GeoJSON for the same layer carries the full richer schema. This is the test that would catch a regression silently reintroducing Shapefile field-name truncation/corruption risk.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pipelinepy-and-manifestpy-new-coverage"><code>pipeline.py</code> and <code>manifest.py</code> (new coverage)<a class="headerlink" href="#pipelinepy-and-manifestpy-new-coverage" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>What it verifies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>test_extract_lga_end_to_end_live_osm</code></td>
+<td>Marked <code>@pytest.mark.integration</code>, requires network access. Runs the full real pipeline for Akure North against live OSM/Nominatim; asserts <code>boundary_source</code>, <code>run_log</code> path, and <code>target_crs</code> are all correct.</td>
+</tr>
+<tr>
+<td><code>test_extract_lga_emits_full_stage_sequence</code> <strong>(new, uses <code>monkeypatch</code>)</strong></td>
+<td>Confirms a full <code>extract_lga()</code> run (with the underlying network/query calls mocked out via <code>monkeypatch</code>, so this test runs offline unlike the live-OSM test above) emits events for every expected stage, in a sensible order, ending with <code>pipeline_completed</code> carrying the summary dict as its payload.</td>
+</tr>
+<tr>
+<td><code>test_extract_lga_writes_boundary_geojson_and_records_it_in_manifest</code> <strong>(new)</strong></td>
+<td>End-to-end check that <code>boundary.geojson</code> genuinely exists on disk after a run, and that <code>manifest.json</code>'s <code>boundary_path</code> field points at that exact, existing file — not just that both artifacts exist independently.</td>
+</tr>
+<tr>
+<td><code>test_build_manifest_reconciles_query_and_export_status</code> <strong>(new)</strong></td>
+<td>Directly tests <code>manifest.build_manifest()</code>'s core reconciliation logic: given a <code>layer_status</code> dict and an <code>exported</code> dict with different information for the same layer, confirms both <code>feature_count</code> (post-cleaning) and <code>feature_count_raw</code> (query-time) end up correctly, distinctly recorded.</td>
+</tr>
+<tr>
+<td><code>test_build_manifest_carries_boundary_path</code> <strong>(new)</strong></td>
+<td><code>boundary_path</code>, when passed, appears verbatim in the built manifest dict.</td>
+</tr>
+<tr>
+<td><code>test_build_manifest_boundary_path_defaults_to_none</code> <strong>(new)</strong></td>
+<td>When <code>boundary_path</code> isn't passed, the manifest's field is <code>None</code>, not a missing key or an empty string — a specific, checkable default.</td>
+</tr>
+<tr>
+<td><code>test_write_manifest_writes_valid_json</code> <strong>(new)</strong></td>
+<td><code>write_manifest()</code>'s output is genuinely valid, parseable JSON at the expected path — a basic but necessary sanity check for the function actually consumed by <code>akure_access.data_contract</code> on the other repo.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="eventspy-new-module-new-test-coverage"><code>events.py</code> (new module, new test coverage)<a class="headerlink" href="#eventspy-new-module-new-test-coverage" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>What it verifies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>test_build_stage_order_includes_layers_in_config</code> <strong>(new)</strong></td>
+<td><code>build_stage_order()</code> produces the correct, ordered stage list for a given <code>tag_config</code> — including for a <code>tag_config</code> with a <em>different</em> set of layers than <code>DEFAULT_TAG_CONFIG</code>, confirming the stage list is genuinely derived from the config passed in, not hardcoded.</td>
+</tr>
+<tr>
+<td><code>test_thread_safe_event_queue_drains_events_from_multiple_threads</code> <strong>(new)</strong></td>
+<td>Spawns 10 real <code>threading.Thread</code>s, each calling the same <code>ThreadSafeEventQueue</code> instance concurrently, then confirms <code>drain()</code> recovers all 10 events with none lost or corrupted — the actual concurrency guarantee this class exists to provide, tested with real threads rather than only reasoned about.</td>
 </tr>
 </tbody>
 </table>
@@ -2195,64 +2344,84 @@ boundary.</p>
 <tbody>
 <tr>
 <td><code>test_strip_mapbox_token_removes_real_token_from_export</code></td>
-<td><strong>The most operationally important test in this file.</strong> Builds an actual <code>KeplerGl</code> preview map end-to-end (real <code>keplergl</code> import, not mocked) and confirms the Mapbox token pattern is genuinely absent from the resulting HTML afterward — not just theoretically stripped by inspecting the function in isolation. Its docstring explicitly notes this caused a real GitHub push-protection failure during development, which is exactly why this test exists as a genuine regression guard rather than a nice-to-have. Uses <code>pytest.importorskip("keplergl", ...)</code> so it — and only it — skips cleanly in an environment where <code>keplergl</code> can't be imported, without affecting collection of any other test in the file (consistent with <code>visualize.py</code>'s own lazy-import design, see <a href="../modules/visualize/"><code>visualize.md</code></a>). Also asserts <code>&lt;/html&gt;</code> is still present, confirming the regex-based stripping doesn't corrupt the file.</td>
+<td>Builds an actual <code>KeplerGl</code> preview map end-to-end and confirms the Mapbox token pattern is genuinely absent from the resulting HTML afterward. Uses <code>pytest.importorskip("keplergl", ...)</code>.</td>
 </tr>
 <tr>
 <td><code>test_strip_mapbox_token_returns_false_when_no_token_present</code></td>
-<td><code>_strip_mapbox_token()</code> returns <code>False</code> (not an error) on a file with no token — e.g. an already-stripped file, or a future <code>keplergl</code> version that stops bundling one.</td>
+<td><code>_strip_mapbox_token()</code> returns <code>False</code> (not an error) on a file with no token.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="pipelinepy-integration"><code>pipeline.py</code> (integration)<a class="headerlink" href="#pipelinepy-integration" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Test</th>
-<th>What it verifies</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>test_extract_lga_end_to_end_live_osm</code></td>
-<td>Marked <code>@pytest.mark.integration</code>, excluded from default test runs, requires network access. Runs the full real pipeline for Akure North against live OSM/Nominatim, and asserts: <code>boundary_source</code> starts with <code>"osm_geocode"</code> (not manual); <code>run_log</code> path exists on disk; <code>target_crs</code> is exactly <code>"EPSG:32631"</code> — confirming the UTM auto-selection gives the <em>correct real-world</em> answer for the project's actual original study area, not just a synthetic/mocked one. Run explicitly with <code>pytest -m integration</code>.</td>
-</tr>
-</tbody>
-</table>
+<p>Unchanged in this revision — no new tests, consistent with <code>visualize.py</code>
+itself being unchanged.</p>
 <h2 id="test-helpers">Test Helpers<a class="headerlink" href="#test-helpers" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong><code>_dummy_raw_layers()</code></strong> — builds a small synthetic <code>layers_dict</code>
   resembling <code>extract_layers()</code>'s real output shape: two point features
   (hospital, school), one line feature (a residential road), one genuinely
-  empty layer (<code>schools</code>), plus a <code>"_warnings"</code> entry — used across most of
-  the <code>clean.py</code>/<code>export.py</code> tests as shared fixture data.</li>
+  empty layer (<code>schools</code>), plus <code>"_warnings"</code> and (<strong>new</strong>) a synthetic
+  <code>"_status"</code> entry — used across most of the <code>clean.py</code>/<code>export.py</code>/
+  <code>manifest.py</code> tests as shared fixture data.</li>
 <li><strong><code>_synthetic_boundary()</code></strong> — a fixed small <code>box()</code> boundary near Akure
-  (<code>5.15, 7.2, 5.25, 7.3</code>), used across the <code>layers.py</code> mock-based tests.</li>
+  (<code>5.15, 7.2, 5.25, 7.3</code>), used across the <code>layers.py</code> mock-based tests
+  and (<strong>new</strong>) the pipeline-level event/manifest tests.</li>
 <li><strong><code>_write_manual_boundary(geom, crs="EPSG:4326")</code></strong> — writes an arbitrary
   Shapely geometry to a temp GeoJSON file and returns its path, used across
-  all four <code>boundary.py</code> validation tests to exercise <code>resolve_boundary()</code>'s
-  <code>manual_boundary_path</code> path without a live geocode call.</li>
+  every <code>boundary.py</code> validation test to exercise <code>resolve_boundary()</code>'s
+  <code>manual_boundary_path</code> path without a live geocode call. <strong>Still the
+  correct helper for the new class/type/admin_level tests too</strong> — those
+  tests call <code>_validate_and_standardize()</code> directly with synthetic metadata
+  columns attached, rather than relying on this helper for that specific
+  part, since a manual-file boundary never carries <code>class</code>/<code>type</code>/
+  <code>admin_level</code> at all.</li>
 </ul>
 <h2 id="gaps-worth-closing">Gaps Worth Closing<a class="headerlink" href="#gaps-worth-closing" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong><code>_collapse_areas_to_points()</code> has no dedicated unit test in this file.</strong>
-  Given this is the function behind the project's most significant
-  documented bug fix (see <a href="../../reference/known-issues/">Known Issues</a>), a
-  direct test with mixed Point/Polygon input — asserting only the Polygon
-  rows change, and that outputs are true <code>Point</code> geometries — would be
-  valuable, explicit regression coverage for exactly the failure mode that
-  motivated the fix. Current coverage only reaches it indirectly, through
-  <code>clean_layers()</code> on <code>POINT_LAYERS</code>-designated layers, without isolating
-  the collapse behavior itself.</li>
-<li><strong><code>app.py</code> and <code>cli.py</code> have no test coverage at all.</strong> Both are thin
-  wrappers around <code>extract_lga()</code>, which reduces risk, but <code>cli.py</code>'s
-  argument-parsing and exit-code behavior, and <code>app.py</code>'s layer-zoom
-  fallback logic (see <a href="../app/"><code>app.md</code></a>'s detailed writeup of the
-  zoom-to-layer bug it works around), are both non-trivial enough to be
-  worth at least minimal direct coverage.</li>
-<li><strong><code>logging_utils.py</code> has no direct test.</strong> <code>log_run()</code> and
-  <code>_capture_environment()</code> are exercised only implicitly via the live
-  integration test (which asserts the log file exists, but not its
-  contents in detail).</li>
+<li><strong><code>_collapse_areas_to_points()</code> still has no dedicated unit test in this
+  file, unchanged from the previous revision.</strong> Given this is the function
+  behind the project's most significant documented bug fix (see
+  <a href="../../reference/known-issues/">Known Issues</a>), a direct test with mixed
+  Point/Polygon input — asserting only the Polygon rows change, and that
+  outputs are true <code>Point</code> geometries — would be valuable, explicit
+  regression coverage for exactly the failure mode that motivated the fix.
+  Current coverage only reaches it indirectly, through <code>clean_layers()</code> on
+  <code>POINT_LAYERS</code>-designated layers, without isolating the collapse behavior
+  itself. <strong>This gap persisted through this revision</strong> despite a
+  substantial round of new test coverage elsewhere in the same file —
+  worth flagging specifically since it means the single most consequential
+  bug fix in the whole project still lacks the most direct possible
+  regression test for it.</li>
+<li><strong><code>app.py</code> and <code>cli.py</code> still have no test coverage at all, despite both
+  growing substantially in this revision.</strong> <code>app.py</code> in particular gained
+  an entirely new threading/polling architecture
+  (<code>_run_extraction_with_live_progress()</code>, see <a href="../app/"><code>app.md</code></a>) with
+  real concurrency-correctness properties (the <code>outcome</code> dict pattern for
+  cross-thread exception propagation, the <code>thread.is_alive() or not
+  events.empty()</code> race-avoidance condition) that would benefit
+  meaningfully from direct testing — these are exactly the kind of subtle,
+  hard-to-eyeball-correct patterns unit tests are best at catching if they
+  regress. <code>cli.py</code>'s argument-parsing and exit-code behavior remains
+  similarly untested.</li>
+<li><strong><code>logging_utils.py</code> still has no direct unit test</strong>, though it's now
+  exercised somewhat more thoroughly via <code>test_extract_lga_emits_full_stage_sequence</code>
+  (which runs the full pipeline, including the <code>log_run()</code> call, under
+  <code>monkeypatch</code> rather than requiring live network access) — an
+  improvement over the previous revision's coverage, which only reached
+  <code>log_run()</code> via the live-network integration test. Still, no test
+  directly inspects <code>run_log.json</code>'s contents in detail, including its new
+  <code>"layers"</code> key.</li>
+<li><strong>New: the cross-repo integration test was not updated for any of this
+  revision's new contract surface.</strong> <code>tests/test_cross_repo_integration.py</code>
+  in the <code>akure-accessibility-dashboard</code> repository is byte-identical to
+  its pre-revision version — meaning <code>manifest.json</code>, <code>boundary.geojson</code>,
+  and the richer <code>clean_layers()</code> schema are all currently unverified by
+  the one test whose entire purpose is confirming the two repositories
+  actually agree with each other. See
+  <a href="../../cross-repo/integration/">Cross-Repo Integration</a> and
+  <a href="../../reference/known-issues/">Known Issues</a> for the full detail on this
+  gap — arguably the single most significant testing gap introduced by
+  this revision, precisely because so much of what changed is contract
+  surface this specific test exists to protect.</li>
 </ul>
 
 

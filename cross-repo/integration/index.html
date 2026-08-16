@@ -1663,10 +1663,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-the-extractor-produces" class="md-nav__link">
+  <a href="#what-the-extractor-now-produces-this-revision" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What the Extractor Produces
+        What the Extractor Now Produces (this revision)
       
     </span>
   </a>
@@ -1674,10 +1674,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-the-dashboard-expects" class="md-nav__link">
+  <a href="#what-the-dashboard-now-expects-this-revision" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What the Dashboard Expects
+        What the Dashboard Now Expects (this revision)
       
     </span>
   </a>
@@ -1685,10 +1685,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#schema-table" class="md-nav__link">
+  <a href="#schema-table-updated-for-this-revision" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Schema Table
+        Schema Table (Updated for This Revision)
       
     </span>
   </a>
@@ -1696,10 +1696,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-the-integration-test-actually-exercises" class="md-nav__link">
+  <a href="#what-the-integration-test-actually-exercises-unchanged-since-before-this-revision" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What the Integration Test Actually Exercises
+        What the Integration Test Actually Exercises — Unchanged Since Before This Revision
       
     </span>
   </a>
@@ -1711,6 +1711,17 @@
     <span class="md-ellipsis">
       
         Known Failure Modes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-would-close-these-gaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Would Close These Gaps
       
     </span>
   </a>
@@ -1886,10 +1897,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-the-extractor-produces" class="md-nav__link">
+  <a href="#what-the-extractor-now-produces-this-revision" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What the Extractor Produces
+        What the Extractor Now Produces (this revision)
       
     </span>
   </a>
@@ -1897,10 +1908,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-the-dashboard-expects" class="md-nav__link">
+  <a href="#what-the-dashboard-now-expects-this-revision" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What the Dashboard Expects
+        What the Dashboard Now Expects (this revision)
       
     </span>
   </a>
@@ -1908,10 +1919,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#schema-table" class="md-nav__link">
+  <a href="#schema-table-updated-for-this-revision" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Schema Table
+        Schema Table (Updated for This Revision)
       
     </span>
   </a>
@@ -1919,10 +1930,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-the-integration-test-actually-exercises" class="md-nav__link">
+  <a href="#what-the-integration-test-actually-exercises-unchanged-since-before-this-revision" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What the Integration Test Actually Exercises
+        What the Integration Test Actually Exercises — Unchanged Since Before This Revision
       
     </span>
   </a>
@@ -1934,6 +1945,17 @@
     <span class="md-ellipsis">
       
         Known Failure Modes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-would-close-these-gaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Would Close These Gaps
       
     </span>
   </a>
@@ -1970,6 +1992,20 @@ functions as the <strong>executable specification</strong> of this contract: it'
 one place in either codebase where both packages are actually imported and
 exercised together, end to end, against synthetic-but-realistically-shaped
 data.</p>
+<div class="admonition warning">
+<p class="admonition-title">The most important fact on this page</p>
+<p><strong><code>test_cross_repo_integration.py</code> is byte-identical to its
+pre-revision version.</strong> Both repositories underwent substantial
+changes in this revision — a richer attribute schema, two new export
+artifacts, a reversed default routing-graph source, a formal manifest
+contract — and <strong>none of it is exercised by the one test whose entire
+job is confirming the two repositories actually agree with each
+other.</strong> Every claim on this page about the <em>current</em> contract is
+accurate as of reading both repositories' source directly, but is no
+longer fully backed by this executable specification the way it was
+before this revision. See <a href="#known-failure-modes">Known Failure Modes</a>
+below for the specific, concrete risks this creates.</p>
+</div>
 <h2 id="why-this-test-file-exists-and-how-its-run">Why This Test File Exists, and How It's Run<a class="headerlink" href="#why-this-test-file-exists-and-how-its-run" title="Permanent link">&para;</a></h2>
 <p>The test file's own docstring is direct about its purpose: verifying that
 <code>lga-osm-extractor</code>'s actual output schema is what
@@ -1996,71 +2032,82 @@ one package alone; this file is the only one that imports both.</p>
   The fixture builds its fake buildings/roads/facilities using small
   offsets (thousandths of a degree) around a real reference point near
   Akure (roughly 7.25°N, 5.20°E) — not large, arbitrary plane-scale
-  numbers. This matters for a specific, easy-to-miss reason: labeling a
-  large plane-scale coordinate pair (say, <code>x=650, y=650</code>) as if it were
-  EPSG:4326 lat/lon would place it far outside valid longitude/latitude
-  range, and reprojecting a "coordinate" like that into a UTM CRS sends
-  it toward infinity. Using genuinely realistic Akure-area coordinates
-  means the test exercises the real auto-UTM-zone-selection path under
-  the same kind of input it will actually see in production, rather than
-  accidentally sidestepping the exact class of bug (a lat/lon vs.
-  projected-coordinate mismatch) this whole cross-repo boundary is most
-  at risk of.</li>
+  numbers, for reasons explained in the test's own docstring around
+  avoiding an accidental lat/lon-vs-projected-coordinate mismatch.</li>
 </ul>
-<h2 id="what-the-extractor-produces">What the Extractor Produces<a class="headerlink" href="#what-the-extractor-produces" title="Permanent link">&para;</a></h2>
+<h2 id="what-the-extractor-now-produces-this-revision">What the Extractor Now Produces (this revision)<a class="headerlink" href="#what-the-extractor-now-produces-this-revision" title="Permanent link">&para;</a></h2>
 <p>From <a href="../../lga-osm-extractor/modules/export/"><code>lga_extractor.export.export_layers()</code></a>,
 after <a href="../../lga-osm-extractor/modules/clean/"><code>clean_layers()</code></a> has run:</p>
 <ul>
 <li><strong>Format</strong>: GeoJSON (always) and Shapefile (split by geometry category
-  where needed) per layer, written to a caller-specified output directory.</li>
-<li><strong>Schema</strong>: exactly three columns per layer — <code>osmid</code>, <code>name</code>,
-  <code>geometry</code> — per <code>clean.py</code>'s <code>KEEP_COLUMNS</code> constant.</li>
+  where needed) per layer, written to a caller-specified output directory
+  — plus, <strong>new</strong>, <code>boundary.geojson</code> (the boundary polygon itself) and
+  <code>manifest.json</code> (a formal, versioned summary of the whole run) written
+  to the same directory.</li>
+<li><strong>Schema — changed significantly, in a way the current contract test
+  does not verify.</strong> GeoJSON now carries <code>CORE_COLUMNS</code> (<code>osmid</code>, <code>name</code>,
+  <code>geometry</code> — the old, only, schema) <strong>plus</strong> a curated per-layer set of
+  <code>SEMANTIC_COLUMNS</code> (e.g. a road's <code>surface</code>/<code>maxspeed</code>, a hospital's
+  <code>beds</code>/<code>emergency</code>, whichever are actually present) <strong>plus</strong>
+  <code>RAW_TAGS_COLUMN</code> (a JSON-encoded copy of every original OSM tag).
+  Shapefile output, by contrast, is now <strong>deliberately reduced</strong> to
+  <code>CORE_COLUMNS</code> only, via <code>_shapefile_safe_columns()</code> — meaning GeoJSON
+  and Shapefile output for the same layer now carry genuinely different
+  schemas, a real behavior change from before this revision, when both
+  formats always carried identical (minimal) columns.</li>
 <li><strong>CRS</strong>: a UTM zone auto-selected from the boundary's centroid via
-  <code>clean.resolve_target_crs()</code> — for the Akure North/South study area
-  specifically, this resolves to <strong><code>EPSG:32631</code></strong> (UTM Zone 31N), which
-  the cross-repo test explicitly asserts as a check that the auto-selected
-  zone matches what the dashboard repo hardcodes as its own fixed CRS (see
-  <a href="../../reference/known-issues/">Known Issues</a> for why these two repos
-  handle CRS selection differently).</li>
-<li><strong>Geometry guarantee for <code>health_facilities</code>/<code>schools</code></strong>: every feature
-  in these two layers is guaranteed to be a <code>Point</code> — never a <code>Polygon</code>/
-  <code>MultiPolygon</code> — because <code>clean.py</code>'s <code>_collapse_areas_to_points()</code>
-  collapses any area geometry to its centroid before export. This
-  guarantee is precisely what makes the Akure North bug fix effective at
-  the schema-contract level: the dashboard's routing/isochrone code can
-  assume <code>.x</code>/<code>.y</code> attributes exist on every facility without a defensive
-  fallback of its own having to fire (though, per
-  <a href="../../akure-accessibility-dashboard/modules/accessibility/isochrones/"><code>isochrones.md</code></a>,
-  <code>nearest_graph_node()</code> does keep a second-line-of-defense <code>.centroid</code>
-  fallback anyway).</li>
+  <code>clean.resolve_target_crs()</code> — unchanged mechanism. <strong>New:</strong> this
+  determination is now also recorded in <code>manifest.json</code>'s <code>target_crs</code>
+  field, readable via
+  <a href="../../akure-accessibility-dashboard/modules/data_contract/"><code>akure_access.data_contract.resolve_crs_from_manifest()</code></a>
+  — see below for how the dashboard side changed to consume it.</li>
+<li><strong>Geometry guarantee for <code>health_facilities</code>/<code>schools</code></strong>: unchanged —
+  every feature in these two layers is still guaranteed to be a <code>Point</code>,
+  via <code>clean._collapse_areas_to_points()</code>.</li>
+<li><strong>New: structured per-layer status.</strong> <code>layers.extract_layers()</code>'s
+  <code>"_status"</code> dict and <code>manifest.json</code>'s <code>layers</code> field now record, per
+  layer, whether the extraction query genuinely succeeded, succeeded with
+  zero features, or failed — a distinction previously only reachable
+  through free-text warning strings. Nothing on the dashboard side
+  currently reads this new structured signal.</li>
 </ul>
-<h2 id="what-the-dashboard-expects">What the Dashboard Expects<a class="headerlink" href="#what-the-dashboard-expects" title="Permanent link">&para;</a></h2>
+<h2 id="what-the-dashboard-now-expects-this-revision">What the Dashboard Now Expects (this revision)<a class="headerlink" href="#what-the-dashboard-now-expects-this-revision" title="Permanent link">&para;</a></h2>
 <p>From <a href="../../akure-accessibility-dashboard/modules/accessibility/network_graph/"><code>akure_access.accessibility</code></a>
 and <a href="../../akure-accessibility-dashboard/modules/completeness/grid_check/"><code>akure_access.completeness</code></a>:</p>
 <ul>
-<li><strong><code>build_grid(boundary_gdf, cell_size_m)</code></strong> needs only a boundary
-  polygon — no dependency on extractor output directly.</li>
-<li><strong><code>add_building_density(grid, buildings_gdf)</code></strong> needs the <code>buildings</code>
-  layer's <code>geometry</code> column (for the spatial join) — <code>osmid</code>/<code>name</code> aren't
-  used.</li>
-<li><strong><code>add_access_times(grid, roads_gdf, health_gdf, schools_gdf, ...)</code></strong>
-  needs: <code>roads_gdf</code>'s <code>geometry</code> (for <code>graph_from_roads()</code>); <code>health_gdf</code>/
-  <code>schools_gdf</code>'s <code>geometry</code> specifically as <code>Point</code> geometry (per the
-  extractor's collapse guarantee above) — a <code>Polygon</code> slipping through
-  would still be tolerated by <code>isochrones.nearest_graph_node()</code>'s
-  <code>.centroid</code> fallback, but is not the contract this function is written
-  to expect.</li>
-<li><strong><code>flag_completeness(grid, health_gdf, schools_gdf, ...)</code></strong> needs the
-  same <code>Point</code>-geometry facility layers, for its own nearest-neighbor
-  spatial join.</li>
-<li><strong>CRS</strong>: every function above assumes <code>EPSG:32631</code> specifically —
-  hardcoded in <code>scoring.build_grid()</code>'s reprojection step, not
-  auto-detected — meaning the contract implicitly assumes the extractor's
-  auto-selected zone for this project's actual LGAs happens to match this
-  hardcoded value (which it does, for Akure North/South, but wouldn't for
-  an LGA outside UTM Zone 31N — see <a href="../../reference/known-issues/">Known Issues</a>).</li>
+<li><strong><code>build_grid(boundary_gdf, cell_size_m, target_crs=None)</code></strong> — <strong>new
+  parameter</strong>: <code>target_crs</code> can now be supplied explicitly (ideally
+  sourced from the manifest, via <code>data_contract.resolve_crs_from_manifest()</code>),
+  falling back to <code>FALLBACK_CRS</code> (<code>"EPSG:32631"</code>) only if omitted. This is
+  a genuine, if partial, resolution of the CRS-hardcoding gap documented on
+  this page before this revision — see <a href="../../reference/known-issues/">Known Issues</a>.</li>
+<li><strong><code>add_building_density(grid, buildings_gdf)</code></strong> — unchanged; still only
+  needs <code>geometry</code>.</li>
+<li><strong><code>add_access_times(grid, roads_gdf, health_gdf, schools_gdf, ...,
+  source="auto")</code></strong> — <strong>new parameter</strong>: <code>source</code> controls whether the
+  routing graph is built from <code>roads_gdf</code> (now the default, whenever
+  available) or a live OSM query. This means the dashboard's <em>default</em>
+  behavior, as of this revision, <strong>no longer requires live network access
+  at analysis time</strong> for the routing step specifically — a meaningful
+  reliability improvement for reproducing a past analysis run offline,
+  though <code>visualization/static_maps.py</code>'s basemap-tile fetching and the
+  original graph-building call in Notebook 03 may still involve network
+  access depending on configuration.</li>
+<li><strong><code>flag_completeness(grid, health_gdf, schools_gdf, ...)</code></strong> — unchanged.</li>
+<li><strong>CRS</strong>: previously hardcoded to <code>EPSG:32631</code> unconditionally; <strong>now
+  configurable</strong> via <code>build_grid()</code>'s <code>target_crs</code> parameter, with
+  <code>EPSG:32631</code> remaining only the <em>fallback</em> when no explicit value is
+  supplied. The contract's correctness for LGAs outside UTM Zone 31N now
+  depends on whether the caller actually threads <code>target_crs</code> through from
+  the manifest — see <a href="../../akure-accessibility-dashboard/modules/accessibility/scoring/"><code>scoring.md</code></a>'s
+  own Gotchas for the remaining gap.</li>
+<li><strong>New: <code>data_contract.py</code></strong> reads <code>manifest.json</code>/<code>boundary.geojson</code>
+  directly, rather than any <code>akure_access</code> function re-deriving or
+  re-querying either independently. This is a new, optional first step in
+  the contract's consumption path — see
+  <a href="../../akure-accessibility-dashboard/modules/data_contract/"><code>data_contract.md</code></a>.</li>
 </ul>
-<h2 id="schema-table">Schema Table<a class="headerlink" href="#schema-table" title="Permanent link">&para;</a></h2>
+<h2 id="schema-table-updated-for-this-revision">Schema Table (Updated for This Revision)<a class="headerlink" href="#schema-table-updated-for-this-revision" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -2084,8 +2131,20 @@ and <a href="../../akure-accessibility-dashboard/modules/completeness/grid_check
 <td>Not directly used by <code>akure_access</code> scoring</td>
 </tr>
 <tr>
+<td><strong><code>SEMANTIC_COLUMNS</code> (new)</strong></td>
+<td>Per-layer curated OSM tags, present only when the source data has them</td>
+<td><code>lga_extractor.clean._clean_single_layer()</code></td>
+<td><code>akure_access.facility_classification</code> (new) — the only current consumer; not read by <code>scoring.py</code>, <code>grid_check.py</code>, or <code>dashboard/app.py</code></td>
+</tr>
+<tr>
+<td><strong><code>RAW_TAGS_COLUMN</code> = <code>raw_tags</code> (new)</strong></td>
+<td>JSON string, full original tag set</td>
+<td><code>lga_extractor.clean._row_tags_to_json()</code></td>
+<td>No current <code>akure_access</code> consumer</td>
+</tr>
+<tr>
 <td><code>geometry</code> (roads)</td>
-<td><code>LineString</code>/<code>MultiLineString</code>/<code>Point</code> (mixed, may be split across files)</td>
+<td><code>LineString</code>/<code>MultiLineString</code>/<code>Point</code> (mixed, may be split across Shapefiles)</td>
 <td><code>lga_extractor.layers</code> + <code>clean</code></td>
 <td><code>network_graph.graph_from_roads()</code></td>
 </tr>
@@ -2093,77 +2152,132 @@ and <a href="../../akure-accessibility-dashboard/modules/completeness/grid_check
 <td><code>geometry</code> (buildings)</td>
 <td><code>Polygon</code>/<code>MultiPolygon</code></td>
 <td><code>lga_extractor.layers</code> + <code>clean</code></td>
-<td><code>scoring.add_building_density()</code> (spatial join only, geometry type not otherwise constrained)</td>
+<td><code>scoring.add_building_density()</code></td>
 </tr>
 <tr>
 <td><code>geometry</code> (health_facilities / schools)</td>
 <td><strong><code>Point</code> only</strong>, guaranteed by <code>clean._collapse_areas_to_points()</code></td>
 <td><code>lga_extractor.clean</code></td>
-<td><code>isochrones.nearest_graph_node()</code>, <code>grid_check._flag_via_spatial_index()</code></td>
+<td><code>isochrones.nearest_graph_node()</code>, <code>grid_check._flag_via_spatial_index()</code>, <code>facility_classification</code> (new)</td>
 </tr>
 <tr>
 <td>CRS (all layers)</td>
-<td><code>EPSG:32631</code> for the Akure North/South study area (auto-selected upstream, hardcoded downstream)</td>
+<td>Auto-selected upstream; <strong>now optionally propagated downstream via <code>manifest.json</code></strong> (was: hardcoded downstream)</td>
 <td><code>lga_extractor.clean.resolve_target_crs()</code></td>
-<td><code>akure_access.accessibility.scoring</code> (hardcoded assumption)</td>
+<td><code>akure_access.accessibility.scoring.build_grid()</code>, now via optional <code>target_crs</code> param</td>
+</tr>
+<tr>
+<td><strong><code>boundary.geojson</code> (new)</strong></td>
+<td>The boundary polygon itself, EPSG:4326</td>
+<td><code>pipeline.extract_lga()</code></td>
+<td><code>data_contract.resolve_boundary_path_from_manifest()</code> (new) — the only current consumer</td>
+</tr>
+<tr>
+<td><strong><code>manifest.json</code> (new)</strong></td>
+<td>Versioned JSON summary — see <a href="../../lga-osm-extractor/modules/manifest/"><code>manifest.md</code></a> for the full shape</td>
+<td><code>lga_extractor.manifest.write_manifest()</code></td>
+<td><code>akure_access.data_contract</code> (new)</td>
 </tr>
 </tbody>
 </table>
-<h2 id="what-the-integration-test-actually-exercises">What the Integration Test Actually Exercises<a class="headerlink" href="#what-the-integration-test-actually-exercises" title="Permanent link">&para;</a></h2>
+<h2 id="what-the-integration-test-actually-exercises-unchanged-since-before-this-revision">What the Integration Test Actually Exercises — Unchanged Since Before This Revision<a class="headerlink" href="#what-the-integration-test-actually-exercises-unchanged-since-before-this-revision" title="Permanent link">&para;</a></h2>
 <p><code>test_extractor_output_schema_matches_dashboard_expectations()</code> runs the
 full real chain in one test: builds synthetic raw layers → <code>clean_layers()</code>
-(with a real synthetic Akure-area boundary, exercising the actual
-auto-UTM-selection path, not just the no-boundary fallback) → asserts the
-resulting CRS is <code>EPSG:32631</code> → <code>export_layers()</code> to a temp directory →
-reads the exported GeoJSON back off disk → feeds it directly into
-<code>build_grid()</code> → <code>add_building_density()</code> (asserting the building count
-matches exactly) → <code>flag_completeness()</code> → <code>add_access_times()</code> (using the
-geometry-fallback graph path, no live OSM needed) → <code>add_access_deficit_score()</code>
-→ <code>sanitize_for_export()</code> (asserting no <code>inf</code> values remain). A second test,
-<code>test_extractor_run_log_captures_environment_for_reproducibility()</code>, checks
-the run-log side of the contract.</p>
-<p>This means the schema contract documented on this page isn't just prose —
-every claim above is backed by an assertion in this one test file, and a
-change to either repo that broke the contract (a renamed column, a changed
-CRS default, a reintroduced Polygon-facility bug) would fail this specific
-test, not silently surface as a downstream analysis bug later.</p>
-<p>The same chain, visually:</p>
+→ asserts the resulting CRS is <code>EPSG:32631</code> → <code>export_layers()</code> to a temp
+directory → reads the exported GeoJSON back off disk → feeds it directly
+into <code>build_grid()</code> → <code>add_building_density()</code> → <code>flag_completeness()</code> →
+<code>add_access_times()</code> (using the geometry-fallback graph path, no live OSM
+needed) → <code>add_access_deficit_score()</code> → <code>sanitize_for_export()</code>. A second
+test, <code>test_extractor_run_log_captures_environment_for_reproducibility()</code>,
+checks the run-log side of the contract.</p>
+<p><strong>None of this exercises anything new.</strong> <code>build_grid()</code> is called without
+a <code>target_crs</code> argument (exercising only the fallback path);
+<code>add_access_times()</code> is called without a <code>source</code> argument (exercising
+only the implicit default, and not testing that the default actually
+resolves to <code>"roads_gdf"</code> given the test's own boundary is also supplied);
+<code>manifest.json</code> and <code>boundary.geojson</code> are never read or asserted against;
+the richer GeoJSON schema (semantic columns, raw tags) is present in the
+test's actual exported files but nothing in the test inspects it.</p>
+<p>The same chain, visually — <strong>unchanged from before this revision</strong>, shown
+here specifically so the gap between "what this diagram covers" and "what
+actually changed" is visible at a glance:</p>
 <pre class="mermaid"><code>flowchart TD
     A["_synthetic_raw_extraction()&lt;br/&gt;(akure-accessibility-dashboard test file,&lt;br/&gt;shaped like real Overpass output)"] --&gt; B["lga_extractor.clean.clean_layers(raw, boundary_gdf)"]
     B --&gt; C["assert cleaned roads CRS == EPSG:32631&lt;br/&gt;(confirms auto-UTM-zone selection picked the right zone for Akure)"]
     C --&gt; D["lga_extractor.export.export_layers(cleaned, tmp_dir)"]
     D --&gt; E["assert roads/buildings/health_facilities present,&lt;br/&gt;GeoJSON files actually exist on disk"]
     E --&gt; F["gpd.read_file() the exported GeoJSON back&lt;br/&gt;(reading extractor's real on-disk output, not the in-memory objects)"]
-    F --&gt; G["akure_access.accessibility.build_grid(boundary, cell_size_m=200)"]
+    F --&gt; G["akure_access.accessibility.build_grid(boundary, cell_size_m=200)&lt;br/&gt;NOT exercising the new target_crs param"]
     G --&gt; H["akure_access.accessibility.add_building_density(grid, buildings_gdf)"]
     H --&gt; I["assert building_count.sum() == len(buildings_gdf)&lt;br/&gt;— the schema-agreement assertion"]
     I --&gt; J["akure_access.completeness.flag_completeness(grid, health_gdf, schools_gdf)"]
     J --&gt; K["assert health/education_completeness_flag columns present"]
-    K --&gt; L["akure_access.accessibility.add_access_times(grid, roads_gdf, health_gdf, schools_gdf, modes=('walk',))"]
+    K --&gt; L["akure_access.accessibility.add_access_times(grid, roads_gdf, health_gdf, schools_gdf, modes=('walk',))&lt;br/&gt;NOT exercising the new source param"]
     L --&gt; M["assert health_time_min_walk column present"]
     M --&gt; N["akure_access.accessibility.add_access_deficit_score(grid, threshold_min=30, mode='walk')"]
     N --&gt; O["akure_access.accessibility.sanitize_for_export(grid)"]
-    O --&gt; P["assert no inf values remain — confirms the ordering rule from scoring.py held"]</code></pre>
+    O --&gt; P["assert no inf values remain — confirms the ordering rule from scoring.py held"]
+
+    Q["NOT EXERCISED: manifest.json"] -.-&gt; D
+    R["NOT EXERCISED: boundary.geojson"] -.-&gt; D
+    S["NOT EXERCISED: SEMANTIC_COLUMNS / raw_tags in exported GeoJSON"] -.-&gt; E</code></pre>
 <h2 id="known-failure-modes">Known Failure Modes<a class="headerlink" href="#known-failure-modes" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>If the extractor's auto-selected UTM zone ever differed from
-  <code>EPSG:32631</code></strong> (e.g. the dashboard were pointed at an LGA outside Ondo
-  State), every downstream <code>akure_access</code> function would silently operate
-  on geometry that's technically valid but in the <em>wrong</em> metric CRS
-  relative to the dashboard's hardcoded assumption — producing plausible
-  but wrong distances/areas, not an error. See
+  <code>EPSG:32631</code></strong>, and a caller doesn't explicitly thread <code>target_crs</code>
+  through from the manifest, every downstream <code>akure_access</code> function
+  would still silently operate on geometry in the wrong metric CRS
+  relative to <code>build_grid()</code>'s fallback default. This risk is now
+  <strong>partially, not fully, mitigated</strong> — <code>target_crs</code> exists as an escape
+  hatch, but nothing forces a caller to use it. See
   <a href="../../reference/known-issues/">Known Issues</a>.</li>
+<li><strong>New: <code>manifest.json</code>/<code>boundary.geojson</code> could silently drift out of
+  sync with what <code>data_contract.py</code> expects, with no test to catch it.</strong>
+  Because the cross-repo integration test doesn't exercise either file,
+  a future change to <code>manifest.py</code>'s output shape (a renamed field, a
+  restructured <code>layers</code> dict) could break <code>data_contract.py</code>'s parsing
+  silently — the failure would only surface as a downstream warning or
+  incorrect fallback value, not a test failure at the point the
+  incompatibility was actually introduced.</li>
+<li><strong>New: the GeoJSON/Shapefile schema divergence is untested at the
+  cross-repo level.</strong> Nothing in the integration test confirms that a
+  dashboard-side consumer reading GeoJSON gets the richer schema it might
+  expect, or that Shapefile-only consumers aren't broken by the new
+  columns (they aren't — Shapefile output was deliberately kept minimal —
+  but this guarantee rests entirely on <code>export.py</code>'s own unit tests, not
+  on anything confirming the dashboard side's expectations match).</li>
+<li><strong>New: <code>add_access_times()</code>'s <code>source</code> parameter default (<code>"auto"</code>,
+  preferring <code>roads_gdf</code>) is not exercised in a scenario where both
+  <code>roads_gdf</code> and a boundary are supplied together</strong> — exactly the
+  scenario the integration test's own fixture creates, and exactly the
+  scenario this revision's default-path reversal is most consequential
+  for. The test currently can't distinguish "the graph was built from
+  roads_gdf because that's the new default" from "the graph was built via
+  live OSM because a boundary happened to be present" — both would produce
+  a graph that passes the test's existing assertions, since neither
+  assertion inspects <code>G.graph["source"]</code>.</li>
 <li><strong>If a facility layer's Polygon-to-Point collapse were ever skipped or
-  broken upstream</strong> (the original Akure North bug), <code>isochrones.nearest_graph_node()</code>'s
-  <code>.centroid</code> fallback would still prevent an outright crash, but the
-  cross-repo test's own schema assertion doesn't currently check geometry
-  <em>type</em> on the exported facility layers directly — it's implicitly
-  covered by the fact that the collapse function runs as part of
-  <code>clean_layers()</code> in the test's own pipeline, but a more direct assertion
-  (<code>assert (health_gdf.geom_type == "Point").all()</code>) would make this
-  specific guarantee explicit rather than incidental to how the test
-  happens to be structured.</li>
+  broken upstream</strong> (the original Akure North bug) — unchanged risk
+  description from before this revision; <code>isochrones.nearest_graph_node()</code>'s
+  <code>.centroid</code> fallback would still prevent an outright crash, and the
+  cross-repo test still doesn't directly assert geometry <em>type</em> on
+  exported facility layers.</li>
 </ul>
+<h2 id="what-would-close-these-gaps">What Would Close These Gaps<a class="headerlink" href="#what-would-close-these-gaps" title="Permanent link">&para;</a></h2>
+<p>Stated plainly, since every item above points at the same underlying fix:
+extending <code>test_extractor_output_schema_matches_dashboard_expectations()</code>
+(or adding sibling tests in the same file) to: (1) read and assert against
+<code>manifest.json</code>'s and <code>boundary.geojson</code>'s presence and shape; (2) call
+<code>build_grid()</code> with an explicit <code>target_crs</code> sourced from
+<code>data_contract.resolve_crs_from_manifest()</code>, not the implicit fallback;
+(3) call <code>add_access_times()</code> with <code>source="auto"</code> in a scenario with both
+<code>roads_gdf</code> and a boundary present, and assert <code>G.graph["source"] ==
+"roads_gdf"</code>; and (4) assert at least one <code>SEMANTIC_COLUMNS</code> value and the
+presence of <code>RAW_TAGS_COLUMN</code> survive the full round trip. None of this
+requires new production code — every capability being tested already
+exists and is unit-tested in isolation on each side; what's missing is the
+cross-repo assertion tying them together, which is precisely this test
+file's stated purpose.</p>
 
 
 
